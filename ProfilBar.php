@@ -1,4 +1,5 @@
 <?php
+"profil bar";
 session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: admin_kaw/index.php");
