@@ -1,5 +1,4 @@
 <?php
-"profil bar";
 session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: admin_kaw/index.php");
@@ -249,44 +248,49 @@ if (isset($_GET['logout'])) {
     </section>
     <!--================ Name  =================-->
     <!--================End name =================-->
-
-    <br>
-    <br>
+    <!-- <section class="our_project2_area project_grid_two"> -->
+        <br>
+        <div class="container-fluid">
+            <div class="product-status mg-b-30">
+                <div class="container-fluid" style="background-color: #FFB74D">
     <div class="container">
         <div class="row">
             <!--================ photo Profile  =================-->
             <div class="col-md-4">
-                <img id="myImg" src="img/users/<?php echo $foto; ?>" width="200" height="150"><br>
-                <a href="editUserProfile.php" class="btn btn-info">Edit Profil</a>
+                <br> 
+                <img id="myImg" src="img/users/<?php echo $foto; ?>" width="200" height="120"><br> 
+                <br> <a href="editUserProfile.php" class="btn btn-info"> <b>  <style:'<i class="fa fa-align-center" aria-hidden="true"> Edit Profil </i></b></a>
             </div>
 
             <div class="col-md-8">
-                <p> Nama : <?php echo $nama; ?> </p>
-                <p> No Telp : <?php echo $no_telp; ?> </p>
-                <p> Alamat : <?php echo $alamat; ?> </p>
-            </div>
+                <h3> Profile </h3>
+                <br>
+                <b> <h4> <p> Nama &emsp;&emsp; : <?php echo $nama; ?> </p> </h4> </b>
+               <b> <h4> <p> No Telp &emsp; : <?php echo $no_telp; ?> </p> </h4> </b>
+               <b> <h4> <p> Alamat&emsp;&emsp;: <?php echo $alamat; ?> </p> </h4> </b>
+            </div> 
         </div>
         <br>
         <br>
         <div class="row">
             <div class="col-md-12">
                 <div class="tab">
-                    <button class="tablinks" onclick="openTabs(event, 'Keranjang')">Keranjang</button>
-                    <button class="tablinks" onclick="openTabs(event, 'Checkout')">Checkout</button>
-                    <button class="tablinks" onclick="openTabs(event, 'Riwayat')">Riwayat</button>
+                    <button class="tablinks" onclick="openTabs(event, 'Keranjang')"> <b> Keranjang </b></button>
+                    <button class="tablinks" onclick="openTabs(event, 'Checkout')">  <b> Checkout  </b> </button>
+                    <button class="tablinks" onclick="openTabs(event, 'Riwayat')"> <b> Riwayat </b> </button>
                 </div>
 
                 <div id="Keranjang" class="tabcontent">
                     <div class="product-status-wrap">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <a href="kirim-checkout.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>" class="btn btn-primary">Checkout</a>
+                                <a href="kirim-checkout.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
 
                                 <?php
                                 if (isset($_GET['masa_sewa'])) {
                                     echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '" class="btn btn-primary">Daftar Barang</a>';
                                 } else {
-                                    echo '<a href="skafoldBar.php" class="btn btn-primary">Daftar Barang</a>';
+                                    echo '<a href="skafoldBar.php" class="btn btn-primary"> <b> Daftar Barang </b> </a>';
                                 }
 
                                 ?>
@@ -362,8 +366,8 @@ if (isset($_GET['logout'])) {
                         </div>
                         <div class="col-md-6"> <br><br>
                             <form action="upload.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>" method="POST" enctype="multipart/form-data">
-                                <p>Bukti Pembayaran : <input type="file" name="bukti_pembayaran" /></p>
-                                <p>Bukti KTP : <input type="file" name="bukti_ktp" /></p>
+                                <p> <b> Bukti Pembayaran : <input type="file" name="bukti_pembayaran" /></b></p>
+                                <p> <b> Bukti KTP : <input type="file" name="bukti_ktp" /> </b></p>
                                 <input type="hidden" name="total" value="<?php echo $total + $jaminan; ?>">
                                 <br>
                                 <input class="btn btn-primary" value="Kirim" type="submit" />
@@ -418,6 +422,7 @@ if (isset($_GET['logout'])) {
                 </div>
             </div>
         </div>
+        <br> <br>
         </tr>
         </thead>
         </table>
@@ -426,6 +431,7 @@ if (isset($_GET['logout'])) {
     </div>
     </div>
     </div>
+    <!-- </section> -->
     <br>
     <br>
     <!--================Get Quote Area =================-->

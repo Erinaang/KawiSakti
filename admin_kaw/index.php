@@ -30,11 +30,14 @@
 						  <input type="submit" value="LOGIN" >
 						</div>
 						<span class="forget-pass">
-							<a href="#">Forgot Password?</a>
+							<a href="#"><b> Forgot Password?</a> <br>
+							<span class="forget-pass">
+							<a href="daftar.php">Register</a> </b>
 						</span>
-						<span class="Register">
-							<a href="daftar.php">Register</a>
-						</span>
+						</span><br>
+						<!-- <span class="Register">
+							<a href="daftar.php">Register</a> -->
+						
 						<div class="clear"> </div>
 					</div>
 				</form>
