@@ -21,6 +21,7 @@ if (isset($_POST['daftarSubmit'])) {
 	$telp = $_POST['telp'];
 	$username = $_POST['username'];
 	$password = randomPass();
+	$passEnc = md5($password);
 
 	if ($nama) {
 		error_reporting(E_ALL);
@@ -49,7 +50,7 @@ if (isset($_POST['daftarSubmit'])) {
 
 		// $mail->AddAttachment("/cpanel.png","filesaya");
 		if ($mail->Send()) {
-			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET nama = '$nama', email='$email', alamat='$alamat', no_telp='$telp', username='$username', password='$password', status='penyewa'") or die("data salah: " . mysqli_error($mysqli));
+			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET nama = '$nama', email='$email', alamat='$alamat', no_telp='$telp', username='$username', password='$passEnc', status='penyewa'") or die("data salah: " . mysqli_error($mysqli));
 			header("Location: index.php");
 		} else {
 			echo error_reporting(E_ALL);

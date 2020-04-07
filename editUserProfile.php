@@ -15,7 +15,7 @@ if (isset($_POST["submit"])) {
     $email = $_POST['email'];
     $noTelp = $_POST['noTelp'];
     $alamat = $_POST['alamat'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
 
     $queryEdit = mysqli_query($mysqli, "UPDATE user SET nama='$nama', email='$email', no_telp='$noTelp', alamat='$alamat', password='$password'
      WHERE id_user = '$idUser'") or die("data salah: " . mysqli_error($mysqli));
