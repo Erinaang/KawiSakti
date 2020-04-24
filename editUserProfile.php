@@ -16,11 +16,31 @@ if (isset($_POST["submit"])) {
     $noTelp = $_POST['noTelp'];
     $alamat = $_POST['alamat'];
     $password = md5($_POST['password']);
+    $errors = array();
+    $file_name = $_FILES['foto']['name'];
+    $file_size = $_FILES['foto']['size'];
+    $file_tmp = $_FILES['foto']['tmp_name'];
+    $file_type = $_FILES['foto']['type'];
+    $file_ext = strtolower(end(explode('.', $_FILES['foto']['name'])));
 
-    $queryEdit = mysqli_query($mysqli, "UPDATE user SET nama='$nama', email='$email', no_telp='$noTelp', alamat='$alamat', password='$password'
-     WHERE id_user = '$idUser'") or die("data salah: " . mysqli_error($mysqli));
+    $extensions = array("jpeg", "jpg", "png");
 
-    header("Location: ProfilBar.php");
+    if (in_array($file_ext, $extensions) === false) {
+        $errors[] = "ekstensi tidak diperbolehkan, silahkan gunakan ekstensi JPEG atau PNG.";
+    }
+
+    if ($file_size > 2097152) {
+        $errors[] = 'Ukuran maksimal foto adalah 2 MB';
+    }
+
+    if (empty($errors) == true) {
+        move_uploaded_file($file_tmp, "img/users/" . $file_name);
+        $queryEdit = mysqli_query($mysqli, "UPDATE user SET nama='$nama', foto='$file_name', email='$email', no_telp='$noTelp', alamat='$alamat', password='$password' WHERE id_user = '$idUser'") or die("data salah: " . mysqli_error($mysqli));
+
+        header("Location: ProfilBar.php");
+    } else {
+        print_r($errors);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -96,18 +116,6 @@ if (isset($_POST["submit"])) {
                         <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt=""></a>
                     </div>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="index.php">Home</a></li>
-                            <li><a href="profileBar.php">Profile</a></li>
-                            </li>
-                            <li><a href="skafoldBar.php">Skafold</a></li>
-                            <li><a href="projectBar.php">Project</a></li>
-                            <li><a href="contactBar.php">Contact</a></li>
-                            <li class="icon_search"><a href="#"><i class="mdi mdi-cart"></i></a></li>
-                        </ul>
-                    </div>/.navbar-collapse -->
                 </nav>
             </div>
         </div>
@@ -123,51 +131,58 @@ if (isset($_POST["submit"])) {
     </section>
     <!--================End Banner Area =================-->
     <!-- <section class="our_project2_area project_grid_two"> -->
-        <br>
-        <div class="container-fluid">
-            <div class="product-status mg-b-30">
-                <div class="container-fluid" style="background-color: #FFB74D">
-                <br>
-                    <h5> <b> Silahkan edit profile anda </b></h5><br>
-                    <div class="product-status-wrap">
-                        <div class="row">
-                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                <?php while ($show = mysqli_fetch_array($queryUser)) { ?>
-                                    <form action="" method="post">
-                                      <h4><b> Nama &emsp;&emsp;&emsp;&emsp;   &emsp; &emsp;  : <input type="text" name="nama" placeholder="nama" value="<?php echo $show['nama']; ?>"></h4> </b> <br>
-                                        <h4><b> Edit E-mail &emsp;&emsp;&emsp;  &emsp; : <input type="text" name="email" placeholder="email" value="<?php echo $show['email']; ?>"></h4></b><br>
-                                        <h4><b> Edit No Telepon &emsp;&emsp;: <input type="text" name="noTelp" placeholder="noTelp" value="<?php echo $show['no_telp']; ?>"></h4></b><br>
-                                        <h4><b> Edit Alamat &emsp;&emsp;&emsp;&emsp; : <input type="text" name="alamat" placeholder="alamat" value="<?php echo $show['alamat']; ?>"></h4></b><br>
-                                        <!-- <h4><b> Password  &emsp;&emsp;&emsp;&emsp;&emsp; :<input class="form-password" type="password" name="password" value="<?php echo $cek['password']; ?>"> -->
-                                        <h4><b> Password &emsp;&emsp;&emsp;&emsp; : <input type="password" id="password" name="password" value="<?php echo $show['password']; ?>"> </b></h4><br><br>
-                                        <input type="checkbox" onclick="showPass()">Show Password
-                                        <!-- <input type="checkbox" class="forms-checkbox"> <v class="class_c">SHOW PASSWORD</v> <br><br> -->
+    <br>
+    <div class="container-fluid">
+        <div class="product-status mg-b-30">
+            <div class="container-fluid" style="background-color: #FFB74D">
+                <br><?php echo $file_name; ?>
+                <h5> <b> Silahkan edit profile anda </b></h5><br>
+                <div class="product-status-wrap">
+                    <div class="row">
+                        <?php while ($show = mysqli_fetch_array($queryUser)) { ?>
 
-                                        <input type="hidden" name="id_user" value="<?php echo $show['id_user']; ?>">
-                                        <input class="btn btn-primary" type="submit" value="submit" name="submit"> 
-                                        <a type="button" href="ProfilBar.php" class="btn btn-danger">Kembali Ke Profile</a>
-                                        <br> <br>
-                                    </form>
-                                <?php } ?>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                
+                                <img id="myImg" src="img/users/<?php echo $show['foto']; ?>" width="200"><br>
+                                <form action="uploadPhotos.php" method="post">
+                                    <input type="file" name="foto" id="foto">
+                                    <input type="submit" name="submit" id="submit" value="Change Photos">
+                                </form>
                             </div>
-                        </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <form action="" method="post">
+
+                                    <h4><b> Nama &emsp;&emsp;&emsp;&emsp; &emsp; &emsp; : <input type="text" name="nama" placeholder="nama" value="<?php echo $show['nama']; ?>"></h4> </b> <br>
+                                    <h4><b> Edit E-mail &emsp;&emsp;&emsp; &emsp; : <input type="text" name="email" placeholder="email" value="<?php echo $show['email']; ?>"></h4></b><br>
+                                    <h4><b> Edit No Telepon &emsp;&emsp;: <input type="text" name="noTelp" placeholder="noTelp" value="<?php echo $show['no_telp']; ?>"></h4></b><br>
+                                    <h4><b> Edit Alamat &emsp;&emsp;&emsp;&emsp; : <input type="text" name="alamat" placeholder="alamat" value="<?php echo $show['alamat']; ?>"></h4></b><br>
+                                    <h4><b> Password &emsp;&emsp;&emsp;&emsp; : <input type="password" id="password" name="password" value="<?php echo $show['password']; ?>"> </b></h4><br><br>
+                                    <input type="checkbox" onclick="showPass()">Show Password
+                                    <input type="hidden" name="id_user" value="<?php echo $show['id_user']; ?>">
+                                    <input class="btn btn-primary" type="submit" value="submit" name="submit">
+                                    <a type="button" href="ProfilBar.php" class="btn btn-danger">Kembali Ke Profile</a>
+                                </form>
+                            </div>
+                        <?php } ?>
+
                     </div>
                 </div>
             </div>
         </div>
-        <br>
-        <!--================Our Project2 Area =================-->
-        <!--================End Our Project2 Area =================-->
-        <!--================Get Quote Area =================-->
-        <section class="get_quote_area yellow_get_quote">
-            <div class="container">
-                <div class="pull-left">
-                    <h4>Looking for a quality and affordable constructor for your next project?</h4>
-                </div>
-                <div class="pull-right">
-                    <a class="get_btn_black" href="#">GET A QUOTE</a>
-                </div>
+    </div>
+    <br>
+    <!--================Our Project2 Area =================-->
+    <!--================End Our Project2 Area =================-->
+    <!--================Get Quote Area =================-->
+    <section class="get_quote_area yellow_get_quote">
+        <div class="container">
+            <div class="pull-left">
+                <h4>Looking for a quality and affordable constructor for your next project?</h4>
             </div>
+            <div class="pull-right">
+                <a class="get_btn_black" href="#">GET A QUOTE</a>
+            </div>
+        </div>
         <!-- </section> -->
         <!--================End Get Quote Area =================-->
         <!--================Footer Area =================-->

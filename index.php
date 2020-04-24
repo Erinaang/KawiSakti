@@ -371,29 +371,29 @@ include 'koneksi/koneksi.php';
                     <div class="col-md-3">
                         <div class="project_left_side">
                             <div class="main_w_title">
-                                <h2>Portofolio <br class="title_br" /> projects</h2>
+                                <h2>Rental <br class="title_br" /> Scaffolding</h2>
                                 <h6>PT Kawi Sakti Mandiri</h6>
                             </div>
                             <ul class="our_project_filter">
                                 <li class="active" data-filter="*"><a href="#">All</a></li>
-                                <li data-filter=".building"><a href="#">Buildings</a></li>
-                                <li data-filter=".interior"><a href="#">Interior</a></li>
-                                <li data-filter=".design"><a href="#">Design</a></li>
-                                <li data-filter=".isolation"><a href="#">Isolation</a></li>
-                                <li data-filter=".plumbing"><a href="#">Plumbing</a></li>
-                                <li data-filter=".tiling"><a href="#">Tiling</a></li>
+                                <li data-filter=".building"><a href="#">Jack Base</a></li>
+                                <li data-filter=".interior"><a href="#">U-head jack</a></li>
+                                <li data-filter=".design"><a href="#">Rangka Besi</a></li>
+                                <li data-filter=".isolation"><a href="#">Frame</a></li>
+                                <li data-filter=".plumbing"><a href="#">Join Pin</a></li>
+                                <li data-filter=".tiling"><a href="#">Cross Brace </a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-9">
                         <div class="our_project_details">
                             <div class="project_item building isolation tiling">
-                                <img src="img/project/project-1.jpg" alt="">
+                                <img src="img/project/project-1.jpeg" alt="">
                                 <div class="project_hover">
                                     <div class="project_hover_inner">
                                         <div class="project_hover_content">
-                                            <a href="#"><h4>Jahanara Vila</h4></a>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>
+                                            <a href="#"><h4>Jack Base</h4></a>
+                                           <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
                                             <a class="view_btn" href="#">View Project</a>
                                         </div>
                                     </div>
@@ -404,8 +404,8 @@ include 'koneksi/koneksi.php';
                                 <div class="project_hover">
                                     <div class="project_hover_inner">
                                         <div class="project_hover_content">
-                                            <a href="#"><h4>Jahanara Vila</h4></a>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>
+                                            <a href="#"><h4>U-head jack</h4></a>
+                                           <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
                                             <a class="view_btn" href="#">View Project</a>
                                         </div>
                                     </div>
@@ -416,8 +416,8 @@ include 'koneksi/koneksi.php';
                                 <div class="project_hover">
                                     <div class="project_hover_inner">
                                         <div class="project_hover_content">
-                                            <a href="#"><h4>Jahanara Vila</h4></a>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>
+                                            <a href="#"><h4>Rangka Besi </h4></a>
+                                          <!--   <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
                                             <a class="view_btn" href="#">View Project</a>
                                         </div>
                                     </div>
@@ -428,8 +428,8 @@ include 'koneksi/koneksi.php';
                                 <div class="project_hover">
                                     <div class="project_hover_inner">
                                         <div class="project_hover_content">
-                                            <a href="#"><h4>Jahanara Vila</h4></a>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>
+                                            <a href="#"><h4>Frame</h4></a>
+                                          <!--   <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
                                             <a class="view_btn" href="#">View Project</a>
                                         </div>
                                     </div>
@@ -440,8 +440,8 @@ include 'koneksi/koneksi.php';
                                 <div class="project_hover">
                                     <div class="project_hover_inner">
                                         <div class="project_hover_content">
-                                            <a href="#"><h4>Jahanara Vila</h4></a>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>
+                                            <a href="#"><h4>Join Pin</h4></a>
+                                           <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
                                             <a class="view_btn" href="#">View Project</a>
                                         </div>
                                     </div>
@@ -452,8 +452,8 @@ include 'koneksi/koneksi.php';
                                 <div class="project_hover">
                                     <div class="project_hover_inner">
                                         <div class="project_hover_content">
-                                            <a href="#"><h4>Jahanara Vila</h4></a>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>
+                                            <a href="#"><h4>Cross Brace</h4></a>
+                                           <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
                                             <a class="view_btn" href="#">View Project</a>
                                         </div>
                                     </div>

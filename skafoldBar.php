@@ -269,7 +269,7 @@ if (isset($_GET['masa_sewa'])) {
                                                     <td>Rp.<?php echo $show['harga']; ?>,00</td>
                                                     <td>
                                                 </b>
-                                                <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&masa_sewa=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                                <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

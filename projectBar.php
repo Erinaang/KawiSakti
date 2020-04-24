@@ -1,3 +1,9 @@
+<?php 
+session_start();
+include 'koneksi/koneksi.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -73,12 +79,18 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
                                  <li><a href="index.php">Home</a></li>
-                                <li><a href="profileBar.php">Profile</a></li>
-                                </li>
+                                 <li><a href="projectBar.php">Project</a></li>
+                                <li><a href="aboutUs.php">About Us</a></li>
                                 <li><a href="skafoldBar.php">Skafold</a></li>
-                                <li><a href="projectBar.php">Project</a></li>
-                                <li><a href="contactBar.php">Contact</a></li>
-                                <li class="icon_search"><a href="#"><i class="mdi mdi-cart"></i></a></li>
+                                <?php if (!isset($_SESSION['username'])) {
+                                   echo '<li><a href="admin_kaw/index.php">Login</a></li>';
+                                }else{
+                                    echo '<li><a href="profilBar.php">Profil</a></li>';
+                                    echo '<li><a href="admin_kaw/logout.php">Log Out</a></li>';
+                                }
+
+                                ?>
+                                
                             </ul>
                         </div><!-- /.navbar-collapse -->
                     </nav>
@@ -109,14 +121,14 @@
                     <h6>Great & Awesome Works</h6>
                 </div>
                 <ul class="our_project_filter">
-                    <li class="active" data-filter="*"><a href="#">All</a></li>
-                    <li data-filter=".building"><a href="#">Buildings</a></li>
-                    <li data-filter=".interior"><a href="#">Interior</a></li>
-                    <li data-filter=".design"><a href="#">Design</a></li>
-                    <li data-filter=".isolation"><a href="#">Isolation</a></li>
-                    <li data-filter=".plumbing"><a href="#">Plumbing</a></li>
-                    <li data-filter=".tiling"><a href="#">Tiling</a></li>
-                </ul>
+                                <li class="active" data-filter="*"><a href="#">All</a></li>
+                                <li data-filter=".building"><a href="#">Jack Base</a></li>
+                                <li data-filter=".interior"><a href="#">U-head jack</a></li>
+                                <li data-filter=".design"><a href="#">Rangka Besi</a></li>
+                                <li data-filter=".isolation"><a href="#">Frame</a></li>
+                                <li data-filter=".plumbing"><a href="#">Join Pin</a></li>
+                                <li data-filter=".tiling"><a href="#">Cross Brace </a></li>
+                            </ul>
                 <div class="row our_project_details">
                     <div class="col-md-4 col-sm-6 building isolation interior">
                         <div class="project_item">
@@ -134,7 +146,7 @@
                     </div>
                     <div class="col-md-4 col-sm-6 building isolation tiling design">
                         <div class="project_item">
-                            <img src="img/project/project-grid-three/project-g-three-2.jpg" alt="">
+                            <img src="img/project/project-grid-three/project-g-three-2.jpeg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
@@ -232,7 +244,7 @@
                     </div>
                     <div class="col-md-4 col-sm-6 building isolation tiling design plumbing">
                         <div class="project_item">
-                            <img src="img/project/project-grid-three/project-g-three-9.jpg" alt="">
+                            <img src="img/project/project-grid-three/project-g-three-9.jpeg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">

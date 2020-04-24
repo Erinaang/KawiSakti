@@ -4,15 +4,16 @@ if (!isset($_SESSION["username"])) {
     header("Location: admin_kaw/index.php");
 }
 include "koneksi/koneksi.php";
-$total = 0;;
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
-$masaSewa = $totalCheckout = $jaminan = $bayar = 0;
-$masaSewa = $_GET['masa_sewa'];
 
-//GET IDUSER
+//DEFINE VARIABLE
+$jamPemesanan = $idKeranjang = $jaminanCheckout = $totalCheckout = $masaSewa = $total = $jumlahSet = $jaminan = $bayar = 0;
+$index = 1;
 $username = $_SESSION['username'];
+
+//SELECT USER
 $queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryIdUser)) {
     $idUser = $show['id_user'];
@@ -23,33 +24,19 @@ while ($show = mysqli_fetch_array($queryIdUser)) {
 }
 
 
-//SELECT DATA
-$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN paket AS pk ON tr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='cart'") or die("data salah: " . mysqli_error($mysqli));
+//SELECT KERANJANG
+$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='cart'") or die("data salah: " . mysqli_error($mysqli));
+$queryMasaSewa = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='cart'") or die("data salah: " . mysqli_error($mysqli));
+while ($show = mysqli_fetch_array($queryMasaSewa)) {
+    $masaSewa = $show['masa_sewa'];
+}
+//SELECT CHECKOUT
+$queryCheckout = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
-$queryCheckout = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN paket AS pk ON tr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='checkout'") or die("data salah: " . mysqli_error($mysqli));
-
-$queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN paket AS pk ON tr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
-
+//SELECT RIWAYAT
+$queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengiriman AS pg ON tr.id_pengiriman = pg.id_pengiriman WHERE id_penyewa='$idUser' AND status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
-
-<?php
-if (!isset($_SESSION['username'])) {
-    $_SESSION['msg'] = "You have to log in first";
-    header('location: login.php');
-}
-
-// Logout button will destroy the session, and 
-// will unset the session variables 
-// User will be headed to 'login.php' 
-// after loggin out 
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header("location: login.php");
-}
-?>
-<!-- end riwayat  -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,14 +119,6 @@ if (isset($_GET['logout'])) {
         }
     </style>
 
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
 </head>
 
 <body>
@@ -213,9 +192,9 @@ if (isset($_GET['logout'])) {
                             <div class="error success">
                                 <h3>
                                     <?php
-                                        echo $_SESSION['success'];
-                                        unset($_SESSION['success']);
-                                        ?>
+                                    echo $_SESSION['success'];
+                                    unset($_SESSION['success']);
+                                    ?>
                                 </h3>
                             </div>
                         <?php endif ?>
@@ -249,186 +228,213 @@ if (isset($_GET['logout'])) {
     <!--================ Name  =================-->
     <!--================End name =================-->
     <!-- <section class="our_project2_area project_grid_two"> -->
-        <br>
-        <div class="container-fluid">
-            <div class="product-status mg-b-30">
-                <div class="container-fluid" style="background-color: #FFB74D">
-    <div class="container">
-        <div class="row">
-            <!--================ photo Profile  =================-->
-            <div class="col-md-4">
-                <br> 
-                <img id="myImg" src="img/users/<?php echo $foto; ?>" width="200" height="120"><br> 
-                <br> <a href="editUserProfile.php" class="btn btn-info"> <b>  <style:'<i class="fa fa-align-center" aria-hidden="true"> Edit Profil </i></b></a>
+    <br>
+    <div class="container-fluid">
+        <div class="product-status mg-b-30">
+            <div class="container-fluid" style="background-color: #FFB74D">
+                <div class="container">
+                    <div class="row">
+                        <!--================ photo Profile  =================-->
+                        <div class="col-md-4">
+                            <br>
+                            <img id="myImg" src="img/users/<?php echo $foto; ?>" width="200" height="120"><br>
+                            <br> <a href="editUserProfile.php" class="btn btn-info"> <b>
+                                    <style:'<i class="fa fa-align-center" aria-hidden="true"> Edit Profil </i>
+                                </b></a>
+                        </div>
+
+                        <div class="col-md-8">
+                            <h3> Profile </h3>
+                            <br>
+                            <b>
+                                <h4>
+                                    <p> Nama &emsp;&emsp; : <?php echo $nama; ?> </p>
+                                </h4>
+                            </b>
+                            <b>
+                                <h4>
+                                    <p> No Telp &emsp; : <?php echo $no_telp; ?> </p>
+                                </h4>
+                            </b>
+                            <b>
+                                <h4>
+                                    <p> Alamat&emsp;&emsp;: <?php echo $alamat; ?> </p>
+                                </h4>
+                            </b>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- TAB -->
+                            <div class="tab">
+                                <button class="tablinks" onclick="openTabs(event, 'Keranjang')"> <b> Keranjang </b></button>
+                                <button class="tablinks" onclick="openTabs(event, 'Checkout')"> <b> Checkout </b> </button>
+                                <button class="tablinks" onclick="openTabs(event, 'Riwayat')"> <b> Riwayat </b> </button>
+                            </div>
+                            <!-- KERANJANG -->
+                            <div id="Keranjang" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <a href="kirim-checkout.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
+
+                                            <?php
+                                            if ($masaSewa != 0) {
+                                                echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '" class="btn btn-primary">Daftar Barang</a>';
+                                            } else {
+                                                echo '<a href="skafoldBar.php" class="btn btn-primary"> <b> Daftar Barang </b> </a>';
+                                            }
+
+                                            ?>
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Masa Sewa (hari) </th>
+                                                        <th>Jumlah Set x Harga (Rp.)</th>
+                                                        <th>Total Harga (Rp.)</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php while ($show = mysqli_fetch_array($queryKeranjang)) {
+                                                        $total = $total + $show['total'];
+                                                        $jaminan = $total * (30 / 100);
+
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php $index++; ?></td>
+                                                            <td><?php echo $show['masa_sewa']; ?> Hari</td>
+                                                            <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
+                                                            <td>Rp. <?php echo $show['total']; ?>,00</td>
+                                                            <td><a href="delete-keranjang.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td colspan="2"> <b> Total Harga : </b></td>
+                                                        <td><b> Rp. <?php echo $total; ?>,00 + Rp. <?php echo $jaminan; ?> (30%) </b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CHECKOUT -->
+                            <div id="Checkout" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <p id="demo"></p>
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Masa Sewa (hari) </th>
+                                                        <th>Jumlah Set x Harga (Rp.)</th>
+                                                        <th>Total Harga (Rp.)</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php while ($show = mysqli_fetch_array($queryCheckout)) {
+                                                        $totalCheckout = $totalCheckout + $show['total'];
+                                                        $jaminanCheckout = $totalCheckout * (30 / 100);
+                                                        $idKeranjang = $show['id_keranjang'];
+                                                        $jamPemesanan = $show['jam_pemesanan'];
+                                                        $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan)));
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $idKeranjang; ?></td>
+                                                            <td><?php echo $show['masa_sewa']; ?> Hari</td>
+                                                            <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
+                                                            <td>Rp. <?php echo $show['total']; ?>,00</td>
+                                                            <td><a href="delete-keranjang.php?id_transaksi=<?php echo $show['id_keranjang']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td colspan="2"> <b> Total Harga : </b></td>
+                                                        <td><b> Rp. <?php echo $totalCheckout; ?>,00 + Rp. <?php echo $jaminanCheckout; ?> (30%) </b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <form action="upload.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>&id_transaksi=<?php echo $idKeranjang; ?>" method="POST" enctype="multipart/form-data">
+                                        <div class="col-md-6"> <br>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1"> <b>Alamat</b></label>
+                                                <textarea class="form-control" name="alamat" placeholder="masukan Alamat Lengkap " required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1"><b> Kota / Kab </b></label>
+                                                <input type="text" class="form-control" name="kota" placeholder="masukan Kota" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br> <br>
+                                            <p> <b> Bukti Pembayaran : <input type="file" name="bukti_pembayaran" required /></b></p>
+                                            <p> <b> Bukti KTP : <input type="file" name="bukti_ktp" required /> </b></p>
+                                            <br>
+                                            <input class="btn btn-primary" value="Kirim" type="submit" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- RIWAYAT -->
+                            <div id="Riwayat" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <b>
+                                                            <th>No.</th>
+                                                            <th>Tanggal</th>
+                                                            <th>Total</th>
+                                                            <th>Pengiriman</th>
+                                                            <th>Status</th>
+                                                            <th>Tools</th>
+                                                    </tr> </b>
+                                                </thead>
+                                                <tbody>
+                                                    <?php while ($show = mysqli_fetch_array($queryRiwayat)) {
+                                                        $idPenyewa = $show['id_penyewa'];
+                                                        $tgl = $show['tgl_sewa'];
+                                                        $status = $show['status'];
+                                                        $idPengiriman = $show['id_pengiriman'];
+                                                        $idRiwayat = $show['id_transaksi'];
+                                                    ?>
+                                                        <tr>
+                                                            <b>
+                                                                <td><?php echo $idRiwayat; ?></td>
+                                                                <td><?php echo $show['tgl_sewa']; ?></td>
+                                                                <td>Rp. <?php echo $show['total']; ?> (Jaminan + Pengiriman)</td>
+                                                                <td><?php echo $show['nama'] ?></td>
+                                                                <td><?php echo $status; ?></td>
+                                                                <td>
+                                                                    <a href="<?php echo 'print.php?id_transaksi=' . $idRiwayat . '&id_penyewa=' . $idPenyewa . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $idPengiriman ?>" class="btn btn-info">Print</a>
+                                                                </td>
+                                                            </b></tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br> <br>
+                    </tr>
+                    </thead>
+                    </table>
+                </div>
             </div>
-
-            <div class="col-md-8">
-                <h3> Profile </h3>
-                <br>
-                <b> <h4> <p> Nama &emsp;&emsp; : <?php echo $nama; ?> </p> </h4> </b>
-               <b> <h4> <p> No Telp &emsp; : <?php echo $no_telp; ?> </p> </h4> </b>
-               <b> <h4> <p> Alamat&emsp;&emsp;: <?php echo $alamat; ?> </p> </h4> </b>
-            </div> 
         </div>
-        <br>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tab">
-                    <button class="tablinks" onclick="openTabs(event, 'Keranjang')"> <b> Keranjang </b></button>
-                    <button class="tablinks" onclick="openTabs(event, 'Checkout')">  <b> Checkout  </b> </button>
-                    <button class="tablinks" onclick="openTabs(event, 'Riwayat')"> <b> Riwayat </b> </button>
-                </div>
-
-                <div id="Keranjang" class="tabcontent">
-                    <div class="product-status-wrap">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <a href="kirim-checkout.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
-
-                                <?php
-                                if (isset($_GET['masa_sewa'])) {
-                                    echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '" class="btn btn-primary">Daftar Barang</a>';
-                                } else {
-                                    echo '<a href="skafoldBar.php" class="btn btn-primary"> <b> Daftar Barang </b> </a>';
-                                }
-
-                                ?>
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Masa Sewa (hari) </th>
-                                            <th>Jumlah Set x Harga (Rp.)</th>
-                                            <th>Total Harga (Rp.)</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($show = mysqli_fetch_array($queryKeranjang)) {
-                                            $jumlahSet = $show['jumlah_set'];
-                                            $hargaAwal = $show['harga'];
-                                            $hargaTotal = $jumlahSet * $hargaAwal;
-                                            $total = $total + $hargaTotal;
-                                            $bayar = $total / 100 * 30;
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                                                <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaAwal; ?>,00</td>
-                                                <td>Rp. <?php echo $hargaTotal; ?>,00</td>
-                                                <td><a href="delete-keranjang.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
-                                            </tr>
-                                        <?php } ?>
-                                        <tr>
-                                            <td colspan="2"> <b> Total Harga : </b></td>
-                                            <td><b> Rp. <?php echo $total; ?>,00 + Rp. <?php echo $bayar; ?> (30%) </b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="Checkout" class="tabcontent">
-                    <div class="product-status-wrap">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Masa Sewa (hari) </th>
-                                            <th>Jumlah Set x Harga (Rp.)</th>
-                                            <th>Total Harga (Rp.)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($show = mysqli_fetch_array($queryCheckout)) {
-                                            $jumlahSet = $show['jumlah_set'];
-                                            $hargaAwal = $show['harga'];
-                                            $hargaTotalCheckout = $jumlahSet * $hargaAwal;
-
-                                            $totalCheckout = $totalCheckout + $hargaTotalCheckout;
-                                            $jaminan = $totalCheckout / 100 * 30;
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                                                <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaAwal; ?>,00</td>
-                                                <td>Rp. <?php echo $hargaTotalCheckout; ?>,00</td>
-                                            </tr>
-                                        <?php } ?>
-                                        <tr>
-                                            <td colspan="2"> <b> TotalCheckout Harga : </b></td>
-                                            <td><b> Rp. <?php echo $totalCheckout; ?>,00 + Rp. <?php echo $jaminan; ?> (30%) </b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-md-6"> <br><br>
-                            <form action="upload.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>" method="POST" enctype="multipart/form-data">
-                                <p> <b> Bukti Pembayaran : <input type="file" name="bukti_pembayaran" /></b></p>
-                                <p> <b> Bukti KTP : <input type="file" name="bukti_ktp" /> </b></p>
-                                <input type="hidden" name="total" value="<?php echo $total + $jaminan; ?>">
-                                <br>
-                                <input class="btn btn-primary" value="Kirim" type="submit" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="Riwayat" class="tabcontent">
-                    <div class="product-status-wrap">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <b>
-                                                <th>Tanggal</th>
-                                                <th>Masa Sewa (hari) </th>
-                                                <th>Jumlah Set x Harga (Rp.)</th>
-                                                <th>Total Harga (Rp.)</th>
-                                                <th>Status</th>
-                                        </tr> </b>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($show = mysqli_fetch_array($queryRiwayat)) {
-
-                                            $tanggal = $show['tgl_sewa'];
-                                            $jumlahSet = $show['jumlah_set'];
-                                            $hargaAwal = $show['harga'];
-                                            $hargaTotal = $jumlahSet * $hargaAwal;
-                                            $total = $show['total'];
-                                            $bayar = $total / 100 * 30;
-                                            ?>
-                                            <tr>
-                                                <b>
-                                                    <td><?php echo $tanggal; ?></td>
-                                                    <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                                                    <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaAwal; ?>,00</td>
-                                                    <td>Rp. <?php echo $hargaTotal; ?>,00</td>
-                                                    <td><?php echo $show['status']; ?></td>
-
-                                                </b></tr>
-
-
-                                        <?php } ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br> <br>
-        </tr>
-        </thead>
-        </table>
-    </div>
-    </div>
-    </div>
     </div>
     </div>
     <!-- </section> -->
@@ -586,6 +592,46 @@ if (isset($_GET['logout'])) {
             document.getElementById(nameTab).style.display = "block";
             evt.currentTarget.className += " active";
         }
+    </script>
+
+    <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("<?php echo $cenvertedTime; ?>").getTime();
+        // var countDownDate = new Date("2020-04-17 21:02:00").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+            var idKeranjang = <?php echo $idKeranjang; ?>
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="demo"
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                if (idKeranjang != 0) {
+                    window.location = "delete-keranjang.php?id_transaksi="+idKeranjang;
+                    idKeranjang = 0;
+                }
+
+                if (idKeranjang == 0) {
+                    document.getElementById("demo").innerHTML = "Exp";
+                }
+            }
+        }, 1000);
     </script>
 </body>
 

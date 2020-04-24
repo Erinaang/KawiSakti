@@ -9,10 +9,8 @@ include "koneksi/koneksi.php";
 $idUser = $_GET['id_user'];
 $tanggal = $_GET['tanggal'];
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
-$time = date("Y-m-d");
+$time = date("Y-m-d H:i:s");
 
-//GET IDUSER
-$username = $_SESSION['username'];
-$queryCheckout = mysqli_query($mysqli, "UPDATE transaksi SET status = 'checkout' WHERE id_penyewa='$idUser' AND tgl_sewa='$tanggal' ") or die("data salah: " . mysqli_error($mysqli));
+$queryCheckout = mysqli_query($mysqli, "UPDATE keranjang SET jam_pemesanan='$time', status = 'checkout' WHERE id_penyewa='$idUser' AND tanggal='$tanggal' ") or die("data salah: " . mysqli_error($mysqli));
 
 header("Location: ProfilBar.php");
