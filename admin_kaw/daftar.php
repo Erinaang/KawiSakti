@@ -1,5 +1,4 @@
 <?php
-"testgithub";
 session_start();
 include 'connection/Connection.php';
 

@@ -30,7 +30,7 @@
 						  <input type="submit" value="LOGIN" >
 						</div>
 						<span class="forget-pass">
-							<a href="#"><b> Forgot Password?</a> <br>
+							<a href="forgot-password/forgot-password.php"><b> Forgot Password?</a> <br>
 							<span class="forget-pass">
 							<a href="daftar.php">Register</a> </b>
 						</span>
