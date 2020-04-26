@@ -2239,7 +2239,6 @@ ul.tab-custon-design li.active a, ul.tab-review-design li.active a{
 }
 .wizard > .content > .body{
     float: left;
-    position: absolute;
     width: 95%;
     height: 95%;
 }

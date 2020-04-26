@@ -79,7 +79,7 @@ if (isset($_POST['kirim'])) {
 				<div class="row">
 					<div class="col-md-6"></div>
 					<div class="col-md-6" align="center">
-						<a href="../index.php"> <b style="color: gray">Login</b></a> &nbsp;&nbsp;&nbsp;
+						<a href="../login.php"> <b style="color: gray">Login</b></a> &nbsp;&nbsp;&nbsp;
 						<a href="../daftar.php"> <b style="color: gray">Register</b></a>
 					</div>
 				</div>

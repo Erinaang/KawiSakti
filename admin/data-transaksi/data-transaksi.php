@@ -3,33 +3,32 @@ session_start();
 // if (!isset($_SESSION["username"])) {
 //     header("Location: ../Login.php");
 // }
-include "Connection/connection.php";
+include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
-//SELECT DATA
-$idPaket = $_GET['id_paket'];
-$query = mysqli_query($mysqli, "SELECT * FROM paket WHERE id_paket = '$idPaket'") or die("data salah: " . mysqli_error($mysqli));
+//SELECT DATA Riwayat
 
-if (isset($_POST['submit'])) {
+$transaksi = mysqli_query($mysqli, "SELECT * FROM transaksi") or die("data salah: " . mysqli_error($mysqli));
 
-    $frame = $_POST['frame'];
-    $masa_sewa = $_POST['masa_sewa'];
-    $jumlah_set = $_POST['jumlah_set'];
-    $harga = $_POST['harga'];
-}
+// $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
+
+// $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
-<!doctype html>
-
+<!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT. Kawi Sakti Megah </title>
+    <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
@@ -39,53 +38,53 @@ if (isset($_POST['submit'])) {
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Bootstrap CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- nalika Icon CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/nalika-icon.css">
+    <link rel="stylesheet" href="../css/nalika-icon.css">
     <!-- owl.carousel CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
-    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="../css/owl.carousel.css">
+    <link rel="stylesheet" href="../css/owl.theme.css">
+    <link rel="stylesheet" href="../css/owl.transitions.css">
     <!-- animate CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="../css/animate.css">
     <!-- normalize CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="../css/normalize.css">
     <!-- meanmenu icon CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="../css/meanmenu.min.css">
     <!-- main CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <!-- morrisjs CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <link rel="stylesheet" href="../css/morrisjs/morris.css">
     <!-- mCustomScrollbar CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../css/scrollbar/jquery.mCustomScrollbar.min.css">
     <!-- metisMenu CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <link rel="stylesheet" href="../css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="../css/metisMenu/metisMenu-vertical.css">
     <!-- calendar CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <link rel="stylesheet" href="../css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/calendar/fullcalendar.print.min.css">
     <!-- style CSS
         ============================================ -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <!-- responsive CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     <!-- modernizr JS
         ============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
 
 
 
@@ -113,44 +112,21 @@ if (isset($_POST['submit'])) {
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                       <!--  <li>
-                            <a class="has-arrow">
-                                <i class="icon nalika-home icon-wrap"></i>
-                                   <span class="mini-click-non">Data</span>
-                                </a>
-                            <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Riwayat Transaksi" href="riwayat-transaksi.php" ><span class="mini-sub-pro">Riwayat Transaksi</span></a></li>
-                                <li><a title="Transaksi" href="transaksi.php"><span class="mini-sub-pro">Transaksi</span></a></li>
-                                
-                            </ul>
-                        </li> -->
                         <li>
-                            <a title="Data Barang" href="data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                            <a title="Data Barang" href="../data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
-                            <a title="Data Transaksi" href="data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                            <a title="Data Transaksi" href=""><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
-                         <li>
+                        <li>
 
-                            <a title="Data Pengembalian" href="data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                            <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
-                        <a title="Data Pengiriman" href="data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                            <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
-
                         <li>
-                        <a title="Data Keranjang" href="data-keranjang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Keranjang</span></a>
-                        </li>
-
-
-                        <li>
-                            <a class="has-arrow">
-                                   <i class="fas fa-user-shield" style="color:#fbfffbb0"></i>
-                                   <span class="mini-click-non">&ensp;Akun</span>
-                                </a>
-                            <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Data Pelanggan" href="data-akun.php"><span class="mini-sub-pro">Data Pelanggan</span></a></li>                                
-                            </ul>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -204,7 +180,7 @@ if (isset($_POST['submit'])) {
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="Login/logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -218,9 +194,6 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-            <!-- Mobile Menu start -->
-
-            <!-- Mobile Menu end -->
 
             <div class="section-admin container-fluid">
                 <div class="row admin text-center">
@@ -241,7 +214,7 @@ if (isset($_POST['submit'])) {
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
+                                                <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
                                                 <p>Welcome to PT Kawi Sakti Megah</span></p>
                                             </div>
                                         </div>
@@ -265,127 +238,124 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
-        <div class="single-product-tab-area mg-b-30">
-            <!-- Single pro tab review Start-->
-            <div class="single-pro-review-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="review-tab-pro-inner">
-                                <ul id="myTab3" class="tab-review-design">
-                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Edit Barang</a></li>
-                                </ul>
-                                <div id="myTabContent" class="tab-content custom-product-edit">
-                                    <form action="" method="post">
-                                    <?php while ($show = mysqli_fetch_array($query)) { ?>
-                                        <div class="product-tab-list tab-pane fade active in" id="edit">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="review-content-section">
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
-                                                            <input name="frame" type="text" class="form-control" value="<?php echo $show['frame']; ?>">
-                                                        </div>
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>
-                                                            <input name="masa_sewa" type="text" class="form-control" value="<?php echo $show['masa_sewa']; ?>">
-                                                        </div>
 
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jumlah Set :</i></span>
-                                                        <input name="jumlah_set" type="text" class="form-control" value="<?php echo $show['jumlah_set']; ?>">
-                                                    </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"> Harga :</i></span>
-                                                        <input name="harga" type="text" class="form-control" value="<?php echo $show['harga']; ?>">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    <?php } ?>
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="text-center custom-pro-edt-ds">
-                                                        <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
-                                                        <a href="data-barang.php" type="submit" class="btn btn-ctl-bt waves-effect waves-light">Save</a>
-                                                        <a href="" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright-area">
+        <!-- DATA TABEL TRANSAKSI -->
+
+        <div class="product-status mg-b-30">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="footer-copy-right">
-                            <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
+                <div class="product-status-wrap">
+                    <div class="row">
+
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID Penyewa</th>
+                                        <th>ID Admin</th>
+                                        <th>Total</th>
+                                        <th>Jaminan</th>
+                                        <th>ID Pengiriman</th>
+                                        <th>Bukti Pembayaran</th>
+                                        <th>Bukti KTP</th>
+                                        <th>Alamat</th>
+                                        <th>Kota</th>
+                                        <th>Tanggal Sewa</th>
+                                        <th>Tanggal Pengembalian</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($transaksi)) { 
+                                        $status = $show['status']; ?>
+                                        <tr>
+                                            <td><?php echo $show['id_penyewa']; ?></td>
+                                            <td><?php echo $show['id_admin']; ?></td>
+                                            <td><?php echo $show['total']; ?></td>
+                                            <td><?php echo $show['jaminan']; ?></td>
+                                            <td><?php echo $show['id_pengiriman']; ?></td>
+                                            <td><?php echo $show['bukti_pembayaran']; ?></td>
+                                            <td><?php echo $show['bukti_ktp']; ?></td>
+                                            <td><?php echo $show['alamat']; ?></td>
+                                            <td><?php echo $show['kota']; ?></td>
+                                            <td><?php echo $show['tgl_sewa']; ?></td>
+                                            <td><?php echo $show['tgl_kembali']; ?></td>
+                                            <td><?php echo $status; ?></td>
+                                            <td>
+                                               <?php if ($status === "Terkirim") {
+                                                   echo '<a href="" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                               } else {
+                                                   # code...
+                                               }
+                                                ?>
+                                                
+                                                <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
+
+        <!-- END TABEL TRANSAKSI -->
+
+
+        <script src="../js/vendor/jquery-1.12.4.min.js"></script>
         <!-- bootstrap JS
         ============================================ -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         <!-- wow JS
         ============================================ -->
-        <script src="js/wow.min.js"></script>
+        <script src="../js/wow.min.js"></script>
         <!-- price-slider JS
         ============================================ -->
-        <script src="js/jquery-price-slider.js"></script>
+        <script src="../js/jquery-price-slider.js"></script>
         <!-- meanmenu JS
         ============================================ -->
-        <script src="js/jquery.meanmenu.js"></script>
+        <script src="../js/jquery.meanmenu.js"></script>
         <!-- owl.carousel JS
         ============================================ -->
-        <script src="js/owl.carousel.min.js"></script>
+        <script src="../js/owl.carousel.min.js"></script>
         <!-- sticky JS
         ============================================ -->
-        <script src="js/jquery.sticky.js"></script>
+        <script src="../js/jquery.sticky.js"></script>
         <!-- scrollUp JS
         ============================================ -->
-        <script src="js/jquery.scrollUp.min.js"></script>
+        <script src="../js/jquery.scrollUp.min.js"></script>
         <!-- mCustomScrollbar JS
         ============================================ -->
-        <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+        <script src="../js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../js/scrollbar/mCustomScrollbar-active.js"></script>
         <!-- metisMenu JS
         ============================================ -->
-        <script src="js/metisMenu/metisMenu.min.js"></script>
-        <script src="js/metisMenu/metisMenu-active.js"></script>
+        <script src="../js/metisMenu/metisMenu.min.js"></script>
+        <script src="../js/metisMenu/metisMenu-active.js"></script>
         <!-- sparkline JS
         ============================================ -->
-        <script src="js/sparkline/jquery.sparkline.min.js"></script>
-        <script src="js/sparkline/jquery.charts-sparkline.js"></script>
+        <script src="../js/sparkline/jquery.sparkline.min.js"></script>
+        <script src="../js/sparkline/jquery.charts-sparkline.js"></script>
         <!-- calendar JS
         ============================================ -->
-        <script src="js/calendar/moment.min.js"></script>
-        <script src="js/calendar/fullcalendar.min.js"></script>
-        <script src="js/calendar/fullcalendar-active.js"></script>
+        <script src="../js/calendar/moment.min.js"></script>
+        <script src="../js/calendar/fullcalendar.min.js"></script>
+        <script src="../js/calendar/fullcalendar-active.js"></script>
         <!-- float JS
         ============================================ -->
-        <script src="js/flot/jquery.flot.js"></script>
-        <script src="js/flot/jquery.flot.resize.js"></script>
-        <script src="js/flot/curvedLines.js"></script>
-        <script src="js/flot/flot-active.js"></script>
+        <script src="../js/flot/jquery.flot.js"></script>
+        <script src="../js/flot/jquery.flot.resize.js"></script>
+        <script src="../js/flot/curvedLines.js"></script>
+        <script src="../js/flot/flot-active.js"></script>
         <!-- plugins JS
         ============================================ -->
-        <script src="js/plugins.js"></script>
+        <script src="../js/plugins.js"></script>
         <!-- main JS
         ============================================ -->
-        <script src="js/main.js"></script>
+        <script src="../js/main.js"></script>
 
 
 </body>

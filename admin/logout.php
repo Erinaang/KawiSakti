@@ -5,10 +5,10 @@ $status = $_SESSION['status'];
 session_destroy();
 
 if ($status == "admin") {
-	header("Location: index.php");
+	header("Location: login.php");
 } else {
 	header("Location: ../index.php");
 }
 
-// echo "<script>alert('Berhasil Logout.');document.location.href='index.php'</script>";
+echo "<script>alert('Berhasil Logout.');document.location.href='index.php'</script>";
 ?>
