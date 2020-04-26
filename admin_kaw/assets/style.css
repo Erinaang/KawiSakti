@@ -83,7 +83,7 @@ form span {
 	font-weight: 600;
 	font-family: 'Open Sans', sans-serif;
 }
-input[type="text"],input[type="Password"] {
+input[type="text"],input[type="Password"],input[type="Email"] {
 	padding: 9px;
 	width: 90%;
 	font-size: 1.1em;
