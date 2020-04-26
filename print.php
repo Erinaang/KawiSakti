@@ -7,7 +7,7 @@ $idPenyewa = $_GET['id_penyewa'];
 $tanggal = $_GET['tanggal'];
 $status = $_GET['status'];
 $idPengiriman = $_GET['id_pengiriman'];
-$idTransaksi =$_GET['id_transaksi'];
+$idTransaksi = $_GET['id_transaksi'];
 
 $queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND tanggal='$tanggal'") or die("data salah: " . mysqli_error($mysqli));
 
@@ -42,19 +42,23 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
 <body>
   <div class="container-fluid" style="border: ridge">
     <!-- TITLE -->
+    <br> <br>
     <div class="row">
       <div class="col-md-12">
-        <p style="text-align: center"><b>STRUK PENYEWAAN</b></p>
+        <p style="text-align: center "><b>STRUK PENYEWAAN</b></p><br><br>
       </div>
     </div>
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
-          <p>TEXT</p>
+          <p> Kpd Yth : </p>
+          <b>Kawi Scaffolding</b> <br>
+          Jl. Soekarno Hatta A-4 Kav.B Malang <br>
+          Telp. 085105110077, 083835167826
         </div>
         <div class="col-md-4">
-          <p>TEXT</p>
+          <!-- <p>TEXT</p> -->
         </div>
       </div>
     </div>
@@ -67,7 +71,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
           </p>
         </div>
         <div class="col-md-4">
-          TEXT
+          <!-- TEXTile -->
         </div>
       </div>
     </div>
@@ -122,28 +126,53 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
         </div>
       </div>
     </div>
+    <br> <br>
     <!-- FOOTER -->
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
+          <p>Barang tersebut akan di pakai untuk proyek .......</p>
           <p>
-            FOOTER
+            Kami telah memahami dan bersedia memenuhi syarat-syarat atau ketentuan yang telah di
+            tentukan oleh KAWI Scaffolding Malang. <br>
+            Demikian permohonan kami atas perhatian dan kerjasamanya kami ucapkan terima kasih.
           </p>
         </div>
-        <div class="col-md-4">
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p>Malang, <?php echo $date; ?></p>
+          <p>
+            Hormat Kami,
+          </p>
+          <br><br><br>
+          <p>(..................................)</p>
+        </div>
+        <div class="col-md-6">
+          <br><br><br>
+          <p>
+            Penerima Order,
+          </p>
+          <br><br><br>
+          <p>(..................................)</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+<p>Permohonan di atas untuk masa sewa   :   <?php echo $tglSewa; ?> s/d <?php echo $tglKembali; ?></p>
+
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    window.print();
-  </script>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      window.print();
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
