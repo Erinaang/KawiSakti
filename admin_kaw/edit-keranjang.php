@@ -6,15 +6,22 @@ session_start();
 include "Connection/connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
-//SELECT DATA Riwayat
-$query = mysqli_query($mysqli, "SELECT p.nama as penyewa, a.nama as admin, pk.frame, pk.jumlah_set, pk.masa_sewa, pk.harga, t.tgl_sewa, t.tgl_kembali FROM TRANSAKSI AS t join paket as pk on t.id_paket = pk.id_paket join user as a on t.id_admin = a.id_user JOIN user as p on t.id_penyewa = p.id_user  WHERE t.status='selesai'") or die("data salah: " . mysqli_error($mysqli));
+//SELECT DATA
+$id_keranjang = $_GET['id_keranjang'];
+$query = mysqli_query($mysqli, "SELECT * FROM Keranjang WHERE id_keranjang = '$id_keranjang'") or die("data salah: " . mysqli_error($mysqli));
 
-?>
+if (isset($_POST['submit'])) {
 
-<!doctype html>
+    $id_penyewa = $_POST['id_penyewa'];
+    $id_paket = $_POST['id_paket'];
+    $total = $_POST['total'];
+    $tanggal = $_POST['tanggal'];
+    $jam_pemesanan = $_POST['jam_pemesanan'];
+    $status = $_POST['status'];
+}?>
 
+<!DOCTYPE HTML>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -87,7 +94,7 @@ $query = mysqli_query($mysqli, "SELECT p.nama as penyewa, a.nama as admin, pk.fr
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="left-sidebar-pro">
+    <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
                 <a><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
@@ -101,7 +108,7 @@ $query = mysqli_query($mysqli, "SELECT p.nama as penyewa, a.nama as admin, pk.fr
                 </div>
 
             </div>
-                        <div class="left-custom-menu-adp-wrap comment-scrollbar">
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                        <!--  <li>
@@ -119,26 +126,28 @@ $query = mysqli_query($mysqli, "SELECT p.nama as penyewa, a.nama as admin, pk.fr
                             <a title="Data Barang" href="data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
-                            <a title="Data Transaksi" href="transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
-                        </li>
-                        <li>
-                            <a title="Riwayat Transaksi" href="riwayat-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                            <a title="Data Transaksi" href="data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                          <li>
 
                             <a title="Data Pengembalian" href="data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
+                        <li>
+                        <a title="Data Pengiriman" href="data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                        </li>
+
+                        <li>
+                        <a title="Data Keranjang" href="data-keranjang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Keranjang</span></a>
+                        </li>
 
 
                         <li>
                             <a class="has-arrow">
-                                <i class="fas fa-user-shield" style="color:#fbfffbb0"></i>
-                                <span class="mini-click-non"> &nbsp; Akun</span>
-                            </a>
+                                   <i class="fas fa-user-shield" style="color:#fbfffbb0"></i>
+                                   <span class="mini-click-non">&ensp;Akun</span>
+                                </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="listakun.php?username=<?php echo $_GET['username']; ?>"><span class="mini-sub-pro">- LIST AKUN</span></a></li>
-                                <li><a title="Dashboard v.1" href="akunbaru.php?username=<?php echo $_GET['username']; ?>"><span class="mini-sub-pro">- AKUN BARU</span></a></li>
-
+                                <li><a title="Data Pelanggan" href="data-akun.php"><span class="mini-sub-pro">Data Pelanggan</span></a></li>                                
                             </ul>
                         </li>
                     </ul>
@@ -230,8 +239,8 @@ $query = mysqli_query($mysqli, "SELECT p.nama as penyewa, a.nama as admin, pk.fr
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT KAWI SAKTI MEGAH :) </h2>
-                                                <p>Welcome to PT Kawi Sakti Megah </span></p>
+                                                <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
+                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -254,40 +263,67 @@ $query = mysqli_query($mysqli, "SELECT p.nama as penyewa, a.nama as admin, pk.fr
                 </div>
             </div>
         </div>
-        <div class="product-status mg-b-30">
-            <div class="container-fluid">
-                <div class="product-status-wrap">
+        <div class="single-product-tab-area mg-b-30">
+            <!-- Single pro tab review Start-->
+            <div class="single-pro-review-area">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <h4>Riwayat Transaksi</h4>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Penyewa</th>
-                                        <th>Admin</th>
-                                        <th>Frame</th>
-                                        <th>Jumlah Set</th>
-                                        <th>Masa Sewa</th>
-                                        <th>Harga</th>
-                                        <th>Tanggal Sewa</th>
-                                        <th>Tanggal Kembali</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="review-tab-pro-inner">
+                                <ul id="myTab3" class="tab-review-design">
+                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Edit Barang</a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <form action="" method="post">
                                     <?php while ($show = mysqli_fetch_array($query)) { ?>
-                                        <tr>
-                                            <td><?php echo $show['penyewa']; ?></td>
-                                            <td><?php echo $show['admin']; ?></td>
-                                            <td><?php echo $show['frame']; ?></td>
-                                            <td><?php echo $show['jumlah_set']; ?></td>
-                                            <td><?php echo $show['masa_sewa']; ?></td>
-                                            <td><?php echo $show['harga']; ?></td>
-                                            <td><?php echo $show['tgl_sewa']; ?></td>
-                                            <td><?php echo $show['tgl_kembali']; ?></td>
-                                        </tr>
+                                        <div class="product-tab-list tab-pane fade active in" id="edit">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> ID Penyewa :</i></span>
+                                                            <input name="id_penyewa" type="text" class="form-control" value="<?php echo $show['id_penyewa']; ?>">
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> ID Paket :</i></span>
+                                                            <input name="id_paket" type="text" class="form-control" value="<?php echo $show['id_paket']; ?>">
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Total :</i></span>
+                                                            <input name="total" type="text" class="form-control" value="<?php echo $show['total']; ?>">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Tanggal :</i></span>
+                                                        <input name="tanggal" type="text" class="form-control" value="<?php echo $show['tanggal']; ?>">
+                                                    </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jam Pemesanan :</i></span>
+                                                        <input name="jam_pemesanan" type="text" class="form-control" value="<?php echo $show['jam_pemesanan']; ?>">
+                                                    </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Status :</i></span>
+                                                        <input name="status" type="text" class="form-control" value="<?php echo $show['status']; ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
                                     <?php } ?>
-                                </tbody>
-                            </table>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="text-center custom-pro-edt-ds">
+                                                        <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
+                                                        <a href="data-keranjang.php" type="submit" class="btn btn-ctl-bt waves-effect waves-light">Save</a>
+                                                        <a href="data-keranjang.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

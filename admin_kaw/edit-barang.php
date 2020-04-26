@@ -12,6 +12,7 @@ $query = mysqli_query($mysqli, "SELECT * FROM paket WHERE id_paket = '$idPaket'"
 
 if (isset($_POST['submit'])) {
 
+    $frame = $_POST['frame'];
     $masa_sewa = $_POST['masa_sewa'];
     $jumlah_set = $_POST['jumlah_set'];
     $harga = $_POST['harga'];
@@ -26,7 +27,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT-Kawi Sakti Megah </title>
+    <title>PT. Kawi Sakti Megah </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -112,28 +113,43 @@ if (isset($_POST['submit'])) {
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li>
+                       <!--  <li>
                             <a class="has-arrow">
-                                <i class="icon nalika-table icon-wrap"></i>
-                                <span class="mini-click-non">Data Transaksi</span>
-                            </a>
+                                <i class="icon nalika-home icon-wrap"></i>
+                                   <span class="mini-click-non">Data</span>
+                                </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Transaksi" href="transaksi.php?username=<?php echo $_GET['username']; ?>"><span class="mini-sub-pro">Transaksi</span></a></li>
-                                <li><a title="Riwayat Transaksi" href="riwayat.php"><span class="mini-sub-pro">Riwayat Transaksi</span></a></li>
+                                <li><a title="Riwayat Transaksi" href="riwayat-transaksi.php" ><span class="mini-sub-pro">Riwayat Transaksi</span></a></li>
+                                <li><a title="Transaksi" href="transaksi.php"><span class="mini-sub-pro">Transaksi</span></a></li>
+                                
                             </ul>
+                        </li> -->
+                        <li>
+                            <a title="Data Barang" href="data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
-                            <a title="Data Barang" href="data-barang.php?username=<?php echo $_GET['username']; ?>"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                            <a title="Data Transaksi" href="data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
+                         <li>
+
+                            <a title="Data Pengembalian" href="data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                        </li>
+                        <li>
+                        <a title="Data Pengiriman" href="data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                        </li>
+
+                        <li>
+                        <a title="Data Keranjang" href="data-keranjang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Keranjang</span></a>
+                        </li>
+
+
                         <li>
                             <a class="has-arrow">
-                                <i class="fas fa-user-shield" style="color:#fbfffbb0"></i>
-                                <span class="mini-click-non"> &nbsp; Akun</span>
-                            </a>
+                                   <i class="fas fa-user-shield" style="color:#fbfffbb0"></i>
+                                   <span class="mini-click-non">&ensp;Akun</span>
+                                </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="listakun.php?username=<?php echo $_GET['username']; ?>"><span class="mini-sub-pro">- LIST AKUN</span></a></li>
-                                <li><a title="Dashboard v.1" href="akunbaru.php?username=<?php echo $_GET['username']; ?>"><span class="mini-sub-pro">- AKUN BARU</span></a></li>
-
+                                <li><a title="Data Pelanggan" href="data-akun.php"><span class="mini-sub-pro">Data Pelanggan</span></a></li>                                
                             </ul>
                         </li>
                     </ul>
@@ -225,8 +241,8 @@ if (isset($_POST['submit'])) {
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT KAWI SAKTI MEGAH :) </h2>
-                                                <p>Welcome to PT Kawi Sakti Megah </span></p>
+                                                <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
+                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -292,7 +308,8 @@ if (isset($_POST['submit'])) {
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
-                                                        <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10">
+                                                        <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
+                                                        <a href="data-barang.php" type="submit" class="btn btn-ctl-bt waves-effect waves-light">Save</a>
                                                         <a href="" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
                                                     </div>
                                                 </div>

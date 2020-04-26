@@ -1,12 +1,22 @@
+<?php
+session_start();
+// if (!isset($_SESSION["username"])) {
+//     header("Location: ../Login.php");
+// }
+include "Connection/connection.php";
+//GET IDUSER
+// $username = $_SESSION['username'];
+//SELECT DATA Riwayat
 
-<!doctype html>
+$keranjang = mysqli_query($mysqli, "SELECT * FROM keranjang") or die("data salah: " . mysqli_error($mysqli));
+?>
 
+<!DOCTYPE HTML>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT. Kawi Sakti Megah </title>
+    <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -92,34 +102,44 @@
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li>
+                       <!--  <li>
                             <a class="has-arrow">
-                                   <i class="icon nalika-home icon-wrap"></i>
-                                   <span class="mini-click-non">DATA</span>
+                                <i class="icon nalika-home icon-wrap"></i>
+                                   <span class="mini-click-non">Data</span>
                                 </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="hal_admin.php?username=<?php echo $_GET['username']; ?>" ><span class="mini-sub-pro">- Riwayat Peminjam</span></a></li>
-                                <li><a title="Dashboard v.2" href="tambahadmin.php?username=<?php echo $_GET['username']; ?>"><span class="mini-sub-pro">- Transaksi</span></a></li>
+                                <li><a title="Riwayat Transaksi" href="riwayat-transaksi.php" ><span class="mini-sub-pro">Riwayat Transaksi</span></a></li>
+                                <li><a title="Transaksi" href="transaksi.php"><span class="mini-sub-pro">Transaksi</span></a></li>
                                 
                             </ul>
+                        </li> -->
+                        <li>
+                            <a title="Data Barang" href="data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                        </li>
+
+                        <li>
+                            <a title="Data Transaksi" href="data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-
-                            <a title="Dashboard v.2" href="data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                            <a title="Data Pengembalian" href="data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
-                         <li>
 
-                            <a title="Dashboard v.2" href="data_pengembalian"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                        <li>
+                        <a title="Data Pengiriman" href="data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
+
+                        <li>
+                        <a title="Data Keranjang" href="data-keranjang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Keranjang</span></a>
+                        </li>
+
+
                         <li>
                             <a class="has-arrow">
                                    <i class="fas fa-user-shield" style="color:#fbfffbb0"></i>
-                                   <span class="mini-click-non">&ensp;AKUN</span>
+                                   <span class="mini-click-non">&ensp;Akun</span>
                                 </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="listakun.php?username=<?php echo $_GET['username']; ?>" ><span class="mini-sub-pro">- LIST AKUN</span></a></li>
-                                <li><a title="Dashboard v.1" href="akunbaru.php?username=<?php echo $_GET['username']; ?>" ><span class="mini-sub-pro">- AKUN BARU</span></a></li>
-                                
+                                <li><a title="Data Pelanggan" href="data-akun.php"><span class="mini-sub-pro">Data Pelanggan</span></a></li>                                
                             </ul>
                         </li>
                     </ul>
@@ -174,7 +194,7 @@
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="Login/logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -188,11 +208,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Mobile Menu start -->
-            
-            <!-- Mobile Menu end -->
-          
-        <div class="section-admin container-fluid">
+
+            <div class="section-admin container-fluid">
             <div class="row admin text-center">
                 <div class="col-md-12">
                    
@@ -211,8 +228,8 @@
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT KAWI SAKTI MEGAH :) </h2>
-                                                <p>Welcome to PT Kawi Sakti Megah </span></p>
+                                                <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
+                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -235,6 +252,53 @@
                 </div>
             </div>
         </div>
+
+        <!-- DATA AKUN PELANGGAN -->
+
+        <div class="product-status mg-b-30">
+            <div class="container-fluid">
+                <div class="product-status-wrap">
+                    <div class="row">
+                        
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                          <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID Penyewa</th>
+                                        <th>ID Paket</th>
+                                        <th>Total</th>
+                                        <th>Tanggal</th>
+                                        <th>Jam Pemesanan</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($keranjang)) { ?>
+                                        <tr>
+                                            <td><?php echo $show['id_penyewa']; ?></td>
+                                            <td><?php echo $show['id_paket']; ?></td>
+                                            <td><?php echo $show['total']; ?></td>
+                                            <td><?php echo $show['tanggal']; ?></td>
+                                            <td><?php echo $show['jam_pemesanan']; ?></td>
+                                            <td><?php echo $show['status']; ?></td>
+                                            <td>
+                                                <a href="edit-keranjang.php?id_keranjang=<?php echo $show['id_keranjang']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+                                                <a href="delete-keranjang.php?id_keranjang=<?php echo $show['id_keranjang']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END TABLE DATA AKUN PELANGGAN -->
+
+        
         
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
