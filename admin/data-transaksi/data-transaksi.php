@@ -8,7 +8,9 @@ include "../connection/Connection.php";
 // $username = $_SESSION['username'];
 //SELECT DATA Riwayat
 
-$transaksi = mysqli_query($mysqli, "SELECT * FROM transaksi") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, tr.*, pr.* FROM transaksi as tr JOIN user as pny on tr.id_penyewa=pny.id_user join pengiriman as pr on tr.id_pengiriman = pr.id_pengiriman") or die("data salah: " . mysqli_error($mysqli));
+
+$user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
 
 // $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
 
@@ -250,11 +252,10 @@ $transaksi = mysqli_query($mysqli, "SELECT * FROM transaksi") or die("data salah
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>ID Penyewa</th>
-                                        <th>ID Admin</th>
+                                        <th> Nama Penyewa</th>
                                         <th>Total</th>
+                                        <th>Jenis Pengiriman </th>
                                         <th>Jaminan</th>
-                                        <th>ID Pengiriman</th>
                                         <th>Bukti Pembayaran</th>
                                         <th>Bukti KTP</th>
                                         <th>Alamat</th>
@@ -269,11 +270,10 @@ $transaksi = mysqli_query($mysqli, "SELECT * FROM transaksi") or die("data salah
                                     <?php while ($show = mysqli_fetch_array($transaksi)) { 
                                         $status = $show['status']; ?>
                                         <tr>
-                                            <td><?php echo $show['id_penyewa']; ?></td>
-                                            <td><?php echo $show['id_admin']; ?></td>
+                                            <td><?php echo $show['penyewa']; ?></td>
                                             <td><?php echo $show['total']; ?></td>
+                                            <td><?php echo $show['nama']; ?></td>
                                             <td><?php echo $show['jaminan']; ?></td>
-                                            <td><?php echo $show['id_pengiriman']; ?></td>
                                             <td><?php echo $show['bukti_pembayaran']; ?></td>
                                             <td><?php echo $show['bukti_ktp']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>

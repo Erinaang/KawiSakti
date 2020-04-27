@@ -1,3 +1,23 @@
+<?php
+session_start();
+// if (!isset($_SESSION["username"])) {
+//     header("Location: ../Login.php");
+// }
+include "../connection/Connection.php";
+//GET IDUSER
+// $username = $_SESSION['username'];
+//SELECT DATA Riwayat
+
+$transaksi = mysqli_query($mysqli, "SELECT * FROM transaksi") or die("data salah: " . mysqli_error($mysqli));
+
+$user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
+
+// $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
+
+// $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
+
+?>
+
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
@@ -216,7 +236,61 @@
                 </div>
             </div>
         </div>
+            
 
+         <!-- DATA TABEL PENGEMBALIAN -->
+
+         <div class="product-status mg-b-30">
+            <div class="container-fluid">
+                <div class="product-status-wrap">
+                    <div class="row">
+
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th> Nama Penyewa</th>
+                                        <th>Total</th>
+                                        <th>Alamat</th>
+                                        <th>Tanggal Sewa</th>
+                                        <th>Tanggal Pengembalian</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($transaksi)) { 
+                                        $status = $show['status']; ?>
+                                        <tr>
+                                            <td><?php echo $show['nama']; ?></td>
+                                            <td><?php echo $show['total']; ?></td>
+                                            <td><?php echo $show['alamat']; ?></td>
+                                            <td><?php echo $show['kota']; ?></td>
+                                            <td><?php echo $show['tgl_sewa']; ?></td>
+                                            <td><?php echo $show['tgl_kembali']; ?></td>
+                                            <td><?php echo $status; ?></td>
+                                            <td>
+                                               <?php if ($status === "Terkirim") {
+                                                   echo '<a href="" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                               } else {
+                                                   # code...
+                                               }
+                                                ?>
+                                                
+                                                <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- END TABEL PENGEMBALIAN -->
 
 
         <script src="../js/vendor/jquery-1.12.4.min.js"></script>
