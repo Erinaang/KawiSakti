@@ -300,6 +300,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                 </div>
             </div>
         </div>
+        <br>
 
 
         <!-- END TABEL TRANSAKSI -->
