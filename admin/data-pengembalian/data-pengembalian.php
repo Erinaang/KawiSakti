@@ -8,7 +8,7 @@ include "../connection/Connection.php";
 // $username = $_SESSION['username'];
 //SELECT DATA Riwayat
 
-$transaksi = mysqli_query($mysqli, "SELECT * FROM transaksi") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transaksi as tr JOIN user as us on tr.id_penyewa=us.id_user ") or die("data salah: " . mysqli_error($mysqli));
 
 $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
 
@@ -265,13 +265,12 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <td><?php echo $show['nama']; ?></td>
                                             <td><?php echo $show['total']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>
-                                            <td><?php echo $show['kota']; ?></td>
                                             <td><?php echo $show['tgl_sewa']; ?></td>
                                             <td><?php echo $show['tgl_kembali']; ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                <?php if ($status === "Terkirim") {
-                                                   echo '<a href="" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                   echo '<a href="" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Detail</i></a>';
                                                } else {
                                                    # code...
                                                }
