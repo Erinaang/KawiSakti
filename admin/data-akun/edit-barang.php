@@ -1,23 +1,39 @@
 <?php
 session_start();
-// if (!isset($_SESSION["username"])) {
-//     header("Location: ../Login.php");
-// }
+if (!isset($_SESSION["username"])) {
+    header("Location: ../index.php");
+}
 include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
-//SELECT DATA Riwayat
+//SELECT DATA
+$idPaket = $_GET['id_paket'];
+$query = mysqli_query($mysqli, "SELECT * FROM paket WHERE id_paket = '$idPaket'") or die("data salah: " . mysqli_error($mysqli));
 
-$pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data salah: " . mysqli_error($mysqli));
+if (isset($_POST['submit'])) {
+    $frame = $_POST['frame'];
+    $masa_sewa = $_POST['masa_sewa'];
+    $jumlah_set = $_POST['jumlah_set'];
+    $harga = $_POST['harga'];
+
+    $query = mysqli_query($mysqli, "UPDATE paket SET frame='$frame', masa_sewa='$masa_sewa', jumlah_set='$jumlah_set', harga='$harga' WHERE id_paket='$idPaket'") or die("data salah: " . mysqli_error($mysqli));
+
+    if ($query) {
+        echo "<script>alert('Data Telah diperbaharui.');location.href='data-barang.php'</script>";
+    }
+    
+}
+
 ?>
 
-<!DOCTYPE HTML>
+<!doctype html>
+
 <html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT. Kawi Sakti Megah</title>
+    <title>PT. Kawi Sakti Megah </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -104,7 +120,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li>
-                            <a title="Data Barang" href="../data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                            <a title="Data Barang" href="data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
@@ -114,7 +130,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengiriman" href=""><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                            <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
                             <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
@@ -171,7 +187,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="Login/logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -185,6 +201,9 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                     </div>
                 </div>
             </div>
+            <!-- Mobile Menu start -->
+
+            <!-- Mobile Menu end -->
 
             <div class="section-admin container-fluid">
                 <div class="row admin text-center">
@@ -205,7 +224,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
+                                                <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
                                                 <p>Welcome to PT Kawi Sakti Megah</span></p>
                                             </div>
                                         </div>
@@ -229,47 +248,75 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                 </div>
             </div>
         </div>
-
-        <!-- DATA PENGIRIMAN -->
-
-        <div class="product-status mg-b-30">
-            <div class="container-fluid">
-                <div class="product-status-wrap">
+        <div class="single-product-tab-area mg-b-30">
+            <!-- Single pro tab review Start-->
+            <div class="single-pro-review-area">
+                <div class="container-fluid">
                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="review-tab-pro-inner">
+                                <ul id="myTab3" class="tab-review-design">
+                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Edit Barang</a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <form action="" method="post">
+                                        <?php while ($show = mysqli_fetch_array($query)) { ?>
+                                            <div class="product-tab-list tab-pane fade active in" id="edit">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="review-content-section">
+                                                            <div class="input-group mg-b-pro-edt">
+                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
+                                                                <input name="frame" type="text" class="form-control" value="<?php echo $show['frame']; ?>">
+                                                            </div>
+                                                            <div class="input-group mg-b-pro-edt">
+                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>
+                                                                <input name="masa_sewa" type="text" class="form-control" value="<?php echo $show['masa_sewa']; ?>">
+                                                            </div>
 
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Jenis Kendaraan</th>
-                                        <th>Biaya</th>
-                                        <th>Max</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while ($show = mysqli_fetch_array($pengiriman)) { ?>
-                                        <tr>
-                                            <td><?php echo $show['nama']; ?></td>
-                                            <td><?php echo $show['biaya']; ?></td>
-                                            <td><?php echo $show['max']; ?></td>
-                                            <td>
-                                                <a href="edit-pengiriman.php?id_pengiriman=<?php echo $show['id_pengiriman']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                <a href="delete-pengiriman.php?id_pengiriman=<?php echo $show['id_pengiriman']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jumlah Set :</i></span>
+                                                            <input name="jumlah_set" type="text" class="form-control" value="<?php echo $show['jumlah_set']; ?>">
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"> Harga :</i></span>
+                                                            <input name="harga" type="text" class="form-control" value="<?php echo $show['harga']; ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="text-center custom-pro-edt-ds">
+                                                        <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
+                                                        <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Save">
+                                                        <a href="data-barang.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- END TABLE DATA AKUN PELANGGAN -->
-
-
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="../js/vendor/jquery-1.12.4.min.js"></script>
         <!-- bootstrap JS
