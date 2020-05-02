@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["username"])) {
-    header("Location: admin_kaw/index.php.php");
+    header("Location: admin/login.php");
 }
 include "koneksi/koneksi.php";
 

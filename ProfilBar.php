@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["username"])) {
-    header("Location: admin_kaw/index.php");
+    header("Location: admin/login.php");
 }
 include "koneksi/koneksi.php";
 
@@ -163,7 +163,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                             <li><a href="aboutUs.php">About Us</a></li>
                             <li><a href="skafoldBar.php">Skafold</a></li>
                             <?php if (!isset($_SESSION['username'])) {
-                                echo '<li><a href="admin_kaw/index.php">Login</a></li>';
+                                echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
                                 echo '<li><a href="profilBar.php">Profil</a></li>';
                                 echo '<li><a href="admin_kaw/logout.php">Log Out</a></li>';
