@@ -5,6 +5,7 @@ if (isset($_POST['kirim'])) {
 	$newPass = $_POST['pass'];
 	$confirmPass = $_POST['confirmPass'];
 	$encPass = md5($newPass);
+	$edit = $_POST['edit'];
 	if ($newPass === $confirmPass) {
 
 		$queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE email='$email'") or die("data salah: " . mysqli_error($mysqli));
@@ -36,7 +37,11 @@ if (isset($_POST['kirim'])) {
 
 		// $mail->AddAttachment("/cpanel.png","filesaya");
 		if ($mail->Send()) {
-			$queryIdUser = mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
+			if ($edit === 'true') {
+				$queryEdit= mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
+				header("Location: ../../ProfilBar.php");
+			}
+			$queryEdit = mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
 		} else {
 			
 		}

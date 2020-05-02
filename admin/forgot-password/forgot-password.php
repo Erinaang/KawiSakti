@@ -30,6 +30,11 @@
 					<div>
 						<span><label>Konfirmasi Password Baru</label></span>
 						<span><input type="password" name="confirmPass" class="textbox" autofocus></span>
+						<?php 
+						if (isset($_GET['edit'])) {
+							echo '<input type="hidden" name="edit" value="true">';
+						}
+						?>
 					</div>
 					<hr>
 					<div class="sign">
