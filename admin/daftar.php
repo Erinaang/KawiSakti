@@ -55,7 +55,6 @@ if (isset($_POST['daftarSubmit'])) {
 			<p> Password " . $password . " </p><br>
 			<p> Password yang tertera di atas dapat digunakan untuk login pada aplikasi, kami menyarankan untuk mengganti password dengan password yang anda inginkan </p><br>
 			";
-
 		// $mail->AddAttachment("/cpanel.png","filesaya");
 		if ($mail->Send()) {
 			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET nama = '$nama', email='$email', alamat='$alamat', no_telp='$telp', username='$username', password='$passEnc', status='penyewa'") or die("data salah: " . mysqli_error($mysqli));
@@ -75,7 +74,7 @@ if (isset($_POST['daftarSubmit'])) {
 </head>
 
 <body>
-	<h1>Login | Register</h1>
+	<h1>Register</h1>
 	<h3>Buat akun baru</h3>
 	<div class="container">
 		<?php echo !empty($statusPsn) ? '<p class="' . $jenisStatusPsn . '">' . $statusPsn . '</p>' : ''; ?>
