@@ -4,10 +4,8 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php");
 }
 ?>
-<!doctype html>
-
+<!DOCTYPE HTML>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -111,7 +109,7 @@ if (!isset($_SESSION["username"])) {
                             <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="data/ kaundata-akun.php"><i class="fas fa-user-shield" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -165,7 +163,7 @@ if (!isset($_SESSION["username"])) {
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="Login/logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>

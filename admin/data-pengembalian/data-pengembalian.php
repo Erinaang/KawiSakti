@@ -12,10 +12,6 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
 
 $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
 
-// $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
-
-// $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
-
 ?>
 
 <!DOCTYPE HTML>
@@ -178,7 +174,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>

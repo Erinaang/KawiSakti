@@ -171,7 +171,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -267,7 +267,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
             </div>
         </div>
 
-        <!-- END TABLE DATA AKUN PELANGGAN -->
+        <!-- END TABLE DATA PENGIRIMAN-->
 
 
 

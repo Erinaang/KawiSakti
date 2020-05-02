@@ -22,6 +22,6 @@ if($result>0){
 	    echo "<script>alert('Selamat Datang, Pelanggan.');document.location.href='../index.php'</script>";
 	}
 }else{
-    // header("location:login.php");
+    header("location:login.php");
 }
 ?>
