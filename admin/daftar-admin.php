@@ -2,16 +2,16 @@
 session_start();
 include 'connection/Connection.php';
 
-function randomPass($length = 10)
-{
-	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	$charactersLength = strlen($characters);
-	$randomString = '';
-	for ($i = 0; $i < $length; $i++) {
-		$randomString .= $characters[rand(0, $charactersLength - 1)];
-	}
-	return $randomString;
-}
+// function randomPass($length = 10)
+// {
+// 	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// 	$charactersLength = strlen($characters);
+// 	$randomString = '';
+// 	for ($i = 0; $i < $length; $i++) {
+// 		$randomString .= $characters[rand(0, $charactersLength - 1)];
+// 	}
+// 	return $randomString;
+// }
 
 if (isset($_POST['daftarSubmit'])) {
 	$nama = $_POST['nama'];
@@ -19,7 +19,7 @@ if (isset($_POST['daftarSubmit'])) {
 	$alamat = $_POST['alamat'];
 	$telp = $_POST['telp'];
 	$username = $_POST['username'];
-	$password = randomPass();
+	$password = $_POST['password'];
 	$passEnc = md5($password);
 
 	$sql_u = "SELECT * FROM user WHERE username='$username'";
@@ -32,36 +32,11 @@ if (isset($_POST['daftarSubmit'])) {
 	} else if (mysqli_num_rows($res_e) > 0) {
 		$email_error = "Sorry... email already taken";
 	} else {
-		error_reporting(E_ALL);
-		require '../PHPMailer/src/PHPMailer.php';
-		require '../PHPMailer/src/SMTP.php';
-		require '../PHPMailer/src/Exception.php';
-		$mail =  new PHPMailer\PHPMailer1\PHPMailer();
-		$mail->IsSMTP();
-		$mail->IsHTML(true);
-		$mail->SMTPAuth 	= true;
-		$mail->Host 		= "smtp.gmail.com";
-		$mail->Port 		= 465;
-		$mail->SMTPSecure 	= "ssl";
-		$mail->Username 	= "kikirabdullah@gmail.com"; //username SMTP
-		$mail->Password 	= "k1k1r12k499";   //password SMTP
-		$mail->From    		= "kikirabdullah@gmail.com"; //sender email
-		$mail->FromName 	= "Kawi Sakti";      //sender name
-		$mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //recipient: email and name
-		$mail->Subject  	=  "Percobaan";
-		$mail->Body     	=  "<b>Terima Kasih telah mendaftar</b><br>
-			<p> Nama " . $nama . " </p><br>
-			<p> Email " . $email . " </p><br>
-			<p> Password " . $password . " </p><br>
-			<p> Password yang tertera di atas dapat digunakan untuk login pada aplikasi, kami menyarankan untuk mengganti password dengan password yang anda inginkan </p><br>
-			";
-		// $mail->AddAttachment("/cpanel.png","filesaya");
-		if ($mail->Send()) {
-			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET nama = '$nama', email='$email', alamat='$alamat', no_telp='$telp', username='$username', password='$passEnc', status='penyewa'") or die("data salah: " . mysqli_error($mysqli));
-			header("Location: login.php");
-		} else {
-			echo error_reporting(E_ALL);
-		}
+		$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET nama = '$nama', email='$email', alamat='$alamat', no_telp='$telp', username='$username', password='$passEnc', status='admin'") or die("data salah: " . mysqli_error($mysqli));
+		$_SESSION['username'] = $username;
+		// $data['level'] level digunaan untu memanggil value level dari username yang telah login dan disimpan dalam $_SESSION['level']
+		$_SESSION['status'] 	  = 'admin';
+		echo "<script>alert('Selamat Datang, Admin.');location.href='index.php'</script>";
 	}
 }
 ?>
@@ -95,8 +70,8 @@ if (isset($_POST['daftarSubmit'])) {
 						<span><?php echo $name_error; ?></span>
 					<?php endif ?>
 				</div>
-				<!-- <input type="password" name="password" placeholder="Password" required="">
-				<input type="password" name="confirm_password" placeholder="Konfirmasi Password" required=""> -->
+				<input type="password" name="password" placeholder="Password" required="">
+				<!-- <input type="password" name="confirm_password" placeholder="Konfirmasi Password" required=""> -->
 				<div class="tbl-kirim">
 					<input type="submit" name="daftarSubmit" value="Buat Akun">
 				</div>
