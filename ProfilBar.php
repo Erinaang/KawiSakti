@@ -161,7 +161,16 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                             <li><a href="index.php">Home</a></li>
                             <li><a href="projectBar.php">Project</a></li>
                             <li><a href="aboutUs.php">About Us</a></li>
-                            <li><a href="skafoldBar.php">Skafold</a></li>
+                            <li>
+                                <?php
+                                if ($masaSewa != 0) {
+                                    echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '">Skafold</a>';
+                                } else {
+                                    echo '<a href="skafoldBar.php">Skafold</a>';
+                                }
+
+                                ?>
+                            </li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
@@ -309,7 +318,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                             <td><?php echo $show['masa_sewa']; ?> Hari</td>
                                                             <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
                                                             <td>Rp. <?php echo $show['total']; ?>,00</td>
-                                                            <td><a href="delete-keranjang.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
+                                                            <td><a href="delete-keranjang.php?id_keranjang=<?php echo $show['id_keranjang']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
@@ -623,7 +632,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
             if (distance < 0) {
                 clearInterval(x);
                 if (idKeranjang != 0) {
-                    window.location = "delete-keranjang.php?id_transaksi="+idKeranjang;
+                    window.location = "delete-keranjang.php?id_transaksi=" + idKeranjang;
                     idKeranjang = 0;
                 }
 
