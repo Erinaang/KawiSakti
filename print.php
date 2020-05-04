@@ -2,12 +2,15 @@
 include "koneksi/koneksi.php";
 
 $index = 1;
-$total = 0;
+$jaminan=$total = 0;
 $idPenyewa = $_GET['id_penyewa'];
 $tanggal = $_GET['tanggal'];
 $status = $_GET['status'];
 $idPengiriman = $_GET['id_pengiriman'];
 $idTransaksi = $_GET['id_transaksi'];
+
+date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
+$date = date("Y-m-d");
 
 $queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND tanggal='$tanggal'") or die("data salah: " . mysqli_error($mysqli));
 
@@ -16,9 +19,14 @@ while ($show = mysqli_fetch_array($queryPengiriman)) {
   $ongkir = $show['biaya'];
 }
 
-$queryTransaksi = mysqli_query($mysqli, "SELECT * FROM transaksi WHERE id_transaksi='$idTransaksi'") or die("data salah: " . mysqli_error($mysqli));
+$queryTransaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, adm.nama as admin, tr.* FROM transaksi AS tr JOIN user AS pny ON tr.id_penyewa = pny.id_user JOIN user AS adm ON tr.id_admin = adm.id_user WHERE id_transaksi='$idTransaksi'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryTransaksi)) {
   $totalHarga = $show['total'];
+  $jaminan = $show['jaminan'];
+  $tglSewa = $show['tgl_sewa'];
+  $tglKembali = $show['tgl_kembali'];
+  $namaPenyewa = $show['penyewa'];
+  $namaAdmin = $show['admin'];
 }
 ?>
 
@@ -52,7 +60,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
-          <p> Kpd Yth : </p>
+          <p> Kpd Yth : <?php echo $namaPenyewa; ?> </p>
           <b>Kawi Scaffolding</b> <br>
           Jl. Soekarno Hatta A-4 Kav.B Malang <br>
           Telp. 085105110077, 083835167826
@@ -146,7 +154,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
             Hormat Kami,
           </p>
           <br><br><br>
-          <p>(..................................)</p>
+          <p>(......<?php echo $namaAdmin; ?>.....)</p>
         </div>
         <div class="col-md-6">
           <br><br><br>
@@ -154,7 +162,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
             Penerima Order,
           </p>
           <br><br><br>
-          <p>(..................................)</p>
+          <p>(.....<?php echo $namaPenyewa; ?>....)</p>
         </div>
       </div>
       <div class="row">

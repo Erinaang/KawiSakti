@@ -268,7 +268,8 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                 </thead>
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) { 
-                                        $status = $show['status']; ?>
+                                        $status = $show['status']; 
+                                        $tgl = $show['tgl_sewa'];?>
                                         <tr>
                                             <td><?php echo $show['penyewa']; ?></td>
                                             <td><?php echo $show['total']; ?></td>
@@ -278,14 +279,14 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <td><?php echo $show['bukti_ktp']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>
                                             <td><?php echo $show['kota']; ?></td>
-                                            <td><?php echo $show['tgl_sewa']; ?></td>
+                                            <td><?php echo $tgl; ?></td>
                                             <td><?php echo $show['tgl_kembali']; ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                             <?php if ($status === "Terkirim") {
-                                                   echo '<a href="send-confirm.php?id_transaksi=id_transaksi" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
-                                               } if ($status === "Diproses") {
-                                                echo '<a href="send-process.php" data-toggle="tooltip" title="Kirim" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kirim</i></a>';
+                                                   echo '<a href="send-confirm.php?id_transaksi='.$show['id_transaksi'].'&id_penyewa='.$show['id_penyewa'].'&tanggal='.$tgl.'&status='.$status.'&id_pengiriman='.$show['id_pengiriman'].'" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                               }else{
+                                                echo '<a href="../../print.php?id_transaksi='.$show['id_transaksi'].'&id_penyewa='.$show['id_penyewa'].'&tanggal='.$tgl.'&status='.$status.'&id_pengiriman='.$show['id_pengiriman'].'" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>'; 
                                                }
                                                 ?>                                               
                                                 <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
