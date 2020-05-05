@@ -1,16 +1,12 @@
 <?php
 session_start();
-// if (!isset($_SESSION["username"])) {
-//     header("Location: ../Login.php");
-// }
+if (!isset($_SESSION["username"])) {
+    header("Location: ../Login.php");
+}
 include "../connection/Connection.php";
-//GET IDUSER
-// $username = $_SESSION['username'];
-//SELECT DATA Riwayat
 
-$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transaksi as tr JOIN user as us on tr.id_penyewa=us.id_user ") or die("data salah: " . mysqli_error($mysqli));
-
-$user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
+//query tampil tabel pengembalian
+$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transaksi as tr JOIN user as us on tr.id_penyewa=us.id_user WHERE tr.status='Dikirim' ") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -85,10 +81,6 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -98,10 +90,8 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
             </div>
             <div class="nalika-profile">
                 <div class="profile-dtl">
-
                     <h2> <b>A<span class="min-dtn">DMIN</span></b></h2>
                 </div>
-
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -147,8 +137,6 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                 <div class="row">
                                     <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
                                         <div class="menu-switcher-pro">
-
-
                                             <button type="button" id="sidebarCollapse" class='fa fa-exchange' style='font-size:36px; color:#000; padding-top: 10px' onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'"><span class="tooltiptext"></span></button>
                                         </div>
                                     </div>
@@ -232,11 +220,11 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                 </div>
             </div>
         </div>
-            
 
-         <!-- DATA TABEL PENGEMBALIAN -->
 
-         <div class="product-status mg-b-30">
+        <!-- DATA TABEL PENGEMBALIAN -->
+
+        <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
@@ -255,23 +243,22 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($transaksi)) { 
-                                        $status = $show['status']; ?>
+                                    <?php while ($show = mysqli_fetch_array($transaksi)) {
+                                        $status = $show['status'];
+                                        $tgl = $show['tgl_sewa']; ?>
                                         <tr>
                                             <td><?php echo $show['nama']; ?></td>
-                                            <td><?php echo $show['total']; ?></td>
+                                            <td>Rp. <?php echo $show['total']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>
-                                            <td><?php echo $show['tgl_sewa']; ?></td>
+                                            <td><?php echo $tgl; ?></td>
                                             <td><?php echo $show['tgl_kembali']; ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
-                                               <?php if ($status === "Terkirim") {
-                                                   echo '<a href="" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Detail</i></a>';
-                                               } else {
-                                                   # code...
-                                               }
+                                                <?php if ($status === "Dikirim") {
+                                                    echo '<a href="send-kembali.php?id_transaksi=' . $show['id_transaksi'] . '&id_penyewa=' . $show['id_penyewa'] . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '" data-toggle="tooltip" title="Kembali" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kembali</i></a>';
+                                                }
                                                 ?>
-                                                
+
                                                 <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
                                         </tr>
@@ -339,8 +326,6 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
         <!-- main JS
         ============================================ -->
         <script src="../js/main.js"></script>
-
-
 </body>
 
 </html>
