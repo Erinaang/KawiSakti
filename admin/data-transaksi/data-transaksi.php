@@ -8,7 +8,7 @@ include "../connection/Connection.php";
 // $username = $_SESSION['username'];
 //SELECT DATA Riwayat
 
-$transaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, tr.*, pr.* FROM transaksi as tr JOIN user as pny on tr.id_penyewa=pny.id_user join pengiriman as pr on tr.id_pengiriman = pr.id_pengiriman WHERE tr.status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, tr.*, pr.* FROM transaksi as tr JOIN user as pny on tr.id_penyewa=pny.id_user join pengiriman as pr on tr.id_pengiriman = pr.id_pengiriman WHERE tr.status='Terkirim' OR tr.status='Dikirim'") or die("data salah: " . mysqli_error($mysqli));
 
 $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
 
@@ -286,7 +286,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <?php if ($status === "Terkirim") {
                                                    echo '<a href="send-confirm.php?id_transaksi='.$show['id_transaksi'].'&id_penyewa='.$show['id_penyewa'].'&tanggal='.$tgl.'&status='.$status.'&id_pengiriman='.$show['id_pengiriman'].'" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                }else{
-                                                echo '<a href="../../print.php?id_transaksi='.$show['id_transaksi'].'&id_penyewa='.$show['id_penyewa'].'&tanggal='.$tgl.'&status='.$status.'&id_pengiriman='.$show['id_pengiriman'].'" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>'; 
+                                                echo '<a href="../../print.php?id_transaksi='.$show['id_transaksi'].'&id_penyewa='.$show['id_penyewa'].'&tanggal='.$tgl.'&status='.$status.'&id_pengiriman='.$show['id_pengiriman'].'"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>'; 
                                                }
                                                 ?>                                               
                                                 <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
