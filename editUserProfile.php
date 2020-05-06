@@ -143,7 +143,7 @@ if (isset($_POST["submit"])) {
 
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 
-                                <img id="myImg" src="img/users/<?php echo $show['foto']; ?>" width="200"><br>
+                                <img id="myImg" src="img/users/<?php echo $show['foto']; ?>" width="200"><br><br><br>
                                 <form action="uploadPhotos.php" method="post">
                                     <input type="file" name="foto" id="foto">
                                     <input type="submit" name="submit" id="submit" value="Change Photos">
@@ -151,24 +151,33 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 
-                                <a type="button" class="btn btn-info" href="admin/forgot-password/forgot-password.php?edit">Ganti Password</a>
-                                <form action="" method="post">
+                                
 
-                                    <h4><b> Nama &emsp;&emsp;&emsp;&emsp; &emsp; &emsp; : <input type="text" name="nama" placeholder="nama" value="<?php echo $show['nama']; ?>"></h4> </b> <br>
-                                    <h4><b> E-mail &emsp;&emsp;&emsp; &emsp; : <input type="text" name="email" placeholder="email" value="<?php echo $show['email']; ?>"></h4></b><br>
-                                    <h4><b> No Telepon &emsp;&emsp;: <input type="text" name="noTelp" placeholder="noTelp" value="<?php echo $show['no_telp']; ?>"></h4></b><br>
-                                    <h4><b> Alamat &emsp;&emsp;&emsp;&emsp; : <input type="text" name="alamat" placeholder="alamat" value="<?php echo $show['alamat']; ?>"></h4></b><br>
+                                    <h4><b> Nama &emsp;&emsp;&emsp; &emsp; &emsp; &emsp; : <input type="text" name="nama" placeholder="nama" value="<?php echo $show['nama']; ?>"></h4> </b> <br>
+                                    <h4><b> E-mail &emsp;&emsp;&emsp; &emsp;  &emsp; &emsp; : <input type="text" name="email" placeholder="email" value="<?php echo $show['email']; ?>"></h4></b><br>
+                                    <h4><b> No Telepon &emsp;&emsp; &emsp; &emsp;: <input type="text" name="noTelp" placeholder="noTelp" value="<?php echo $show['no_telp']; ?>"></h4></b><br>
+                                    <h4><b> Alamat &emsp;&emsp;&emsp;&emsp; &emsp; &emsp; : <input type="text" name="alamat" placeholder="alamat" value="<?php echo $show['alamat']; ?>"></h4></b><br>
                                     <!-- <h4><b> Password &emsp;&emsp;&emsp;&emsp; : <input type="password" id="password" name="password" value="<?php echo $show['password']; ?>"> </b></h4><br><br>
                                     <input type="checkbox" onclick="showPass()">Show Password -->
                                     <input type="hidden" name="id_user" value="<?php echo $show['id_user']; ?>">
+                                    <br>
+                                    <br>
                                     <input class="btn btn-primary" type="submit" value="submit" name="submit">
                                     <a type="button" href="ProfilBar.php" class="btn btn-danger">Kembali Ke Profile</a>
+                                    <a type="button" class="btn btn-info" href="admin/forgot-password/forgot-password.php?edit">Ganti Password</a>
+                                <form action="" method="post">
                                 </form>
                             </div>
+                            <br>
+                            <br>
                         <?php } ?>
-
+                            <br>
+                            <br>
                     </div>
                 </div>
+                <br>
+                <br>
+                <br>
             </div>
         </div>
     </div>

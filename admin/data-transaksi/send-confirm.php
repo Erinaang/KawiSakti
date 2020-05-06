@@ -51,7 +51,7 @@ $mail->Username     = "kikirabdullah@gmail.com"; //username SMTP
 $mail->Password     = "k1k1r12k499";   //password SMTP
 $mail->From            = "kikirabdullah@gmail.com"; //sender email
 $mail->FromName     = "Kawi Sakti";      //sender name
-$mail->AddAddress("kikirabdullah@gmail.com", "Hallo, Kawi Sakti disini."); //recipient: email and name
+$mail->AddAddress("erinaangg@gmail.com", "Hallo, Kawi Sakti disini."); //recipient: email and name
 $mail->Subject      =  "Percobaan";
 $mail->Body         =  '<b>Barang Anda akan dikirim</b><br>
 
