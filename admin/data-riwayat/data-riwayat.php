@@ -103,7 +103,9 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                        </li>
+                        <li>
                             <a title="Data Pengembalian" href=""><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
