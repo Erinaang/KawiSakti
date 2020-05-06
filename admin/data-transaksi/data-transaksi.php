@@ -9,7 +9,6 @@ include "../connection/Connection.php";
 //SELECT DATA Riwayat
 
 $transaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, tr.*, pr.* FROM transaksi as tr JOIN user as pny on tr.id_penyewa=pny.id_user join pengiriman as pr on tr.id_pengiriman = pr.id_pengiriman WHERE tr.status='Terkirim' OR tr.status='Dikirim'") or die("data salah: " . mysqli_error($mysqli));
-
 $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
 
 // $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
@@ -121,7 +120,9 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <a title="Data Transaksi" href=""><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                        </li>
+                        <li>
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
@@ -276,7 +277,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <td><?php echo $show['nama']; ?></td>
                                             <td><?php echo $show['jaminan']; ?></td>
                                             <td><?php echo $show['bukti_pembayaran']; ?></td>
-                                            <td><?php echo $show['bukti_ktp']; ?></td>
+                                            <td><align="center"><?php echo "<img src='img/$show[bukti_ktp]' width='70' height='90' />";?></td>
                                             <td><?php echo $show['alamat']; ?></td>
                                             <td><?php echo $show['kota']; ?></td>
                                             <td><?php echo $tgl; ?></td>

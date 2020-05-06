@@ -110,7 +110,9 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                        </li>
+                        <li>
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
@@ -242,7 +244,6 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                 <thead>
                                     <tr>
                                         <th>Username</th>
-                                        <th>Password</th>
                                         <th>Email</th>
                                         <th>Nama</th>
                                         <th>Status</th>
@@ -256,11 +257,10 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                     <?php while ($show = mysqli_fetch_array($akun)) { ?>
                                         <tr>
                                             <td><?php echo $show['username']; ?></td>
-                                            <td><?php echo $show['password']; ?></td>
                                             <td><?php echo $show['email']; ?></td>
                                             <td><?php echo $show['nama']; ?></td>
                                             <td><?php echo $show['status']; ?></td>
-                                            <td><?php echo $show['foto']; ?></td>
+                                            <td><align="center"><?php echo "<img src='img/$show[foto]' width='70' height='90' />";?></td>
                                             <td><?php echo $show['no_telp']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>
                                             <td>
