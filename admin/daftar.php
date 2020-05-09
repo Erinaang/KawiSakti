@@ -43,12 +43,12 @@ if (isset($_POST['daftarSubmit'])) {
 		$mail->Host 		= "smtp.gmail.com";
 		$mail->Port 		= 465;
 		$mail->SMTPSecure 	= "ssl";
-		$mail->Username 	= "kikirabdullah@gmail.com"; //username SMTP
-		$mail->Password 	= "k1k1r12k499";   //password SMTP
-		$mail->From    		= "kikirabdullah@gmail.com"; //sender email
-		$mail->FromName 	= "Kawi Sakti";      //sender name
-		$mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //recipient: email and name
-		$mail->Subject  	=  "Percobaan";
+		$mail->Username     = "kikirabdullah@gmail.com"; //username yang ngirim
+		$mail->Password     = "k1k1r12k499";   //password email yang ngirim
+		$mail->From            = "kikirabdullah@gmail.com"; //email pengirim
+		$mail->FromName     = "Kawi Sakti";      //nama pengirim
+		$mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //email yang tujuan dan nama
+		$mail->Subject      =  "Percobaan"; //subject
 		$mail->Body     	=  "<b>Terima Kasih telah mendaftar</b><br>
 			<p> Nama " . $nama . " </p><br>
 			<p> Email " . $email . " </p><br>
@@ -95,8 +95,6 @@ if (isset($_POST['daftarSubmit'])) {
 						<span><?php echo $name_error; ?></span>
 					<?php endif ?>
 				</div>
-				<!-- <input type="password" name="password" placeholder="Password" required="">
-				<input type="password" name="confirm_password" placeholder="Konfirmasi Password" required=""> -->
 				<div class="tbl-kirim">
 					<input type="submit" name="daftarSubmit" value="Buat Akun">
 				</div>

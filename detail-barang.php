@@ -3,21 +3,25 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: admin/login.php");
 }
-include "koneksi/koneksi.php";
+include "koneksi/koneksi.php"; // ambil koneksi;
 
-$index = 1;
-$jaminan = $total = 0;
+$index = 1; //buat nomor di tabel
+$jaminan = $total = 0; //definisi variabel dengan nilai 0
+
+//ambil isi variabel dari URL
 $idPenyewa = $_GET['id_penyewa'];
 $tanggal = $_GET['tanggal'];
 $status = $_GET['status'];
 $idPengiriman = $_GET['id_pengiriman'];
 $idTransaksi = $_GET['id_transaksi'];
 
-
+//QUERY PENGIRIMAN => ambil ongkirs
 $queryPengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman='$idPengiriman'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryPengiriman)) {
     $ongkir = $show['biaya'];
 }
+
+//QUERY TRANSAKSI
 $queryTransaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, adm.nama as admin, tr.* FROM transaksi AS tr JOIN user AS pny ON tr.id_penyewa = pny.id_user JOIN user AS adm ON tr.id_admin = adm.id_user WHERE id_transaksi='$idTransaksi'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryTransaksi)) {
     $totalHarga = $show['total'];
@@ -28,7 +32,8 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
     $namaAdmin = $show['admin'];
 }
 
-$queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='$idPenyewa' AND kr.status='$status'  AND kr.tanggal='$tglSewa'") or die("data salah: " . mysqli_error($mysqli));
+//QUERY TABEL DETAIL 
+$queryDetail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='$idPenyewa' AND kr.status='$status'  AND kr.tanggal='$tglSewa'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -103,10 +108,9 @@ $queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($queryPrint)) {
+                                    <?php while ($show = mysqli_fetch_array($queryDetail)) {
                                         $total = $total + $show['total'];
                                         $jaminan = $total * (30 / 100);
-
                                     ?>
                                         <tr>
                                             <td><?php echo $index++; ?></td>

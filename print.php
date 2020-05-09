@@ -1,5 +1,5 @@
 <?php
-include "koneksi/koneksi.php";
+include "koneksi/koneksi.php"; // ambil koneksi;
 
 $index = 1;
 $jaminan=$total = 0;

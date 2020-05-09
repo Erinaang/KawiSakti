@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: admin/login.php");
 }
-include "koneksi/koneksi.php";
+include "koneksi/koneksi.php"; // ambil koneksi;
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
@@ -13,7 +13,7 @@ $jamPemesanan = $idAdmin = $idKeranjang = $jaminanCheckout = $totalCheckout = $m
 $index = 1;
 $username = $_SESSION['username'];
 
-//SELECT USER
+//ambil data user berdasarkan username yang login buat ditampilin di profil
 $queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryIdUser)) {
     $idUser = $show['id_user'];
@@ -24,16 +24,15 @@ while ($show = mysqli_fetch_array($queryIdUser)) {
 }
 
 
-//SELECT KERANJANG
+//SELECT KERANJANG => ambil data apa aja yang ada di keranjang berdasarkan status ='cart'
 $queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='cart'") or die("data salah: " . mysqli_error($mysqli));
-$queryMasaSewa = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='cart'") or die("data salah: " . mysqli_error($mysqli));
-while ($show = mysqli_fetch_array($queryMasaSewa)) {
-    $masaSewa = $show['masa_sewa'];
+while ($showMasaSewa = mysqli_fetch_array($queryKeranjang)) {
+    $masaSewa = $showMasaSewa['masa_sewa'];
 }
-//SELECT CHECKOUT
+//SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
 $queryCheckout = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
-//SELECT RIWAYAT
+//SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
 $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengiriman AS pg ON tr.id_pengiriman = pg.id_pengiriman WHERE id_penyewa='$idUser' AND status!='cart' AND status!='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
@@ -130,14 +129,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                     <a href="#"><i class="fa fa-map-marker"></i> Jl. Janti Barat Blok A/17 A Malang </a>
                     <a href="#"><i class="mdi mdi-clock"></i>08 AM - 04 PM</a>
                 </div>
-                <!--  <div class="pull-right">
-                        <ul class="header_social">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        </ul>
-                    </div> -->
             </div>
         </div>
         <div class="main_menu_area">
@@ -289,10 +280,11 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                             <a href="kirim-checkout.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
 
                                             <?php
+                                            //if => kalo masa sewa tidak sama dengan 0 maka klik daftar-barangnya ditambah masa sewa
                                             if ($masaSewa != 0) {
-                                                echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '" class="btn btn-primary">Daftar Barang</a>';
+                                                echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '" class="btn btn-primary">Daftar Barang</a>'; //kalo masa sewa != 0
                                             } else {
-                                                echo '<a href="skafoldBar.php" class="btn btn-primary"> <b> Daftar Barang </b> </a>';
+                                                echo '<a href="skafoldBar.php" class="btn btn-primary"> <b> Daftar Barang </b> </a>'; //kalo masa sewa = 0
                                             }
 
                                             ?>
@@ -307,7 +299,9 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php while ($show = mysqli_fetch_array($queryKeranjang)) {
+                                                    <?php 
+                                                    //menampilkan dari SELECT KERANJANG diatas
+                                                    while ($show = mysqli_fetch_array($queryKeranjang)) {
                                                         $total = $total + $show['total'];
                                                         $jaminan = $total * (30 / 100);
 
@@ -347,19 +341,21 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php while ($show = mysqli_fetch_array($queryCheckout)) {
-                                                        $totalCheckout = $totalCheckout + $show['total'];
-                                                        $jaminanCheckout = $totalCheckout * (30 / 100);
-                                                        $idKeranjang = $show['id_keranjang'];
+                                                    <?php
+                                                    //menampilkan dari SELECT CHECKOUT diatas
+                                                    while ($show = mysqli_fetch_array($queryCheckout)) {
+                                                        $totalCheckout = $totalCheckout + $show['total']; // kalkulasi total checkout.
+                                                        $jaminanCheckout = $totalCheckout * (30 / 100); //kalkulasi jaminan 
+                                                        $idKeranjang = $show['id_keranjang']; //masukin id_keranjang ke variabel karna mau dipake di
                                                         $jamPemesanan = $show['jam_pemesanan'];
-                                                        $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan)));
+                                                        $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $idKeranjang; ?></td>
                                                             <td><?php echo $show['masa_sewa']; ?> Hari</td>
                                                             <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
                                                             <td>Rp. <?php echo $show['total']; ?>,00</td>
-                                                            <td><a href="delete-keranjang.php?id_keranjang=<?php echo $show['id_keranjang']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
+                                                            <td><a href="delete-keranjang.php?id_keranjang=<?php echo $idKeranjang; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
@@ -410,7 +406,10 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                     </tr> </b>
                                                 </thead>
                                                 <tbody>
-                                                    <?php while ($show = mysqli_fetch_array($queryRiwayat)) {
+                                                    <?php 
+                                                    //menampilkan data dari SELECT RIWAYAT diatas
+                                                    while ($show = mysqli_fetch_array($queryRiwayat)) {
+                                                        //masukin dari database ke variabel
                                                         $idPenyewa = $show['id_penyewa'];
                                                         $tgl = $show['tgl_sewa'];
                                                         $status = $show['status'];

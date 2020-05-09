@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "koneksi/koneksi.php";
+include "koneksi/koneksi.php"; // ambil koneksi;
 
 if (isset($_FILES['foto'])) {
    $errors = array();

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <?php
 session_start();
-include "koneksi/koneksi.php";
-//GET IDUSER
-// $username = $_SESSION['username'];
-//SELECT DATA Riwayat
+include "koneksi/koneksi.php"; // ambil koneksi;
 
+//ambil data paket
 $queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-170' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
 
 $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
 
 $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
 
+//ambil data paket berdasarkan masa_sewa yang ada di keranjang
 if (isset($_GET['masa_sewa'])) {
     $masaSewa = $_GET['masa_sewa'];
 

@@ -22,32 +22,28 @@ if (isset($_POST['kirim'])) {
 		$mail->Host 		= "smtp.gmail.com";
 		$mail->Port 		= 465;
 		$mail->SMTPSecure 	= "ssl";
-		$mail->Username 	= "kikirabdullah@gmail.com"; //username SMTP
-		$mail->Password 	= "k1k1r12k499";   //password SMTP
-		$mail->From    		= "kikirabdullah@gmail.com"; //sender email
-		$mail->FromName 	= "Kawi Sakti";      //sender name
-		$mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //recipient: email and name
-		$mail->Subject  	=  "Percobaan";
+		$mail->Username     = "kikirabdullah@gmail.com"; //username yang ngirim
+		$mail->Password     = "k1k1r12k499";   //password email yang ngirim
+		$mail->From            = "kikirabdullah@gmail.com"; //email pengirim
+		$mail->FromName     = "Kawi Sakti";      //nama pengirim
+		$mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //email yang tujuan dan nama
+		$mail->Subject      =  "Percobaan"; //subject
 		$mail->Body     	=  "<b>Terima Kasih telah mendaftar</b><br>
 			<p> Nama " . $nama . " </p><br>
 			<p> Email " . $email . " </p><br>
 			<p> Password " . $newPass . " </p><br>
 			<p> Password yang tertera di atas dapat digunakan untuk login pada aplikasi, kami menyarankan untuk mengganti password dengan password yang anda inginkan </p><br>
 			";
-
-		// $mail->AddAttachment("/cpanel.png","filesaya");
 		if ($mail->Send()) {
 			if ($edit === 'true') {
-				$queryEdit= mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
+				$queryEdit = mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
 				header("Location: ../../ProfilBar.php");
 			}
 			$queryEdit = mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
 		} else {
-			
 		}
 	} else {
 		header("Location: password-salah.php");
-		
 	}
 }
 ?>

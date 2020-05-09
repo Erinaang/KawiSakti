@@ -2,15 +2,15 @@
 session_start();
 include "../connection/Connection.php";
 
+//ambil id dan nama admin berdasarkan USERNAME (yang lagi login)
 $username = $_SESSION['username'];
-
 $queryAdmin = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
-
 while ($show = mysqli_fetch_array($queryAdmin)) {
   $namaAdmin = $show['nama'];
   $idAdmin = $show['id_user'];
 }
 
+//ambil dari URL
 $id_transaksi = $_GET['id_transaksi'];
 $tanggal = $_GET['tanggal'];
 $id_penyewa = $_GET['id_penyewa'];
@@ -18,15 +18,17 @@ $status = $_GET['status'];
 $id_pengiriman = $_GET['id_pengiriman'];
 
 
-/// kirim email
-$queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$id_penyewa' AND status='$status' AND tanggal='$tanggal'") or die("data salah: " . mysqli_error($mysqli));
+/// SELECT data barang di email
+$tabelDiEmail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$id_penyewa' AND status='$status' AND tanggal='$tanggal'") or die("data salah: " . mysqli_error($mysqli));
 
+//SELECT PENGIRIMAN => buat ambil ongkir
 $queryPengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman='$id_pengiriman'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryPengiriman)) {
   $ongkir = $show['biaya'];
 }
 
-$queryTransaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, adm.nama as admin, tr.* FROM transaksi AS tr JOIN user AS pny ON tr.id_penyewa = pny.id_user JOIN user AS adm ON tr.id_admin = adm.id_user WHERE id_transaksi='$id_transaksi'") or die("data salah: " . mysqli_error($mysqli));
+//SELECT TRANSAKSI => buat ambil data transaksi
+$queryTransaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, pny.email as email_user, adm.nama as admin, tr.* FROM transaksi AS tr JOIN user AS pny ON tr.id_penyewa = pny.id_user JOIN user AS adm ON tr.id_admin = adm.id_user WHERE id_transaksi='$id_transaksi'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryTransaksi)) {
   $totalHarga = $show['total'];
   $jaminan = $show['jaminan'];
@@ -34,8 +36,11 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
   $tglKembali = $show['tgl_kembali'];
   $namaPenyewa = $show['penyewa'];
   $namaAdmin = $show['admin'];
+  $email = $show['email_user']
 }
 
+
+//KIRIM KE EMAIL
 error_reporting(E_ALL);
 require '../../PHPMailer/src/PHPMailer.php';
 require '../../PHPMailer/src/SMTP.php';
@@ -47,13 +52,13 @@ $mail->SMTPAuth     = true;
 $mail->Host         = "smtp.gmail.com";
 $mail->Port         = 465;
 $mail->SMTPSecure     = "ssl";
-$mail->Username     = "kikirabdullah@gmail.com"; //username SMTP
-$mail->Password     = "k1k1r12k499";   //password SMTP
-$mail->From            = "kikirabdullah@gmail.com"; //sender email
-$mail->FromName     = "Kawi Sakti";      //sender name
-$mail->AddAddress("erinaangg@gmail.com", "Hallo, Kawi Sakti disini."); //recipient: email and name
-$mail->Subject      =  "Percobaan";
-$mail->Body         =  '<b>Barang Anda akan dikirim</b><br>
+$mail->Username     = "kikirabdullah@gmail.com"; //username yang ngirim
+$mail->Password     = "k1k1r12k499";   //password email yang ngirim
+$mail->From            = "kikirabdullah@gmail.com"; //email pengirim
+$mail->FromName     = "Kawi Sakti";      //nama pengirim
+$mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //email yang tujuan dan nama
+$mail->Subject      =  "Percobaan"; //subject
+$mail->Body         =  '<b>Barang Anda akan dikirim</b><br> 
 
 <table class="table table-condensed">
 <thead>
@@ -66,7 +71,9 @@ $mail->Body         =  '<b>Barang Anda akan dikirim</b><br>
 </thead>
 <tbody>
 ';
-while ($show = mysqli_fetch_array($queryPrint)) {
+
+//tabel yang ada di email
+while ($show = mysqli_fetch_array($tabelDiEmail)) {
   $total = $total + $show['total'];
   $jaminan = $total * (30 / 100);
 
@@ -101,9 +108,10 @@ $mail->Body         .= '<tr>
 </table>';
 // $mail->AddAttachment("/cpanel.png","filesaya");
 if ($mail->Send()) {
-  $queryConfirm = mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin', status='Dikirim' WHERE id_transaksi='$id_transaksi'") or die("data salah: " . mysqli_error($mysqli));
 
-  $queryRiwayat = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Dikirim' WHERE `tanggal`='$tanggal' and id_penyewa='$id_penyewa' and status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
+  //update status keranjang dan transaksi menjadi "dikirim"
+  $queryConfirm = mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin', status='Dikirim' WHERE id_transaksi='$id_transaksi'") or die("data salah: " . mysqli_error($mysqli));
+  $queryUpdateKeranjang = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Dikirim' WHERE `tanggal`='$tanggal' and id_penyewa='$id_penyewa' and status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
 
 
   if ($queryConfirm) {

@@ -1,12 +1,9 @@
 <?php
 session_start();
-// if (!isset($_SESSION["username"])) {
-//     header("Location: ../Login.php");
-// }
+if (!isset($_SESSION["username"])) {
+    header("Location: ../Login.php");
+}
 include "../connection/Connection.php";
-//GET IDUSER
-// $username = $_SESSION['username'];
-//SELECT DATA Riwayat
 
 $queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-170'") or die("data salah: " . mysqli_error($mysqli));
 
