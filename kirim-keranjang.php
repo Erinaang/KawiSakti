@@ -27,7 +27,7 @@ if (isset($_GET['submit'])) {
         $total = $jumlahSet * $harga;
     }
 
-    $queryAddKeranjang = mysqli_query($mysqli, "INSERT INTO keranjang SET id_penyewa='$idUser', id_paket='$idPaket', tanggal='$tanggal', status='cart', total='$total'") or die("data salah: " . mysqli_error($mysqli));
+    $queryAddKeranjang = mysqli_query($mysqli, "INSERT INTO keranjang SET id_penyewa='$idUser', id_paket='$idPaket', jam_pemesanan = '$tanggal', status='cart', total='$total'") or die("data salah: " . mysqli_error($mysqli));
 
     if ($queryAddKeranjang) {
         header("Location: profilBar.php");

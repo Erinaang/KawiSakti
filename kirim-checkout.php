@@ -10,8 +10,8 @@ include "koneksi/koneksi.php";
 $idUser = $_GET['id_user'];
 $tanggal = $_GET['tanggal'];
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
-$time = date("Y-m-d H:i:s");
+$time = date("Y-m-d");
 
-$queryCheckout = mysqli_query($mysqli, "UPDATE keranjang SET jam_pemesanan='$time', status = 'checkout' WHERE id_penyewa='$idUser' AND tanggal='$tanggal' ") or die("data salah: " . mysqli_error($mysqli));
+$queryCheckout = mysqli_query($mysqli, "UPDATE keranjang SET status = 'checkout' WHERE id_penyewa='$idUser' AND jam_pemesanan='$tanggal' ") or die("data salah: " . mysqli_error($mysqli));
 
 header("Location: ProfilBar.php");

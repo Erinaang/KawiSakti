@@ -9,7 +9,7 @@ date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
 
 //DEFINE VARIABLE
-$jamPemesanan = $idKeranjang = $jaminanCheckout = $totalCheckout = $masaSewa = $total = $jumlahSet = $jaminan = $bayar = 0;
+$jamPemesanan = $idAdmin = $idKeranjang = $jaminanCheckout = $totalCheckout = $masaSewa = $total = $jumlahSet = $jaminan = $bayar = 0;
 $index = 1;
 $username = $_SESSION['username'];
 
@@ -34,7 +34,7 @@ while ($show = mysqli_fetch_array($queryMasaSewa)) {
 $queryCheckout = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT RIWAYAT
-$queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengiriman AS pg ON tr.id_pengiriman = pg.id_pengiriman WHERE id_penyewa='$idUser' AND status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
+$queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengiriman AS pg ON tr.id_pengiriman = pg.id_pengiriman WHERE id_penyewa='$idUser' AND status!='cart' AND status!='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -49,7 +49,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
     <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
     <!-- The above 3 meta tags code*must* come first in the head; any other head content must come *after* these tags -->
     <title>PT KAWI SAKTI MEGAH - Construction</title>
-
     <!-- Icon css link -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/materialdesignicons.min.css" rel="stylesheet">
@@ -360,7 +359,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                             <td><?php echo $show['masa_sewa']; ?> Hari</td>
                                                             <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
                                                             <td>Rp. <?php echo $show['total']; ?>,00</td>
-                                                            <td><a href="delete-keranjang.php?id_transaksi=<?php echo $show['id_keranjang']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
+                                                            <td><a href="delete-keranjang.php?id_keranjang=<?php echo $show['id_keranjang']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
@@ -371,7 +370,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                             </table>
                                         </div>
                                     </div>
-                                    <form action="upload.php?id_user=<?php echo $idUser; ?>&tanggal=<?php echo $time; ?>&id_transaksi=<?php echo $idKeranjang; ?>" method="POST" enctype="multipart/form-data">
+                                    <form action="upload.php?id_user=<?php echo $idUser; ?>&jam_pesan=<?php echo $time; ?>&id_transaksi=<?php echo $idKeranjang; ?>" method="POST" enctype="multipart/form-data">
                                         <div class="col-md-6"> <br>
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1"> <b>Alamat</b></label>
@@ -386,6 +385,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                             <br> <br>
                                             <p> <b> Bukti Pembayaran : <input type="file" name="bukti_pembayaran" required /></b></p>
                                             <p> <b> Bukti KTP : <input type="file" name="bukti_ktp" required /> </b></p>
+                                            <p> <b> Tanggal Sewa : <input type="date" name="tanggal" required /> </b></p>
                                             <br>
                                             <input class="btn btn-primary" value="Kirim" type="submit" />
                                         </div>
@@ -402,7 +402,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                     <tr>
                                                         <b>
                                                             <th>No.</th>
-                                                            <th>Tanggal</th>
+                                                            <th>Tanggal Sewa</th>
                                                             <th>Total</th>
                                                             <th>Pengiriman</th>
                                                             <th>Status</th>
@@ -416,6 +416,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                         $status = $show['status'];
                                                         $idPengiriman = $show['id_pengiriman'];
                                                         $idRiwayat = $show['id_transaksi'];
+                                                        $idAdmin = $show['id_admin'];
                                                     ?>
                                                         <tr>
                                                             <b>
@@ -425,7 +426,10 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                                 <td><?php echo $show['nama'] ?></td>
                                                                 <td><?php echo $status; ?></td>
                                                                 <td>
-                                                                    <a href="<?php echo 'print.php?id_transaksi=' . $idRiwayat . '&id_penyewa=' . $idPenyewa . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $idPengiriman ?>" class="btn btn-info">Print</a>
+                                                                    <?php if ($idAdmin != 0) { ?>
+                                                                        <a href="<?php echo 'detail-barang.php?id_transaksi=' . $idRiwayat . '&id_penyewa=' . $idPenyewa . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $idPengiriman ?>" class="btn btn-info">Detail</a>
+
+                                                                    <?php } ?>
                                                                 </td>
                                                             </b></tr>
                                                     <?php } ?>
