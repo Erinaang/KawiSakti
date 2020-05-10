@@ -3,6 +3,14 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
 }
+include "connection/Connection.php";
+$username = $_SESSION['username'];
+$queryAdmin = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
+while ($show = mysqli_fetch_array($queryAdmin)) {
+  $idAdmin = $show['id_user'];
+}
+$UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' WHERE status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
+
 ?>
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">

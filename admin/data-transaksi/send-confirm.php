@@ -17,6 +17,9 @@ $id_penyewa = $_GET['id_penyewa'];
 $status = $_GET['status'];
 $id_pengiriman = $_GET['id_pengiriman'];
 
+/// SELECT data barang di email
+$UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' WHERE id_transaksi='$id_transaksi'") or die("data salah: " . mysqli_error($mysqli));
+
 
 /// SELECT data barang di email
 $tabelDiEmail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$id_penyewa' AND status='$status' AND tanggal='$tanggal'") or die("data salah: " . mysqli_error($mysqli));
