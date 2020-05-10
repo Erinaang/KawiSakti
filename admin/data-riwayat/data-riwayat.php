@@ -106,7 +106,7 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                             <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengembalian" href=""><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                            <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
@@ -253,7 +253,17 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                                             <td>Rp. <?php echo $show['total']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>
                                             <td><?php echo $tgl; ?></td>
-                                            <td><?php echo $show['tgl_kembali']; ?></td>
+                                            <td><?php 
+                                            // $tanggalSekarang=date(“Y-m-d”);
+                                            // $newTanggalSekarang=strtotime($tanggalSekarang);
+                                            
+                                            // $jumlahHari=7;
+                                            // $NewjumlahHari=86400*$jumlahHari;
+                                            
+                                            // $hasilJumlah = $newTanggalSekarang + $NewjumlahHari;
+                                            // $tampilHasil=date(“Y-m-d”,$hasilJumlah);
+
+                                            echo $tampilHasil; ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "Dikirim") {
