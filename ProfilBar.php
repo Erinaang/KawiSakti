@@ -26,7 +26,10 @@ while ($show = mysqli_fetch_array($queryIdUser)) {
 
 //SELECT KERANJANG => ambil data apa aja yang ada di keranjang berdasarkan status ='cart'
 $queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='cart'") or die("data salah: " . mysqli_error($mysqli));
-while ($showMasaSewa = mysqli_fetch_array($queryKeranjang)) {
+
+//select masa sewa
+$queryMasaSewa = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idUser' AND status='cart'") or die("data salah: " . mysqli_error($mysqli));
+while ($showMasaSewa = mysqli_fetch_array($queryMasaSewa)) {
     $masaSewa = $showMasaSewa['masa_sewa'];
 }
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
@@ -425,7 +428,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                                 <td><?php echo $show['nama'] ?></td>
                                                                 <td><?php echo $status; ?></td>
                                                                 <td>
-                                                                    <?php if ($idAdmin != 0) { ?>
+                                                                    <?php if ($status != 'Terkirim') { ?>
                                                                         <a href="<?php echo 'detail-barang.php?id_transaksi=' . $idRiwayat . '&id_penyewa=' . $idPenyewa . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $idPengiriman ?>" class="btn btn-info">Detail</a>
 
                                                                     <?php } ?>
