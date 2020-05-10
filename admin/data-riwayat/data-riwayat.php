@@ -256,7 +256,7 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                                             <td><?php 
                                             // $tanggalSekarang=date(“Y-m-d”);
                                             // $newTanggalSekarang=strtotime($tanggalSekarang);
-                                            
+                                             
                                             // $jumlahHari=7;
                                             // $NewjumlahHari=86400*$jumlahHari;
                                             
