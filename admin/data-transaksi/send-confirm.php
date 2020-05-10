@@ -36,7 +36,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
   $tglKembali = $show['tgl_kembali'];
   $namaPenyewa = $show['penyewa'];
   $namaAdmin = $show['admin'];
-  $email = $show['email_user']
+  $email = $show['email_user'];
 }
 
 
@@ -106,7 +106,6 @@ $mail->Body         .= '<tr>
   </tr>
 </tbody>
 </table>';
-// $mail->AddAttachment("/cpanel.png","filesaya");
 if ($mail->Send()) {
 
   //update status keranjang dan transaksi menjadi "dikirim"

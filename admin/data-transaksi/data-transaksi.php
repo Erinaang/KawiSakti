@@ -11,10 +11,6 @@ include "../connection/Connection.php";
 $transaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, tr.*, pr.* FROM transaksi as tr JOIN user as pny on tr.id_penyewa=pny.id_user join pengiriman as pr on tr.id_pengiriman = pr.id_pengiriman WHERE tr.status='Terkirim' OR tr.status='Dikirim'") or die("data salah: " . mysqli_error($mysqli));
 $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
 
-// $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
-
-// $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
-
 ?>
 
 <!DOCTYPE HTML>
@@ -87,88 +83,6 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
         ============================================ -->
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
 
-    <script>
-        /* Style the Image Used to Trigger the Modal */
-#myImg {
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#myImg:hover {opacity: 0.7;}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 400px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 10%; /* Full width */
-  height: 10%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
-
-/* Modal Content (Image) */
-.modal-content {
-  margin: auto;
-  display: block;
-  width: 20%;
-  max-width: 300px;
-}
-
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
-  margin: auto;
-  display: block;
-  width: 20%;
-  max-width: 300px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
-
-/* Add Animation - Zoom in the Modal */
-.modal-content, #caption {
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-  from {transform:scale(0)}
-  to {transform:scale(1)}
-}
-
-/* The Close Button */
-.close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 300px){
-  .modal-content {
-    width: 20%;
-  }
-}
-    </script>
-   
 </head>
 
 <body>
@@ -331,8 +245,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                         <th>Total</th>
                                         <th>Jenis Pengiriman </th>
                                         <th>Jaminan</th>
-                                        <th>Bukti Pembayaran</th>
-                                        <th>Bukti KTP</th>
+                                        <th>Bukti Pembayaran & KTP</th>
                                         <th>Alamat</th>
                                         <th>Kota</th>
                                         <th>Tanggal Sewa</th>
@@ -344,16 +257,14 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) {
                                         $status = $show['status'];
-                                        $tgl = $show['tgl_sewa']; ?>
+                                        $tgl = $show['tgl_sewa']; 
+                                        $idTransaksi = $show['id_transaksi'];?>
                                         <tr>
                                             <td><?php echo $show['penyewa']; ?></td>
                                             <td><?php echo $show['total']; ?></td>
                                             <td><?php echo $show['nama']; ?></td>
                                             <td><?php echo $show['jaminan']; ?></td>
-                                            <td><?php echo $show['bukti_pembayaran']; ?></td>
-                                            <td>
-                                                <img id="myImg" src="../../img/Uploads/ktp/<?php echo $show["bukti_ktp"]; ?>" alt="Snow" style="width:100%;max-width:300px">
-                                            </td>
+                                            <td><a class="btn btn-primary" href="bukti.php?id_transaksi=<?php echo $idTransaksi; ?>">Lihat Bukti Transaksi</a></td>
                                             <td><?php echo $show['alamat']; ?></td>
                                             <td><?php echo $show['kota']; ?></td>
                                             <td><?php echo $tgl; ?></td>
@@ -361,12 +272,12 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "Terkirim") {
-                                                    echo '<a href="send-confirm.php?id_transaksi=' . $show['id_transaksi'] . '&id_penyewa=' . $show['id_penyewa'] . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                    echo '<a href="send-confirm.php?id_transaksi=' . $idTransaksi . '&id_penyewa=' . $show['id_penyewa'] . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {
-                                                    echo '<a href="../../print.php?id_transaksi=' . $show['id_transaksi'] . '&id_penyewa=' . $show['id_penyewa'] . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
+                                                    echo '<a href="../../print.php?id_transaksi=' . $idTransaksi . '&id_penyewa=' . $show['id_penyewa'] . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
                                                 }
                                                 ?>
-                                                <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                                <a href="hapus-transaksi.php?id_transaksi=<?php echo $idTransaksi; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
 
                                         </tr>
