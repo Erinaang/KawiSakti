@@ -256,12 +256,7 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                                             <td><?php echo $show['tgl_kembali']; ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
-                                                <?php if ($status === "Dikirim") {
-                                                    echo '<a href="send-kembali.php?id_transaksi=' . $show['id_transaksi'] . '&id_penyewa=' . $show['id_penyewa'] . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '" data-toggle="tooltip" title="Kembali" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kembali</i></a>';
-                                                }
-                                                ?>
-
-                                                <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                                <a href="hapus-riwayat.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
