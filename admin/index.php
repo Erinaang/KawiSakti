@@ -17,7 +17,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT. Kawi Sakti Megah </title>
+    <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -110,7 +110,9 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
                             <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-
+                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                        </li>
+                        <li>
                             <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
@@ -208,8 +210,8 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT KAWI SAKTI MEGAH :) </h2>
-                                                <p>Welcome to PT Kawi Sakti Megah </span></p>
+                                                <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
+                                                <p>Welcome to PT. Kawi Sakti Megah </span></p>
                                             </div>
                                         </div>
                                     </div>
