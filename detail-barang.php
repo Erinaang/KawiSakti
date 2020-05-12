@@ -35,6 +35,10 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
 //QUERY TABEL DETAIL 
 $queryDetail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='$idPenyewa' AND kr.status='$status'  AND kr.tanggal='$tglSewa'") or die("data salah: " . mysqli_error($mysqli));
 
+//SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
+$queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengiriman AS pg ON tr.id_pengiriman = pg.id_pengiriman WHERE id_penyewa='$idUser' AND status!='cart' AND status!='checkout'") or die("data salah: " . mysqli_error($mysqli));
+// while ($show = mysqli_fetch_array($queryRiwayat)) {
+//     $status = $show['status'];
 ?>
 
 <!DOCTYPE html>
@@ -96,6 +100,35 @@ $queryDetail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket A
         <div class="product-status mg-b-30">
             <div class="container-fluid" style="background-color: #FFB74D">
                 <div class="container">
+                <div class="col-md-8">
+                          <center>  <h3> Detail barang yang dipesan </h3> </center>
+                            <br>
+                            <b>
+                                <h4>
+                                            <?php 
+                                                    //menampilkan data dari SELECT RIWAYAT diatas
+                                                   
+                                                        $tgl = $show['tgl_sewa'];    
+                                              ?>                       
+                                            <?php echo $tgl; ?>     
+                                             <?php  ?>      
+                                     <h4>  <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo $tglSewa; ?>  </b> </h4>
+
+                                             
+                                </h4>
+                            </b>
+                            <?php 
+                                                    //menampilkan data dari SELECT RIWAYAT diatas
+                                                    while ($show = mysqli_fetch_array($queryRiwayat)) {
+                                                        $status = $show['status'];     
+                                              ?>                       
+                                             <?php echo $status; ?>        
+                                             <?php } ?>      
+                                             
+                                     <h4>  <b> Status Pengiriman &emsp;&emsp;&emsp;&emsp; : <?php echo $status; ?>  </b> </h4>
+
+                                             
+                                <br>
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-condensed">
@@ -141,6 +174,9 @@ $queryDetail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket A
                                     </tr>
                                 </tbody>
                             </table>
+                            </div>
+                              <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b>
+                            </div>
                         </div>
                     </div>
                 </div>
