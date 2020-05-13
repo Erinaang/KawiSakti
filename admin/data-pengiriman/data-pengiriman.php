@@ -146,8 +146,6 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                 <div class="row">
                                     <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
                                         <div class="menu-switcher-pro">
-
-
                                             <button type="button" id="sidebarCollapse" class='fa fa-exchange' style='font-size:36px; color:#000; padding-top: 10px' onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'"><span class="tooltiptext"></span></button>
                                         </div>
                                     </div>
@@ -163,7 +161,6 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                         <div class="header-right-info">
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
-
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
@@ -177,7 +174,6 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                                         </li>
                                                     </ul>
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </div>
@@ -238,7 +234,15 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="tambah-pengiriman.php">Tambah Data</a>
+                        </div>
+                        <div class="col-md-10">
+                            <h3>Data Pengiriman</h3>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                             <table class="table table-bordered">
                                 <thead>

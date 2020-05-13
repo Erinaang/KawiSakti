@@ -4,22 +4,15 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
 include "../connection/Connection.php";
-//GET IDUSER
-// $username = $_SESSION['username'];
-//SELECT DATA
-$id_pengiriman = $_GET['id_pengiriman'];
-$query = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman = '$id_pengiriman'") or die("data salah: " . mysqli_error($mysqli));
 
 if (isset($_POST['submit'])) {
     $nama = $_POST['nama'];
     $biaya = $_POST['biaya'];
     $max = $_POST['max'];
 
-    $query = mysqli_query($mysqli, "UPDATE pengiriman SET nama='$nama', biaya='$biaya', max='$max' WHERE id_pengiriman='$id_pengiriman'") or die("data salah: " . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "INSERT INTO pengiriman SET nama='$nama', biaya='$biaya', max='$max'") or die("data salah: " . mysqli_error($mysqli));
 
-    if ($query) {
-        echo "<script>alert('Data Telah diperbaharui.');location.href='data-pengiriman.php'</script>";
-    }
+    echo "<script>alert('Data Telah ditambahkan.');location.href='data-pengiriman.php'</script>";
 }
 
 ?>
@@ -256,44 +249,43 @@ if (isset($_POST['submit'])) {
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="review-tab-pro-inner">
                                 <ul id="myTab3" class="tab-review-design">
-                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Edit Pengiriman</a></li>
+                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Tambah Pengiriman</a></li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
                                     <form action="" method="post">
-                                        <?php while ($show = mysqli_fetch_array($query)) { ?>
-                                            <div class="product-tab-list tab-pane fade active in" id="edit">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="review-content-section">
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Nama :</i></span>
-                                                                <input name="nama" type="text" class="form-control" value="<?php echo $show['nama']; ?>">
-                                                            </div>
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Biaya :</i></span>
-                                                                <input name="biaya" type="text" class="form-control" value="<?php echo $show['biaya']; ?>">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="product-tab-list tab-pane fade active in" id="edit">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="review-content-section">
                                                         <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Max :</i></span>
-                                                            <input name="max" type="text" class="form-control" value="<?php echo $show['max']; ?>">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Nama :</i></span>
+                                                            <input name="nama" type="text" class="form-control" placeholder="Nama">
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Biaya :</i></span>
+                                                            <input name="biaya" type="text" class="form-control" placeholder="Biaya">
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php } ?>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Max :</i></span>
+                                                            <input name="max" type="text" class="form-control" placeholder="Max">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
                                                         <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
                                                         <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Save">
-                                                        <a href="data-barang.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                        <a href="data-pengiriman.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
