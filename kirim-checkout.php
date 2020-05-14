@@ -12,8 +12,8 @@ $jamPesan = $_GET['tanggal']; //ambil jam_pesan dari URL
 
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
-$time = date("Y-m-d");
+$time = date("Y-m-d H:i:s");
 
-$queryCheckout = mysqli_query($mysqli, "UPDATE keranjang SET status = 'checkout' WHERE id_penyewa='$idUser' AND jam_pemesanan='$jamPesan' ") or die("data salah: " . mysqli_error($mysqli));
+$queryCheckout = mysqli_query($mysqli, "UPDATE keranjang SET status = 'checkout', jam_pemesanan='$time' WHERE id_penyewa='$idUser' AND jam_pemesanan='$jamPesan' ") or die("data salah: " . mysqli_error($mysqli));
 
 header("Location: profilBar.php"); //go to page profilbar
