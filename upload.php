@@ -8,7 +8,7 @@ if (isset($_FILES['bukti_pembayaran'])) {
    $errors = array();
    $file_name_bukti = $_FILES['bukti_pembayaran']['name']; //ambil nama dari file yang diupload
    $file_size = $_FILES['bukti_pembayaran']['size']; //ambil ukuran dari file yang diupload
-   $file_tmp = $_FILES['bukti_pembayaran']['tmp_name']; 
+   $file_tmp = $_FILES['bukti_pembayaran']['tmp_name'];
    $file_type = $_FILES['bukti_pembayaran']['type']; //ambil tipe dari file yang diupload
    $file_ext = strtolower(end(explode('.', $_FILES['bukti_pembayaran']['name'])));
 
@@ -34,8 +34,8 @@ if (isset($_FILES['bukti_ktp'])) {
    $idUser = $_GET['id_user']; //ambil id user dari URL
    $jamPesan = $_GET['jam_pesan']; //ambil jam pesan dari URL
    $tanggal = $_POST['tanggal']; // dari form checkout
-   $alamat = $_POST['alamat'];// dari form checkout
-   $kota = $_POST['kota'];// dari form checkout
+   $alamat = $_POST['alamat']; // dari form checkout
+   $kota = $_POST['kota']; // dari form checkout
    $file_name = $_FILES['bukti_ktp']['name'];
    $file_size = $_FILES['bukti_ktp']['size'];
    $file_tmp = $_FILES['bukti_ktp']['tmp_name'];
@@ -67,8 +67,8 @@ if (isset($_FILES['bukti_ktp'])) {
 
       //menghitung tanggal kembali berdasarkan tanggal sewa + masa sewa
       $tgl_kembali = date('Y-m-d', strtotime('+' . $masaSewa . ' days', strtotime(str_replace('/', '-', $tanggal)))) . PHP_EOL;
-      
-      
+
+
       if ($jumlahSet < 150) { //kalo jumlahnya kurang dari 150 
          $idPengiriman = 1; //pickup
          $total = $total + 500000;
@@ -82,13 +82,13 @@ if (isset($_FILES['bukti_ktp'])) {
       date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
       $time = date("Y-m-d H:i:s");
 
-//masukin data ke transaksi
+      //masukin data ke transaksi
       $queryInsert = mysqli_query($mysqli, "INSERT INTO transaksi SET id_penyewa='$idUser', total='$total', jaminan='$jaminan', 
       id_pengiriman='$idPengiriman', status='Terkirim', bukti_pembayaran='$file_name_bukti', 
-      bukti_ktp='$file_name', alamat='$alamat', kota='$kota', tgl_sewa='$tanggal', 
+      bukti_ktp='$file_name', alamat='$alamat', kota='$kota', jam_pemesanan='$time', tgl_sewa='$tanggal', 
       tgl_kembali='$tgl_kembali'") or die("data salah: " . mysqli_error($mysqli));
 
-//update keranjang biar sesuai sama transaksi
+      //update keranjang biar sesuai sama transaksi
       $queryRiwayat = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Terkirim' , tanggal='$tanggal', jam_pemesanan='$time' WHERE `jam_pemesanan`='$jamPesan' and id_penyewa='$idUser' and status='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 

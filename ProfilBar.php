@@ -353,7 +353,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                         $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
                                                     ?>
                                                         <tr>
-                                                            <td><?php echo $idKeranjang; ?></td>
+                                                            <td><?php echo $jamPemesanan; ?></td>
                                                             <td><?php echo $show['masa_sewa']; ?> Hari</td>
                                                             <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
                                                             <td>Rp. <?php echo $show['total']; ?>,00</td>
@@ -367,7 +367,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                             </table>
                                         </div>
                                     </div>
-                                    <form action="upload.php?id_user=<?php echo $idUser; ?>&jam_pesan=<?php echo $time; ?>&id_transaksi=<?php echo $idKeranjang; ?>" method="POST" enctype="multipart/form-data">
+                                    <form action="upload.php?id_user=<?php echo $idUser; ?>&jam_pesan=<?php echo  $jamPemesanan; ?>&id_transaksi=<?php echo $idKeranjang; ?>" method="POST" enctype="multipart/form-data">
                                         <div class="col-md-6"> <br>
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1"> <b>Alamat</b></label>

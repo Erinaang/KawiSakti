@@ -15,7 +15,7 @@ while ($show = mysqli_fetch_array($queryAdmin)) {
 
 //ambil dari URL
 $id_transaksi = $_GET['id_transaksi'];
-$tanggal = $_GET['tanggal'];
+$jam_pesan = $_GET['jam_pesan'];
 $id_penyewa = $_GET['id_penyewa'];
 $status = $_GET['status'];
 $id_pengiriman = $_GET['id_pengiriman'];
@@ -25,7 +25,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
 
 
 /// SELECT data barang di email
-$tabelDiEmail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$id_penyewa' AND status='$status' AND tanggal='$tanggal'") or die("data salah: " . mysqli_error($mysqli));
+$tabelDiEmail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$id_penyewa' AND status='$status' AND jam_pemesanan='$jam_pesan'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT PENGIRIMAN => buat ambil ongkir
 $queryPengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman='$id_pengiriman'") or die("data salah: " . mysqli_error($mysqli));
@@ -116,7 +116,7 @@ if ($mail->Send()) {
 
   //update status keranjang dan transaksi menjadi "dikirim"
   $queryConfirm = mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin', status='Dikirim' WHERE id_transaksi='$id_transaksi'") or die("data salah: " . mysqli_error($mysqli));
-  $queryUpdateKeranjang = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Dikirim' WHERE `tanggal`='$tanggal' and id_penyewa='$id_penyewa' and status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
+  $queryUpdateKeranjang = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Dikirim' WHERE `jam_pemesanan`='$jam_pesan' and id_penyewa='$id_penyewa' and status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
 
 
   if ($queryConfirm) {

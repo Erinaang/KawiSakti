@@ -4,7 +4,7 @@ include "koneksi/koneksi.php"; // ambil koneksi;
 $index = 1;
 $jaminan=$total = 0;
 $idPenyewa = $_GET['id_penyewa'];
-$tanggal = $_GET['tanggal'];
+$jam_pesan = $_GET['jam_pesan'];
 $status = $_GET['status'];
 $idPengiriman = $_GET['id_pengiriman'];
 $idTransaksi = $_GET['id_transaksi'];
@@ -12,7 +12,7 @@ $idTransaksi = $_GET['id_transaksi'];
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $date = date("Y-m-d");
 
-$queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND tanggal='$tanggal'") or die("data salah: " . mysqli_error($mysqli));
+$queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND jam_pemesanan='$jam_pesan'") or die("data salah: " . mysqli_error($mysqli));
 
 $queryPengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman='$idPengiriman'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryPengiriman)) {
