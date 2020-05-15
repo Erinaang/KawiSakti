@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION["username"])) {
+    header("Location: ../index.php");
+}
 include "../connection/Connection.php";
 
 $username = $_SESSION['username'];

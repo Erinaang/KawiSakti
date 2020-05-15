@@ -1,8 +1,8 @@
 <?php
 session_start();
-// if (!isset($_SESSION["username"])) {
-//     header("Location: ../Login.php");
-// }
+if (!isset($_SESSION["username"])) {
+    header("Location: ../index.php");
+}
 include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];

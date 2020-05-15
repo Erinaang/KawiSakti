@@ -1,8 +1,8 @@
 <?php
 session_start();
-// if (!isset($_SESSION["username"])) {
-//     header("Location: ../Login.php");
-// }
+if (!isset($_SESSION["username"])) {
+    header("Location: ../index.php");
+}
 include "../connection/Connection.php";
 $idTransaksi = $_GET['id_transaksi'];
 $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$idTransaksi'") or die("data salah: " . mysqli_error($mysqli));

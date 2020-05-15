@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION["username"])) {
+    header("Location: ../index.php");
+}
 include "../connection/Connection.php";
 
 //ambil id dan nama admin berdasarkan USERNAME (yang lagi login)
