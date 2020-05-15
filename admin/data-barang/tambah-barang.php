@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $jumlah_set = $_POST['jumlah_set'];
     $harga = $_POST['harga'];
 
-    $query = mysqli_query($mysqli, "INSERT INTO paket SET frame='$frame', masa_sewa='$masa_sewa', jumlah_set='$jumlah_set', harga='$harga'") or die("data salah: " . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "INSERT INTO `paket`(`masa_sewa`, `jumlah_set`, `frame`, `harga`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
 
     echo "<script>alert('Data Telah ditambahkan.');location.href='data-barang.php'</script>";
 }
@@ -112,7 +112,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
-                <ul class="metismenu" id="menu1">
+                    <ul class="metismenu" id="menu1">
                         <li>
                             <a title="Data Barang" href="data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
@@ -248,7 +248,6 @@ if (isset($_POST['submit'])) {
 
         <!-- Form Tambah Data -->
 
-
         <div class="single-product-tab-area mg-b-30">
             <!-- Single pro tab review Start-->
             <div class="single-pro-review-area">
@@ -260,41 +259,38 @@ if (isset($_POST['submit'])) {
                                     <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i>Tambah Barang</a></li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
-                                    <form action="" method="post">
-
+                                    <form action="" method="POST">
                                         <div class="product-tab-list tab-pane fade active in" id="edit">
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <div class="review-content-section">
-
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
-                                                            <input name="frame" type="text" class="form-control">
+                                                            <!-- <input name="frame" type="text" class="form-control"> -->
+                                                            <select name="frame" class="form-control pro-edt-select form-control-primary">
+                                                                <option disabled selected>Frame</option>
+                                                                <option value="MF-170">Main Frame - 170</option>
+                                                                <option value="MF-190">Main Frame - 190</option>
+                                                                <option value="LF-90">Leader Frame - 90</option>
+                                                            </select>
                                                         </div>
-
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>
-                                                            <input name="masa_sewa" type="text" class="form-control">
+                                                            <input name="masa_sewa" type="number" class="form-control">
                                                         </div>
-
                                                     </div>
                                                 </div>
-
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jumlah Set :</i></span>
-                                                        <input name="jumlah_set" type="text" class="form-control">
+                                                        <input name="jumlah_set" type="number" class="form-control">
                                                     </div>
-
                                                     <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"> Harga :</i></span>
-                                                        <input name="harga" type="text" class="form-control">
+                                                        <span class="input-group-addon">Rp. | Harga :</span>
+                                                        <input name="harga" type="number" class="form-control">
                                                     </div>
-
                                                 </div>
                                             </div>
-
-
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
@@ -303,16 +299,16 @@ if (isset($_POST['submit'])) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--    </div>
+                                        </div>
                                     </form>
-                                </div> -->
-
-                                            <!-- </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> -->
-                                            <!-- <div class="footer-copyright-area">
+        </div>
+        <div class="footer-copyright-area">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -322,59 +318,59 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
-                                            <script src="../js/vendor/jquery-1.12.4.min.js"></script>
-                                            <!-- bootstrap JS
+        <script src="../js/vendor/jquery-1.12.4.min.js"></script>
+        <!-- bootstrap JS
         ============================================ -->
-                                            <script src="../js/bootstrap.min.js"></script>
-                                            <!-- wow JS
+        <script src="../js/bootstrap.min.js"></script>
+        <!-- wow JS
         ============================================ -->
-                                            <script src="../js/wow.min.js"></script>
-                                            <!-- price-slider JS
+        <script src="../js/wow.min.js"></script>
+        <!-- price-slider JS
         ============================================ -->
-                                            <script src="../js/jquery-price-slider.js"></script>
-                                            <!-- meanmenu JS
+        <script src="../js/jquery-price-slider.js"></script>
+        <!-- meanmenu JS
         ============================================ -->
-                                            <script src="../js/jquery.meanmenu.js"></script>
-                                            <!-- owl.carousel JS
+        <script src="../js/jquery.meanmenu.js"></script>
+        <!-- owl.carousel JS
         ============================================ -->
-                                            <script src="../js/owl.carousel.min.js"></script>
-                                            <!-- sticky JS
+        <script src="../js/owl.carousel.min.js"></script>
+        <!-- sticky JS
         ============================================ -->
-                                            <script src="../js/jquery.sticky.js"></script>
-                                            <!-- scrollUp JS
+        <script src="../js/jquery.sticky.js"></script>
+        <!-- scrollUp JS
         ============================================ -->
-                                            <script src="../js/jquery.scrollUp.min.js"></script>
-                                            <!-- mCustomScrollbar JS
+        <script src="../js/jquery.scrollUp.min.js"></script>
+        <!-- mCustomScrollbar JS
         ============================================ -->
-                                            <script src="../js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-                                            <script src="../js/scrollbar/mCustomScrollbar-active.js"></script>
-                                            <!-- metisMenu JS
+        <script src="../js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../js/scrollbar/mCustomScrollbar-active.js"></script>
+        <!-- metisMenu JS
         ============================================ -->
-                                            <script src="../js/metisMenu/metisMenu.min.js"></script>
-                                            <script src="../js/metisMenu/metisMenu-active.js"></script>
-                                            <!-- sparkline JS
+        <script src="../js/metisMenu/metisMenu.min.js"></script>
+        <script src="../js/metisMenu/metisMenu-active.js"></script>
+        <!-- sparkline JS
         ============================================ -->
-                                            <script src="../js/sparkline/jquery.sparkline.min.js"></script>
-                                            <script src="../js/sparkline/jquery.charts-sparkline.js"></script>
-                                            <!-- calendar JS
+        <script src="../js/sparkline/jquery.sparkline.min.js"></script>
+        <script src="../js/sparkline/jquery.charts-sparkline.js"></script>
+        <!-- calendar JS
         ============================================ -->
-                                            <script src="../js/calendar/moment.min.js"></script>
-                                            <script src="../js/calendar/fullcalendar.min.js"></script>
-                                            <script src="../js/calendar/fullcalendar-active.js"></script>
-                                            <!-- float JS
+        <script src="../js/calendar/moment.min.js"></script>
+        <script src="../js/calendar/fullcalendar.min.js"></script>
+        <script src="../js/calendar/fullcalendar-active.js"></script>
+        <!-- float JS
         ============================================ -->
-                                            <script src="../js/flot/jquery.flot.js"></script>
-                                            <script src="../js/flot/jquery.flot.resize.js"></script>
-                                            <script src="../js/flot/curvedLines.js"></script>
-                                            <script src="../js/flot/flot-active.js"></script>
-                                            <!-- plugins JS
+        <script src="../js/flot/jquery.flot.js"></script>
+        <script src="../js/flot/jquery.flot.resize.js"></script>
+        <script src="../js/flot/curvedLines.js"></script>
+        <script src="../js/flot/flot-active.js"></script>
+        <!-- plugins JS
         ============================================ -->
-                                            <script src="../js/plugins.js"></script>
-                                            <!-- main JS
+        <script src="../js/plugins.js"></script>
+        <!-- main JS
         ============================================ -->
-                                            <script src="../js/main.js"></script>
+        <script src="../js/main.js"></script>
 
 
 </body>
