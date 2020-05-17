@@ -2,7 +2,7 @@
 session_start();
 
 include "koneksi/koneksi.php"; // ambil koneksi;
-$jumlahSet = $idPengiriman = 0; // definisi awal variabel
+$jumlahSet = $total = $idPengiriman = 0; // definisi awal variabel
 
 if (isset($_FILES['bukti_pembayaran'])) {
    $errors = array();
@@ -56,14 +56,14 @@ if (isset($_FILES['bukti_ktp'])) {
       move_uploaded_file($file_tmp, "img/Uploads/ktp/" . $file_name); //masukin ke folder
 
       //SELECT KERANJANG buat dimasukin ke tabel transaksi
-      $selectKeranjang = mysqli_query($mysqli, "SELECT *, sum(jumlah_set) as jml FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa = '$idUser' AND jam_pemesanan='$jamPesan' AND status='checkout'") or die("data salah: " . mysqli_error($mysqli));
+      $selectKeranjang = mysqli_query($mysqli, "SELECT *, sum(jumlah_set) as jml, sum(total) as totalharga FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa = '$idUser' AND jam_pemesanan='$jamPesan' AND status='checkout'") or die("data salah: " . mysqli_error($mysqli));
       while ($show = mysqli_fetch_array($selectKeranjang)) {
-         $jumlahSet = $show['jml'];
+         $jumlahSet = $jumlahSet + $show['jml'];
          $masaSewa = $show['masa_sewa'];
-         $total = $total + $show['total'];
-         $jaminan = $total * (30 / 100); // kalkulasi jaminan
-         $total = $total + $jaminan;
+         $total = $show['totalharga'];
       }
+      $jaminan = $total * 30 / 100; // kalkulasi jaminan
+      $total = $total + $jaminan;
 
       //menghitung tanggal kembali berdasarkan tanggal sewa + masa sewa
       $tgl_kembali = date('Y-m-d', strtotime('+' . $masaSewa . ' days', strtotime(str_replace('/', '-', $tanggal)))) . PHP_EOL;

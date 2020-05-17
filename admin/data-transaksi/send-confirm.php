@@ -4,7 +4,8 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
 include "../connection/Connection.php";
-
+$index =1;
+$total = 0;
 //ambil id dan nama admin berdasarkan USERNAME (yang lagi login)
 $username = $_SESSION['username'];
 $queryAdmin = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
@@ -128,6 +129,6 @@ if ($mail->Send()) {
     ';
   }
 } else {
-  echo error_reporting(E_ALL);
+  // echo "error:". error_reporting(E_ALL);
 }
 /// end kirim email
