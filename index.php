@@ -352,7 +352,7 @@ include 'koneksi/koneksi.php';
                 <div class="right_service_text">
                     <div class="main_b_title">
                         <h2>Lingkup <br class="title_br" /> Jasa</h2>
-                        <h6>PT Kawi Sakti mandiri</h6>
+                        <h6>PT Kawi Sakti Mandiri</h6>
                     </div>
                     <p>Perusahaan Jasa dibidang konstruksi melayani Rental Scaffolding, Perancah, Steger yang mengutamakan kualitas. Dengan struktur yang kokoh dengan bahan Scaffolding Galvanish serta memperhitungkan standar keselamatan sehingga aman pada saat digunakan</p>
                     <p>Kami Melayani instansi ataupun pribadi mulai dari perencanaan bangunan hingga tahap finishing . karena keinginan dari setiap clien berbeda maka kami siap dengan berbagai macam solusi terbaik bagi clien kami</p>
@@ -475,91 +475,14 @@ include 'koneksi/koneksi.php';
                         <h6>Mari Mencapai Perubahan yang cemerlang</h6>
                     </div>
                     <p>Perusahaan yang sudah berdiri lebih dari dua puluh tahun . kami bekerja dengan Etos Kerja dan Komitmen Tinggi dan Kami pelopor awal perentalan Scaffolding yang terpercaya Di Malang Raya</p>
-                    <a class="get_bg_btn" href="profileBar.php">Lihat Profile</a>
+                    <a class="get_bg_btn" href="AboutUs.php">Lihat Profile</a>
                 </div>
             </div>
         </section>
         <!--================End Work Area =================-->
         
         <!--================Our Team Area =================-->
-       <!--  <section class="our_team_area">
-            <div class="container">
-                <div class="main_b_r_title">
-                    <h2>our <br class="title_br" />team</h2>
-                    <h6>We Are Awesome & Skilled</h6>
-                </div>
-                <div class="team_slider owl-carousel">
-                    <div class="item">
-                        <div class="team_item">
-                            <div class="team_image">
-                                <img src="img/team/team-1.jpg" alt="">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="member_name">
-                                <a href="#"><h4>A. R. Khan</h4></a>
-                                <h5>Civil Engenear</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team_item">
-                            <div class="team_image">
-                                <img src="img/team/team-3.jpg" alt="">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="member_name">
-                                <a href="#"><h4>Sharmin sarkar</h4></a>
-                                <h5>Civil Engenear</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team_item">
-                            <div class="team_image">
-                                <img src="img/team/team-1.jpg" alt="">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="member_name">
-                                <a href="#"><h4>rashIdul islam</h4></a>
-                                <h5>Civil Engenear</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team_item">
-                            <div class="team_image">
-                                <img src="img/team/team-3.jpg" alt="">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="member_name">
-                                <a href="#"><h4>A. R. Khan</h4></a>
-                                <h5>Civil Engenear</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
+      
         <!--================End Our Team Area =================-->
         
         <!--================Counter Area =================-->

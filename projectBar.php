@@ -103,10 +103,10 @@ include 'koneksi/koneksi.php';
         <section class="banner_area">
             <div class="container">
                 <div class="banner_inner_text">
-                    <h4>Project full width</h4>
+                    <h4>Welcome to Types Of Scaffold</h4>
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li class="active"><a href="#">Project full width 2 colum</a></li>
+                        <li class="active"><a href="#">PT Kawi Sakti Mandiri</a></li>
                     </ul>
                 </div>
             </div>
@@ -117,8 +117,8 @@ include 'koneksi/koneksi.php';
         <section class="our_project2_area project_grid_three">
            <div class="container">
                <div class="main_c_b_title">
-                    <h2>Our<br class="title_br">Projects</h2>
-                    <h6>Great & Awesome Works</h6>
+                    <h2><br class="title_br">Scaffolding</h2>
+                    <h6>Many Types Of Scaffolding</h6>
                 </div>
                 <ul class="our_project_filter">
                                 <li class="active" data-filter="*"><a href="#">All</a></li>
@@ -265,10 +265,10 @@ include 'koneksi/koneksi.php';
         <section class="get_quote_area yellow_get_quote">
             <div class="container">
                 <div class="pull-left">
-                    <h4>Looking for a quality and affordable constructor for your next project?</h4>
+                    <h4>Tertarik Untuk Menyewa? </h4>
                 </div>
                 <div class="pull-right">
-                    <a class="get_btn_black" href="#">GET A QUOTE</a>
+                    <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
                 </div>
             </div>
         </section>

@@ -12,7 +12,7 @@ include 'koneksi/koneksi.php';
         
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Construction - WeBuilder Template</title>
+        <title>PT KAWI SAKTI MANDIRI - Build and Construction</title>
 
         <!-- Icon css link -->
         <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -218,22 +218,24 @@ include 'koneksi/koneksi.php';
                     <div class="col-md-4 col-sm-6">
                         <div class="f_content_item">
                             <i class="fa fa-ge" aria-hidden="true"></i>
-                            <a href="#"><h4>innovative</h4></a>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.</p>
-                        </div>
+                            <b><a href="#"><h4>inovatif</h4></a>
+                            <p>Perusahaan Kawi Sakti Megah dapat menjadi pilihan yang tepat untuk perancangan pembangunan 
+                                dengan design yang inovatif dan dapat dikonsulkan dengan Consultant</p>
+                            </b> </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
                         <div class="f_content_item">
                             <i class="fa fa-building" aria-hidden="true"></i>
-                            <a href="#"><h4>first building</h4></a>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.</p>
-                        </div>
+                            <b><a href="#"><h4>Project Building</h4></a>
+                            <p>Proyek Pembangunan di peruntuhkan untuk pembangunan gedung perkantor ,pertokoan , dan ruko . </p>
+                            </b></div>
                     </div>
                     <div class="col-md-4 col-sm-6">
                         <div class="f_content_item">
                             <i class="fa fa-money" aria-hidden="true"></i>
-                            <a href="#"><h4>save money</h4></a>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.</p>
+                            <b><a href="#"><b><h4>Save Money</h4></a></b>
+                            <p>Pembangunan proyek dapat dilakukan dengan menyesuaikan budget yang di konsulkan dengan 
+                                consultan pembangunan proyek sehingga dapat menentukan harga yang sesuai. </b></p>
                         </div>
                     </div>
                 </div>
@@ -247,9 +249,10 @@ include 'koneksi/koneksi.php';
                 <div class="row">
                     <div class="col-md-5">
                         <div class="b_companu_l_text">
-                            <h4>Sejarah Perusahaan</h4><br>
+                            <b><h4>Sejarah Perusahaan</h4><br>
                             <p>
-                            Bermula sejak tahun 1978, Kawi Sakti Megah adalah perusahaan Perentalan Scaffolding dan rancang bangun yang melayani jasa-jasa pembangunan. awalnya Kawi Sakti Megah Hanyalah sebuah perusahaan dengan nama Gunung Kawi Awning yang bergerak dalam bidang pengerjaan Awning dan Pagar <br> </p> <p> dengan modal pengalaman dan reputasi perusahaan yang selalu "Belajar" untuk maju, pada tahun 1998 kam mencoba mengembangkan sayap usaha dengan mendirikan Kawi Sakti Megah dengan harapan memenuhi tuntutan pasar yang lebih besar yaitu ikut berpartisipasi melayani masyarakat demi membangun masa depan </p>
+                            Bermula sejak tahun 1978, Kawi Sakti Megah adalah perusahaan Perentalan Scaffolding dan rancang bangun yang melayani jasa-jasa pembangunan. awalnya Kawi Sakti Megah Hanyalah sebuah perusahaan dengan nama Gunung Kawi Awning yang bergerak dalam bidang pengerjaan Awning dan Pagar <br> </p>
+                             <p> dengan modal pengalaman dan reputasi perusahaan yang selalu "Belajar" untuk maju, pada tahun 1998 kam mencoba mengembangkan sayap usaha dengan mendirikan Kawi Sakti Megah dengan harapan memenuhi tuntutan pasar yang lebih besar yaitu ikut berpartisipasi melayani masyarakat demi membangun masa depan </p></b>
                           <!--   <a class="slider_btn" href="#">read more</a> -->
                         </div>
                     </div>
@@ -365,32 +368,7 @@ include 'koneksi/koneksi.php';
         <!--================End Our Project2 Area =================-->
         
         <!--================Quoto Slider Area =================-->
-        <section class="quoto_slider_area">
-            <div class="container">
-                <div class="quoto_slider_inner">
-                    <div class="quoto_slider owl-carousel">
-                        <div class="item">
-                            <i class="fa fa-quote-left" aria-hidden="true"></i>
-                            <h4><span>weBuilder </span>theme one of the best for constraction website</h4>
-                            <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.</p>
-                            <h3>--  WeBuilder, CEO, WeBuilder</h3>
-                        </div>
-                        <div class="item">
-                            <i class="fa fa-quote-left" aria-hidden="true"></i>
-                            <h4><span>weBuilder </span>theme one of the best for constraction website</h4>
-                            <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.</p>
-                            <h3>--  WeBuilder, CEO, WeBuilder</h3>
-                        </div>
-                        <div class="item">
-                            <i class="fa fa-quote-left" aria-hidden="true"></i>
-                            <h4><span>weBuilder </span>theme one of the best for constraction website</h4>
-                            <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.</p>
-                            <h3>--  WeBuilder, CEO, WeBuilder</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         <!--================End Quoto Slider Area =================-->
         
         <!--================Our Team2 Area =================-->
@@ -398,103 +376,14 @@ include 'koneksi/koneksi.php';
         <!--================End Our Team2 Area =================-->
         
         <!--================Latest News Area =================-->
-        <section class="latest_news_area">
-            <div class="container">
-                <div class="main_c_b_title">
-                    <h2>latest <br class="title_br" />news</h2>
-                    <h6>Construction World</h6>
-                </div>
-                <div class="row latest_news_inner">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="latest_news_item">
-                            <div class="news_image">
-                                <img src="img/blog/l-news/l-news-1.jpg" alt="">
-                                <div class="l_date">
-                                    <h5>14</h5>
-                                    <h6>Aug</h6>
-                                </div>
-                            </div>
-                            <div class="news_content">
-                                <a href="#"><h4>The Road To Success Is Always Under Construction</h4></a>
-                                <h6>Posted By <a href="#">Admin</a></h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                <div class="pull-left">
-                                    <a href="#">2 Comments</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#">Read More <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="latest_news_item">
-                            <div class="news_image">
-                                <img src="img/blog/l-news/l-news-2.jpg" alt="">
-                                <div class="l_date">
-                                    <h5>14</h5>
-                                    <h6>Aug</h6>
-                                </div>
-                            </div>
-                            <div class="news_content">
-                                <a href="#"><h4>The Road To Success Is Always Under Construction</h4></a>
-                                <h6>Posted By <a href="#">Admin</a></h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                <div class="pull-left">
-                                    <a href="#">2 Comments</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#">Read More <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="latest_news_item">
-                            <div class="news_image">
-                                <img src="img/blog/l-news/l-news-3.jpg" alt="">
-                                <div class="l_date">
-                                    <h5>14</h5>
-                                    <h6>Aug</h6>
-                                </div>
-                            </div>
-                            <div class="news_content">
-                                <a href="#"><h4>The Road To Success Is Always Under Construction</h4></a>
-                                <h6>Posted By <a href="#">Admin</a></h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                <div class="pull-left">
-                                    <a href="#">2 Comments</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#">Read More <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         <!--================End Latest News Area =================-->
         
         <!--================Clients Area =================-->
         <!--================End Clients Area =================-->
         
         <!--================Subscrib Form Area =================-->
-        <section class="subscribe_area">
-            <div class="container">
-                <div class="pull-left">
-                    <h4>Subscribe our email newsletter today to recieve our special offer</h4>
-                </div>
-                <div class="pull-right">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Your Email Address">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <!--================End Subscrib Form Area =================-->
         
         <!--================Footer Area =================-->
