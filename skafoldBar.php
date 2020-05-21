@@ -286,15 +286,15 @@ if (isset($_GET['masa_sewa'])) {
 
     <!--================Get Quote Area =================-->
     <section class="get_quote_area yellow_get_quote">
-        <div class="container">
-            <div class="pull-left">
-                <h4>Looking for a quality and affordable constructor for your next project?</h4>
+            <div class="container">
+                <div class="pull-left">
+                    <h4>Tertarik Untuk Menyewa Scaffolding? </h4>
+                </div>
+                <div class="pull-right">
+                    <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
+                </div>
             </div>
-            <div class="pull-right">
-                <a class="get_btn_black" href="#">GET A QUOTE</a>
-            </div>
-        </div>
-    </section>
+        </section>
     <!--================End Get Quote Area =================-->
 
     <!--================Footer Area =================-->

@@ -265,7 +265,7 @@ include 'koneksi/koneksi.php';
         <section class="get_quote_area yellow_get_quote">
             <div class="container">
                 <div class="pull-left">
-                    <h4>Tertarik Untuk Menyewa? </h4>
+                    <h4>Tertarik Untuk Menyewa Scaffolding? </h4>
                 </div>
                 <div class="pull-right">
                     <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
