@@ -332,7 +332,7 @@ include 'koneksi/koneksi.php';
                                 <img src="img/icon/s-icon-hover-5.png" alt="">
                             </div>
                             <a href="#"><h4>RENOVASI</h4></a>
-                            <p>Jasa Renovasi bagi para clien yang menginginkan perubahan untuk cust</p>
+                            <p>Jasa Renovasi bagi para client yang menginginkan perubahan untuk customer</p>
                         </div>
                     </div>
                     <div class="service_item">
@@ -342,7 +342,7 @@ include 'koneksi/koneksi.php';
                                 <img src="img/icon/s-icon-hover-4.png" alt="">
                             </div>
                             <a href="#"><h4>Supplier</h4></a>
-                            <p>Menerima juga jasa budang penyediaan peralatan kantor serta kelengkapan AC <br></p>
+                            <p>Menerima juga jasa gudang penyediaan peralatan kantor serta kelengkapan AC <br></p>
                            
                         </div>
                     </div>
