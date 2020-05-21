@@ -145,7 +145,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt=""></a>
+                        <a class="navbar-brand" href="index.php"><img src="img/logo1.png" alt=""></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -475,7 +475,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                 <div class="row footer_widgets_inner">
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
-                            <img src="img/footer-logo.png" alt="">
+                            <img src="img/footer-logo1.png" alt="">
                             <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
