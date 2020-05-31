@@ -67,15 +67,36 @@ if (isset($_POST['daftarSubmit'])) {
 ?>
 <!DOCTYPE html>
 <html>
-
+<br>
+<br>
+<br>
 <head>
 	<title>Selamat Datang di PT Kawi Sakti Megah</title>
 	<link rel="stylesheet" href="style.css" type="text/css" media="all" />
 </head>
 
 <body>
-	<h1>Register</h1>
+	<!-- <h1>Register</h1>
 	<h3>Buat akun baru</h3>
+	<br> -->
+	<div class="container">
+					<style>
+			p {
+			background-color: #64B5F6;
+			border: 5px solid black;
+			outline: #0D47A1 solid 10px;
+			margin: 3px;  
+			padding: 35px;
+			text-align: center;
+			font-weight: bold;
+			font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+			}
+			</style>
+			</head>
+			<body>
+
+			<h3><p class="thicker" style="color: #1A237E"><b> R E G I S T E R - A K U N - PT. K S M </p></h3></b>
+		</div>
 	<div class="container">
 		<?php echo !empty($statusPsn) ? '<p class="' . $jenisStatusPsn . '">' . $statusPsn . '</p>' : ''; ?>
 		<div class="regisForm">

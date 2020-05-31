@@ -153,6 +153,8 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
+        <br>
+        <br>
         <div class="header-advance-area">
             <div class="header-top-area" style="background-color: #1d3542">
                 <div class="container-fluid">

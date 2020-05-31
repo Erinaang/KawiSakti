@@ -195,6 +195,8 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
             <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">

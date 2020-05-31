@@ -13,32 +13,35 @@
 <body>
 	<div class="main">
 		<div class="container">
+		<div class="container">
 					<style>
 			p {
-			background-color: #EAEEF1;
+			background-color: #64B5F6;
+			opacity: 0.7;
 			border: 2px solid black;
-			outline: #FF9100 solid 10px;
+			outline: #0D47A1 solid 10px;
 			margin: auto;  
 			padding: 20px;
 			text-align: center;
 			font-weight: bold;
+			font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 			}
 			</style>
 			</head>
 			<body>
 
-			<p class="thicker"><b> L O G I N - A K U N </b></p>
-
+			<h3><p class="thicker"><b> L O G I N - A K U N - PT. K S M </b></p></h3>
+		</div>
 		<!---start-main-->
 		<div class="login">
 			<div class="inset">
 				<form action="cek_log.php" method="POST">
 			        <div>
-						<span><label>Username</label></span>
+						<span><b><label>Username</label></span></b>
 						<span><input type="text" name="username" class="textbox" autofocus="autofocus"></span>
 					</div>
 					<div>
-						<span><label>Password</label></span>
+						<span><b><label>Password</label></span></b>
 					    <span><input type="password" name="password" class="password"></span>
 					</div>
 					<hr>

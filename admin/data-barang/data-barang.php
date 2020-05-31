@@ -196,6 +196,8 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") o
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
             <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">

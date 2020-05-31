@@ -195,6 +195,8 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <!-- Mobile Menu start -->
+            <br>
+            <br>
 
             <!-- Mobile Menu end -->
 

@@ -140,6 +140,8 @@ if (isset($_POST['submit'])) {
             </div>
         </nav>
     </div>
+    <br>
+    <br>
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
         <div class="container-fluid">
