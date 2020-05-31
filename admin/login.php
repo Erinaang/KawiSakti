@@ -12,6 +12,23 @@
  
 <body>
 	<div class="main">
+		<div class="container">
+					<style>
+			p {
+			background-color: #EAEEF1;
+			border: 2px solid black;
+			outline: #FF9100 solid 10px;
+			margin: auto;  
+			padding: 20px;
+			text-align: center;
+			font-weight: bold;
+			}
+			</style>
+			</head>
+			<body>
+
+			<p class="thicker"><b> L O G I N - A K U N </b></p>
+
 		<!---start-main-->
 		<div class="login">
 			<div class="inset">
@@ -44,6 +61,8 @@
 			</div>
 		</div>
 		<!---//end-main-->
+		</style>
+		</div>
 	</div>
 </body>
 </html>
