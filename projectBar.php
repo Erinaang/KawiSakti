@@ -11,7 +11,7 @@ include 'koneksi/koneksi.php';
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
+        <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>PT KAWI SAKTI MEGAH - Construction</title>
         <!-- Icon css link -->
@@ -72,7 +72,7 @@ include 'koneksi/koneksi.php';
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="index.php"><img src="img/logo1.png" alt=""></a>
+                            <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt=""></a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -281,7 +281,7 @@ include 'koneksi/koneksi.php';
                     <div class="row footer_widgets_inner">
                         <div class="col-md-3 col-sm-6">
                             <aside class="f_widget about_widget">
-                                <img src="img/footer-logo1.png" alt="">
+                                <img src="img/footer-logo.png" >
                                 <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                                 <ul>
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>

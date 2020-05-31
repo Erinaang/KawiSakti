@@ -48,7 +48,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
     <!-- The above 3 meta tags code*must* come first in the head; any other head content must come *after* these tags -->
     <title>PT KAWI SAKTI MEGAH - Construction</title>
     <!-- Icon css link -->
@@ -145,7 +145,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.php"><img src="img/logo1.png" alt=""></a>
+                        <img src="img/logo.png" height="60px" srcset="">
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -457,15 +457,15 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
     <br>
     <!--================Get Quote Area =================-->
     <section class="get_quote_area yellow_get_quote">
-            <div class="container">
-                <div class="pull-left">
-                    <h4>Tertarik Untuk Menyewa Scaffolding? </h4>
-                </div>
-                <div class="pull-right">
-                    <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
-                </div>
+        <div class="container">
+            <div class="pull-left">
+                <h4>Tertarik Untuk Menyewa Scaffolding? </h4>
             </div>
-        </section>
+            <div class="pull-right">
+                <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
+            </div>
+        </div>
+    </section>
     <!--================End Get Quote Area =================-->
 
     <!--================Footer Area =================-->
@@ -475,7 +475,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                 <div class="row footer_widgets_inner">
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
-                            <img src="img/footer-logo1.png" alt="">
+                            <img src="img/footer-logo.png" >
                             <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
