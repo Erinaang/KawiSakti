@@ -89,7 +89,7 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a><img class="main-logo" src="img/logo/logo2.png" alt="" /></a>
+                <a><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
