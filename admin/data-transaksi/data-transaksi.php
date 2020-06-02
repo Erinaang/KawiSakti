@@ -19,13 +19,9 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT. Kawi Sakti Megah</title>
+    <title>PT Kawi Sakti Megah</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
@@ -83,6 +79,8 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
         ============================================ -->
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
 
+
+
 </head>
 
 <body>
@@ -95,10 +93,8 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
             </div>
             <div class="nalika-profile">
                 <div class="profile-dtl">
-
                     <h2> <b>A<span class="min-dtn">DMIN</span></b></h2>
                 </div>
-
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -107,7 +103,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <a title="Data Barang" href="../data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
-                            <a title="Data Transaksi" href=""><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                            <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
                             <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
