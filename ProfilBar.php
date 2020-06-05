@@ -403,10 +403,13 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                             <th>No.</th>
                                                             <th>Tanggal Sewa</th>
                                                             <th>Total</th>
+                                                            <th>Jaminan</th>
+                                                            <th>Total Pembayaran</th>
                                                             <th>Pengiriman</th>
                                                             <th>Status</th>
                                                             <th>Tools</th>
-                                                    </tr> </b>
+                                                        </b>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
@@ -419,18 +422,23 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                                         $idPengiriman = $show['id_pengiriman'];
                                                         $idRiwayat = $show['id_transaksi'];
                                                         $idAdmin = $show['id_admin'];
+                                                        $totalHarga  = $show['total'];
+                                                        $jaminanRiwayat = $show['jaminan'];
+                                                        $ongkir = $show['biaya'];
+                                                        $totalRiwayat = $totalHarga + $jaminan + $ongkir;
                                                     ?>
                                                         <tr>
                                                             <b>
                                                                 <td><?php echo $idRiwayat; ?></td>
                                                                 <td><?php echo $show['tgl_sewa']; ?></td>
-                                                                <td>Rp. <?php echo $show['total']; ?> (Jaminan + Pengiriman)</td>
+                                                                <td>Rp. <?php echo $totalHarga; ?></td>
+                                                                <td>Rp. <?php echo $jaminanRiwayat; ?></td>
+                                                                <td>Rp. <?php echo $totalRiwayat ?></td>
                                                                 <td><?php echo $show['nama'] ?></td>
                                                                 <td><?php echo $status; ?></td>
                                                                 <td>
                                                                     <?php if ($status != 'Terkirim') { ?>
                                                                         <a href="<?php echo 'detail-barang.php?id_transaksi=' . $idRiwayat . '&id_penyewa=' . $idPenyewa . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $idPengiriman ?>" class="btn btn-info">Detail</a>
-
                                                                     <?php } ?>
                                                                 </td>
                                                             </b></tr>
@@ -475,7 +483,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                 <div class="row footer_widgets_inner">
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
-                            <img src="img/footer-logo.png" >
+                            <img src="img/footer-logo.png">
                             <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>

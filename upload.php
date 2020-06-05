@@ -60,10 +60,9 @@ if (isset($_FILES['bukti_ktp'])) {
       while ($show = mysqli_fetch_array($selectKeranjang)) {
          $jumlahSet = $jumlahSet + $show['jml'];
          $masaSewa = $show['masa_sewa'];
-         $total = $show['totalharga'];
+         $totalHarga = $show['totalharga'];
       }
-      $jaminan = $total * 30 / 100; // kalkulasi jaminan
-      $total = $total + $jaminan;
+      $jaminan = $totalHarga * 30 / 100; // kalkulasi jaminan
 
       //menghitung tanggal kembali berdasarkan tanggal sewa + masa sewa
       $tgl_kembali = date('Y-m-d', strtotime('+' . $masaSewa . ' days', strtotime(str_replace('/', '-', $tanggal)))) . PHP_EOL;
@@ -71,19 +70,16 @@ if (isset($_FILES['bukti_ktp'])) {
 
       if ($jumlahSet < 150) { //kalo jumlahnya kurang dari 150 
          $idPengiriman = 1; //pickup
-         $total = $total + 500000;
       } elseif ($jumlahSet < 500 || $jumlahSet > 500) { //kalo kurang dari 500 dan lebih dari 500
          $idPengiriman = 2; // truk kecil
-         $total = $total + 700000;
       } elseif ($jumlahSet > 700) { // kalo lebih dari 700
          $idPengiriman = 3; //truk besar
-         $total = $total + 1000000;
       }
       date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
       $time = date("Y-m-d H:i:s");
 
       //masukin data ke transaksi
-      $queryInsert = mysqli_query($mysqli, "INSERT INTO transaksi SET id_penyewa='$idUser', total='$total', jaminan='$jaminan', 
+      $queryInsert = mysqli_query($mysqli, "INSERT INTO transaksi SET id_penyewa='$idUser', total='$totalHarga', jaminan='$jaminan', 
       id_pengiriman='$idPengiriman', status='Terkirim', bukti_pembayaran='$file_name_bukti', 
       bukti_ktp='$file_name', alamat='$alamat', kota='$kota', jam_pemesanan='$time', tgl_sewa='$tanggal', 
       tgl_kembali='$tgl_kembali'") or die("data salah: " . mysqli_error($mysqli));

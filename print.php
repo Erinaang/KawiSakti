@@ -2,7 +2,7 @@
 include "koneksi/koneksi.php"; // ambil koneksi;
 
 $index = 1;
-$jaminan=$total = 0;
+$jaminan = $total = 0;
 $idPenyewa = $_GET['id_penyewa'];
 $jam_pesan = $_GET['jam_pesan'];
 $status = $_GET['status'];
@@ -12,7 +12,7 @@ $idTransaksi = $_GET['id_transaksi'];
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $date = date("Y-m-d");
 
-$queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND jam_pemesanan='$jam_pesan'") or die("data salah: " . mysqli_error($mysqli));
+// $queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND jam_pemesanan='$jam_pesan'") or die("data salah: " . mysqli_error($mysqli));
 
 $queryPengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman='$idPengiriman'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryPengiriman)) {
@@ -28,6 +28,17 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
   $namaPenyewa = $show['penyewa'];
   $namaAdmin = $show['admin'];
 }
+
+
+
+$queryPrint = mysqli_query($mysqli, "SELECT pk.frame as frame, pk.masa_sewa as masa_sewa_set, pk.jumlah_set as jml_set, pk.harga as harga_set,
+dn.harga as biaya_rusak, kr.set_rusak, kr.total as total_keranjang
+FROM transaksi AS tr JOIN keranjang as kr ON tr.jam_pemesanan = kr.jam_pemesanan 
+JOIN paket AS pk ON kr.id_paket = pk.id_paket 
+JOIN pengiriman as pr ON tr.id_pengiriman = pr.id_pengiriman 
+JOIN denda AS dn ON kr.kerusakan = dn.id_denda
+WHERE tr.id_penyewa='$idPenyewa' AND tr.status='$status' AND tr.jam_pemesanan='$jam_pesan'") or die("data salah: " . mysqli_error($mysqli));
+
 ?>
 
 <!doctype html>
@@ -91,6 +102,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
             <thead>
               <tr>
                 <th>No.</th>
+                <th>Frame</th>
                 <th>Masa Sewa (hari) </th>
                 <th>Jumlah Set x Harga (Rp.)</th>
                 <th>Total Harga (Rp.)</th>
@@ -98,21 +110,22 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
             </thead>
             <tbody>
               <?php while ($show = mysqli_fetch_array($queryPrint)) {
-                $total = $total + $show['total'];
-                $jaminan = $total * (30 / 100);
+                $totalKeranjang = $show['total_keranjang'];
+                $subTotal = $subTotal + $totalKeranjang;
 
               ?>
                 <tr>
                   <td><?php echo $index++; ?></td>
-                  <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                  <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
-                  <td>Rp. <?php echo $show['total']; ?>,00</td>
+                  <td><?php echo $show['frame'] ?></td>
+                  <td><?php echo $show['masa_sewa_set']; ?> Hari</td>
+                  <td><?php echo $show['jml_set']; ?> Set x Rp. <?php echo $show['harga_set']; ?>,00</td>
+                  <td>Rp. <?php echo $totalKeranjang; ?>,00</td>
                 </tr>
               <?php } ?>
               <tr>
                 <td colspan="2"> </td>
                 <td><b> Sub Total : </b></td>
-                <td><b> Rp. <?php echo $total; ?></b></td>
+                <td><b> Rp. <?php echo $subTotal; ?></b></td>
               </tr>
               <tr>
                 <td colspan="2"> </td>
@@ -167,15 +180,15 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
       </div>
       <div class="row">
         <div class="col-md-12">
-<p>Permohonan di atas untuk masa sewa   :   <?php echo $tglSewa; ?> s/d <?php echo $tglKembali; ?></p>
+          <p>Permohonan di atas untuk masa sewa : <?php echo $tglSewa; ?> s/d <?php echo $tglKembali; ?></p>
 
         </div>
       </div>
     </div>
 
-    <script>
+    <!-- <script>
       window.print();
-    </script>
+    </script> -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
