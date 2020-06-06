@@ -62,7 +62,7 @@ $mail->From            = "kikirabdullah@gmail.com"; //email pengirim
 $mail->FromName     = "Kawi Sakti";      //nama pengirim
 $mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //email yang tujuan dan nama
 $mail->Subject      =  "Percobaan"; //subject
-$mail->Body         =  '<b>proses penyewaan telah diselesaikan . Terimakasih sudah menyewa di PT kawi sakti megah</b><br> 
+$mail->Body         =  '<b>Proses transaksi penyewaan scaffolding telah diselesaikan. Terimakasih sudah menyewa di PT. Kawi Sakti Megah</b><br> 
 <h2>Denda</h2> <br>
 <table class="table table-condensed">
 
