@@ -156,7 +156,6 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                         <div class="header-right-info">
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
-
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
@@ -170,7 +169,6 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                                                         </li>
                                                     </ul>
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </div>
@@ -242,6 +240,7 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                                         <th>Alamat</th>
                                         <th>Tanggal Sewa</th>
                                         <th>Tanggal Pengembalian</th>
+                                        <th>Denda</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -249,20 +248,21 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) {
                                         $status = $show['status'];
-                                        $tgl = $show['tgl_sewa']; ?>
+                                        $tgl = $show['tgl_sewa']; 
+                                        $jam_pesan = $show['jam_pemesanan'];?>
                                         <tr>
                                             <td><?php echo $show['nama']; ?></td>
                                             <td>Rp. <?php echo $show['total']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>
                                             <td><?php echo $tgl; ?></td>
                                             <td><?php echo $show['tgl_kembali']; ?></td>
+                                            <td> <a href="form-denda.php?id_penyewa=<?php echo $show['id_penyewa']; ?>&jam_pesan=<?php echo $jam_pesan ; ?>" data-toggle="tooltip" title="Denda" class="btn btn-danger pd-setting-ed" ><i class="fa fa-trash-square-o" aria-hidden="true"> Denda</i></a></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "Dikirim") {
-                                                    echo '<a href="send-kembali.php?id_transaksi=' . $show['id_transaksi'] . '&id_penyewa=' . $show['id_penyewa'] . '&tanggal=' . $tgl . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '" data-toggle="tooltip" title="Kembali" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kembali</i></a>';
+                                                    echo '<a href="send-confirm.php?id_transaksi=' . $show['id_transaksi'] . '&id_penyewa=' . $show['id_penyewa'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '" data-toggle="tooltip" title="Kembali" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kembali</i></a>';
                                                 }
                                                 ?>
-
                                                 <a href="hapus-transaksi.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
                                         </tr>

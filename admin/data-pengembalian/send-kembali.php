@@ -25,6 +25,8 @@ $queryKembali = mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin',
 
 $queryRiwayat = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Selesai' WHERE `tanggal`='$tanggal' and id_penyewa='$id_penyewa' and status='Dikirim'") or die("data salah: " . mysqli_error($mysqli));
 
+
+
 if ($queryKembali) {
 
     echo '<script>

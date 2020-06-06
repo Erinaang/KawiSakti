@@ -1,12 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION["username"])) {
-    header("Location: ../Login.php");
-}
+// if (!isset($_SESSION["username"])) {
+//     header("Location: ../Login.php");
+// }
 include "../connection/Connection.php";
 
+$idPenyewa = $_GET['id_penyewa'];
+$jam_pesan = $_GET['jam_pesan'];
+
 //query tampil tabel pengembalian
-$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transaksi as tr JOIN user as us on tr.id_penyewa=us.id_user WHERE tr.status='Selesai' ") or die("data salah: " . mysqli_error($mysqli));
+$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang as kr JOIN paket as pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='6' AND kr.jam_pemesanan='2020-06-05 18:07:53'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -106,7 +109,7 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                             <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                            <a title="Data Pengembalian" href=""><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
@@ -130,8 +133,6 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                 </div>
             </div>
         </div>
-        <br>
-        <br>
         <div class="header-advance-area">
             <div class="header-top-area" style="background-color: #1d3542">
                 <div class="container-fluid">
@@ -237,34 +238,21 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transak
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th> Nama Penyewa</th>
-                                        <th>Total</th>
-                                        <th>Alamat</th>
-                                        <th>Tanggal Sewa</th>
-                                        <th>Tanggal Pengembalian</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Frame</th>
+                                        <th>Kerusakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($transaksi)) {
-                                        $status = $show['status'];
-                                        $tgl = $show['tgl_sewa']; ?>
+                                    <?php while ($show = mysqli_fetch_array($queryKeranjang)) {?>
                                         <tr>
-                                            <td><?php echo $show['nama']; ?></td>
-                                            <td>Rp. <?php echo $show['total']; ?></td>
-                                            <td><?php echo $show['alamat']; ?></td>
-                                            <td><?php echo $tgl; ?></td>
-                                            <td><?php echo $show ['tgl_kembali']?></td>
-                                            <td><?php echo $status; ?></td>
-                                            <td>
-                                            <a href="../../print.php?id_transaksi=<?php echo $show['id_transaksi']; ?>&id_penyewa=<?php echo $show['id_penyewa'] ?>&jam_pesan=<?php echo $show['jam_pemesanan']; ?>&status=<?php echo $status; ?>&id_pengiriman=<?php echo $show['id_pengiriman']?>&Selesai"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>
-                                                <a href="hapus-riwayat.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
-                                            </td>
+                                            <td><?php echo $show['frame'] ?></td>
+                                            <td> <a href="add-denda.php?id_keranjang=<?php echo $show['id_keranjang']; ?>&jam_pesan=<?php echo $jam_pesan; ?>&id_penyewa=<?php echo $idPenyewa; ?>" class="btn btn-primary">Masukan Jumlah Denda</a> </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
+
+                            <a href="data-pengembalian.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Kembali</a>
                         </div>
                     </div>
                 </div>
