@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 
     $addDenda = mysqli_query($mysqli, "UPDATE keranjang SET biaya_rusak='$biaya_rusak', set_rusak='$set_rusak' WHERE id_keranjang='$idKeranjang'") or die("data salah: " . mysqli_error($mysqli));
 
-    header("Location: form-denda.php?id_penyewa='$id_penyewa'&jam_pesan='$jam_pesan'");
+    header("Location: form-denda.php?id_penyewa=$id_penyewa&jam_pesan=$jam_pesan");
 }
 ?>
 

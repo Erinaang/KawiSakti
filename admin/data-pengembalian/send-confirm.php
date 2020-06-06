@@ -112,7 +112,7 @@ $queryRiwayat = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Selesai' W
 
     echo '<script>
     alert("Transaksi telah diproses.");
-    location.href="data-riwayat.php";
+    location.href="../data-riwayat/data-riwayat.php";
     </script>
     ';
   }
