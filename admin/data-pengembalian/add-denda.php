@@ -6,8 +6,8 @@ session_start();
 include "../connection/Connection.php";
 
 $idKeranjang = $_GET['id_keranjang'];
-$jam_pesan= $_GET['jam_pesan'];
-$id_penyewa=$_GET['id_penyewa'];
+$jam_pesan = $_GET['jam_pesan'];
+$id_penyewa = $_GET['id_penyewa'];
 
 //query tampil tabel pengembalian
 $queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang as kr JOIN paket as pk ON kr.id_paket = pk.id_paket WHERE kr.id_keranjang='$idKeranjang'") or die("data salah: " . mysqli_error($mysqli));
@@ -245,42 +245,60 @@ if (isset($_POST['submit'])) {
                 <div class="product-status-wrap">
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                        <div id="myTabContent" class="tab-content custom-product-edit">
-                                    <form action="" method="post">
-                                        <?php while ($show = mysqli_fetch_array($queryKeranjang)) { ?>
-                                            <div class="product-tab-list tab-pane fade active in" id="edit">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="review-content-section">
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
-                                                                <!-- <input name="frame" type="text" class="form-control" value="<?php echo $show['frame']; ?>"> -->
-                                                                <p class="form-control"><?php echo $show['frame']; ?></p>
-                                                            </div>
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Set Rusak :</i></span>
-                                                                <input name="set_rusak" type="text" class="form-control">
-                                                            </div>
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Biaya (/set) : Rp.</i></span>
-                                                                <input name="biaya_rusak" type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
+                            <div id="myTabContent" class="tab-content custom-product-edit">
+                                <form action="" method="post">
+                                    
+                                        <div class="product-tab-list tab-pane fade active in" id="edit">
                                             <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="text-center custom-pro-edt-ds">
-                                                        <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10">
-                                                        <!-- <a href="data-transaksi.php" type="submit" class="btn btn-ctl-bt waves-effect waves-light">Save</a> -->
-                                                        <a href="form-denda.php?id_penyewa=<?php echo $id_penyewa; ?>&jam_pesan=<?php echo $jam_pesan; ?>" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                    <div class="review-content-section">
+                                                    <?php while ($show = mysqli_fetch_array($queryKeranjang)) { ?>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
+                                                            <!-- <input name="frame" type="text" class="form-control" value="<?php echo $show['frame']; ?>"> -->
+                                                            <p class="form-control"><?php echo $show['frame']; ?></p>
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Set Rusak :</i></span>
+                                                            <input name="set_rusak" type="text" class="form-control">
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Biaya (/set) : Rp.</i></span>
+                                                            <input name="biaya_rusak" type="text" class="form-control">
+                                                        </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                                    <div class="col-md-4">
+                                                        <h4>MF-170</h4><br>
+                                                        <p>Ringan : Rp. 175000
+                                                            Berat : Rp. 350000</p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h4>MF-190</h4><br>
+                                                        <p>Ringan : Rp. 200000
+                                                            Berat : Rp. 400000</p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h4>LF-90</h4><br>
+                                                        <p>Ringan : Rp. 150000
+                                                            Berat : Rp. 300000</p>
                                                     </div>
                                                 </div>
                                             </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="text-center custom-pro-edt-ds">
+                                                    <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10">
+                                                    <!-- <a href="data-transaksi.php" type="submit" class="btn btn-ctl-bt waves-effect waves-light">Save</a> -->
+                                                    <a href="form-denda.php?id_penyewa=<?php echo $id_penyewa; ?>&jam_pesan=<?php echo $jam_pesan; ?>" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                </div>
                                             </div>
-                                    </form>
-                                </div>
+                                        </div>
+                                        </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
