@@ -89,7 +89,8 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                <br>
+                <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
