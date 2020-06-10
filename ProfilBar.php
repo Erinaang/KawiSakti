@@ -153,7 +153,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="index.php">Home</a></li>
                             <li><a href="projectBar.php">Project</a></li>
-                            <li><a href="aboutUs.php">About Us</a></li>
+                            <li><a href="AboutUs.php">About Us</a></li>
                             <li>
                                 <?php
                                 if ($masaSewa != 0) {

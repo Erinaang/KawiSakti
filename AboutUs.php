@@ -82,12 +82,12 @@ include 'koneksi/koneksi.php';
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="index.php">Home</a></li>
                             <li><a href="projectBar.php">Project</a></li>
-                            <li><a href="aboutUs.php">About Us</a></li>
+                            <li><a href="AboutUs.php">About Us</a></li>
                             <li><a href="skafoldBar.php">Skafold</a></li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
-                                echo '<li><a href="profilBar.php">Profil</a></li>';
+                                echo '<li><a href="ProfilBar.php">Profil</a></li>';
                                 echo '<li><a href="admin/logout.php">Log Out</a></li>';
                             }
 
@@ -156,7 +156,7 @@ include 'koneksi/koneksi.php';
                                 <h4>inovatif</h4>
                             </a>
                             <p>Perusahaan Kawi Sakti Megah dapat menjadi pilihan yang tepat untuk perancangan pembangunan
-                                dengan design yang inovatif dan dapat dikonsulkan dengan Consultant</p>
+                                dengan design yang inovatif dan dapat dikonsultasikan dengan Consultant</p>
                         </b> </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
@@ -165,7 +165,7 @@ include 'koneksi/koneksi.php';
                         <b><a href="#">
                                 <h4>Project Building</h4>
                             </a>
-                            <p>Proyek Pembangunan di peruntuhkan untuk pembangunan gedung perkantor ,pertokoan , dan ruko . </p>
+                            <p>Proyek Pembangunan di peruntuhkan untuk pembangunan gedung perkantoran ,pertokoan , dan ruko . </p>
                         </b></div>
                 </div>
                 <div class="col-md-4 col-sm-6">
@@ -192,7 +192,7 @@ include 'koneksi/koneksi.php';
                             <h4>Sejarah Perusahaan</h4><br>
                             <p>
                                 Bermula sejak tahun 1978, Kawi Sakti Megah adalah perusahaan Perentalan Scaffolding dan rancang bangun yang melayani jasa-jasa pembangunan. awalnya Kawi Sakti Megah Hanyalah sebuah perusahaan dengan nama Gunung Kawi Awning yang bergerak dalam bidang pengerjaan Awning dan Pagar <br> </p>
-                            <p> dengan modal pengalaman dan reputasi perusahaan yang selalu "Belajar" untuk maju, pada tahun 1998 kam mencoba mengembangkan sayap usaha dengan mendirikan Kawi Sakti Megah dengan harapan memenuhi tuntutan pasar yang lebih besar yaitu ikut berpartisipasi melayani masyarakat demi membangun masa depan </p>
+                            <p> dengan modal pengalaman dan reputasi perusahaan yang selalu "Belajar" untuk maju, pada tahun 1998 kami mencoba mengembangkan sayap usaha dengan mendirikan Kawi Sakti Megah dengan harapan memenuhi tuntutan pasar yang lebih besar yaitu ikut berpartisipasi melayani masyarakat demi membangun masa depan </p>
                         </b>
                         <!--   <a class="slider_btn" href="#">read more</a> -->
                     </div>
@@ -274,7 +274,7 @@ include 'koneksi/koneksi.php';
                                 <a href="#">
                                     <h4>Rancang Bangun</h4>
                                 </a>
-                                <p>Melayani perencanaan pembangunan hingga akhir proses pmbangunan sebagai konsultan</p>
+                                <p>Melayani perencanaan pembangunan hingga akhir proses pembangunan sebagai konsultan</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@ include 'koneksi/koneksi.php';
                                 <a href="#">
                                     <h4>RENOVASI</h4>
                                 </a>
-                                <p>Jasa Renovasi bagi para clien yang menginginkan perubahan untuk cust</p>
+                                <p>Jasa Renovasi bagi para client yang menginginkan perubahan untuk customer</p>
                             </div>
                         </div>
                     </div>
@@ -306,7 +306,7 @@ include 'koneksi/koneksi.php';
                                 <a href="#">
                                     <h4>Supplier</h4>
                                 </a>
-                                <p>Menerima juga jasa budang penyediaan peralatan kantor serta kelengkapan AC <br></p>
+                                <p>Menerima juga jasa di bidang penyediaan peralatan kantor serta kelengkapan AC <br></p>
                             </div>
                         </div>
                     </div>
