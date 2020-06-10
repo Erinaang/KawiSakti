@@ -205,21 +205,22 @@ if (isset($_GET['masa_sewa'])) {
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                            <b>
+                                            <!-- <b> -->
                                                 <th>Masa Sewa (hari) </th>
                                                 <th>Jumlah Set</th>
                                                 <th>Harga (Rp.)</th>
                                                 <th>Action</th>
-                                        </tr> </b>
+                                        </tr> 
+                                    <!-- </b> -->
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryMF190)) { ?>
-                                            <b>
+                                            <!-- <b> -->
                                                 <td><?php echo $show['masa_sewa']; ?> Hari</td>
                                                 <td><?php echo $show['jumlah_set']; ?> Set Scaffolding</td>
                                                 <td>Rp. <?php echo $show['harga']; ?>,00</td>
                                                 <td>
-                                            </b>
+                                            <!-- </b> -->
                                             <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&masa_sewa=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
                                             </td>
                                             </tr>
@@ -252,22 +253,23 @@ if (isset($_GET['masa_sewa'])) {
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                            <b>
+                                            <!-- <b> -->
                                                 <th>Masa Sewa (hari) </th>
                                                 <th>Jumlah Set</th>
                                                 <th>Harga (Rp.)</th>
                                                 <th>Action</th>
-                                        </tr> </b>
+                                        </tr> 
+                                    <!-- </b> -->
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryLF90)) { ?>
                                             <tr>
-                                                <b>
+                                                <!-- <b> -->
                                                     <td><?php echo $show['masa_sewa']; ?> Hari</td>
                                                     <td><?php echo $show['jumlah_set']; ?> Set Scaffolding</td>
                                                     <td>Rp.<?php echo $show['harga']; ?>,00</td>
                                                     <td>
-                                                </b>
+                                                <!-- </b> -->
                                                 <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
                                             </tr>
                                         <?php } ?>
