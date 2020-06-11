@@ -106,7 +106,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" ></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
@@ -115,7 +115,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" ></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>

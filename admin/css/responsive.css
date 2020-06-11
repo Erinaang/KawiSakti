@@ -4,12 +4,13 @@
 	display:block;
 }
 .mobile-menu-area{
-	display:none;
+    display:none;
+    
 }
 .logo-pro{
 	display:block;
 	text-align:center;
-	background:#fff;
+	background:#3D5AFE;
 }
 .menu-switcher-pro{
 	display:none;
@@ -56,12 +57,13 @@
     margin-left: 0px;
 }
 .mobile-menu-area{
-	display:block;
+    display:block;
+   
 }
 .logo-pro{
 	display:block;
 	text-align:center;
-	background:#fff;
+	background:#3D5AFE;
 }
 .menu-switcher-pro{
 	display:none;
@@ -112,12 +114,13 @@
     margin-left: 0px;
 }
 .mobile-menu-area{
-	display:block;
+    display:block;
+    
 }
 .logo-pro{
 	display:block;
 	text-align:center;
-	background:#fff;
+	background:#3D5AFE;
 }
 .menu-switcher-pro{
 	display:none;
