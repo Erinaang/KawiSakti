@@ -253,24 +253,23 @@ if (isset($_GET['masa_sewa'])) {
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                            <!-- <b> -->
                                                 <th>Masa Sewa (hari) </th>
                                                 <th>Jumlah Set</th>
                                                 <th>Harga (Rp.)</th>
                                                 <th>Action</th>
                                         </tr> 
-                                    <!-- </b> -->
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryLF90)) { ?>
-                                            <tr>
+                                            <!-- <tr> -->
                                                 <!-- <b> -->
                                                     <td><?php echo $show['masa_sewa']; ?> Hari</td>
                                                     <td><?php echo $show['jumlah_set']; ?> Set Scaffolding</td>
-                                                    <td>Rp.<?php echo $show['harga']; ?>,00</td>
+                                                    <td>Rp. <?php echo $show['harga']; ?>,00</td>
                                                     <td>
                                                 <!-- </b> -->
                                                 <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                                    </td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
