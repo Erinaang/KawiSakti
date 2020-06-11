@@ -168,7 +168,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
-                                echo '<li><a href="profilBar.php">Profil</a></li>';
+                                echo '<li><a href="ProfilBar.php">Profil</a></li>';
                                 echo '<li><a href="admin/logout.php">Log Out</a></li>';
                             }
 
