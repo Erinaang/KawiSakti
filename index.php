@@ -88,12 +88,12 @@ include 'koneksi/koneksi.php';
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="index.php">Home</a></li>
                             <li><a href="projectBar.php">Project</a></li>
-                            <li><a href="aboutUs.php">About Us</a></li>
+                            <li><a href="AboutUs.php">About Us</a></li>
                             <li><a href="skafoldBar.php">Skafold</a></li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
-                                echo '<li><a href="profilBar.php">Profil</a></li>';
+                                echo '<li><a href="ProfilBar.php">Profil</a></li>';
                                 echo '<li><a href="admin/logout.php">Log Out</a></li>';
                             }
 
@@ -266,9 +266,9 @@ include 'koneksi/koneksi.php';
                     <h6>PT Kawi Sakti Mandiri</h6>
                 </div>
                 <p>Perusahaan Jasa dibidang konstruksi melayani Rental Scaffolding, Perancah, Steger yang mengutamakan kualitas. Dengan struktur yang kokoh dengan bahan Scaffolding Galvanish serta memperhitungkan standar keselamatan sehingga aman pada saat digunakan</p>
-                <p>Kami Melayani instansi ataupun pribadi mulai dari perencanaan bangunan hingga tahap finishing . karena keinginan dari setiap clien berbeda maka kami siap dengan berbagai macam solusi terbaik bagi clien kami</p>
-                <p>Pada setiap tahap kami kerjakan dengan penuh tanggung jawab seperti pemenuhan target, interaktif, dengan relasi dan laporan yang akurat dan terpercaya</p>
-                <p>Rancangan akan dihitung secara terperinci sehingga clien dan perusahaan akan bekerja sama dengan baik dengan transparansi . disitu adalah salah satu kelebihan dari perusahaan kami</p>
+                <p>Kami Melayani instansi ataupun pribadi mulai dari perencanaan bangunan hingga tahap finishing . karena keinginan dari setiap client berbeda maka kami siap dengan berbagai macam solusi terbaik bagi clien kami</p>
+                <p>Pada setiap tahap kami kerjakan dengan penuh tanggung jawab. seperti pemenuhan target, interaktif dengan relasi dan laporan yang akurat dan terpercaya</p>
+                <p>Rancangan akan dihitung secara terperinci sehingga client dan perusahaan akan bekerja sama dengan baik dengan transparansi . disitu adalah salah satu kelebihan dari perusahaan kami</p>
                 <div class="border_bar"></div>
             </div>
         </div>

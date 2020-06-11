@@ -14,8 +14,8 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
 ?>
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
-<head>
-    <meta charset="utf-8">
+<head><meta charset="windows-1252">
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -89,7 +89,8 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                <br>
+                <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
@@ -110,7 +111,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
                             <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
                             <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
@@ -119,7 +120,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
                             <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -155,7 +156,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
                                         <div class="header-top-menu tabl-d-n hd-search-rp">
                                             <div class="breadcome-heading">
                                                 <form role="search" style="visibility: hidden;" action="pencarian.php?username=<?php echo $_GET['username']; ?>" method="GET">
-                                                    <input type="text" name="cari" placeholder="🔎 Seacrh.." class="form-control">
+                                                    <input type="text" name="cari" placeholder="ðŸ”Ž Seacrh.." class="form-control">
                                                 </form>
                                             </div>
                                         </div>
@@ -173,7 +174,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -187,8 +188,48 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
                     </div>
                 </div>
             </div>
+            
             <!-- Mobile Menu start -->
-
+            <br>
+            <br>
+ <div class="mobile-menu-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="mobile-menu" style="color:#3D5AFE">
+                                <nav id="dropdown">
+                                    <ul class="mobile-menu-nav">
+                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Menu Admin <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                             <ul class="metismenu" id="menu1">
+                        <li>
+                            <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                        </li>
+                        <li>
+                            <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                        </li>
+                        <li>
+                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                        </li>
+                        <li>
+                            <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                        </li>
+                        <li>
+                            <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                        </li>
+                        <li>
+                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
+                        </li>
+                    </ul>
+                                        </li>
+                                         </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Mobile Menu end -->
 
             <div class="section-admin container-fluid">

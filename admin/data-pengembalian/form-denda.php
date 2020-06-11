@@ -9,7 +9,7 @@ $idPenyewa = $_GET['id_penyewa'];
 $jam_pesan = $_GET['jam_pesan'];
 
 //query tampil tabel pengembalian
-$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang as kr JOIN paket as pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='6' AND kr.jam_pemesanan='2020-06-05 18:07:53'") or die("data salah: " . mysqli_error($mysqli));
+$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang as kr JOIN paket as pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='$idPenyewa' AND kr.jam_pemesanan='$jam_pesan'") or die("data salah form denda: " . mysqli_error($mysqli));
 
 ?>
 

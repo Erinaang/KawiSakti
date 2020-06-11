@@ -56,13 +56,19 @@ $mail->SMTPAuth     = true;
 $mail->Host         = "smtp.gmail.com";
 $mail->Port         = 465;
 $mail->SMTPSecure     = "ssl";
-$mail->Username     = "kikirabdullah@gmail.com"; //username yang ngirim
-$mail->Password     = "k1k1r12k499";   //password email yang ngirim
-$mail->From            = "kikirabdullah@gmail.com"; //email pengirim
+$mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
+$mail->Password     = "maternal781998";   //password email yang ngirim
+$mail->From            = "erinaangg@gmail.com"; //email pengirim
 $mail->FromName     = "Kawi Sakti";      //nama pengirim
+<<<<<<< HEAD
 $mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //email yang tujuan dan nama
 $mail->Subject      =  "Percobaan"; //subject
 $mail->Body         =  '<b>Proses transaksi penyewaan scaffolding telah diselesaikan. Terimakasih sudah menyewa di PT. Kawi Sakti Megah</b><br> 
+=======
+$mail->AddAddress($email, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
+$mail->Subject      =  "Pemberitahuan dari PT KSM"; //subject
+$mail->Body         =  '<b>proses penyewaan telah diselesaikan . Terimakasih sudah menyewa di PT kawi sakti megah</b><br> 
+>>>>>>> e064170465eef5530ed1c9e418ba9166e939c157
 <h2>Denda</h2> <br>
 <table class="table table-condensed">
 
@@ -112,7 +118,7 @@ $queryRiwayat = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Selesai' W
 
     echo '<script>
     alert("Transaksi telah diproses.");
-    location.href="data-riwayat.php";
+    location.href="../data-riwayat/data-riwayat.php";
     </script>
     ';
   }

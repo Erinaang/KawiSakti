@@ -22,12 +22,12 @@ if (isset($_POST['kirim'])) {
 		$mail->Host 		= "smtp.gmail.com";
 		$mail->Port 		= 465;
 		$mail->SMTPSecure 	= "ssl";
-		$mail->Username     = "kikirabdullah@gmail.com"; //username yang ngirim
-		$mail->Password     = "k1k1r12k499";   //password email yang ngirim
-		$mail->From            = "kikirabdullah@gmail.com"; //email pengirim
+		$mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
+		$mail->Password     = "maternal781998";   //password email yang ngirim
+		$mail->From            = "erinaangg@gmail.com"; //email pengirim
 		$mail->FromName     = "Kawi Sakti";      //nama pengirim
-		$mail->AddAddress($email, "Hallo, Kawi Sakti disini."); //email yang tujuan dan nama
-		$mail->Subject      =  "Percobaan"; //subject
+		$mail->AddAddress($email, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
+		$mail->Subject      =  "Pemberitahuan dari PT KSM"; //subject
 		$mail->Body     	=  "<b>Terima Kasih telah mendaftar</b><br>
 			<p> Nama " . $nama . " </p><br>
 			<p> Email " . $email . " </p><br>
