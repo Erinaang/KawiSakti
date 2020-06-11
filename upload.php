@@ -88,7 +88,7 @@ if (isset($_FILES['bukti_ktp'])) {
       $queryRiwayat = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Terkirim' , tanggal='$tanggal', jam_pemesanan='$time' WHERE `jam_pemesanan`='$jamPesan' and id_penyewa='$idUser' and status='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 
-      header("Location: profilBar.php"); //go to page profilbar
+      header("Location: ProfilBar.php"); //go to page profilbar
    } else {
       // print_r($errors);
    }
