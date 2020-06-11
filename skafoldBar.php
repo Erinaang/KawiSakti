@@ -154,7 +154,7 @@ if (isset($_GET['masa_sewa'])) {
                             </div> -->
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                <table class="table table-condensed">
+                              <b>  <table class="table table-condensed">
                                     <thead>
                                         <tr>
                                             <b>
@@ -162,7 +162,8 @@ if (isset($_GET['masa_sewa'])) {
                                                 <th>Jumlah Set</th>
                                                 <th>Harga (Rp.)</th>
                                                 <th>Action</th>
-                                        </tr> </b>
+                                        </tr> 
+                                    </b>
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryMF170)) {
@@ -179,7 +180,7 @@ if (isset($_GET['masa_sewa'])) {
                                             </tr>
                                         <?php } ?>
                                     </tbody>
-                                </table>
+                                </table> </b>
                             </div>
                         </div>
                     </div>
