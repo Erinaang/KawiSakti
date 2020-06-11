@@ -18,10 +18,7 @@ if (isset($_POST["submit"])) {
     $alamat = $_POST['alamat'];
 
     $queryUser = mysqli_query($mysqli, "UPDATE user SET nama='$nama', email='$email', no_telp=n'$noTelp', alamat='$alamat' WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
-
-<<<<<<< HEAD
     header("Location: ProfilBar.php");
-=======
     if (empty($errors) == true) {
         move_uploaded_file($file_tmp, "img/users/" . $file_name);
         $queryEdit = mysqli_query($mysqli, "UPDATE user SET nama='$nama', foto='$file_name', email='$email', no_telp='$noTelp', alamat='$alamat', password='$password' WHERE id_user = '$idUser'") or die("data salah: " . mysqli_error($mysqli));
@@ -30,7 +27,7 @@ if (isset($_POST["submit"])) {
     } else {
         print_r($errors);
     }
->>>>>>> dedab3d1740d3d5ab181bc3d3cf2f27b7a898b6a
+
 }
 ?>
 <!DOCTYPE html>

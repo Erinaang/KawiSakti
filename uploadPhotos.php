@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
 
       $queryUser = mysqli_query($mysqli, "UPDATE user SET foto='$file_name' WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
 
-      echo $file_name;
+      header("Location: ProfilBar.php");
    } else {
       print_r($errors);
    }
