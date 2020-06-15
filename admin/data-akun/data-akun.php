@@ -14,8 +14,8 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
-<head>
-    <meta charset="utf-8">
+<head><meta charset="windows-1252">
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -155,7 +155,7 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                         <div class="header-top-menu tabl-d-n hd-search-rp">
                                             <div class="breadcome-heading">
                                                 <form role="search" style="visibility: hidden;" action="pencarian.php?username=<?php echo $_GET['username']; ?>" method="GET">
-                                                    <input type="text" name="cari" placeholder="🔎 Seacrh.." class="form-control">
+                                                    <input type="text" name="cari" placeholder="ðŸ”Ž Seacrh.." class="form-control">
                                                 </form>
                                             </div>
                                         </div>
@@ -262,7 +262,7 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <td><?php echo $show['email']; ?></td>
                                             <td><?php echo $show['nama']; ?></td>
                                             <td><?php echo $show['status']; ?></td>
-                                            <td><align="center"><?php echo "<img src='img/$show[foto]' width='70' height='90' />";?></td>
+                                            <td><img src='../../img/users/<?php echo $show['foto']; ?>'></td>
                                             <td><?php echo $show['no_telp']; ?></td>
                                             <td><?php echo $show['alamat']; ?></td>
                                             <td>
