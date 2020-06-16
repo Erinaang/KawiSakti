@@ -49,7 +49,7 @@ if (isset($_POST['daftarSubmit'])) {
 		$mail->FromName        = "Kawi Sakti";      //nama pengirim
 		$mail->AddAddress($email, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
 		$mail->Subject      =  "Pendaftaran User PT KSM"; //subject
-		$mail->Body     	=  "<b>Terima Kasih telah mendaftar</b><br>
+		$mail->Body     	=  "<b>Terima Kasih telah mendaftar menjadi User PT Kawi Sakti Megah</b><br>
 			<p> Nama " . $nama . " </p><br>
 			<p> Email " . $email . " </p><br>
 			<p> Password " . $password . " </p><br>
