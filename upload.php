@@ -36,6 +36,7 @@ if (isset($_FILES['bukti_ktp'])) {
    $tanggal = $_POST['tanggal']; // dari form checkout
    $alamat = $_POST['alamat']; // dari form checkout
    $kota = $_POST['kota']; // dari form checkout
+   $proyek = $_POST['proyek'];
    $file_name = $_FILES['bukti_ktp']['name'];
    $file_size = $_FILES['bukti_ktp']['size'];
    $file_tmp = $_FILES['bukti_ktp']['tmp_name'];
@@ -81,7 +82,7 @@ if (isset($_FILES['bukti_ktp'])) {
       //masukin data ke transaksi
       $queryInsert = mysqli_query($mysqli, "INSERT INTO transaksi SET id_penyewa='$idUser', total='$totalHarga', jaminan='$jaminan', 
       id_pengiriman='$idPengiriman', status='Terkirim', bukti_pembayaran='$file_name_bukti', 
-      bukti_ktp='$file_name', alamat='$alamat', kota='$kota', jam_pemesanan='$time', tgl_sewa='$tanggal', 
+      bukti_ktp='$file_name', alamat='$alamat', kota='$kota', proyek='$proyek',jam_pemesanan='$time', tgl_sewa='$tanggal', 
       tgl_kembali='$tgl_kembali'") or die("data salah: " . mysqli_error($mysqli));
 
       //update keranjang biar sesuai sama transaksi

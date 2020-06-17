@@ -240,7 +240,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                         <!--================ photo Profile  =================-->
                         <div class="col-md-4">
                             <br>
-                            <img id="myImg" src="img/users/<?php echo $foto; ?>" width="200" height="120"><br>
+                            <img id="myImg" src="img/users/<?php echo $foto; ?>"height="120"><br>
                             <br> <a href="editUserProfile.php" class="btn btn-info"> <b>
                                     <style:'<i class="fa fa-align-center" aria-hidden="true"> Edit Profil </i>
                                 </b></a>
@@ -377,6 +377,10 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1"><b> Kota / Kab </b></label>
                                                 <input type="text" class="form-control" name="kota" placeholder="masukan Kota" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1"><b> Nama Proyek</b></label>
+                                                <input type="text" class="form-control" name="proyek" placeholder="digunakan untuk proyek ..." required>
                                             </div>
                                         </div>
 
