@@ -81,7 +81,7 @@ include 'koneksi/koneksi.php';
                                  <li><a href="index.php">Home</a></li>
                                  <li><a href="projectBar.php">Project</a></li>
                                 <li><a href="AboutUs.php">About Us</a></li>
-                                <li><a href="skafoldBar.php">Skafold</a></li>
+                                <li><a href="skafoldBar.php">Scaffolding</a></li>
                                 <?php if (!isset($_SESSION['username'])) {
                                    echo '<li><a href="admin/login.php">Login</a></li>';
                                 }else{
@@ -103,10 +103,10 @@ include 'koneksi/koneksi.php';
         <section class="banner_area">
             <div class="container">
                 <div class="banner_inner_text">
-                    <h4>Welcome to Types Of Scaffold</h4>
+                    <h4>Welcome to Types Of Scaffolding</h4>
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li class="active"><a href="#">PT Kawi Sakti Mandiri</a></li>
+                        <li class="active"><a href="#">PT Kawi Sakti Megah</a></li>
                     </ul>
                 </div>
             </div>
@@ -118,139 +118,77 @@ include 'koneksi/koneksi.php';
            <div class="container">
                <div class="main_c_b_title">
                     <h2><br class="title_br">Scaffolding</h2>
-                    <h6>Many Types Of Scaffolding</h6>
+                    <h6>Types Of Scaffolding</h6>
                 </div>
                 <ul class="our_project_filter">
                                 <li class="active" data-filter="*"><a href="#">All</a></li>
-                                <li data-filter=".building"><a href="#">Jack Base</a></li>
-                                <li data-filter=".interior"><a href="#">U-head jack</a></li>
-                                <li data-filter=".design"><a href="#">Rangka Besi</a></li>
-                                <li data-filter=".isolation"><a href="#">Frame</a></li>
-                                <li data-filter=".plumbing"><a href="#">Join Pin</a></li>
-                                <li data-filter=".tiling"><a href="#">Cross Brace </a></li>
+                                <li data-filter=".mainframe"><a href="#">Main Frame</a></li>
+                                <li data-filter=".ladderframe"><a href="#">Ladder Frame</a></li>
+                                <li data-filter=".catwalk"><a href="#">Cat Walk</a></li>
+                                <li data-filter=".stair"><a href="#">Stair</a></li>
+                                <li data-filter=".crossbrace"><a href="#">Cross Brace </a></li>
                             </ul>
                 <div class="row our_project_details">
-                    <div class="col-md-4 col-sm-6 building isolation interior">
+                    <div class="col-md-4 col-sm-6 ladderframe">
                         <div class="project_item">
                             <img src="img/project/project-grid-three/project-g-three-1.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                        <a href="#"><h4>Ladder Frame</h4></a>
+                                        <p>Ladder frame adalah salah satu komponen dari scaffolding yang biasanya dipasang pada bagian atas dari main frame, untuk menambah tinggi karena dibutuhkan pijakan atau penyangga yang lebih tinggi dari 170 cm dan 190 cm, ladder frame yang kita miliki memiliki dimensi tinggi 90 cm dan lebar 122 cm.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 building isolation tiling design">
-                        <div class="project_item">
-                            <img src="img/project/project-grid-three/project-g-three-2.jpeg" alt="">
-                            <div class="project_hover">
-                                <div class="project_hover_inner">
-                                    <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 isolation tiling interior design plumbing">
+                    <div class="col-md-4 col-sm-6 crossbrace">
                         <div class="project_item">
                             <img src="img/project/project-grid-three/project-g-three-3.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                        <a href="#"><h4>Cross Brace</h4></a>
+                                        <p>Alat ini berbentuk batang panjang yang menyilang satu sama lain, dan fungsinya adalah untuk menyambung 2 (dua) main frame atau ladder frame dengan posisi melintang diantara keduanya, alat ini juga berfungsi menjaga kekokohan dari frame yang disambungkan sehingga dapat menopang dengan baik. Dimensi dari cross brace adalah 193 cm dan 220 cm.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 building isolation tiling plumbing">
+                    <div class="col-md-4 col-sm-6 mainframe">
                         <div class="project_item">
                             <img src="img/project/project-grid-three/project-g-three-4.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                        <a href="#"><h4>Main Frame</h4></a>
+                                        <p>Main frame adalah salah satu komponen paling utama dari scaffolding, kegunaan main frame adalah sebagai penyangga utama. Dimensi main frame sendiri adalah tinggi 170 cm, 190 cm dan lebar 122 cm.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 isolation tiling interior plumbing">
+                    <div class="col-md-4 col-sm-6 catwalk">
                         <div class="project_item">
                             <img src="img/project/project-grid-three/project-g-three-5.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                        <a href="#"><h4>Cat Walk</h4></a>
+                                        <p>Cat walk adalah komponen perancah yang dibuat dari bahan baja berkualitas yang telah dilapisi dengan cat pelindung untuk melindungi permukaanya dari karat dan oksidasi. Catwalk scaffolding ini berfungsi sebagai platform atau tempat berpijak antar main frame yang digunakan para pekerja sebagai landasan kerja. Catwalk ini harus terbuat dari logam agar kuat untuk menopang bobot para pekerja dan perlatan yang digunakan.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 building isolation tiling design plumbing">
+                    <div class="col-md-4 col-sm-6 stair">
                         <div class="project_item">
                             <img src="img/project/project-grid-three/project-g-three-6.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 building isolation tiling plumbing">
-                        <div class="project_item">
-                            <img src="img/project/project-grid-three/project-g-three-7.jpg" alt="">
-                            <div class="project_hover">
-                                <div class="project_hover_inner">
-                                    <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 isolation tiling interior plumbing">
-                        <div class="project_item">
-                            <img src="img/project/project-grid-three/project-g-three-8.jpg" alt="">
-                            <div class="project_hover">
-                                <div class="project_hover_inner">
-                                    <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 building isolation tiling design plumbing">
-                        <div class="project_item">
-                            <img src="img/project/project-grid-three/project-g-three-9.jpeg" alt="">
-                            <div class="project_hover">
-                                <div class="project_hover_inner">
-                                    <div class="project_hover_content">
-                                        <a href="#"><h4>Jahanara Vila</h4></a>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan-tium doloremque laudantium</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                        <a href="#"><h4>Stair</h4></a>
+                                        <p>Stair scaffolding adalah asesori scaffolding / perancah digunakan sebagai pengganti tangga langkah dan sanggup / bisa di hubungkan ke main frame. Stair step digunakan di scaffolding / perancah untuk mencapai bagaian kontruksi yang lebih tinggi.</p>
                                     </div>
                                 </div>
                             </div>

@@ -28,13 +28,11 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
   $tglKembali = $show['tgl_kembali'];
   $namaPenyewa = $show['penyewa'];
   $namaAdmin = $show['admin'];
-  
+  $proyek = $show['proyek']; 
 }
-
-
 ?>
 
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en">
 
 <head>
@@ -183,10 +181,10 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
-          <p>Barang tersebut akan di pakai untuk proyek .......</p>
+          <p>Barang tersebut akan di pakai untuk proyek (<?php echo $proyek; ?>)</p>
           <p>
             Kami telah memahami dan bersedia memenuhi syarat-syarat atau ketentuan yang telah di
-            tentukan oleh KAWI Scaffolding Malang. <br>
+            tentukan oleh PT. Kawi Sakti Megah Kota Malang. <br>
             Demikian permohonan kami atas perhatian dan kerjasamanya kami ucapkan terima kasih.
           </p>
         </div>
@@ -198,7 +196,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
             Hormat Kami,
           </p>
           <br><br><br>
-          <p>(......<?php echo $namaAdmin; ?>.....)</p>
+          <p>(<?php echo $namaAdmin; ?>)</p>
         </div>
         <div class="col-md-6">
           <br><br><br>
@@ -206,12 +204,12 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
             Penerima Order,
           </p>
           <br><br><br>
-          <p>(.....<?php echo $namaPenyewa; ?>....)</p>
+          <p>(<?php echo $namaPenyewa; ?>)</p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p>Permohonan di atas untuk masa sewa : <?php echo $tglSewa; ?> s/d <?php echo $tglKembali; ?></p>
+          <p>Permohonan di atas untuk masa sewa: <?php echo $tglSewa; ?> s/d <?php echo $tglKembali; ?></p>
 
         </div>
       </div>

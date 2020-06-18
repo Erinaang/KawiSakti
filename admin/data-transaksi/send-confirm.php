@@ -62,10 +62,11 @@ $mail->SMTPSecure     = "ssl";
 $mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
 $mail->Password     = "maternal781998";   //password email yang ngirim
 $mail->From            = "erinaangg@gmail.com"; //email pengirim
-$mail->FromName     = "Kawi Sakti";      //nama pengirim
-$mail->AddAddress($email, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
-$mail->Subject      =  "Pemberitahuan dari PT KSM"; //subject
-$mail->Body         =  '<b>Barang Anda akan dikirim</b><br> 
+$mail->FromName     = "PT. Kawi Sakti Megah";      //nama pengirim
+$mail->AddAddress($email, "Dengan PT. Kawi Sakti Megah disini."); //email yang tujuan dan nama
+$mail->Subject      =  "Pemberitahuan dari PT Kawi Sakti Megah"; //subject
+$mail->Body         =  '<b>Hai, pelanggan PT. Kawi Sakti Megah. Barang yang anda sewa akan segera dikirim.</b><br> 
+                        <b> RINCIAN PESANAN</b><br><br>
 
 <table class="table table-condensed">
 <thead>
