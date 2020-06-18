@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Google Fonts
         ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
@@ -96,7 +96,8 @@ if (isset($_POST['submit'])) {
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+            <br>
+                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
