@@ -4,21 +4,21 @@ session_start();
 include "koneksi/koneksi.php"; // ambil koneksi;
 
 //ambil data paket
-$queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-170' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
+$queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-170' order by JUMLAH_SET desc") or die("data salah: " . mysqli_error($mysqli));
 
-$queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
+$queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-190' order by JUMLAH_SET desc") or die("data salah: " . mysqli_error($mysqli));
 
-$queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
+$queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90' order by JUMLAH_SET desc") or die("data salah: " . mysqli_error($mysqli));
 
-//ambil data paket berdasarkan masa_sewa yang ada di keranjang
-if (isset($_GET['masa_sewa'])) {
-    $masaSewa = $_GET['masa_sewa'];
+//ambil data paket berdasarkan MASA_SEWA yang ada di keranjang
+if (isset($_GET['MASA_SEWA'])) {
+    $masaSewa = $_GET['MASA_SEWA'];
 
-    $queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-170' and masa_sewa='$masaSewa' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
+    $queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-170' and MASA_SEWA='$masaSewa' order by JUMLAH_SET desc") or die("data salah: " . mysqli_error($mysqli));
 
-    $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190' and masa_sewa='$masaSewa' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
+    $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-190' and MASA_SEWA='$masaSewa' order by JUMLAH_SET desc") or die("data salah: " . mysqli_error($mysqli));
 
-    $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90' and masa_sewa='$masaSewa' order by jumlah_set desc") or die("data salah: " . mysqli_error($mysqli));
+    $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90' and MASA_SEWA='$masaSewa' order by JUMLAH_SET desc") or die("data salah: " . mysqli_error($mysqli));
 }
 
 ?>
@@ -160,22 +160,22 @@ if (isset($_GET['masa_sewa'])) {
                                             <b>
                                                 <th>Masa Sewa (hari) </th>
                                                 <th>Jumlah Set</th>
-                                                <th>Harga (Rp.)</th>
+                                                <th>HARGA (Rp.)</th>
                                                 <th>Action</th>
                                         </tr> 
                                     </b>
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryMF170)) {
-                                            $masaSewa = $show['masa_sewa']
+                                            $masaSewa = $show['MASA_SEWA']
                                         ?>
                                             <b>
                                                 <td><?php echo $masaSewa; ?> Hari</td>
-                                                <td><?php echo $show['jumlah_set']; ?> Set Scaffolding</td>
-                                                <td>Rp. <?php echo $show['harga']; ?>,00</td>
+                                                <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
+                                                <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
                                                 <td>
                                             </b>
-                                            <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&masa_sewa=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
                                             </td>
                                             </tr>
                                         <?php } ?>
@@ -209,7 +209,7 @@ if (isset($_GET['masa_sewa'])) {
                                             <!-- <b> -->
                                                 <th>Masa Sewa (hari) </th>
                                                 <th>Jumlah Set</th>
-                                                <th>Harga (Rp.)</th>
+                                                <th>HARGA (Rp.)</th>
                                                 <th>Action</th>
                                         </tr> 
                                     <!-- </b> -->
@@ -217,12 +217,12 @@ if (isset($_GET['masa_sewa'])) {
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryMF190)) { ?>
                                             <!-- <b> -->
-                                                <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                                                <td><?php echo $show['jumlah_set']; ?> Set Scaffolding</td>
-                                                <td>Rp. <?php echo $show['harga']; ?>,00</td>
+                                                <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
+                                                <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
                                                 <td>
                                             <!-- </b> -->
-                                            <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&masa_sewa=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
                                             </td>
                                             </tr>
                                         <?php } ?>
@@ -256,7 +256,7 @@ if (isset($_GET['masa_sewa'])) {
                                         <tr>
                                                 <th>Masa Sewa (hari) </th>
                                                 <th>Jumlah Set</th>
-                                                <th>Harga (Rp.)</th>
+                                                <th>HARGA (Rp.)</th>
                                                 <th>Action</th>
                                         </tr> 
                                     </thead>
@@ -264,12 +264,12 @@ if (isset($_GET['masa_sewa'])) {
                                         <?php while ($show = mysqli_fetch_array($queryLF90)) { ?>
                                             <!-- <tr> -->
                                                 <!-- <b> -->
-                                                    <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                                                    <td><?php echo $show['jumlah_set']; ?> Set Scaffolding</td>
-                                                    <td>Rp. <?php echo $show['harga']; ?>,00</td>
+                                                    <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                    <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
+                                                    <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
                                                     <td>
                                                 <!-- </b> -->
-                                                <a href="kirim-keranjang.php?id_paket=<?php echo $show['id_paket']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                                <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
                                                     </td>
                                             </tr>
                                         <?php } ?>

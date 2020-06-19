@@ -14,13 +14,13 @@ $index = 1;
 $username = $_SESSION['username'];
 
 //ambil data user berdasarkan username yang login buat ditampilin di profil
-$queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
+$queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryIdUser)) {
-    $idUser = $show['id_user'];
-    $nama = $show['nama'];
-    $no_telp = $show['no_telp'];
-    $alamat = $show['alamat'];
-    $foto = $show['foto'];
+    $idUser = $show['ID_USER'];
+    $nama = $show['NAMA'];
+    $no_telp = $show['NO_TELP'];
+    $alamat = $show['ALAMAT'];
+    $foto = $show['FOTO'];
 }
 
 

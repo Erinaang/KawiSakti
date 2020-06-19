@@ -3,7 +3,7 @@
 $server = "localhost";
 $usernames = "root";
 $passwords = "";
-$database = "db_kawi";
+$database = "kawisaktimegah";
 
 $mysqli = mysqli_connect($server, $usernames, $passwords, $database);
 

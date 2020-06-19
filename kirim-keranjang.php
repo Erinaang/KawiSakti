@@ -5,35 +5,55 @@ if (!isset($_SESSION["username"])) {
 }
 include "koneksi/koneksi.php"; // ambil koneksi;
 
-$masaSewa = $_GET['masa_sewa'];
+$masaSewa = $_GET['MASA_SEWA'];
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
+$idTransaksi=$status=NULL;
 
 //GET IDUSER dari USERNAME (yg lagi login)
 $username = $_SESSION['username'];
-$queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
+$queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryIdUser)) {
-    $idUser = $show['id_user'];
+    $idUser = $show['ID_USER'];
+}
+
+$selectTransaksi = mysqli_query($mysqli, "SELECT * FROM transaksi WHERE ID_PENYEWA='$idUser' ORDER BY ID_TRANSAKSI DESC LIMIT 1") or die("data salah: " . mysqli_error($mysqli));
+while ($show = mysqli_fetch_array($selectTransaksi)) {
+    $idTransaksi = $show['ID_TRANSAKSI'];
+    $status = $show['STATUS'];
 }
 
 if (isset($_GET['submit'])) {
-    $idPaket = $_GET['id_paket'];
+    $idPaket = $_GET['ID_PAKET'];
     $jamPesan = $time;
+    $total = NULL;
 
-    
-//ambil data paket berdasarkan ID yang bakal dimasukin ke keranjang
-    $selectPaket = mysqli_query($mysqli, "SELECT * FROM paket WHERE id_paket='$idPaket'") or die("data salah: " . mysqli_error($mysqli));
-    while ($show = mysqli_fetch_array($selectPaket)) {
-        $jumlahSet = $show['jumlah_set'];
-        $harga = $show['harga'];
-        $total = $jumlahSet * $harga;
+    if ($status === 'cart') {
+        $selectPaket = mysqli_query($mysqli, "SELECT JUMLAH_SET , HARGA FROM paket WHERE ID_PAKET='$idPaket'") or die("data salah:1 " . mysqli_error($mysqli));
+        while ($show = mysqli_fetch_array($selectPaket)) {
+            $jumlahSet = $show['JUMLAH_SET'];
+            $harga = $show['HARGA'];
+            $total = $jumlahSet * $harga;
+        }
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', TOTAL='$total'") or die("data salah:2 " . mysqli_error($mysqli));
+    } else {
+        
+        $insertTransaksi = mysqli_query($mysqli, "INSERT INTO transaksi SET ID_PENYEWA='$idUser', STATUS='cart'") or die("data salah:3 " . mysqli_error($mysqli));
+        $selectT`ransaksi = mysqli_query($mysqli, "SELECT * FROM transaksi WHERE ID_PENYEWA='$idUser' ORDER BY ID_TRANSAKSI DESC LIMIT 1") or die("data salah:4 " . mysqli_error($mysqli));
+        while ($show = mysqli_fetch_array($selectTransaksi)) {
+            $idTransaksi = $show['ID_TRANSAKSI'];
+        }
+        $selectPaket = mysqli_query($mysqli, "SELECT JUMLAH_SET , HARGA FROM paket WHERE ID_PAKET='$idPaket'") or die("data salah:5 " . mysqli_error($mysqli));
+        while ($show = mysqli_fetch_array($selectPaket)) {
+            $jumlahSet = $show['JUMLAH_SET'];
+            $harga = $show['HARGA'];
+            $total = $jumlahSet * $harga;
+        }
+
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', TOTAL='$total'") or die("data salah:6 " . mysqli_error($mysqli));
     }
 
-
-//masukin data dari paket ke keranjang
-    $queryAddKeranjang = mysqli_query($mysqli, "INSERT INTO keranjang SET id_penyewa='$idUser', id_paket='$idPaket', jam_pemesanan = '$jamPesan', status='cart', total='$total'") or die("data salah: " . mysqli_error($mysqli));
-
-    if ($queryAddKeranjang) {
+    if ($insertTransaksiItem) {
         header("Location: profilBar.php"); //go to page profilbar
     }
 }
