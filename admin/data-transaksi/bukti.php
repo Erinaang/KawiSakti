@@ -24,7 +24,7 @@ $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Google Fonts
         ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">

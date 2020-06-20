@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Google Fonts
         ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
@@ -105,7 +105,8 @@ if (isset($_POST['submit'])) {
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a>
+            <br>
+                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
@@ -314,9 +315,9 @@ if (isset($_POST['submit'])) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="footer-copy-right">
+                        <!-- <div class="footer-copy-right">
                             <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

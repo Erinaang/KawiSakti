@@ -19,7 +19,7 @@ include 'koneksi/koneksi.php';
     <!-- end maps -->
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>PT KAWI SAKTI MANDIRI - Construction</title>
+    <title>PT KAWI SAKTI MEGAH - Construction</title>
 
     <!-- Icon css link -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -89,7 +89,7 @@ include 'koneksi/koneksi.php';
                             <li><a href="index.php">Home</a></li>
                             <li><a href="projectBar.php">Project</a></li>
                             <li><a href="AboutUs.php">About Us</a></li>
-                            <li><a href="skafoldBar.php">Skafold</a></li>
+                            <li><a href="skafoldBar.php">Scaffolding</a></li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
@@ -188,9 +188,9 @@ include 'koneksi/koneksi.php';
                             <img src="img/icon/s-icon-hover-6.png" alt="">
                         </div>
                         <a href="#">
-                            <h4>Penyewaan Skafolding</h4>
+                            <h4>Penyewaan Scaffolding</h4>
                         </a>
-                        <p>Melayani penyewaan Skafolding dengan ketepatan waktu pengiriman dan kemudahan peminjaman</p>
+                        <p>Melayani penyewaan Scaffolding dengan ketepatan waktu pengiriman dan kemudahan peminjaman</p>
 
                     </div>
                 </div>
@@ -265,10 +265,10 @@ include 'koneksi/koneksi.php';
                     <h2>Lingkup <br class="title_br" /> Jasa</h2>
                     <h6>PT Kawi Sakti Megah</h6>
                 </div>
-                <p>Perusahaan Jasa dibidang konstruksi melayani Rental Scaffolding, Perancah, Steger yang mengutamakan kualitas. Dengan struktur yang kokoh dengan bahan Scaffolding Galvanish serta memperhitungkan standar keselamatan sehingga aman pada saat digunakan</p>
-                <p>Kami Melayani instansi ataupun pribadi mulai dari perencanaan bangunan hingga tahap finishing . karena keinginan dari setiap client berbeda maka kami siap dengan berbagai macam solusi terbaik bagi clien kami</p>
-                <p>Pada setiap tahap kami kerjakan dengan penuh tanggung jawab. seperti pemenuhan target, interaktif dengan relasi dan laporan yang akurat dan terpercaya</p>
-                <p>Rancangan akan dihitung secara terperinci sehingga client dan perusahaan akan bekerja sama dengan baik dengan transparansi . disitu adalah salah satu kelebihan dari perusahaan kami</p>
+                <p>Perusahaan jasa dibidang konstruksi melayani rental scaffolding, perancah, steger yang mengutamakan kualitas. Dengan struktur yang kokoh dengan bahan scaffolding serta memperhitungkan standar keselamatan sehingga aman pada saat digunakan</p>
+                <p>Kami melayani instansi ataupun pribadi mulai dari perencanaan bangunan hingga tahap finishing. Karena keinginan dari setiap client berbeda maka kami siap dengan berbagai macam solusi terbaik bagi client kami</p>
+                <p>Pada setiap tahap kami kerjakan dengan penuh tanggung jawab. Seperti pemenuhan target, interaktif dengan relasi dan laporan yang akurat dan terpercaya</p>
+                <p>Rancangan akan dihitung secara terperinci sehingga client dan perusahaan akan bekerja sama dengan baik dengan transparansi. Disitu adalah salah satu kelebihan dari perusahaan kami</p>
                 <div class="border_bar"></div>
             </div>
         </div>
@@ -286,89 +286,71 @@ include 'koneksi/koneksi.php';
                             <h6>PT Kawi Sakti Megah</h6>
                         </div>
                         <ul class="our_project_filter">
-                            <li class="active" data-filter="*"><a href="#">All</a></li>
-                            <li data-filter=".building"><a href="#">Jack Base</a></li>
-                            <li data-filter=".interior"><a href="#">U-head jack</a></li>
-                            <li data-filter=".design"><a href="#">Rangka Besi</a></li>
-                            <li data-filter=".isolation"><a href="#">Frame</a></li>
-                            <li data-filter=".plumbing"><a href="#">Join Pin</a></li>
-                            <li data-filter=".tiling"><a href="#">Cross Brace </a></li>
+                        <li class="active" data-filter="*"><a href="#">All</a></li>
+                                <li data-filter=".mainframe"><a href="#">Main Frame</a></li>
+                                <li data-filter=".ladderframe"><a href="#">Ladder Frame</a></li>
+                                <li data-filter=".catwalk"><a href="#">Cat Walk</a></li>
+                                <li data-filter=".stair"><a href="#">Stair</a></li>
+                                <li data-filter=".crossbrace"><a href="#">Cross Brace </a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="our_project_details">
-                        <div class="project_item building isolation tiling">
-                            <img src="img/project/project-1.jpeg" alt="">
-                            <div class="project_hover">
-                                <div class="project_hover_inner">
-                                    <div class="project_hover_content">
-                                        <a href="#">
-                                            <h4>Jack Base</h4>
-                                        </a>
-                                        <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
-                                        <a class="view_btn" href="#">View Project</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project_item building isolation plumbing">
+                        <div class="project_item ladderframe">
                             <img src="img/project/project-2.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
                                         <a href="#">
-                                            <h4>U-head jack</h4>
+                                            <h4>Ladder Frame</h4>
                                         </a>
-                                        <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
-                                        <a class="view_btn" href="#">View Project</a>
-                                    </div>
+                                        <p>Ladder frame adalah salah satu komponen dari scaffolding yang biasanya dipasang pada bagian atas dari main frame, untuk menambah tinggi karena dibutuhkan pijakan atau penyangga yang lebih tinggi dari 170 cm dan 190 cm, ladder frame yang kita miliki memiliki dimensi tinggi 90 cm dan lebar 122 cm.</p>                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="project_item building interior design">
+                        <div class="project_item stair">
                             <img src="img/project/project-3.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
                                         <a href="#">
-                                            <h4>Rangka Besi </h4>
+                                            <h4>Stair</h4>
                                         </a>
-                                        <!--   <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
-                                        <a class="view_btn" href="#">View Project</a>
+                                        <p>Stair scaffolding adalah asesori scaffolding / perancah digunakan sebagai pengganti tangga langkah dan sanggup / bisa di hubungkan ke main frame. Stair step digunakan di scaffolding / perancah untuk mencapai bagaian kontruksi yang lebih tinggi.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="project_item interior isolation plumbing">
+                        <div class="project_item catwalk">
                             <img src="img/project/project-4.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
                                         <a href="#">
-                                            <h4>Frame</h4>
+                                            <h4>Cat Walk</h4>
                                         </a>
-                                        <!--   <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
+                                        <p>Cat walk adalah komponen perancah yang dibuat dari bahan baja berkualitas yang telah dilapisi dengan cat pelindung untuk melindungi permukaanya dari karat dan oksidasi. Catwalk scaffolding ini berfungsi sebagai platform atau tempat berpijak antar main frame yang digunakan para pekerja sebagai landasan kerja. Catwalk ini harus terbuat dari logam agar kuat untuk menopang bobot para pekerja dan perlatan yang digunakan.</p>
                                         <a class="view_btn" href="#">View Project</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="project_item interior design tiling">
+                        <div class="project_item mainframe">
                             <img src="img/project/project-5.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
                                         <a href="#">
-                                            <h4>Join Pin</h4>
+                                            <h4>Main Frame</h4>
                                         </a>
-                                        <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
+                                        <p>Main frame adalah salah satu komponen paling utama dari scaffolding, kegunaan main frame adalah sebagai penyangga utama. Dimensi main frame sendiri adalah tinggi 170 cm, 190 cm dan lebar 122 cm.</p>
                                         <a class="view_btn" href="#">View Project</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="project_item design plumbing tiling">
+                        <div class="project_item crossbrace">
                             <img src="img/project/project-6.jpg" alt="">
                             <div class="project_hover">
                                 <div class="project_hover_inner">
@@ -376,7 +358,7 @@ include 'koneksi/koneksi.php';
                                         <a href="#">
                                             <h4>Cross Brace</h4>
                                         </a>
-                                        <!--  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p> -->
+                                        <p>Alat ini berbentuk batang panjang yang menyilang satu sama lain, dan fungsinya adalah untuk menyambung 2 (dua) main frame atau ladder frame dengan posisi melintang diantara keduanya, alat ini juga berfungsi menjaga kekokohan dari frame yang disambungkan sehingga dapat menopang dengan baik. Dimensi dari cross brace adalah 193 cm dan 220 cm.</p>
                                         <a class="view_btn" href="#">View Project</a>
                                     </div>
                                 </div>
@@ -398,7 +380,7 @@ include 'koneksi/koneksi.php';
                     <h6>Mari Mencapai Perubahan yang cemerlang</h6>
                 </div>
                 <p>Perusahaan yang sudah berdiri lebih dari dua puluh tahun . kami bekerja dengan Etos Kerja dan Komitmen Tinggi dan Kami pelopor awal perentalan Scaffolding yang terpercaya Di Malang Raya</p>
-                <a class="get_bg_btn" href="AboutUs.php">Lihat Profile</a>
+                <a class="get_bg_btn" href="AboutUs.php">Lihat Profil</a>
             </div>
         </div>
     </section>
@@ -601,7 +583,7 @@ include 'koneksi/koneksi.php';
     <!--================End Clients Area =================-->
 
     <!--================Map Area =================-->
-    <div id="mapBox" class="mapBox row m0" data-lat="40.7112969" data-lon="-74.1393991" data-zoom="10" data-marker="img/map-marker.png" data-info="Malang, uttara, Sector 10, Road 22" data-mlat="40.7112969" data-mlon="-74.1393991"></div>
+    <!-- <div id="mapBox" class="mapBox row m0" data-lat="40.7112969" data-lon="-74.1393991" data-zoom="10" data-marker="img/map-marker.png" data-info="Malang, uttara, Sector 10, Road 22" data-mlat="40.7112969" data-mlon="-74.1393991"></div> -->
     <!--================End Map Area =================-->
 
     <!--================New Maps  =================-->
@@ -668,12 +650,12 @@ include 'koneksi/koneksi.php';
                         <aside class="f_widget about_widget">
                             <img src="img/footer-logo.png">
                             <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
-                            <ul>
+                            <!-- <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                 <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                            </ul>
+                            </ul> -->
                         </aside>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -730,7 +712,7 @@ include 'koneksi/koneksi.php';
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     <div class="media-body">
-                                        <p>info@domain.com</p>
+                                        <p>kawisaktimalang@gmail.com</p>
                                     </div>
                                 </div>
                             </div>

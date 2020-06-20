@@ -25,7 +25,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Google Fonts
         ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
@@ -87,7 +87,8 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a><img class="main-logo" src="img/logo/logo2.png" alt="" /></a>
+            <br>
+                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logo2.png" alt="" width="60px" /></strong>
             </div>
@@ -229,7 +230,6 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
         </div>
 
         <!-- DATA TABEL TRANSAKSI -->
-
         <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
@@ -239,7 +239,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th> Nama Penyewa</th>
+                                        <th>Nama Penyewa</th>
                                         <th>Total</th>
                                         <th>Jenis Pengiriman </th>
                                         <th>Jaminan</th>
@@ -260,7 +260,7 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                         $idTransaksi = $show['id_transaksi'];?>
                                         <tr>
                                             <td><?php echo $show['penyewa']; ?></td>
-                                            <td><?php echo $show['total']; ?></td>
+                                            <td>Rp. <?php echo $show['total']; ?></td>
                                             <td><?php echo $show['nama']; ?></td>
                                             <td><?php echo $show['jaminan']; ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?id_transaksi=<?php echo $idTransaksi; ?>">Lihat Bukti Transaksi</a></td>

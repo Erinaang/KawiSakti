@@ -158,9 +158,9 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                             <li>
                                 <?php
                                 if ($masaSewa != 0) {
-                                    echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '">Skafold</a>';
+                                    echo '<a href="skafoldBar.php?masa_sewa=' . $masaSewa . '">Scaffolding</a>';
                                 } else {
-                                    echo '<a href="skafoldBar.php">Skafold</a>';
+                                    echo '<a href="skafoldBar.php">Scaffolding</a>';
                                 }
 
                                 ?>
@@ -187,7 +187,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
         <div class="container">
 
             <div class="banner_inner_text">
-                <h4>- Profile User-</h4>
+                <h4>- User Profile -</h4>
                 <ul> <br>
 
                     <div class="content">
@@ -207,7 +207,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                             <div class="banner_inner_text">
                                 <h4>
                                     <p>
-                                        Welcome to Account
+                                        Welcome to account
                                         <strong>
                                             <?php echo $_SESSION['username']; ?>
                                         </strong> :)
@@ -247,7 +247,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                         </div>
 
                         <div class="col-md-8">
-                            <h3> Profile </h3>
+                            <h3> Profil </h3>
                             <br>
                             <b>
                                 <h4>
@@ -372,15 +372,15 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                                         <div class="col-md-6"> <br>
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1"> <b>Alamat</b></label>
-                                                <textarea class="form-control" name="alamat" placeholder="masukan Alamat Lengkap " required></textarea>
+                                                <textarea class="form-control" name="alamat" placeholder="Masukkan alamat pengiriman secara lengkap" required></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlInput1"><b> Kota / Kab </b></label>
-                                                <input type="text" class="form-control" name="kota" placeholder="masukan Kota" required>
+                                                <label for="exampleFormControlInput1"><b> Kota / Kabupaten </b></label>
+                                                <input type="text" class="form-control" name="kota" placeholder="Masukkan Kota Anda" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1"><b> Nama Proyek</b></label>
-                                                <input type="text" class="form-control" name="proyek" placeholder="digunakan untuk proyek ..." required>
+                                                <input type="text" class="form-control" name="proyek" placeholder="Digunakan untuk proyek..." required>
                                             </div>
                                         </div>
 
