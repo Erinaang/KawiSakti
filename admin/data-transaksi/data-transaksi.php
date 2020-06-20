@@ -8,8 +8,7 @@ include "../connection/Connection.php";
 // $username = $_SESSION['username'];
 //SELECT DATA Riwayat
 
-$transaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, tr.*, pr.* FROM transaksi as tr JOIN user as pny on tr.id_penyewa=pny.id_user join pengiriman as pr on tr.id_pengiriman = pr.id_pengiriman WHERE tr.status='Terkirim' OR tr.status='Dikirim'") or die("data salah: " . mysqli_error($mysqli));
-$user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
+$dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='terkirim'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -241,11 +240,9 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                     <tr>
                                         <th>Nama Penyewa</th>
                                         <th>Total</th>
-                                        <th>Jenis Pengiriman </th>
                                         <th>Jaminan</th>
                                         <th>Bukti Pembayaran & KTP</th>
                                         <th>Alamat</th>
-                                        <th>Kota</th>
                                         <th>Tanggal Sewa</th>
                                         <th>Tanggal Pengembalian</th>
                                         <th>Status</th>
@@ -253,30 +250,27 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($transaksi)) {
-                                        $status = $show['STATUS'];
-                                        $tgl = $show['TGL_SEWA'];
+                                    <?php while ($show = mysqli_fetch_array($dataTransaksi)) {
+                                        $status = $show['statusTrans'];
                                         $jam_pesan = $show['JAM_PEMESANAN']; 
-                                        $idTransaksi = $show['ID_TRANSAKSI'];?>
+                                        $idTrans = $show['ID_TRANSAKSI'];?>
                                         <tr>
-                                            <td><?php echo $show['penyewa']; ?></td>
-                                            <td>Rp. <?php echo $show['total']; ?></td>
-                                            <td><?php echo $show['nama']; ?></td>
-                                            <td><?php echo $show['jaminan']; ?></td>
-                                            <td><a class="btn btn-primary" href="bukti.php?id_transaksi=<?php echo $idTransaksi; ?>">Lihat Bukti Transaksi</a></td>
-                                            <td><?php echo $show['alamat']; ?></td>
-                                            <td><?php echo $show['kota']; ?></td>
-                                            <td><?php echo $tgl; ?></td>
-                                            <td><?php echo $show['tgl_kembali']; ?></td>
+                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td>Rp. <?php echo $show['TOTAL']; ?></td>
+                                            <td><?php echo $show['JAMINAN']; ?></td>
+                                            <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>
+                                            <td><?php echo $show['ALAMAT']; ?></td>
+                                            <td><?php echo $show['TGL_SEWA']; ?></td>
+                                            <td><?php echo $show['TGL_KEMBALI']; ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
-                                                <?php if ($status === "Terkirim") {
-                                                    echo '<a href="send-confirm.php?id_transaksi=' . $idTransaksi . '&id_penyewa=' . $show['id_penyewa'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                <?php if ($status === "terkirim") {
+                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&ID_PENGIRIMAN=' . $show['ID_PENGIRIMAN'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {
-                                                    echo '<a href="../../print.php?id_transaksi=' . $idTransaksi . '&id_penyewa=' . $show['id_penyewa'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&id_pengiriman=' . $show['id_pengiriman'] . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
+                                                    echo '<a href="../../print.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&ID_PENGIRIMAN=' . $show['ID_PENGIRIMAN'] . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
                                                 }
                                                 ?>
-                                                <a href="hapus-transaksi.php?id_transaksi=<?php echo $idTransaksi; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                                <a href="hapus-transaksi.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
 
                                         </tr>

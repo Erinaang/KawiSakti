@@ -4,8 +4,8 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
 include "../connection/Connection.php";
-$idTransaksi = $_GET['id_transaksi'];
-$transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$idTransaksi'") or die("data salah: " . mysqli_error($mysqli));
+$idTrans = $_GET['ID_TRANS'];
+$transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -79,8 +79,8 @@ $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
 
     <script>
-        /* Style the Image Used to Trigger the Modal */ 
-        #myImg, #myImg2 {
+        /* Style the Image Used to Trigger the Modal */ #
+        myImg, #myImg2 {
             border - radius: 5 px;
             cursor: pointer;
             transition: 0.3 s;
@@ -176,7 +176,7 @@ $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$
         <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
-                <a href="data-transaksi.php">kembali &times;</a>
+                    <a href="data-transaksi.php">kembali &times;</a>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <table class="table table-bordered">
@@ -188,12 +188,11 @@ $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$
                                 </thead>
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) {
-                                        $status = $show['status'];
-                                        $tgl = $show['tgl_sewa']; ?>
+                                    ?>
                                         <tr>
-                                            <td> <img id="myImg" src="../../img/Uploads/ktp/<?php echo $show["bukti_pembayaran"]; ?>" alt="Bukti Pembayaran" style="width:100%;max-width:300px"></td>
+                                            <td> <img id="myImg" src="../../img/Uploads/ktp/<?php echo $show["BUKTI_PEMBAYARAN"]; ?>" alt="Bukti Pembayaran" style="width:100%;max-width:300px"></td>
                                             <td>
-                                                <img id="myImg2" src="../../img/Uploads/ktp/<?php echo $show["bukti_ktp"]; ?>" alt="Bukti KTP" style="width:100%;max-width:300px">
+                                                <img id="myImg2" src="../../img/Uploads/ktp/<?php echo $show["BUKTI_KTP"]; ?>" alt="Bukti KTP" style="width:100%;max-width:300px">
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -203,12 +202,12 @@ $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$
                     </div>
                 </div>
                 <div id="myModal" class="modal">
-                    <span class="close">&times;</span>
+                    <a href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>"><span class="close">&times;</span></a>
                     <img class="modal-content" id="img01">
                     <div id="caption"></div>
                 </div>
                 <div id="myModal2" class="modal">
-                    <a href="bukti.php?id_transaksi=<?php echo $idTransaksi; ?>"><span class="close">&times;</span></a>
+                    <a href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>"><span class="close">&times;</span></a>
                     <img class="modal-content" id="img02">
                     <div id="caption"></div>
                 </div>
@@ -216,7 +215,7 @@ $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE id_transaksi='$
         </div>
         <!-- END TABEL TRANSAKSI -->
     </div>
-    
+
 
 
     <script src="../js/vendor/jquery-1.12.4.min.js"></script>
