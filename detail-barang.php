@@ -8,37 +8,17 @@ include "koneksi/koneksi.php"; // ambil koneksi;
 $index = 1; //buat nomor di tabel
 $jaminan = $total = 0; //definisi variabel dengan nilai 0
 
-//ambil isi variabel dari URL
-$idPenyewa = $_GET['id_penyewa'];
-$tanggal = $_GET['tanggal'];
-$status = $_GET['status'];
-$idPengiriman = $_GET['id_pengiriman'];
-$idTransaksi = $_GET['id_transaksi'];
+$idPenyewa = $_GET['ID_PENYEWA'];
+$idTrans = $_GET['ID_TRANS'];
 
-//QUERY PENGIRIMAN => ambil ongkirs
-$queryPengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman='$idPengiriman'") or die("data salah: " . mysqli_error($mysqli));
-while ($show = mysqli_fetch_array($queryPengiriman)) {
-    $ongkir = $show['biaya'];
+$queryDetail = mysqli_query($mysqli, "SELECT *, tr.TOTAL AS totalTrans, ti.TOTAL AS totalPaket FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+while ($show = mysqli_fetch_array($queryDetail)) {
+    $tglSewa = $show['TGL_SEWA'];
+    $status = $show['STATUS'];
 }
 
-//QUERY TRANSAKSI
-$queryTransaksi = mysqli_query($mysqli, "SELECT pny.nama as penyewa, adm.nama as admin, tr.* FROM transaksi AS tr JOIN user AS pny ON tr.id_penyewa = pny.id_user JOIN user AS adm ON tr.id_admin = adm.id_user WHERE id_transaksi='$idTransaksi'") or die("data salah: " . mysqli_error($mysqli));
-while ($show = mysqli_fetch_array($queryTransaksi)) {
-    $totalHarga = $show['total'];
-    $jaminan = $show['jaminan'];
-    $tglSewa = $show['tgl_sewa'];
-    $tglKembali = $show['tgl_kembali'];
-    $namaPenyewa = $show['penyewa'];
-    $namaAdmin = $show['admin'];
-}
+$queryItem = mysqli_query($mysqli, "SELECT *, tr.TOTAL AS totalTrans, ti.TOTAL AS totalPaket FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
-//QUERY TABEL DETAIL 
-$queryDetail = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='$idPenyewa' AND kr.status='$status'  AND kr.tanggal='$tglSewa'") or die("data salah: " . mysqli_error($mysqli));
-
-//SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
-$queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengiriman AS pg ON tr.id_pengiriman = pg.id_pengiriman WHERE id_penyewa='$idUser' AND status!='cart' AND status!='checkout'") or die("data salah: " . mysqli_error($mysqli));
-// while ($show = mysqli_fetch_array($queryRiwayat)) {
-//     $status = $show['status'];
 ?>
 
 <!DOCTYPE html>
@@ -100,88 +80,69 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
         <div class="product-status mg-b-30">
             <div class="container-fluid" style="background-color: #FFB74D">
                 <div class="container">
-                <div class="col-md-8">
-                          <center>  <h3> Detail barang yang dipesan </h3> </center>
-                            <br>
-                            <b>
-                                <h4>
-                                            <?php 
-                                                    //menampilkan data dari SELECT RIWAYAT diatas
-                                                   
-                                                        $tgl = $show['tgl_sewa'];    
-                                              ?>                       
-                                            <?php echo $tgl; ?>     
-                                             <?php  ?>      
-                                     <h4>  <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo $tglSewa; ?>  </b> </h4>
-
-                                             
-                                </h4>
-                            </b>
-                            <?php 
-                                                    //menampilkan data dari SELECT RIWAYAT diatas
-                                                    while ($show = mysqli_fetch_array($queryRiwayat)) {
-                                                        $status = $show['status'];     
-                                              ?>                       
-                                             <?php echo $status; ?>        
-                                             <?php } ?>      
-                                             
-                                     <h4>  <b> Status Pengiriman &emsp;&emsp;&emsp;&emsp; : <?php echo $status; ?>  </b> </h4>
-
-                                             
-                                <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Masa Sewa (hari) </th>
-                                        <th>Jumlah Set x Harga (Rp.)</th>
-                                        <th>Total Harga (Rp.)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while ($show = mysqli_fetch_array($queryDetail)) {
-                                        $total = $total + $show['total'];
-                                        $jaminan = $total * (30 / 100);
-                                    ?>
+                    <div class="col-md-8">
+                        <center>
+                            <h3> Detail barang yang dipesan </h3>
+                        </center>
+                        <br>
+                        <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo $tglSewa; ?> </b> </h4>
+                        <h4> <b> Status Pengiriman &emsp;&emsp;&emsp;&emsp; : <?php echo $status; ?> </b> </h4>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-condensed">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo $index++; ?></td>
-                                            <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                                            <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
-                                            <td>Rp. <?php echo $show['total']; ?>,00</td>
+                                            <th>No.</th>
+                                            <th>Masa Sewa (hari) </th>
+                                            <th>Jumlah Set x Harga (Rp.)</th>
+                                            <th>Total (Rp.)</th>
                                         </tr>
-                                    <?php } ?>
-                                    <tr>
-                                        <td colspan="2"> </td>
-                                        <td><b> Sub Total : </b></td>
-                                        <td><b> Rp. <?php echo $total; ?></b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"> </td>
-                                        <td><b> Jaminan : </b></td>
-                                        <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"> </td>
-                                        <td><b> Ongkos Kirim : </b></td>
-                                        <td><b>Rp. <?php echo $ongkir; ?></b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"> </td>
-                                        <td><b> Total Harga : </b></td>
-                                        <td><b>Rp. <?php echo $totalHarga; ?></b></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php while ($show = mysqli_fetch_array($queryItem)) {
+                                            $totalTrans = $show['totalTrans'];
+                                            $jaminan = $show['JAMINAN'];
+                                            $ongkir = $show['BIAYA'];
+                                            $totalHarga = $totalTrans + $jaminan + $ongkir;
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $index++; ?></td>
+                                                <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                                <td>Rp. <?php echo $show['totalPaket']; ?>,00</td>
+                                            </tr>
+                                        <?php } ?>
+                                        <tr>
+                                            <td colspan="2"> </td>
+                                            <td><b> Sub Total : </b></td>
+                                            <td><b> Rp. <?php echo $totalTrans;  ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"> </td>
+                                            <td><b> Jaminan : </b></td>
+                                            <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"> </td>
+                                            <td><b> Ongkos Kirim : </b></td>
+                                            <td><b>Rp. <?php echo $ongkir; ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"> </td>
+                                            <td><b> Total Harga : </b></td>
+                                            <td><b>Rp. <?php echo $totalHarga; ?></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                              <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b>
-                            </div>
+                            <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
     <!-- </section> -->
@@ -207,7 +168,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN pengir
                 <div class="row footer_widgets_inner">
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
-                            <img src="img/logo.png" >
+                            <img src="img/logo.png">
                             <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
