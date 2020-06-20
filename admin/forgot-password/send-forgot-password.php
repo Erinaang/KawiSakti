@@ -8,9 +8,9 @@ if (isset($_POST['kirim'])) {
 	$edit = $_POST['edit'];
 	if ($newPass === $confirmPass) {
 
-		$queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE email='$email'") or die("data salah: " . mysqli_error($mysqli));
+		$queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE EMAIL='$email'") or die("data salah: " . mysqli_error($mysqli));
 		while ($show = mysqli_fetch_array($queryIdUser)) {
-			$nama = $show['nama'];
+			$nama = $show['NAMA'];
 		}
 		require '../../PHPMailer/src/PHPMailer.php';
 		require '../../PHPMailer/src/SMTP.php';
@@ -36,10 +36,10 @@ if (isset($_POST['kirim'])) {
 			";
 		if ($mail->Send()) {
 			if ($edit === 'true') {
-				$queryEdit = mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
+				$queryEdit = mysqli_query($mysqli, "UPDATE user SET PASSWORD='$encPass' WHERE EMAIL='$email'") or die("data salah: " . mysqli_error($mysqli));
 				header("Location: ../../ProfilBar.php");
 			}
-			$queryEdit = mysqli_query($mysqli, "UPDATE user SET password='$encPass' where email='$email'") or die("data salah: " . mysqli_error($mysqli));
+			$queryEdit = mysqli_query($mysqli, "UPDATE user SET PASSWORD='$encPass' WHERE EMAIL='$email'") or die("data salah: " . mysqli_error($mysqli));
 		} else {
 		}
 	} else {
