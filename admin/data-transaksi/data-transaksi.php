@@ -265,7 +265,7 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM 
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "terkirim") {
-                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&ID_PENGIRIMAN=' . $show['ID_PENGIRIMAN'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] .'" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {
                                                     echo '<a href="../../print.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&ID_PENGIRIMAN=' . $show['ID_PENGIRIMAN'] . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
                                                 }
