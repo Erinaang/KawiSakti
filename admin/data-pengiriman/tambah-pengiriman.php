@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     $biaya = $_POST['biaya'];
     $max = $_POST['max'];
 
-    $query = mysqli_query($mysqli, "INSERT INTO pengiriman SET nama='$nama', biaya='$biaya', max='$max'") or die("data salah: " . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "INSERT INTO pengiriman SET NAMA='$nama', BIAYA='$biaya', MAX='$max'") or die("data salah: " . mysqli_error($mysqli));
 
     echo "<script>alert('Data Telah ditambahkan.');location.href='data-pengiriman.php'</script>";
 }

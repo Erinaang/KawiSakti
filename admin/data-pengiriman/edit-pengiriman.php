@@ -7,15 +7,15 @@ include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
 //SELECT DATA
-$id_pengiriman = $_GET['id_pengiriman'];
-$query = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman = '$id_pengiriman'") or die("data salah: " . mysqli_error($mysqli));
+$idPengiriman = $_GET['ID_PENGIRIMAN'];
+$query = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE ID_PENGIRIMAN = '$idPengiriman'") or die("data salah: " . mysqli_error($mysqli));
 
 if (isset($_POST['submit'])) {
     $nama = $_POST['nama'];
     $biaya = $_POST['biaya'];
     $max = $_POST['max'];
 
-    $query = mysqli_query($mysqli, "UPDATE pengiriman SET nama='$nama', biaya='$biaya', max='$max' WHERE id_pengiriman='$id_pengiriman'") or die("data salah: " . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "UPDATE pengiriman SET NAMA='$nama', BIAYA='$biaya', MAX='$max' WHERE ID_PENGIRIMAN='$idPengiriman'") or die("data salah: " . mysqli_error($mysqli));
 
     if ($query) {
         echo "<script>alert('Data Telah diperbaharui.');location.href='data-pengiriman.php'</script>";
@@ -270,11 +270,11 @@ if (isset($_POST['submit'])) {
                                                         <div class="review-content-section">
                                                             <div class="input-group mg-b-pro-edt">
                                                                 <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Nama :</i></span>
-                                                                <input name="nama" type="text" class="form-control" value="<?php echo $show['nama']; ?>">
+                                                                <input name="nama" type="text" class="form-control" value="<?php echo $show['NAMA']; ?>">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
                                                                 <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Biaya :</i></span>
-                                                                <input name="biaya" type="text" class="form-control" value="<?php echo $show['biaya']; ?>">
+                                                                <input name="biaya" type="text" class="form-control" value="<?php echo $show['BIAYA']; ?>">
                                                             </div>
 
                                                         </div>
@@ -282,7 +282,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Max :</i></span>
-                                                            <input name="max" type="text" class="form-control" value="<?php echo $show['max']; ?>">
+                                                            <input name="max" type="text" class="form-control" value="<?php echo $show['MAX']; ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -292,7 +292,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="text-center custom-pro-edt-ds">
                                                         <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
                                                         <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Save">
-                                                        <a href="data-barang.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                        <a href="data-pengiriman.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
                                                     </div>
                                                 </div>
                                             </div>

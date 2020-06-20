@@ -259,12 +259,12 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($pengiriman)) { ?>
                                         <tr>
-                                            <td><?php echo $show['nama']; ?></td>
-                                            <td><?php echo $show['biaya']; ?></td>
-                                            <td><?php echo $show['max']; ?></td>
+                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td><?php echo $show['BIAYA']; ?></td>
+                                            <td><?php echo $show['MAX']; ?></td>
                                             <td>
-                                                <a href="edit-pengiriman.php?id_pengiriman=<?php echo $show['id_pengiriman']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                <a href="hapus-pengiriman.php?id_pengiriman=<?php echo $show['id_pengiriman']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                                <a href="edit-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+                                                <a href="hapus-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
