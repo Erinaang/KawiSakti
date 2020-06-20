@@ -22,8 +22,8 @@ if (isset($_POST['daftarSubmit'])) {
 	$password = $_POST['password'];
 	$passEnc = md5($password);
 
-	$sql_u = "SELECT * FROM user WHERE username='$username'";
-	$sql_e = "SELECT * FROM user WHERE email='$email'";
+	$sql_u = "SELECT * FROM user WHERE USERNAME='$username'";
+	$sql_e = "SELECT * FROM user WHERE PASSWORD='$email'";
 	$res_u = mysqli_query($mysqli, $sql_u) or die("data salah: " . mysqli_error($mysqli));
 	$res_e = mysqli_query($mysqli, $sql_e) or die("data salah: " . mysqli_error($mysqli));
 
@@ -32,7 +32,7 @@ if (isset($_POST['daftarSubmit'])) {
 	} else if (mysqli_num_rows($res_e) > 0) {
 		$email_error = "Sorry... email already taken";
 	} else {
-		$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET nama = '$nama', email='$email', alamat='$alamat', no_telp='$telp', username='$username', password='$passEnc', status='admin'") or die("data salah: " . mysqli_error($mysqli));
+		$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET NAMA = '$nama', EMAIL='$email', ALAMAT='$alamat', NO_TELP='$telp', USERNAME='$username', PASSWORD='$passEnc', STATUS='admin'") or die("data salah: " . mysqli_error($mysqli));
 		$_SESSION['username'] = $username;
 		// $data['level'] level digunaan untu memanggil value level dari username yang telah login dan disimpan dalam $_SESSION['level']
 		$_SESSION['status'] 	  = 'admin';

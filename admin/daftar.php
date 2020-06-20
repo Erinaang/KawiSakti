@@ -22,8 +22,8 @@ if (isset($_POST['daftarSubmit'])) {
 	$password = randomPass();
 	$passEnc = md5($password);
 
-	$sql_u = "SELECT * FROM user WHERE username='$username'";
-	$sql_e = "SELECT * FROM user WHERE email='$email'";
+	$sql_u = "SELECT * FROM user WHERE USERNAME='$username'";
+	$sql_e = "SELECT * FROM user WHERE EMAIL='$email'";
 	$res_u = mysqli_query($mysqli, $sql_u) or die("data salah: " . mysqli_error($mysqli));
 	$res_e = mysqli_query($mysqli, $sql_e) or die("data salah: " . mysqli_error($mysqli));
 
@@ -57,7 +57,7 @@ if (isset($_POST['daftarSubmit'])) {
 			";
 		// $mail->AddAttachment("/cpanel.png","filesaya");
 		if ($mail->Send()) {
-			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET nama = '$nama', email='$email', alamat='$alamat', no_telp='$telp', username='$username', password='$passEnc', status='penyewa'") or die("data salah: " . mysqli_error($mysqli));
+			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET NAMA = '$nama', EMAIL='$email', ALAMAT='$alamat', NO_TELP='$telp', USERNAME='$username', PASSWORD='$passEnc', STATUS='penyewa'") or die("data salah: " . mysqli_error($mysqli));
 			header("Location: login.php");
 		} else {
 			echo error_reporting(E_ALL);
