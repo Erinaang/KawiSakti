@@ -5,11 +5,10 @@ session_start();
 // }
 include "../connection/Connection.php";
 
-$idPenyewa = $_GET['id_penyewa'];
-$jam_pesan = $_GET['jam_pesan'];
+$idTrans = $_GET['ID_TRANS'];
 
 //query tampil tabel pengembalian
-$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang as kr JOIN paket as pk ON kr.id_paket = pk.id_paket WHERE kr.id_penyewa='$idPenyewa' AND kr.jam_pemesanan='$jam_pesan'") or die("data salah form denda: " . mysqli_error($mysqli));
+$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah form denda: " . mysqli_error($mysqli));
 
 ?>
 
@@ -240,14 +239,16 @@ $queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang as kr JOIN pake
                                 <thead>
                                     <tr>
                                         <th>Frame</th>
+                                        <th>Jumlah Set</th>
                                         <th>Kerusakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($queryKeranjang)) {?>
                                         <tr>
-                                            <td><?php echo $show['frame'] ?></td>
-                                            <td> <a href="add-denda.php?id_keranjang=<?php echo $show['id_keranjang']; ?>&jam_pesan=<?php echo $jam_pesan; ?>&id_penyewa=<?php echo $idPenyewa; ?>" class="btn btn-primary">Masukan Jumlah Denda</a> </td>
+                                            <td><?php echo $show['FRAME'] ?></td>
+                                            <td><?php echo $show['JUMLAH_SET']?></td>
+                                            <td> <a href="add-denda.php?ID_ITEM=<?php echo $show['ID_TRANSAKSI_ITEM']; ?>" class="btn btn-primary">Masukan Jumlah Denda</a> </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

@@ -5,22 +5,20 @@ session_start();
 // }
 include "../connection/Connection.php";
 
-$idKeranjang = $_GET['id_keranjang'];
-$jam_pesan = $_GET['jam_pesan'];
-$id_penyewa = $_GET['id_penyewa'];
+$idItem = $_GET['ID_ITEM'];
 
 //query tampil tabel pengembalian
-$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM keranjang as kr JOIN paket as pk ON kr.id_paket = pk.id_paket WHERE kr.id_keranjang='$idKeranjang'") or die("data salah: " . mysqli_error($mysqli));
+$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM `transaksi_item` AS ti JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE ti.ID_TRANSAKSI_ITEM='$idItem'") or die("data salah: " . mysqli_error($mysqli));
 
 
 if (isset($_POST['submit'])) {
-
+    $idTrans = $_POST['id_trans'];
     $set_rusak = $_POST['set_rusak'];
     $biaya_rusak = $_POST['biaya_rusak'];
 
-    $addDenda = mysqli_query($mysqli, "UPDATE keranjang SET biaya_rusak='$biaya_rusak', set_rusak='$set_rusak' WHERE id_keranjang='$idKeranjang'") or die("data salah: " . mysqli_error($mysqli));
+    $addDenda = mysqli_query($mysqli, "UPDATE `transaksi_item` SET biaya_rusak='$biaya_rusak', set_rusak='$set_rusak' WHERE ID_TRANSAKSI_ITEM='$idItem'") or die("data salah: " . mysqli_error($mysqli));
 
-    header("Location: form-denda.php?id_penyewa=$id_penyewa&jam_pesan=$jam_pesan");
+    header("Location: form-denda.php?ID_TRANS=$idTrans");
 }
 ?>
 
@@ -248,7 +246,6 @@ if (isset($_POST['submit'])) {
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <form action="" method="post">
-                                    
                                         <div class="product-tab-list tab-pane fade active in" id="edit">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -256,12 +253,12 @@ if (isset($_POST['submit'])) {
                                                     <?php while ($show = mysqli_fetch_array($queryKeranjang)) { ?>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
-                                                            <!-- <input name="frame" type="text" class="form-control" value="<?php echo $show['frame']; ?>"> -->
-                                                            <p class="form-control"><?php echo $show['frame']; ?></p>
+                                                            <p class="form-control"><?php echo $show['FRAME']; ?></p>
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Set Rusak :</i></span>
                                                             <input name="set_rusak" type="text" class="form-control">
+                                                            <input name="id_trans" type="hidden" class="form-control" value="<?php echo $show['ID_TRANSAKSI']; ?>">
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Biaya (/set) : Rp.</i></span>
