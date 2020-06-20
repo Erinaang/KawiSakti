@@ -271,7 +271,7 @@ if (isset($_GET['MASA_SEWA'])) {
                                                 <!-- </b> -->
 
                                                 <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
-=
+
                                                     </td>
                                             </tr>
                                         <?php } ?>
