@@ -5,10 +5,10 @@ if (!isset($_SESSION["username"])) {
 }
 
 include "../connection/Connection.php";
-$id_paket = $_GET['id_paket']; 
-$queryDeletePaket = mysqli_query($mysqli, "DELETE FROM paket WHERE id_paket = '$id_paket'") or die("data salah: " . mysqli_error($mysqli));
+$id_paket = $_GET['ID_PAKET']; 
+$queryDeletePaket = mysqli_query($mysqli, "DELETE FROM paket WHERE ID_PAKET = '$id_paket'") or die("data salah: " . mysqli_error($mysqli));
 
 if ($queryDeletePaket) {
-	echo "<script>alert('Data Telah dihapus.');location.href='data-barang.php'</script>";
+	echo "<script>alert('Data berhasil dihapus');location.href='data-barang.php'</script>";
 }
 ?>

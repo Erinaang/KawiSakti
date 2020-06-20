@@ -10,7 +10,7 @@ date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
 $idTransaksi=$status=NULL;
 
-//GET IDUSER dari USERNAME (yg lagi login)
+//GET ID USER dari USERNAME (yg lagi login)
 $username = $_SESSION['username'];
 $queryIdUser = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryIdUser)) {
@@ -39,7 +39,7 @@ if (isset($_GET['submit'])) {
     } else {
         
         $insertTransaksi = mysqli_query($mysqli, "INSERT INTO transaksi SET ID_PENYEWA='$idUser', STATUS='cart'") or die("data salah:3 " . mysqli_error($mysqli));
-        $selectT`ransaksi = mysqli_query($mysqli, "SELECT * FROM transaksi WHERE ID_PENYEWA='$idUser' ORDER BY ID_TRANSAKSI DESC LIMIT 1") or die("data salah:4 " . mysqli_error($mysqli));
+        $selectTransaksi = mysqli_query($mysqli, "SELECT * FROM transaksi WHERE ID_PENYEWA='$idUser' ORDER BY ID_TRANSAKSI DESC LIMIT 1") or die("data salah:4 " . mysqli_error($mysqli));
         while ($show = mysqli_fetch_array($selectTransaksi)) {
             $idTransaksi = $show['ID_TRANSAKSI'];
         }

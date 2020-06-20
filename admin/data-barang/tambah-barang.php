@@ -6,14 +6,14 @@ if (!isset($_SESSION["username"])) {
 include "../connection/Connection.php";
 
 if (isset($_POST['submit'])) {
-    $frame = $_POST['frame'];
-    $masa_sewa = $_POST['masa_sewa'];
-    $jumlah_set = $_POST['jumlah_set'];
-    $harga = $_POST['harga'];
+    $frame = $_POST['FRAME'];
+    $masa_sewa = $_POST['MASA_SEWA'];
+    $jumlah_set = $_POST['JUMLAH_SET'];
+    $harga = $_POST['HARGA'];
 
-    $query = mysqli_query($mysqli, "INSERT INTO `paket`(`masa_sewa`, `jumlah_set`, `frame`, `harga`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "INSERT INTO `paket`(`MASA_SEWA`, `JUMLAH_SET`, `FRAME`, `HARGA`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
 
-    echo "<script>alert('Data Telah ditambahkan.');location.href='data-barang.php'</script>";
+    echo "<script>alert('Data berhasil ditambahkan');location.href='data-barang.php'</script>";
 }
 
 ?>
@@ -223,7 +223,7 @@ if (isset($_POST['submit'])) {
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT KAWI SAKTI MEGAH :) </h2>
+                                                <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
                                                 <p>Welcome to PT Kawi Sakti Megah </span></p>
                                             </div>
                                         </div>
@@ -270,27 +270,27 @@ if (isset($_POST['submit'])) {
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
                                                             <!-- <input name="frame" type="text" class="form-control"> -->
-                                                            <select name="frame" class="form-control pro-edt-select form-control-primary">
+                                                            <select name="FRAME" class="form-control pro-edt-select form-control-primary">
                                                                 <option disabled selected>Frame</option>
                                                                 <option value="MF-170">Main Frame - 170</option>
                                                                 <option value="MF-190">Main Frame - 190</option>
-                                                                <option value="LF-90">Leader Frame - 90</option>
+                                                                <option value="LF-90">Ladder Frame - 90</option>
                                                             </select>
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>
-                                                            <input name="masa_sewa" type="number" class="form-control">
+                                                            <input name="MASA_SEWA" type="number" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jumlah Set :</i></span>
-                                                        <input name="jumlah_set" type="number" class="form-control">
+                                                        <input name="JUMLAH_SET" type="number" class="form-control">
                                                     </div>
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon">Rp. | Harga :</span>
-                                                        <input name="harga" type="number" class="form-control">
+                                                        <input name="HARGA" type="number" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>

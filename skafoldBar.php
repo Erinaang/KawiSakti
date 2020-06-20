@@ -10,7 +10,6 @@ $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-190' o
 
 $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90' order by JUMLAH_SET desc") or die("data salah: " . mysqli_error($mysqli));
 
-//ambil data paket berdasarkan MASA_SEWA yang ada di keranjang
 if (isset($_GET['MASA_SEWA'])) {
     $masaSewa = $_GET['MASA_SEWA'];
 

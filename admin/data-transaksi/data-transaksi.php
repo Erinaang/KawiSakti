@@ -254,10 +254,10 @@ $user = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                 </thead>
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) {
-                                        $status = $show['status'];
-                                        $tgl = $show['tgl_sewa'];
-                                        $jam_pesan = $show['jam_pemesanan']; 
-                                        $idTransaksi = $show['id_transaksi'];?>
+                                        $status = $show['STATUS'];
+                                        $tgl = $show['TGL_SEWA'];
+                                        $jam_pesan = $show['JAM_PEMESANAN']; 
+                                        $idTransaksi = $show['ID_TRANSAKSI'];?>
                                         <tr>
                                             <td><?php echo $show['penyewa']; ?></td>
                                             <td>Rp. <?php echo $show['total']; ?></td>

@@ -5,15 +5,15 @@ if (!isset($_SESSION["username"])) {
 }
 include "../connection/Connection.php";
 
-$queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-170'") or die("data salah: " . mysqli_error($mysqli));
+$queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-170'") or die("data salah: " . mysqli_error($mysqli));
 
-$queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
+$queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
 
-$queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
+$queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
-<!doctype html>
+<!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
 <head>
@@ -266,13 +266,13 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") o
                                                         <tbody>
                                                             <?php while ($show = mysqli_fetch_array($queryMF170)) { ?>
                                                                 <tr>
-                                                                    <td><?php echo $show['frame']; ?></td>
-                                                                    <td><?php echo $show['masa_sewa']; ?></td>
-                                                                    <td><?php echo $show['jumlah_set']; ?></td>
-                                                                    <td>Rp. <?php echo $show['harga']; ?></td>
+                                                                    <td><?php echo $show['FRAME']; ?></td>
+                                                                    <td><?php echo $show['MASA_SEWA']; ?></td>
+                                                                    <td><?php echo $show['JUMLAH_SET']; ?></td>
+                                                                    <td>Rp. <?php echo $show['HARGA']; ?></td>
                                                                     <td>
-                                                                        <a href="edit-barang.php?id_paket=<?php echo $show['id_paket']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                                        <a href="hapus-barang.php?id_paket=<?php echo $show['id_paket']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
+                                                                        <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+                                                                        <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
                                                                     </td>
                                                                 </tr>
                                                             <?php } ?>
@@ -309,13 +309,13 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") o
                                                         <tbody>
                                                             <?php while ($show = mysqli_fetch_array($queryMF190)) { ?>
                                                                 <tr>
-                                                                    <td><?php echo $show['frame']; ?></td>
-                                                                    <td><?php echo $show['masa_sewa']; ?></td>
-                                                                    <td><?php echo $show['jumlah_set']; ?></td>
-                                                                    <td>Rp. <?php echo $show['harga']; ?></td>
+                                                                    <td><?php echo $show['FRAME']; ?></td>
+                                                                    <td><?php echo $show['MASA_SEWA']; ?></td>
+                                                                    <td><?php echo $show['JUMLAH_SET']; ?></td>
+                                                                    <td>Rp. <?php echo $show['HARGA']; ?></td>
                                                                     <td>
-                                                                        <a href="edit-barang.php?id_paket=<?php echo $show['id_paket']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                                        <a href="hapus-barang.php?id_paket=<?php echo $show['id_paket']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
+                                                                        <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+                                                                        <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
                                                                     </td>
                                                                 </tr>
                                                             <?php } ?>
@@ -327,7 +327,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") o
                                         </div>
                                     </div>
                                 </section>
-                                <h3>Leader Frame 90</h3>
+                                <h3>LADDER FRAME 90</h3>
                                 <section>
                                     <h3 class="product-cart-dn">LF-90</h3>
                                     <div class="product-list-cart">
@@ -338,7 +338,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") o
                                                     <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <h2>Leader Frame 90</h2>
+                                                    <h2>Ladder Frame 90</h2>
                                                     <table>
                                                         <thead>
                                                             <tr>
@@ -352,13 +352,13 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE frame ='LF-90'") o
                                                         <tbody>
                                                             <?php while ($show = mysqli_fetch_array($queryLF90)) { ?>
                                                                 <tr>
-                                                                    <td><?php echo $show['frame']; ?></td>
-                                                                    <td><?php echo $show['masa_sewa']; ?></td>
-                                                                    <td><?php echo $show['jumlah_set']; ?></td>
-                                                                    <td>Rp. <?php echo $show['harga']; ?></td>
+                                                                    <td><?php echo $show['FRAME']; ?></td>
+                                                                    <td><?php echo $show['MASA_SEWA']; ?></td>
+                                                                    <td><?php echo $show['JUMLAH_SET']; ?></td>
+                                                                    <td>Rp. <?php echo $show['HARGA']; ?></td>
                                                                     <td>
-                                                                        <a href="edit-barang.php?id_paket=<?php echo $show['id_paket']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                                        <a href="hapus-barang.php?id_paket=<?php echo $show['id_paket']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
+                                                                        <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+                                                                        <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
                                                                     </td>
                                                                 </tr>
                                                             <?php } ?>
