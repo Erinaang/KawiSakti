@@ -31,8 +31,8 @@ if (isset($_FILES['bukti_pembayaran'])) {
 
 if (isset($_FILES['bukti_ktp'])) {
    $errors = array();
-   $idUser = $_GET['id_user']; //ambil id user dari URL
-   $jamPesan = $_GET['jam_pesan']; //ambil jam pesan dari URL
+   $idPenyewa = $_GET['ID_PENYEWA']; //ambil id user dari URL
+   $idTrans = $_GET['ID_TRANS']; //ambil jam pesan dari URL
    $tanggal = $_POST['tanggal']; // dari form checkout
    $alamat = $_POST['alamat']; // dari form checkout
    $kota = $_POST['kota']; // dari form checkout
@@ -57,13 +57,11 @@ if (isset($_FILES['bukti_ktp'])) {
       move_uploaded_file($file_tmp, "img/Uploads/ktp/" . $file_name); //masukin ke folder
 
       //SELECT KERANJANG buat dimasukin ke tabel transaksi
-      $selectKeranjang = mysqli_query($mysqli, "SELECT *, sum(jumlah_set) as jml, sum(total) as totalharga FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa = '$idUser' AND jam_pemesanan='$jamPesan' AND status='checkout'") or die("data salah: " . mysqli_error($mysqli));
+      $selectKeranjang = mysqli_query($mysqli, "SELECT SUM(JUMLAH_SET) AS jml, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans' AND tr.STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
       while ($show = mysqli_fetch_array($selectKeranjang)) {
          $jumlahSet = $jumlahSet + $show['jml'];
-         $masaSewa = $show['masa_sewa'];
-         $totalHarga = $show['totalharga'];
+         $masaSewa = $show['MASA_SEWA'];
       }
-      $jaminan = $totalHarga * 30 / 100; // kalkulasi jaminan
 
       //menghitung tanggal kembali berdasarkan tanggal sewa + masa sewa
       $tgl_kembali = date('Y-m-d', strtotime('+' . $masaSewa . ' days', strtotime(str_replace('/', '-', $tanggal)))) . PHP_EOL;
@@ -80,14 +78,9 @@ if (isset($_FILES['bukti_ktp'])) {
       $time = date("Y-m-d H:i:s");
 
       //masukin data ke transaksi
-      $queryInsert = mysqli_query($mysqli, "INSERT INTO transaksi SET id_penyewa='$idUser', total='$totalHarga', jaminan='$jaminan', 
-      id_pengiriman='$idPengiriman', status='Terkirim', bukti_pembayaran='$file_name_bukti', 
-      bukti_ktp='$file_name', alamat='$alamat', kota='$kota', proyek='$proyek',jam_pemesanan='$time', tgl_sewa='$tanggal', 
-      tgl_kembali='$tgl_kembali'") or die("data salah: " . mysqli_error($mysqli));
-
-      //update keranjang biar sesuai sama transaksi
-      $queryRiwayat = mysqli_query($mysqli, "UPDATE `keranjang` SET status='Terkirim' , tanggal='$tanggal', jam_pemesanan='$time' WHERE `jam_pemesanan`='$jamPesan' and id_penyewa='$idUser' and status='checkout'") or die("data salah: " . mysqli_error($mysqli));
-
+      $queryInsert = mysqli_query($mysqli, "UPDATE transaksi SET ID_PENGIRIMAN='$idPengiriman', STATUS='terkirim', BUKTI_PEMBAYARAN='$file_name_bukti', 
+      BUKTI_KTP='$file_name', ALAMAT='$alamat', PROYEK='$proyek', JAM_PEMESANAN='$time', TGL_SEWA='$tanggal', 
+      TGL_KEMBALI='$tgl_kembali' WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
       header("Location: ProfilBar.php"); //go to page profilbar
    } else {
