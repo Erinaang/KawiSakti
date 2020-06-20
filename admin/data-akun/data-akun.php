@@ -263,13 +263,11 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <td><?php echo $show['EMAIL']; ?></td>
                                             <td><?php echo $show['NAMA']; ?></td>
                                             <td><?php echo $show['STATUS']; ?></td>
-                                            <td><img id="myImg" src="../../img/Uploads/akun/<?php echo $show["foto"]; ?>" alt="Foto" style="width:100%;max-width:300px"></td>
+                                            <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:100%;max-width:300px"></td>
                                             <td><?php echo $show['NO_TELP']; ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td>
-                                                <a href="edit-akun.php?id_user=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-
-                                                <a href="hapus-akun.php?id_user=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
+                                                <a href="hapus-akun.php?ID_USER=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
