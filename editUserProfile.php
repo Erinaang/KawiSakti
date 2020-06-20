@@ -7,7 +7,7 @@ include "koneksi/koneksi.php"; // ambil koneksi;
 
 //GET IDUSER
 $username = $_SESSION['username'];
-$queryUser = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
+$queryUser = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 
 
 //EDIT DATA PROFIL
@@ -17,17 +17,11 @@ if (isset($_POST["submit"])) {
     $noTelp = $_POST['noTelp'];
     $alamat = $_POST['alamat'];
 
-    $queryUser = mysqli_query($mysqli, "UPDATE user SET nama='$nama', email='$email', no_telp=n'$noTelp', alamat='$alamat' WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
+    $queryUser = mysqli_query($mysqli, "UPDATE user SET NAMA='$nama', EMAIL='$email', NO_TELP='$noTelp', ALAMAT='$alamat' WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 
-    if (empty($errors) == true) {
-        move_uploaded_file($file_tmp, "img/users/" . $file_name);
-        $queryEdit = mysqli_query($mysqli, "UPDATE user SET nama='$nama', foto='$file_name', email='$email', no_telp='$noTelp', alamat='$alamat', password='$password' WHERE id_user = '$idUser'") or die("data salah: " . mysqli_error($mysqli));
-
+    if ($queryUser) {
         header("Location: ProfilBar.php"); //go to page profilbar
-    } else {
-        print_r($errors);
     }
-
 }
 ?>
 <!DOCTYPE html>
@@ -127,7 +121,7 @@ if (isset($_POST["submit"])) {
                     <div class="row">
                         <?php while ($show = mysqli_fetch_array($queryUser)) { ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <img id="myImg" src="img/users/<?php echo $show['foto']; ?>" width="200"><br><br><br>
+                                <img id="myImg" src="img/users/<?php echo $show['FOTO']; ?>" width="200"><br><br><br>
                                 <form action="uploadPhotos.php" method="post" enctype="multipart/form-data">
                                     <input type="file" name="foto" id="foto" />
                                     <input type="submit" name="submit" id="submit" value="Change Photos" />
@@ -136,10 +130,10 @@ if (isset($_POST["submit"])) {
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                                 <!-- EDIT DATA PROFIL -->
                                 <form action="" method="post">
-                                    <h4><b> Nama &emsp;&emsp;&emsp; &emsp; &emsp; &emsp; : <input type="text" name="nama" placeholder="nama" value="<?php echo $show['nama']; ?>"></h4> </b> <br>
-                                    <h4><b> E-mail &emsp;&emsp;&emsp; &emsp; &emsp; &emsp; : <input type="text" name="email" placeholder="email" value="<?php echo $show['email']; ?>"></h4></b><br>
-                                    <h4><b> No Telepon &emsp;&emsp; &emsp; &emsp;: <input type="text" name="noTelp" placeholder="noTelp" value="<?php echo $show['no_telp']; ?>"></h4></b><br>
-                                    <h4><b> Alamat &emsp;&emsp;&emsp;&emsp; &emsp; &emsp; : <input type="text" name="alamat" placeholder="alamat" value="<?php echo $show['alamat']; ?>"></h4></b><br>
+                                    <h4><b> Nama &emsp;&emsp;&emsp; &emsp; &emsp; &emsp; : <input type="text" name="nama" placeholder="nama" value="<?php echo $show['NAMA']; ?>"></h4> </b> <br>
+                                    <h4><b> E-mail &emsp;&emsp;&emsp; &emsp; &emsp; &emsp; : <input type="text" name="email" placeholder="email" value="<?php echo $show['EMAIL']; ?>"></h4></b><br>
+                                    <h4><b> No Telepon &emsp;&emsp; &emsp; &emsp;: <input type="text" name="noTelp" placeholder="noTelp" value="<?php echo $show['NO_TELP']; ?>"></h4></b><br>
+                                    <h4><b> Alamat &emsp;&emsp;&emsp;&emsp; &emsp; &emsp; : <input type="text" name="alamat" placeholder="alamat" value="<?php echo $show['ALAMAT']; ?>"></h4></b><br>
                                     <br>
                                     <br>
                                     <input class="btn btn-primary" type="submit" value="submit" name="submit">
