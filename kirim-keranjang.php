@@ -52,8 +52,10 @@ if (isset($_GET['submit'])) {
 
         $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', TOTAL='$total'") or die("data salah:6 " . mysqli_error($mysqli));
     }
+    $insertTransaksiItem = mysqli_query($mysqli, "UPDATE `transaksi` SET `TOTAL` = `TOTAL`+'$total' WHERE `transaksi`.`ID_TRANSAKSI` = '$idTransaksi' AND `transaksi`.`ID_PENYEWA` = '$idUser';") or die("data salah:7 " . mysqli_error($mysqli));
+    
 
     if ($insertTransaksiItem) {
-        header("Location: profilBar.php"); //go to page profilbar
+        header("Location: profilBar.php?MASA_SEWA=$masaSewa"); //go to page profilbar
     }
 }
