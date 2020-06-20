@@ -259,17 +259,17 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($akun)) { ?>
                                         <tr>
-                                            <td><?php echo $show['username']; ?></td>
-                                            <td><?php echo $show['email']; ?></td>
-                                            <td><?php echo $show['nama']; ?></td>
-                                            <td><?php echo $show['status']; ?></td>
-                                            <td><img src='../../img/users/<?php echo $show['foto']; ?>'></td>
-                                            <td><?php echo $show['no_telp']; ?></td>
-                                            <td><?php echo $show['alamat']; ?></td>
+                                            <td><?php echo $show['USERNAME']; ?></td>
+                                            <td><?php echo $show['EMAIL']; ?></td>
+                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td><?php echo $show['STATUS']; ?></td>
+                                            <td><img id="myImg" src="../../img/Uploads/akun/<?php echo $show["foto"]; ?>" alt="Foto" style="width:100%;max-width:300px"></td>
+                                            <td><?php echo $show['NO_TELP']; ?></td>
+                                            <td><?php echo $show['ALAMAT']; ?></td>
                                             <td>
-                                                <a href="edit-akun.php?id_user=<?php echo $show['id_user']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+                                                <a href="edit-akun.php?id_user=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
 
-                                                <a href="hapus-akun.php?id_user=<?php echo $show['id_user']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
+                                                <a href="hapus-akun.php?id_user=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -282,9 +282,6 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
         </div>
 
         <!-- END TABLE DATA AKUN PELANGGAN -->
-
-
-
         <script src="../js/vendor/jquery-1.12.4.min.js"></script>
         <!-- bootstrap JS
         ============================================ -->

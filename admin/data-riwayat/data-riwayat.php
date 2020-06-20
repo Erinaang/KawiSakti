@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 include "../connection/Connection.php";
 
 //query tampil tabel pengembalian
-$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.nama,us.alamat FROM transaksi as tr JOIN user as us on tr.id_penyewa=us.id_user WHERE tr.status='Selesai' ") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.status='Selesai' ") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 

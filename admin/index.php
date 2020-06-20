@@ -7,11 +7,12 @@ include "connection/Connection.php";
 $username = $_SESSION['username'];
 $queryAdmin = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryAdmin)) {
-  $idAdmin = $show['id_user'];
+  $idAdmin = $show['ID_USER'];
 }
-$UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' WHERE status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
-
+$UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' WHERE status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
 ?>
+
+
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
 <head><meta charset="windows-1252">
@@ -76,9 +77,6 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET id_admin='$idAdmin' 
     <!-- modernizr JS
         ============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-
-
-
 </head>
 
 <body>

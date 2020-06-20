@@ -7,29 +7,25 @@ include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
 //SELECT DATA
-$idPaket = $_GET['id_paket'];
-$query = mysqli_query($mysqli, "SELECT * FROM paket WHERE id_paket = '$idPaket'") or die("data salah: " . mysqli_error($mysqli));
+$idPaket = $_GET['ID_PAKET'];
+$query = mysqli_query($mysqli, "SELECT * FROM paket WHERE ID_PAKET = '$idPaket'") or die("data salah: " . mysqli_error($mysqli));
 
 if (isset($_POST['submit'])) {
-    $frame = $_POST['frame'];
-    $masa_sewa = $_POST['masa_sewa'];
-    $jumlah_set = $_POST['jumlah_set'];
-    $harga = $_POST['harga'];
+    $frame = $_POST['FRAME'];
+    $masa_sewa = $_POST['MASA_SEWA'];
+    $jumlah_set = $_POST['JUMLAH_SET'];
+    $harga = $_POST['HARGA'];
 
-    $query = mysqli_query($mysqli, "UPDATE paket SET frame='$frame', masa_sewa='$masa_sewa', jumlah_set='$jumlah_set', harga='$harga' WHERE id_paket='$idPaket'") or die("data salah: " . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "UPDATE paket SET FRAME='$frame', MASA_SEWA='$masa_sewa', JUMLAH_SET='$jumlah_set', HARGA='$harga' WHERE ID_PAKET='$idPaket'") or die("data salah: " . mysqli_error($mysqli));
 
     if ($query) {
         echo "<script>alert('Data Telah diperbaharui.');location.href='data-barang.php'</script>";
-    }
-    
+    }   
 }
-
 ?>
 
-<!doctype html>
-
+<!DOCTYPE HTML>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -272,11 +268,11 @@ if (isset($_POST['submit'])) {
                                                         <div class="review-content-section">
                                                             <div class="input-group mg-b-pro-edt">
                                                                 <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
-                                                                <input name="frame" type="text" class="form-control" value="<?php echo $show['frame']; ?>">
+                                                                <input name="FRAME" type="text" class="form-control" value="<?php echo $show['FRAME']; ?>">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
                                                                 <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>
-                                                                <input name="masa_sewa" type="text" class="form-control" value="<?php echo $show['masa_sewa']; ?>">
+                                                                <input name="MASA_SEWA" type="text" class="form-control" value="<?php echo $show['MASA_SEWA']; ?>">
                                                             </div>
 
                                                         </div>
@@ -284,11 +280,11 @@ if (isset($_POST['submit'])) {
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jumlah Set :</i></span>
-                                                            <input name="jumlah_set" type="text" class="form-control" value="<?php echo $show['jumlah_set']; ?>">
+                                                            <input name="JUMLAH_SET" type="text" class="form-control" value="<?php echo $show['JUMLAH_SET']; ?>">
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"> Harga :</i></span>
-                                                            <input name="harga" type="text" class="form-control" value="<?php echo $show['harga']; ?>">
+                                                            <input name="HARGA" type="text" class="form-control" value="<?php echo $show['HARGA']; ?>">
                                                         </div>
                                                     </div>
                                                 </div>
