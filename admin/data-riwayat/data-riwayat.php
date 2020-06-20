@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 include "../connection/Connection.php";
 
 //query tampil tabel pengembalian
-$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.status='Selesai' ") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -179,7 +179,7 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transak
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
 
             <div class="section-admin container-fluid">
@@ -249,18 +249,18 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transak
                                 </thead>
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) {
-                                        $status = $show['status'];
-                                        $tgl = $show['tgl_sewa']; ?>
+                                        $idTrans = $show['ID_TRANSAKSI'];
+                                        ?>
                                         <tr>
-                                            <td><?php echo $show['nama']; ?></td>
-                                            <td>Rp. <?php echo $show['total']; ?></td>
-                                            <td><?php echo $show['alamat']; ?></td>
-                                            <td><?php echo $tgl; ?></td>
-                                            <td><?php echo $show ['tgl_kembali']?></td>
-                                            <td><?php echo $status; ?></td>
+                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td>Rp. <?php echo $show['TOTAL']; ?></td>
+                                            <td><?php echo $show['ALAMAT']; ?></td>
+                                            <td><?php echo $show['TGL_SEWA']; ?></td>
+                                            <td><?php echo $show ['TGL_KEMBALI']?></td>
+                                            <td><?php echo $show['statusTrans']; ?></td>
                                             <td>
-                                            <a href="../../print.php?id_transaksi=<?php echo $show['id_transaksi']; ?>&id_penyewa=<?php echo $show['id_penyewa'] ?>&jam_pesan=<?php echo $show['jam_pemesanan']; ?>&status=<?php echo $status; ?>&id_pengiriman=<?php echo $show['id_pengiriman']?>&Selesai"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>
-                                                <a href="hapus-riwayat.php?id_transaksi=<?php echo $show['id_transaksi']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                            <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>
+                                                <a href="hapus-riwayat.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
