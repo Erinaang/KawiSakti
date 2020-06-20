@@ -1,35 +1,27 @@
 <?php
+session_start();
 include "koneksi/koneksi.php"; // ambil koneksi;
 
-$index = $index2 = 1;
-$jaminan = $total = $totalDendaAkhir = 0;
-$idPenyewa = $_GET['id_penyewa'];
-$jam_pesan = $_GET['jam_pesan'];
-$status = $_GET['status'];
-$idPengiriman = $_GET['id_pengiriman'];
-$idTransaksi = $_GET['id_transaksi'];
+$idTrans = $_GET['ID_TRANS'];
+$username = $_SESSION['username'];
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $date = date("Y-m-d");
 
-$queryPrint = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND jam_pemesanan='$jam_pesan'") or die("data salah: " . mysqli_error($mysqli));
-$queryDenda = mysqli_query($mysqli, "SELECT * FROM keranjang AS kr JOIN paket AS pk ON kr.id_paket = pk.id_paket WHERE id_penyewa='$idPenyewa' AND status='$status' AND jam_pemesanan='$jam_pesan'") or die("data salah: " . mysqli_error($mysqli));
-
-$queryPengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman WHERE id_pengiriman='$idPengiriman'") or die("data salah: " . mysqli_error($mysqli));
-while ($show = mysqli_fetch_array($queryPengiriman)) {
-  $ongkir = $show['biaya'];
+$queryAdmin = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
+while ($show = mysqli_fetch_array($queryAdmin)) {
+  $namaAdmin = $show['NAMA'];
 }
 
-$queryTransaksi = mysqli_query($mysqli, "SELECT  pny.nama as penyewa, adm.nama as admin, tr.* FROM transaksi AS tr JOIN user AS pny ON tr.id_penyewa = pny.id_user JOIN user AS adm ON tr.id_admin = adm.id_user WHERE id_transaksi='$idTransaksi'") or die("data salah: " . mysqli_error($mysqli));
-while ($show = mysqli_fetch_array($queryTransaksi)) {
-  $totalHarga = $show['total'];
-  $jaminan = $show['jaminan'];
-  $tglSewa = $show['tgl_sewa'];
-  $tglKembali = $show['tgl_kembali'];
-  $namaPenyewa = $show['penyewa'];
-  $namaAdmin = $show['admin'];
-  $proyek = $show['proyek']; 
+$queryPenyewa = mysqli_query($mysqli, "SELECT * FROM transaksi AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+while ($show = mysqli_fetch_array($queryPenyewa)) {
+  $namaPenyewa = $show['NAMA'];
 }
+
+$queryPrint = mysqli_query($mysqli, "SELECT *, tr.TOTAL AS totalTrans, ti.TOTAL AS totalPaket FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+
+$queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+
 ?>
 
 <!DOCTYPE HTML>
@@ -75,7 +67,7 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
-          
+
         </div>
         <div class="col-md-4">
           <!-- TEXTile -->
@@ -97,23 +89,29 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
               </tr>
             </thead>
             <tbody>
-              <?php while ($show = mysqli_fetch_array($queryPrint)) {
-                $total = $total + $show['total'];
-                $jaminan = $total * (30 / 100);
-
+              <?php 
+              $index = 1;
+              while ($show = mysqli_fetch_array($queryPrint)) {
+                $totalPaket = $show['totalPaket'];
+                $totalTrans = $show['totalTrans'];
+                $jaminan = $show['JAMINAN'];
+                $ongkir = $show['BIAYA'];
+                $proyek = $show['PROYEK'];
+                $tglSewa = $show['TGL_SEWA'];
+                $tglKembali = $show['TGL_KEMBALI'];
               ?>
                 <tr>
                   <td><?php echo $index++; ?></td>
-                  <td><?php echo $show['frame']; ?></td>
-                  <td><?php echo $show['masa_sewa']; ?> Hari</td>
-                  <td><?php echo $show['jumlah_set']; ?> Set x Rp. <?php echo $show['harga']; ?>,00</td>
-                  <td>Rp. <?php echo $show['total']; ?>,00</td>
+                  <td><?php echo $show['FRAME']; ?></td>
+                  <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                  <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
+                  <td>Rp. <?php echo $totalPaket; ?>,00</td>
                 </tr>
               <?php } ?>
               <tr>
                 <td colspan="2"> </td>
                 <td><b> Sub Total : </b></td>
-                <td><b> Rp. <?php echo $total; ?></b></td>
+                <td><b> Rp. <?php echo $totalTrans; ?></b></td>
               </tr>
               <tr>
                 <td colspan="2"> </td>
@@ -128,14 +126,14 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
               <tr>
                 <td colspan="2"> </td>
                 <td><b> Total Harga : </b></td>
-                <td><b>Rp. <?php echo $total + $jaminan + $ongkir; ?></b></td>
+                <td><b>Rp. <?php echo $totalTrans + $jaminan + $ongkir; ?></b></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-<br><br><br>
+    <br><br><br>
     <?php if (isset($_GET['Selesai'])) { ?>
       <div class="container-fluid">
         <div class="row">
@@ -151,15 +149,18 @@ while ($show = mysqli_fetch_array($queryTransaksi)) {
                 </tr>
               </thead>
               <tbody>
-                <?php while ($show = mysqli_fetch_array($queryDenda)) {
-                  $setRusak = $show['set_rusak'];
-                  $biayaRusak = $show['biaya_rusak'];
-                  $totalDenda = $biayaRusak*$setRusak;
+                <?php 
+                $index=1;
+                $totalDendaAkhir=$setRusak=$biayaRusak=0;
+                while ($show = mysqli_fetch_array($queryDenda)) {
+                  $setRusak = $show['SET_RUSAK'];
+                  $biayaRusak = $show['BIAYA_RUSAK'];
+                  $totalDenda = $biayaRusak * $setRusak;
                   $totalDendaAkhir = $totalDendaAkhir + $totalDenda;
                 ?>
                   <tr>
-                    <td><?php echo $index2++; ?></td>
-                    <td><?php echo $show['frame']; ?></td>
+                    <td><?php echo $index++; ?></td>
+                    <td><?php echo $show['FRAME']; ?></td>
                     <td><?php echo $setRusak;  ?> Set x Rp. <?php echo $biayaRusak; ?>,00</td>
                     <td>Rp. <?php echo $totalDenda; ?>,00</td>
                   </tr>
