@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
    if (empty($errors) == true) {
       move_uploaded_file($file_tmp, "img/users/" . $file_name); //masukin ke folder
 
-      $queryUser = mysqli_query($mysqli, "UPDATE user SET foto='$file_name' WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
+      $queryUser = mysqli_query($mysqli, "UPDATE user SET FOTO='$file_name' WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 
       header("Location: ProfilBar.php");
    } else {
