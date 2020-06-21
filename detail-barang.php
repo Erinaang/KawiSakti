@@ -11,7 +11,7 @@ $jaminan = $total = 0; //definisi variabel dengan nilai 0
 $idPenyewa = $_GET['ID_PENYEWA'];
 $idTrans = $_GET['ID_TRANS'];
 
-$queryDetail = mysqli_query($mysqli, "SELECT * FROM `transaksi` WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryDetail = mysqli_query($mysqli, "SELECT * FROM `transaksi` WHERE ID_PENYEWA ='$idPenyewa' AND ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryDetail)) {
     $tglSewa = $show['TGL_SEWA'];
     $status = $show['STATUS'];

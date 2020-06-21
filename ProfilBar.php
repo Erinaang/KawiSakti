@@ -24,7 +24,6 @@ while ($show = mysqli_fetch_array($profilUser)) {
     $foto = $show['FOTO'];
 }
 
-
 //SELECT KERANJANG => ambil data apa aja yang ada di keranjang berdasarkan status ='cart'
 $queryKeranjang = mysqli_query($mysqli, "SELECT tr.TOTAL AS totalHarga, ti.ID_TRANSAKSI_ITEM, ti.ID_TRANSAKSI, ti.TOTAL AS totalPaket, pk.MASA_SEWA, pk.JUMLAH_SET, pk.HARGA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
 
@@ -33,18 +32,16 @@ $queryCheckout = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.TOTAL AS tota
 
 //SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
 $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pengiriman` AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS != 'cart' AND tr.STATUS != 'checkout'") or die("data salah: " . mysqli_error($mysqli));
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32"/>
     <!-- The above 3 meta tags code*must* come first in the head; any other head content must come *after* these tags -->
     <title>PT KAWI SAKTI MEGAH - Construction</title>
     <!-- Icon css link -->
@@ -496,10 +493,10 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                             <img src="img/footer-logo.png">
                             <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
                             </ul>
                         </aside>
                     </div>
@@ -557,7 +554,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     <div class="media-body">
-                                        <p>info@domain.com</p>
+                                        <p>kawisaktimalang@gmail.com</p>
                                     </div>
                                 </div>
                             </div>

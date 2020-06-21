@@ -222,10 +222,10 @@ include 'koneksi/koneksi.php';
                                 <img src="img/footer-logo.png" >
                                 <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
                                 </ul>
                             </aside>
                         </div>
@@ -279,7 +279,7 @@ include 'koneksi/koneksi.php';
                                             <i class="fa fa-envelope"></i>
                                         </div>
                                         <div class="media-body">
-                                            <p>info@domain.com</p>
+                                            <p>kawisaktimalang@gmail.com</p>
                                         </div>
                                     </div>
                                 </div>

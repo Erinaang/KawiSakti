@@ -13,7 +13,7 @@ include 'koneksi/koneksi.php';
 
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>PT KAWI SAKTI MANDIRI - Build and Construction</title>
+    <title>PT KAWI SAKTI MEGAH - Build and Construction</title>
 
     <!-- Icon css link -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -55,10 +55,10 @@ include 'koneksi/koneksi.php';
                 </div>
                 <div class="pull-right">
                     <ul class="header_social">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
                     </ul>
                 </div>
             </div>
@@ -83,7 +83,7 @@ include 'koneksi/koneksi.php';
                             <li><a href="index.php">Home</a></li>
                             <li><a href="projectBar.php">Project</a></li>
                             <li><a href="AboutUs.php">About Us</a></li>
-                            <li><a href="skafoldBar.php">Skafold</a></li>
+                            <li><a href="skafoldBar.php">Scaffolding</a></li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
@@ -153,7 +153,7 @@ include 'koneksi/koneksi.php';
                     <div class="f_content_item">
                         <i class="fa fa-ge" aria-hidden="true"></i>
                         <b><a href="#">
-                                <h4>inovatif</h4>
+                                <h4>Inovatif</h4>
                             </a>
                             <p>Perusahaan Kawi Sakti Megah dapat menjadi pilihan yang tepat untuk perancangan pembangunan
                                 dengan design yang inovatif dan dapat dikonsultasikan dengan Consultant</p>
@@ -224,7 +224,7 @@ include 'koneksi/koneksi.php';
                                     <img src="img/icon/s-icon-hover-6.png" alt="">
                                 </div>
                                 <a href="#">
-                                    <h4>Penyewaan Skafolding</h4>
+                                    <h4>Penyewaan Scaffolding</h4>
                                 </a>
                                 <p>Melayani penyewaan Skafolding dengan ketepatan waktu pengiriman dan kemudahan peminjaman</p>
                             </div>
@@ -240,7 +240,7 @@ include 'koneksi/koneksi.php';
                                     <img src="img/icon/s-icon-hover-2.png" alt="">
                                 </div>
                                 <a href="#">
-                                    <h4>Konsultasi PRA Konstruksi</h4>
+                                    <h4>Konsultasi Pra Konstruksi</h4>
                                 </a>
                                 <p>Jasa Konsultasi bagi anda yang membutuhkan bantuan dalam hal perencanaan , design ataupun estimasi biaya</p>
                             </div>
@@ -288,7 +288,7 @@ include 'koneksi/koneksi.php';
                                     <img src="img/icon/s-icon-hover-5.png" alt="">
                                 </div>
                                 <a href="#">
-                                    <h4>RENOVASI</h4>
+                                    <h4>Renovasi</h4>
                                 </a>
                                 <p>Jasa Renovasi bagi para client yang menginginkan perubahan untuk customer</p>
                             </div>
@@ -347,12 +347,12 @@ include 'koneksi/koneksi.php';
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
                             <img src="img/footer-logo.png" >
-                            <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
+                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
                             </ul>
                         </aside>
                     </div>
@@ -410,7 +410,7 @@ include 'koneksi/koneksi.php';
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     <div class="media-body">
-                                        <p>info@domain.com</p>
+                                        <p>kawisaktimalang@gmail.com</p>
                                     </div>
                                 </div>
                             </div>
@@ -436,15 +436,6 @@ include 'koneksi/koneksi.php';
         </div>
     </footer>
     <!--================End Footer Area =================-->
-
-
-
-
-
-
-
-
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-2.2.4.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
