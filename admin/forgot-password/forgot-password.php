@@ -33,6 +33,8 @@
 						<?php 
 						if (isset($_GET['edit'])) {
 							echo '<input type="hidden" name="edit" value="true">';
+						}else{
+							echo '<input type="hidden" name="edit" value="false">';
 						}
 						?>
 					</div>
