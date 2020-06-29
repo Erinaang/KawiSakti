@@ -30,4 +30,4 @@ if ($jumlahSet < 150) { //kalo jumlahnya kurang dari 150
 
 $updateCheckout = mysqli_query($mysqli, "UPDATE transaksi SET ID_PENGIRIMAN='$idPengiriman', STATUS = 'checkout', JAMINAN='$jaminan', JAM_PEMESANAN='$time' WHERE ID_PENYEWA='$idPenyewa' AND ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
-header("Location: profilBar.php"); //go to page profilbar
+header("Location: ProfilBar.php"); //go to page profilbar
