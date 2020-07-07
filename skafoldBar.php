@@ -98,9 +98,9 @@ if (isset($_GET['MASA_SEWA'])) {
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="index.php">Home</a></li>
-                            <li><a href="projectBar.php">Project</a></li>
-                            <li><a href="AboutUs.php">About Us</a></li>
+                            <li><a href="index.php">Beranda</a></li>
+                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="AboutUs.php">Tentang Kami</a></li>
                             <li><a href="skafoldBar.php">Scaffolding</a></li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
@@ -125,8 +125,8 @@ if (isset($_GET['MASA_SEWA'])) {
             <div class="banner_inner_text">
                 <h4>- Rental Scaffolding -</h4>
                 <ul>
-                    <li><a href="#">Delivery</a></li>
-                    <li class="active"><a href="#">With Packet</a></li>
+                    <li><a href="#">Penghantaran</a></li>
+                    <li class="active"><a href="#">Dengan Paket</a></li>
                 </ul>
             </div>
         </div>
@@ -137,8 +137,8 @@ if (isset($_GET['MASA_SEWA'])) {
     <section class="our_project2_area project_grid_two">
         <div class="container">
             <div class="main_c_b_title">
-                <h2>Paket<br class="title_br">Scaffolding</h2>
-                <h6>Scaffolding</h6>
+                <h2>Jenis Paket<br class="title_br">Scaffolding</h2>
+                <h6>Paket Scaffolding</h6>
             </div>
             <div class="product-status mg-b-30">
                 <div class="container-fluid" style="background-color: #FFB74D">
@@ -174,7 +174,7 @@ if (isset($_GET['MASA_SEWA'])) {
                                                 <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
                                                 <td>
                                             </b>
-                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a>
                                             </td>
                                             </tr>
                                         <?php } ?>
@@ -221,7 +221,7 @@ if (isset($_GET['MASA_SEWA'])) {
                                                 <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
                                                 <td>
                                             <!-- </b> -->
-                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a>
                                             </td>
                                             </tr>
                                         <?php } ?>
@@ -269,7 +269,7 @@ if (isset($_GET['MASA_SEWA'])) {
                                                     <td>
                                                 <!-- </b> -->
 
-                                                <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Cart</i></a>
+                                                <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a>
 
                                                     </td>
                                             </tr>
@@ -307,8 +307,8 @@ if (isset($_GET['MASA_SEWA'])) {
                 <div class="row footer_widgets_inner">
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
-                            <img src="img/footer-logo.png" >
-                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
+                            <img src="img/footer-logo.png">
+                            <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
                             <!-- <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -320,7 +320,7 @@ if (isset($_GET['MASA_SEWA'])) {
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget recent_widget">
                             <div class="f_w_title">
-                                <h3>Recent Portofolio</h3>
+                                <h3>Portofolio</h3>
                             </div>
                             <div class="recent_w_inner">
                                 <div class="media">
@@ -347,7 +347,7 @@ if (isset($_GET['MASA_SEWA'])) {
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget address_widget">
                             <div class="f_w_title">
-                                <h3>Office Address</h3>
+                                <h3>Alamat Kantor</h3>
                             </div>
                             <div class="address_w_inner">
                                 <div class="media">
@@ -379,7 +379,7 @@ if (isset($_GET['MASA_SEWA'])) {
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget give_us_widget">
-                            <h5>Give Us A Call</h5>
+                            <h5>Hubungi kami pada</h5>
                             <h4>(0341) 350003 </h4>
                         </aside>
                     </div>

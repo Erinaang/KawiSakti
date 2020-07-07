@@ -145,9 +145,9 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="index.php">Home</a></li>
-                            <li><a href="projectBar.php">Project</a></li>
-                            <li><a href="AboutUs.php">About Us</a></li>
+                            <li><a href="index.php">Beranda</a></li>
+                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="AboutUs.php">Tentang Kami</a></li>
                             <li>
                                 <?php
                                 if ($masaSewa != 0) {
@@ -200,7 +200,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                             <div class="banner_inner_text">
                                 <h4>
                                     <p>
-                                        Welcome to account
+                                        Selamat Datang Di Halaman Akun
                                         <strong>
                                             <?php echo $_SESSION['username']; ?>
                                         </strong> :)
@@ -492,18 +492,18 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                         <aside class="f_widget about_widget">
                             <img src="img/footer-logo.png">
                             <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
-                            <ul>
-                                <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <!-- <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
-                            </ul>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            </ul> -->
                         </aside>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget recent_widget">
                             <div class="f_w_title">
-                                <h3>Recent Portofolio</h3>
+                                <h3>Portofolio</h3>
                             </div>
                             <div class="recent_w_inner">
                                 <div class="media">
@@ -530,7 +530,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget address_widget">
                             <div class="f_w_title">
-                                <h3>Office Address</h3>
+                                <h3>Alamat Kantor</h3>
                             </div>
                             <div class="address_w_inner">
                                 <div class="media">
@@ -562,7 +562,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget give_us_widget">
-                            <h5>Give Us A Call</h5>
+                            <h5>Hubungi kami pada</h5>
                             <h4>(0341) 350003 </h4>
                         </aside>
                     </div>

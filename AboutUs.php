@@ -80,9 +80,9 @@ include 'koneksi/koneksi.php';
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="index.php">Home</a></li>
-                            <li><a href="projectBar.php">Project</a></li>
-                            <li><a href="AboutUs.php">About Us</a></li>
+                        <li><a href="index.php">Beranda</a></li>
+                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="AboutUs.php">Tentang Kami</a></li>
                             <li><a href="skafoldBar.php">Scaffolding</a></li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
@@ -114,18 +114,8 @@ include 'koneksi/koneksi.php';
 
                         <br> <br> <br>
 
-                        <div class="tp-caption secand_text" data-x="['center','center','center','center']" data-y="['middle','middle','middle','middle']" data-hoffset="['0','0','0','0']" data-voffset="['38','38','38','38','38']" data-fontsize="['70','70','70','50','50']" data-lineheight="['100','100','100','70','70']" data-width="['none','none','none','none']" data-height="none" data-whitespace="['nowrap','nowrap','nowrap','nowrap','nowrap']" data-type="text" data-responsive_offset="on" data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":1700,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:left(R);","ease":"Power3.easeIn"}]' data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[10,10,10,10]" data-paddingleft="[0,0,0,0]"> Rental Scaffolding <br> and <br> Construction </div>
+                        <div class="tp-caption secand_text" data-x="['center','center','center','center']" data-y="['middle','middle','middle','middle']" data-hoffset="['0','0','0','0']" data-voffset="['38','38','38','38','38']" data-fontsize="['60','60','60','50','50']" data-lineheight="['100','100','100','70','70']" data-width="['none','none','none','none']" data-height="none" data-whitespace="['nowrap','nowrap','nowrap','nowrap','nowrap']" data-type="text" data-responsive_offset="on" data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":1700,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:left(R);","ease":"Power3.easeIn"}]' data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[10,10,10,10]" data-paddingleft="[0,0,0,0]"> Rental Scaffolding <br> dan <br> Jasa Kontraktor </div>
 
-                    </div>
-                </li>
-                <li data-index="rs-2973" data-transition="slidingoverlayhorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="img/home-slider/slider-1.jpg" data-rotate="0" data-saveperformance="off" data-title="Web Show" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                    <!--  MAIN IMAGE -->
-                    <img src="img/home-slider/slider-1.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
-                    <!--   LAYERS -->
-                    <div class="slider_text_box">
-                        <div class="tp-caption first_text" data-x="['center','center','center','center']" data-y="['middle','middle','middle','middle']" data-hoffset="['0','0','0','0']" data-voffset="['-38','-38','-38','-20','-20']" data-fontsize="['28','28','28','28']" data-lineheight="['38','38','38','38']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1750,"ease":"Power2.easeInOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"> Rental Scaffolding <br> and <br> Construction</div>
-
-                        <div class="tp-caption secand_text" data-x="['center','center','center','center']" data-y="['middle','middle','middle','middle']" data-hoffset="['0','0','0','0']" data-voffset="['38','38','38','38','38']" data-fontsize="['110','110','110','50','50']" data-lineheight="['100','100','100','70','70']" data-width="['none','none','none','none']" data-height="none" data-whitespace="['nowrap','nowrap','nowrap','nowrap','nowrap']" data-type="text" data-responsive_offset="on" data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":1700,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:left(R);","ease":"Power3.easeIn"}]' data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[10,10,10,10]" data-paddingleft="[0,0,0,0]">we innovate </div>
                     </div>
                 </li>
             </ul>
@@ -163,7 +153,7 @@ include 'koneksi/koneksi.php';
                     <div class="f_content_item">
                         <i class="fa fa-building" aria-hidden="true"></i>
                         <b><a href="#">
-                                <h4>Project Building</h4>
+                                <h4>Pembangunan Gedung</h4>
                             </a>
                             <p>Proyek Pembangunan di peruntuhkan untuk pembangunan gedung perkantoran ,pertokoan , dan ruko . </p>
                         </b></div>
@@ -172,7 +162,7 @@ include 'koneksi/koneksi.php';
                     <div class="f_content_item">
                         <i class="fa fa-money" aria-hidden="true"></i>
                         <b><a href="#"><b>
-                                    <h4>Save Money</h4></a></b>
+                                    <h4>Menghemat Biaya</h4></a></b>
                         <p>Pembangunan proyek dapat dilakukan dengan menyesuaikan budget yang di konsulkan dengan
                             consultan pembangunan proyek sehingga dapat menentukan harga yang sesuai. </b></p>
                     </div>
@@ -211,8 +201,8 @@ include 'koneksi/koneksi.php';
     <section class="our_service_area2">
         <div class="container">
             <div class="main_c_b_title">
-                <h2>Our<br class="title_br">Services</h2>
-                <h6>All About US</h6>
+                <h2>Jasa<br class="title_br">Kontraktor</h2>
+                <h6>Semuanya Tentang Kami</h6>
             </div>
             <div class="row service2_inner">
                 <div class="col-md-4 col-sm-6">
@@ -346,20 +336,20 @@ include 'koneksi/koneksi.php';
                 <div class="row footer_widgets_inner">
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
-                            <img src="img/footer-logo.png" >
-                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
-                            <ul>
-                                <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <img src="img/footer-logo.png">
+                            <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
+                            <!-- <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
-                            </ul>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            </ul> -->
                         </aside>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget recent_widget">
                             <div class="f_w_title">
-                                <h3>Recent Portofolio</h3>
+                                <h3>Portofolio</h3>
                             </div>
                             <div class="recent_w_inner">
                                 <div class="media">
@@ -386,7 +376,7 @@ include 'koneksi/koneksi.php';
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget address_widget">
                             <div class="f_w_title">
-                                <h3>Office Address</h3>
+                                <h3>Alamat Kantor</h3>
                             </div>
                             <div class="address_w_inner">
                                 <div class="media">
@@ -418,7 +408,7 @@ include 'koneksi/koneksi.php';
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget give_us_widget">
-                            <h5>Give Us A Call</h5>
+                            <h5>Hubungi kami pada</h5>
                             <h4>(0341) 350003 </h4>
                         </aside>
                     </div>

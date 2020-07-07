@@ -78,10 +78,10 @@ include 'koneksi/koneksi.php';
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
-                                 <li><a href="index.php">Home</a></li>
-                                 <li><a href="projectBar.php">Project</a></li>
-                                <li><a href="AboutUs.php">About Us</a></li>
-                                <li><a href="skafoldBar.php">Scaffolding</a></li>
+                            <li><a href="index.php">Beranda</a></li>
+                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="AboutUs.php">Tentang Kami</a></li>
+                            <li><a href="skafoldBar.php">Scaffolding</a></li>
                                 <?php if (!isset($_SESSION['username'])) {
                                    echo '<li><a href="admin/login.php">Login</a></li>';
                                 }else{
@@ -103,9 +103,9 @@ include 'koneksi/koneksi.php';
         <section class="banner_area">
             <div class="container">
                 <div class="banner_inner_text">
-                    <h4>Welcome to Types Of Scaffolding</h4>
+                    <h4>Pengenalan Jenis Scaffolding</h4>
                     <ul>
-                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Beranda</a></li>
                         <li class="active"><a href="#">PT Kawi Sakti Megah</a></li>
                     </ul>
                 </div>
@@ -118,7 +118,7 @@ include 'koneksi/koneksi.php';
            <div class="container">
                <div class="main_c_b_title">
                     <h2><br class="title_br">Scaffolding</h2>
-                    <h6>Types Of Scaffolding</h6>
+                    <h6>Jenis Scaffolding</h6>
                 </div>
                 <ul class="our_project_filter">
                                 <li class="active" data-filter="*"><a href="#">All</a></li>
@@ -213,95 +213,101 @@ include 'koneksi/koneksi.php';
         <!--================End Get Quote Area =================-->
         
         <!--================Footer Area =================-->
-         <footer class="footer_area">
-            <div class="footer_widgets_area">
-                <div class="container">
-                    <div class="row footer_widgets_inner">
-                        <div class="col-md-3 col-sm-6">
-                            <aside class="f_widget about_widget">
-                                <img src="img/footer-logo.png" >
-                                <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
-                                <ul>
-                                    <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
-                                </ul>
-                            </aside>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <aside class="f_widget recent_widget">
-                                <div class="f_w_title">
-                                    <h3>Recent Portofolio</h3>
-                                </div>
-                                <div class="recent_w_inner">
-                                    <div class="media">
-                                        <div class="media-left">
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><p>Pengerjaan Gedung UMM 1</p></a>
-                                        </div>
+        <footer class="footer_area">
+        <div class="footer_widgets_area">
+            <div class="container">
+                <div class="row footer_widgets_inner">
+                    <div class="col-md-3 col-sm-6">
+                        <aside class="f_widget about_widget">
+                            <img src="img/footer-logo.png">
+                            <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
+                            <!-- <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            </ul> -->
+                        </aside>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <aside class="f_widget recent_widget">
+                            <div class="f_w_title">
+                                <h3>Portofolio</h3>
+                            </div>
+                            <div class="recent_w_inner">
+                                <div class="media">
+                                    <div class="media-left">
                                     </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><p>Pengerjaan kantor BCA Sukun</p></a>
-                                        </div>
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <p>Pengerjaan Gedung UMM 1</p>
+                                        </a>
                                     </div>
                                 </div>
-                            </aside>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <aside class="f_widget address_widget">
-                                <div class="f_w_title">
-                                    <h3>Office Address</h3>
-                                </div>
-                                <div class="address_w_inner">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <i class="fa fa-map-marker"></i>
-                                        </div>
-                                        <div class="media-body">
-                                            <p> Jl. Janti Barat Blok A/17 A Malang</p>
-                                        </div>
+                                <div class="media">
+                                    <div class="media-left">
                                     </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <i class="fa fa-phone"></i>
-                                        </div>
-                                        <div class="media-body">
-                                            <p>(0341) 350003 </p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <i class="fa fa-envelope"></i>
-                                        </div>
-                                        <div class="media-body">
-                                            <p>kawisaktimalang@gmail.com</p>
-                                        </div>
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <p>Pengerjaan kantor BCA Sukun</p>
+                                        </a>
                                     </div>
                                 </div>
-                            </aside>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <aside class="f_widget give_us_widget">
-                                <h5>Give Us A Call</h5>
-                                <h4>(0341) 350003 </h4>
-                            </aside>
-                        </div>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <aside class="f_widget address_widget">
+                            <div class="f_w_title">
+                                <h3>Alamat Kantor</h3>
+                            </div>
+                            <div class="address_w_inner">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <i class="fa fa-map-marker"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <p> Jl. Janti Barat Blok A/17 A Malang</p>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <p>(0341) 350003 </p>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <p>kawisaktimalang@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <aside class="f_widget give_us_widget">
+                            <h5>Hubungi kami pada</h5>
+                            <h4>(0341) 350003 </h4>
+                        </aside>
                     </div>
                 </div>
             </div>
-            <div class="footer_copy_right">
-                <div class="container">
-                    <h4><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-<!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></h4>
-                </div>
+        </div>
+        <div class="footer_copy_right">
+            <div class="container">
+                <h4>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </h4>
             </div>
-        </footer>
+        </div>
+    </footer>
         <!--================End Footer Area =================-->
         
         
