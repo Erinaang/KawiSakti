@@ -18,6 +18,8 @@ while ($show = mysqli_fetch_array($queryPenyewa)) {
   $namaPenyewa = $show['NAMA'];
 }
 
+
+
 $queryPrint = mysqli_query($mysqli, "SELECT *, tr.TOTAL AS totalTrans, ti.TOTAL AS totalPaket FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
@@ -104,7 +106,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                   <td><?php echo $index++; ?></td>
                   <td><?php echo $show['FRAME']; ?></td>
                   <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                  <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
+                  <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
                   <td>Rp. <?php echo $totalPaket; ?>,00</td>
                 </tr>
               <?php } ?>

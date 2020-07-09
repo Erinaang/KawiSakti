@@ -252,10 +252,10 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transak
                                         $idTrans = $show['ID_TRANSAKSI']; ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo $show['TOTAL']; ?></td>
+                                            <td>Rp. <?php echo number_format($show['TOTAL'],2,",","."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo $show['TGL_SEWA']; ?></td>
-                                            <td><?php echo $show['TGL_KEMBALI']; ?></td>
+                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
+                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_KEMBALI'])); ?></td>
                                             <td> <a href="form-denda.php?ID_PENYEWA=<?php echo $show['ID_PENYEWA']; ?>" data-toggle="tooltip" title="Denda" class="btn btn-danger pd-setting-ed" ><i class="fa fa-trash-square-o" aria-hidden="true"> Denda</i></a></td>
                                             <td><?php echo $status; ?></td>
                                             <td>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
@@ -7,8 +8,13 @@ include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
 //SELECT DATA Riwayat
-
-$dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='terkirim'") or die("data salah: " . mysqli_error($mysqli));
+if ($_POST['cari'] == null) {
+    $c = $_POST['cari'];   
+    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='terkirim'") or die("data salah: " . mysqli_error($mysqli));
+}else{
+    $c = $_POST['cari'];
+    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
+}
 
 ?>
 
@@ -233,9 +239,11 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM 
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-
+                    <form action="" method="post">
+                            <input type="text" id="myInput" name="cari" placeholder="Search for names.."><button type="submit">Submit</button>
+                            </form>
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered">            
                                 <thead>
                                     <tr>
                                         <th>Nama Penyewa</th>
@@ -256,12 +264,12 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM 
                                         $idTrans = $show['ID_TRANSAKSI'];?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo $show['TOTAL']; ?></td>
-                                            <td><?php echo $show['JAMINAN']; ?></td>
+                                            <td>Rp. <?php echo number_format($show['TOTAL'],2,",","."); ?></td>
+                                            <td>Rp. <?php echo number_format ($show['JAMINAN'],2,",","."); ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo $show['TGL_SEWA']; ?></td>
-                                            <td><?php echo $show['TGL_KEMBALI']; ?></td>
+                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
+                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "terkirim") {

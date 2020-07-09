@@ -4,42 +4,34 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
 include "../connection/Connection.php";
-//GET IDUSER
-// $username = $_SESSION['username'];
-//SELECT DATA
-$idPaket = $_GET['id_paket'];
-$query = mysqli_query($mysqli, "SELECT * FROM paket WHERE id_paket = '$idPaket'") or die("data salah: " . mysqli_error($mysqli));
 
 if (isset($_POST['submit'])) {
-    $frame = $_POST['frame'];
-    $masa_sewa = $_POST['masa_sewa'];
-    $jumlah_set = $_POST['jumlah_set'];
-    $harga = $_POST['harga'];
+    $frame = $_POST['FRAME'];
+    $masa_sewa = $_POST['MASA_SEWA'];
+    $jumlah_set = $_POST['JUMLAH_SET'];
+    $harga = $_POST['HARGA'];
 
-    $query = mysqli_query($mysqli, "UPDATE paket SET frame='$frame', masa_sewa='$masa_sewa', jumlah_set='$jumlah_set', harga='$harga' WHERE id_paket='$idPaket'") or die("data salah: " . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "INSERT INTO `paket`(`MASA_SEWA`, `JUMLAH_SET`, `FRAME`, `HARGA`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
 
-    if ($query) {
-        echo "<script>alert('Data Telah diperbaharui.');location.href='data-barang.php'</script>";
-    }
-    
+    echo "<script>alert('Data berhasil ditambahkan');location.href='data-barang.php'</script>";
 }
 
 ?>
 
-<!doctype html>
+<!DOCTYPE HTML>
 
 <html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT. Kawi Sakti Megah </title>
+    <title>PT Kawi Sakti Megah </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
-        <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Google Fonts
         ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
@@ -93,7 +85,9 @@ if (isset($_POST['submit'])) {
         ============================================ -->
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
 
+    <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
 
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
 
 </head>
 
@@ -127,14 +121,16 @@ if (isset($_POST['submit'])) {
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                        </li>
+                        <li>
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" style="color:#fbfffbb0"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" ></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -152,6 +148,8 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
+        <br>
+        <br>
         <div class="header-advance-area">
             <div class="header-top-area" style="background-color: #1d3542">
                 <div class="container-fluid">
@@ -163,7 +161,7 @@ if (isset($_POST['submit'])) {
                                         <div class="menu-switcher-pro">
 
 
-                                            <button type="button" id="sidebarCollapse" class='fa fa-exchange' style='font-size:36px; color:#000; padding-top: 10px' onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'"><span class="tooltiptext"></span></button>
+                                            <button type="button" id="sidebarCollapse" class='fa fa-exchange' style='font-size:36px; color:#000; padding-top: 10px' onmouseover="this.style.transform='scale(0.0)'" onmouseout="this.style.transform='scale(1)'"><span class="tooltiptext"></span></button>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
@@ -188,7 +186,7 @@ if (isset($_POST['submit'])) {
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="Login/logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -225,8 +223,8 @@ if (isset($_POST['submit'])) {
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
+                                                <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
+                                                <p>Welcome to PT Kawi Sakti Megah </span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -249,6 +247,10 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
+
+
+        <!-- Form Tambah Data -->
+
         <div class="single-product-tab-area mg-b-30">
             <!-- Single pro tab review Start-->
             <div class="single-pro-review-area">
@@ -257,48 +259,50 @@ if (isset($_POST['submit'])) {
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="review-tab-pro-inner">
                                 <ul id="myTab3" class="tab-review-design">
-                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Edit Barang</a></li>
+                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i>Tambah Barang</a></li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
-                                    <form action="" method="post">
-                                        <?php while ($show = mysqli_fetch_array($query)) { ?>
-                                            <div class="product-tab-list tab-pane fade active in" id="edit">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="review-content-section">
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
-                                                                <input name="frame" type="text" class="form-control" value="<?php echo $show['frame']; ?>">
-                                                            </div>
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>
-                                                                <input name="masa_sewa" type="text" class="form-control" value="<?php echo $show['masa_sewa']; ?>">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <form action="" method="POST">
+                                        <div class="product-tab-list tab-pane fade active in" id="edit">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="review-content-section">
                                                         <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jumlah Set :</i></span>
-                                                            <input name="jumlah_set" type="text" class="form-control" value="<?php echo $show['jumlah_set']; ?>">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
+                                                            <!-- <input name="frame" type="text" class="form-control"> -->
+                                                            <select name="FRAME" class="form-control pro-edt-select form-control-primary">
+                                                                <option disabled selected>Frame</option>
+                                                                <option value="MF-170">Main Frame - 170</option>
+                                                                <option value="MF-190">Main Frame - 190</option>
+                                                                <option value="LF-90">Ladder Frame - 90</option>
+                                                            </select>
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"> Harga :</i></span>
-                                                            <input name="harga" type="text" class="form-control" value="<?php echo $show['harga']; ?>">
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>
+                                                            <input name="MASA_SEWA" type="number" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php } ?>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Jumlah Set :</i></span>
+                                                        <input name="JUMLAH_SET" type="number" class="form-control">
+                                                    </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon">Rp. | Harga :</span>
+                                                        <input name="HARGA" type="number" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
-                                                        <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
-                                                        <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Save">
-                                                        <a href="data-barang.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                        <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10">
+                                                        <a href="" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -311,9 +315,9 @@ if (isset($_POST['submit'])) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="footer-copy-right">
+                        <!-- <div class="footer-copy-right">
                             <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

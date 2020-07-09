@@ -4,18 +4,12 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
 include "../connection/Connection.php";
-//GET IDUSER
-// $username = $_SESSION['username'];
-//SELECT DATA Riwayat
-
 $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
-
 <head><meta charset="windows-1252">
-    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -76,16 +70,9 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
     <!-- modernizr JS
         ============================================ -->
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
-
-
-
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -99,7 +86,6 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
 
                     <h2> <b>A<span class="min-dtn">DMIN</span></b></h2>
                 </div>
-
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -266,9 +252,14 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                             <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:100%;max-width:300px"></td>
                                             <td><?php echo $show['NO_TELP']; ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td>
-                                                <a href="hapus-akun.php?ID_USER=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
-                                            </td>
+                                            <?php if ($show['ID_USER'] != "4") { ?>
+                                                <td>
+                                                    <a href="hapus-akun.php?ID_USER=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
+                                                </td> 
+                                            <?php }else{ ?>
+                                                <td>  </td> 
+                                            <?php } ?>
+                                            
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -331,8 +322,5 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
         <!-- main JS
         ============================================ -->
         <script src="../js/main.js"></script>
-
-
 </body>
-
 </html>
