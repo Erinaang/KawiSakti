@@ -267,6 +267,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                             <div class="tab">
                                 <button class="tablinks" onclick="openTabs(event, 'Keranjang')"> <b> Keranjang </b></button>
                                 <button class="tablinks" onclick="openTabs(event, 'Checkout')"> <b> Checkout </b> </button>
+                                <button class="tablinks" onclick="openTabs(event, 'Upload')"> <b> Upload </b> </button>
                                 <button class="tablinks" onclick="openTabs(event, 'Riwayat')"> <b> Riwayat </b> </button>
                             </div>
                             <!-- KERANJANG -->
@@ -401,6 +402,26 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                     <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a>
                                 </div>
                             </div>
+                              <!-- UPLOAD -->
+                              <div id="Upload" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                         <form action="upload.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" method="POST" enctype="multipart/form-data">
+                                        <div class="col-md-6">
+                                            <br> <br>
+                                            <p> <b> Bukti Pembayaran : <input type="file" name="bukti_pembayaran" required /></b></p>
+                                            <p> <b> Bukti KTP : <input type="file" name="bukti_ktp" required /> </b></p>
+                                            <br>
+                                            <input class="btn btn-primary" value="Kirim" type="submit" />
+                                            <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                    </div>
+                                </div>
+                              </div>
+                        </div>
                             <!-- RIWAYAT -->
                             <div id="Riwayat" class="tabcontent">
                                 <div class="product-status-wrap">

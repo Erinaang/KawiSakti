@@ -178,11 +178,13 @@ include 'koneksi/koneksi.php';
     <!--================End Who We Are Area =================-->
 
     <!--================Our Service Area =================-->
+   
     <section class="our_service_area">
         <div class="left_service">
             <div class="left_service_inner">
                 <div class="service_item">
                     <div class="service_item_inner">
+                    
                         <div class="service_icon">
                             <img src="img/icon/s-icon-6.png" alt="">
                             <img src="img/icon/s-icon-hover-6.png" alt="">
@@ -262,14 +264,18 @@ include 'koneksi/koneksi.php';
         <div class="right_service">
             <div class="right_service_text">
                 <div class="main_b_title">
-                    <h2>Lingkup <br class="title_br" /> Jasa</h2>
-                    <h6>PT Kawi Sakti Megah</h6>
+                    <h2>Cara Pesan <br class="title_br" /> Scaffolding???</h2>
+                    <!-- <h6>PT Kawi Sakti Megah Kota Malang</h6> -->
                 </div>
-                <p>Perusahaan jasa dibidang konstruksi melayani rental scaffolding, perancah, steger yang mengutamakan kualitas. Dengan struktur yang kokoh dengan bahan scaffolding serta memperhitungkan standar keselamatan sehingga aman pada saat digunakan</p>
-                <p>Kami melayani instansi ataupun pribadi mulai dari perencanaan bangunan hingga tahap finishing. Karena keinginan dari setiap client berbeda maka kami siap dengan berbagai macam solusi terbaik bagi client kami</p>
-                <p>Pada setiap tahap kami kerjakan dengan penuh tanggung jawab. Seperti pemenuhan target, interaktif dengan relasi dan laporan yang akurat dan terpercaya</p>
-                <p>Rancangan akan dihitung secara terperinci sehingga client dan perusahaan akan bekerja sama dengan baik dengan transparansi. Disitu adalah salah satu kelebihan dari perusahaan kami</p>
-                <div class="border_bar"></div>
+             <b>  <h3> <p>1). Masuk pada halaman login, lalu masukan username dan password login<br>
+               2). Bila telah masuk halaman akun , akan ada pop up yang menyatakan anda login sebagai pelanggan <br>
+               3). Klik Menu Scaffolding pada halaman Sacaffolding, lalu pilih paket yang anda butuhkan.  <br>
+               4). Tambahkan ke keranjang dengan click tombol "tambahkan ke keranjang"<br>
+               5). Tekan tab keranjang untuk melihat daftar rincian harga, bila harga dan barang telah dirasa sesuai, click tombol checkout <br>
+                6). Tekan Tab Checkout, di dalamnya terdapat informasi dan rincian barang yang dipesan , dan juga di harap mengisi informasi ALAMAT, Nama Proyek, serta tanggal sewa, lalu click kirim  <br>
+               7). Permintaan akan diverivikasi oleh admin, tunggu dalam email anda bila telah diverikasi tab upload akan active, dan silahkan upload bukti tf dan data diri (KTP)<br>
+               8). Pengiriman akan diberitahukan melalui email setelah data diri telah terverifikasi oleh admin</p></b>
+            </h3>   <div class="border_bar"></div>
             </div>
         </div>
     </section>
@@ -298,14 +304,13 @@ include 'koneksi/koneksi.php';
                 <div class="col-md-9">
                     <div class="our_project_details">
                         <div class="project_item ladderframe">
-                            <img src="img/project/project-2.jpg" alt="">
+                            <img src="img/project/project-2.jpg"; alt="" >
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#">
-                                            <h4>Ladder Frame</h4>
-                                        </a>
-                                        <p>Ladder frame adalah salah satu komponen dari scaffolding yang biasanya dipasang pada bagian atas dari main frame, untuk menambah tinggi karena dibutuhkan pijakan atau penyangga yang lebih tinggi dari 170 cm dan 190 cm, ladder frame yang kita miliki memiliki dimensi tinggi 90 cm dan lebar 122 cm.</p>                                    </div>
+                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
+                                <br>   <h4>Ladder Frame</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -314,10 +319,9 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#">
+                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
                                             <h4>Stair</h4>
                                         </a>
-                                        <p>Stair scaffolding adalah asesori scaffolding / perancah digunakan sebagai pengganti tangga langkah dan sanggup / bisa di hubungkan ke main frame. Stair step digunakan di scaffolding / perancah untuk mencapai bagaian kontruksi yang lebih tinggi.</p>
                                     </div>
                                 </div>
                             </div>
@@ -327,11 +331,9 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#">
+                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
                                             <h4>Cat Walk</h4>
-                                        </a>
-                                        <p>Cat walk adalah komponen perancah yang dibuat dari bahan baja berkualitas yang telah dilapisi dengan cat pelindung untuk melindungi permukaanya dari karat dan oksidasi. Catwalk scaffolding ini berfungsi sebagai platform atau tempat berpijak antar main frame yang digunakan para pekerja sebagai landasan kerja. Catwalk ini harus terbuat dari logam agar kuat untuk menopang bobot para pekerja dan perlatan yang digunakan.</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                       <a> </a>
                                     </div>
                                 </div>
                             </div>
@@ -341,11 +343,10 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#">
+                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
                                             <h4>Main Frame</h4>
-                                        </a>
-                                        <p>Main frame adalah salah satu komponen paling utama dari scaffolding, kegunaan main frame adalah sebagai penyangga utama. Dimensi main frame sendiri adalah tinggi 170 cm, 190 cm dan lebar 122 cm.</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                        <a> </a>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -355,11 +356,10 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                        <a href="#">
-                                            <h4>Cross Brace</h4>
-                                        </a>
-                                        <p>Alat ini berbentuk batang panjang yang menyilang satu sama lain, dan fungsinya adalah untuk menyambung 2 (dua) main frame atau ladder frame dengan posisi melintang diantara keduanya, alat ini juga berfungsi menjaga kekokohan dari frame yang disambungkan sehingga dapat menopang dengan baik. Dimensi dari cross brace adalah 193 cm dan 220 cm.</p>
-                                        <a class="view_btn" href="#">View Project</a>
+                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a><br>
+                                          <buttonf></button>  <h4>Cross Brace</h4>
+                                        <a> </a>
+                                       
                                     </div>
                                 </div>
                             </div>
