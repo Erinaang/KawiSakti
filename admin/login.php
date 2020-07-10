@@ -7,7 +7,7 @@
 <!--webfonts-->
 <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700|Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 <!--//webfonts-->
-<link rel="shortcut icon" type="image/x-icon" href="img/ksm.png">
+<link rel="shortcut icon" type="image/x-icon" href="../img/favicon-32x32.png">
 </head>
  
 <body>
@@ -50,9 +50,9 @@
 						  <input type="submit" value="LOGIN" >
 						</div>
 						<span class="forget-pass">
-							<a href="forgot-password/forgot-password.php"><b> Forgot Password?</a> <br>
+							<a href="forgot-password/forgot-password.php"><b>Lupa password?</a> <br>
 							<span class="forget-pass">
-							<a href="daftar.php">Register</a> </b>
+							<a href="daftar.php">Buat akun</a> </b>
 						</span>
 						</span><br>
 						<!-- <span class="Register">
