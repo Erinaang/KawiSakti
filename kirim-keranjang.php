@@ -35,7 +35,7 @@ if (isset($_GET['submit'])) {
             $harga = $show['HARGA'];
             $total = $jumlahSet * $harga;
         }
-        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', TOTAL='$total'") or die("data salah:2 " . mysqli_error($mysqli));
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', TOTAL='$total'") or die("data salah:2 " . mysqli_error($mysqli));
     } else {
         
         $insertTransaksi = mysqli_query($mysqli, "INSERT INTO transaksi SET ID_PENYEWA='$idUser', STATUS='cart'") or die("data salah:3 " . mysqli_error($mysqli));
@@ -50,7 +50,7 @@ if (isset($_GET['submit'])) {
             $total = $jumlahSet * $harga;
         }
 
-        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', TOTAL='$total'") or die("data salah:6 " . mysqli_error($mysqli));
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', TOTAL='$total'") or die("data salah:6 " . mysqli_error($mysqli));
     }
     $insertTransaksiItem = mysqli_query($mysqli, "UPDATE `transaksi` SET `TOTAL` = `TOTAL`+'$total' WHERE `transaksi`.`ID_TRANSAKSI` = '$idTransaksi' AND `transaksi`.`ID_PENYEWA` = '$idUser';") or die("data salah:7 " . mysqli_error($mysqli));
     

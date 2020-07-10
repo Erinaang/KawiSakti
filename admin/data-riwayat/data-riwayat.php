@@ -253,10 +253,10 @@ $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `tra
                                         ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo $show['TOTAL']; ?></td>
+                                            <td>Rp. <?php echo number_format($show['TOTAL'],2,",","."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo $show['TGL_SEWA']; ?></td>
-                                            <td><?php echo $show ['TGL_KEMBALI']?></td>
+                                            <td><?php echo date('d-M-Y',strtotime($show['TGL_SEWA'])); ?></td>
+                                            <td><?php echo date('d-M-Y',strtotime($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $show['statusTrans']; ?></td>
                                             <td>
                                             <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>

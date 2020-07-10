@@ -4,18 +4,13 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../Login.php");
 }
 include "../connection/Connection.php";
-
 $queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-170'") or die("data salah: " . mysqli_error($mysqli));
-
 $queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
-
 $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
-
 ?>
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -80,10 +75,6 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -94,10 +85,8 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
             </div>
             <div class="nalika-profile">
                 <div class="profile-dtl">
-
                     <h2> <b>A<span class="min-dtn">DMIN</span></b></h2>
                 </div>
-
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -189,7 +178,6 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
             <!-- Mobile Menu start -->
 
             <!-- Mobile Menu end -->
-
             <div class="section-admin container-fluid">
                 <div class="row admin text-center">
                     <div class="col-md-12">
@@ -250,6 +238,8 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                                                 <div class="col-md-2">
                                                     <br><br>
                                                     <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
+                                                    <br><br>
+                                                    <a href="tambah-frame.php" type="button" class="btn btn-primary">Tambah Frame</a>
                                                 </div>
                                                 <div class="col-md-10">
                                                     <h2>MAIN FRAME 170</h2>
@@ -269,7 +259,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                                                                     <td><?php echo $show['FRAME']; ?></td>
                                                                     <td><?php echo $show['MASA_SEWA']; ?></td>
                                                                     <td><?php echo $show['JUMLAH_SET']; ?></td>
-                                                                    <td>Rp. <?php echo $show['HARGA']; ?></td>
+                                                                    <td>Rp. <?php echo number_format ($show['HARGA'],2,",","."); ?></td>
                                                                     <td>
                                                                         <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
                                                                         <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
@@ -312,7 +302,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                                                                     <td><?php echo $show['FRAME']; ?></td>
                                                                     <td><?php echo $show['MASA_SEWA']; ?></td>
                                                                     <td><?php echo $show['JUMLAH_SET']; ?></td>
-                                                                    <td>Rp. <?php echo $show['HARGA']; ?></td>
+                                                                    <td>Rp. <?php echo number_format ($show['HARGA'],2,",","."); ?></td>
                                                                     <td>
                                                                         <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
                                                                         <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
@@ -355,7 +345,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                                                                     <td><?php echo $show['FRAME']; ?></td>
                                                                     <td><?php echo $show['MASA_SEWA']; ?></td>
                                                                     <td><?php echo $show['JUMLAH_SET']; ?></td>
-                                                                    <td>Rp. <?php echo $show['HARGA']; ?></td>
+                                                                    <td>Rp. <?php echo number_format ($show['HARGA'],2,",","."); ?></td>
                                                                     <td>
                                                                         <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
                                                                         <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
