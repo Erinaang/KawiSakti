@@ -9,11 +9,11 @@ include "../connection/Connection.php";
 // $username = $_SESSION['username'];
 //SELECT DATA Riwayat
 if ($_POST['cari'] == null) {
-    $c = $_POST['cari'];   
-    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='terkirim'") or die("data salah: " . mysqli_error($mysqli));
-}else{
     $c = $_POST['cari'];
-    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
+    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='terkirim'") or die("data salah: " . mysqli_error($mysqli));
+} else {
+    $c = $_POST['cari'];
+    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
 }
 
 ?>
@@ -92,7 +92,7 @@ if ($_POST['cari'] == null) {
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-            <br>
+                <br>
                 <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logo2.png" alt="" width="60px" /></strong>
@@ -112,7 +112,7 @@ if ($_POST['cari'] == null) {
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" ></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
@@ -121,7 +121,7 @@ if ($_POST['cari'] == null) {
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" ></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -239,11 +239,11 @@ if ($_POST['cari'] == null) {
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-                    <form action="" method="post">
+                        <form action="" method="post">
                             <input type="text" id="myInput" name="cari" placeholder="Search for names.."><button type="submit">Submit</button>
-                            </form>
+                        </form>
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <table class="table table-bordered">            
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Nama Penyewa</th>
@@ -260,20 +260,20 @@ if ($_POST['cari'] == null) {
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($dataTransaksi)) {
                                         $status = $show['statusTrans'];
-                                        $jam_pesan = $show['JAM_PEMESANAN']; 
-                                        $idTrans = $show['ID_TRANSAKSI'];?>
+                                        $jam_pesan = $show['JAM_PEMESANAN'];
+                                        $idTrans = $show['ID_TRANSAKSI']; ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo number_format($show['TOTAL'],2,",","."); ?></td>
-                                            <td>Rp. <?php echo number_format ($show['JAMINAN'],2,",","."); ?></td>
+                                            <td>Rp. <?php echo number_format($show['TOTAL'], 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($show['JAMINAN'], 2, ",", "."); ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
-                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_KEMBALI'])); ?></td>
+                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
+                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "terkirim") {
-                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] .'" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {
                                                     echo '<a href="../../print.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&ID_PENGIRIMAN=' . $show['ID_PENGIRIMAN'] . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
                                                 }
@@ -302,11 +302,9 @@ if ($_POST['cari'] == null) {
             </div>
 
         </div>
-        <br>
-
-
         <!-- END TABEL TRANSAKSI -->
 
+        <br>
 
         <script src="../js/vendor/jquery-1.12.4.min.js"></script>
         <!-- bootstrap JS

@@ -8,6 +8,8 @@ include "../connection/Connection.php";
 //query tampil tabel pengembalian
 $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
 
+$dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as bulan, p.FRAME as frame, SUM(p.JUMLAH_SET) as total_set, SUM(t.TOTAL) as total_harga FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET") or die("data salah: " . mysqli_error($mysqli));
+
 ?>
 
 <!DOCTYPE HTML>
@@ -84,7 +86,7 @@ $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `tra
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-            <br>
+                <br>
                 <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
@@ -113,7 +115,7 @@ $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `tra
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" ></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -179,7 +181,7 @@ $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `tra
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
 
             <div class="section-admin container-fluid">
@@ -226,9 +228,7 @@ $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `tra
             </div>
         </div>
 
-
         <!-- DATA TABEL PENGEMBALIAN -->
-
         <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
@@ -250,16 +250,16 @@ $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `tra
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) {
                                         $idTrans = $show['ID_TRANSAKSI'];
-                                        ?>
+                                    ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo number_format($show['TOTAL'],2,",","."); ?></td>
+                                            <td>Rp. <?php echo number_format($show['TOTAL'], 2, ",", "."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo date('d-M-Y',strtotime($show['TGL_SEWA'])); ?></td>
-                                            <td><?php echo date('d-M-Y',strtotime($show['TGL_KEMBALI'])); ?></td>
+                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
+                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $show['statusTrans']; ?></td>
                                             <td>
-                                            <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>
+                                                <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>
                                                 <a href="hapus-riwayat.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
                                         </tr>
@@ -271,10 +271,44 @@ $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `tra
                 </div>
             </div>
         </div>
-
-
         <!-- END TABEL PENGEMBALIAN -->
 
+        <!-- DATA TABEL PERBULAN -->
+        <div class="product-status mg-b-30">
+            <div class="container-fluid">
+                <div class="product-status-wrap">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No. </th>
+                                        <th>Bulan</th>
+                                        <th>Frame</th>
+                                        <th>Total Set</th>
+                                        <th>Total Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $index = 1;
+                                    while ($show = mysqli_fetch_array($dataPerbulan)) { ?>
+                                        <tr>
+                                            <td><?php echo $index++; ?></td>
+                                            <td><?php echo $show['bulan']; ?></td>
+                                            <td><?php echo $show['frame']; ?></td>
+                                            <td><?php echo $show['total_set']; ?> Set</td>
+                                            <td>Rp. <?php echo number_format($show['total_harga'], 2, ",", "."); ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END DATA TABEL PERBULAN -->
 
         <script src="../js/vendor/jquery-1.12.4.min.js"></script>
         <!-- bootstrap JS
