@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["username"])) {
-    header("Location: ../Login.php");
+    header("Location: ../login.php");
 }
 include "../connection/Connection.php";
 $queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-170'") or die("data salah: " . mysqli_error($mysqli));

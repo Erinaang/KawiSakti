@@ -1,13 +1,13 @@
 <?php 
 session_start();
-if (!isset($_SESSION["USERNAME"])) {
-    header("Location: ../index.php");
-}
 include "../connection/Connection.php";
+if (!isset($_SESSION["username"])) {
+    header("Location: ../login.php");
+}
 $idUser = $_GET['ID_USER'];
-$queryDeletePaket = mysqli_query($mysqli, "UPDATE `transaksi` SET ID_PENYEWA=NULL WHERE ID_PENYEWA = '$idUser'") or die("data salah: " . mysqli_error($mysqli));
-$queryDeletePaket = mysqli_query($mysqli, "DELETE FROM user WHERE ID_USER = '$idUser'") or die("data salah: " . mysqli_error($mysqli));
+$queryDeletePaket = mysqli_query($mysqli, "UPDATE `user` SET `SHOW`=0 WHERE `ID_USER` = $idUser") or die("data salah 2: " . mysqli_error($mysqli));
 if ($queryDeletePaket) {
-	header("Location: data-akun.php");
+    // header("Location: data-akun.php");
+    echo "<script>alert('Data Akun berhasil dihapus');location.href='data-akun.php'</script>";
 }
 ?>

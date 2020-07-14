@@ -58,7 +58,8 @@ if (isset($_POST['daftarSubmit'])) {
 		// $mail->AddAttachment("/cpanel.png","filesaya");
 		if ($mail->Send()) {
 			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET NAMA = '$nama', EMAIL='$email', ALAMAT='$alamat', NO_TELP='$telp', USERNAME='$username', PASSWORD='$passEnc', STATUS='penyewa'") or die("data salah: " . mysqli_error($mysqli));
-			header("Location: login.php");
+			// header("Location: login.php");
+			echo "<script>alert('Silahkan cek di email anda untuk mendapatkan kata sandinya');location.href='login.php'</script>";
 		} else {
 			echo error_reporting(E_ALL);
 		}

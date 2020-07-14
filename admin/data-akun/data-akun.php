@@ -4,12 +4,15 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
 include "../connection/Connection.php";
-$akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysqli_error($mysqli));
+$penyewa = mysqli_query($mysqli, "SELECT * FROM user WHERE status='penyewa' AND `SHOW`=1") or die("data salah: " . mysqli_error($mysqli));
+$admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
-<head><meta charset="windows-1252">
+
+<head>
+    <meta charset="windows-1252">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -17,7 +20,7 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
-        <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Google Fonts
         ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
@@ -76,8 +79,8 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-            <br>
-                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" href="index.php"/></a>
+                <br>
+                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" href="index.php" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
@@ -89,7 +92,7 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
-                <ul class="metismenu" id="menu1">
+                    <ul class="metismenu" id="menu1">
                         <li>
                             <a title="Data Barang" href="../data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
@@ -97,7 +100,7 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" ></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
@@ -106,7 +109,7 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href=""><i class="fas fa-user-shield" ></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href=""><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -227,7 +230,6 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                             <table class="table table-bordered">
                                 <thead>
@@ -243,23 +245,48 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($akun)) { ?>
+                                    <?php while ($show = mysqli_fetch_array($penyewa)) { 
+                                        $idPenyewa = $show['ID_USER'];?>
                                         <tr>
                                             <td><?php echo $show['USERNAME']; ?></td>
                                             <td><?php echo $show['EMAIL']; ?></td>
                                             <td><?php echo $show['NAMA']; ?></td>
                                             <td><?php echo $show['STATUS']; ?></td>
-                                            <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:100%;max-width:300px"></td>
+                                            <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:20%;"></td>
                                             <td><?php echo $show['NO_TELP']; ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <?php if ($show['ID_USER'] != "4") { ?>
-                                                <td>
-                                                    <a href="hapus-akun.php?ID_USER=<?php echo $show['ID_USER']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
-                                                </td> 
-                                            <?php }else{ ?>
-                                                <td>  </td> 
-                                            <?php } ?>
-                                            
+                                            <td>
+                                                <a href="hapus-akun.php?ID_USER=<?php echo $idPenyewa; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Nama</th>
+                                        <th>Status</th>
+                                        <th>Foto</th>
+                                        <th>Nomor Telepon</th>
+                                        <th>Alamat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($admin)) { ?>
+                                        <tr>
+                                            <td><?php echo $show['USERNAME']; ?></td>
+                                            <td><?php echo $show['EMAIL']; ?></td>
+                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td><?php echo $show['STATUS']; ?></td>
+                                            <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:20%;"></td>
+                                            <td><?php echo $show['NO_TELP']; ?></td>
+                                            <td><?php echo $show['ALAMAT']; ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -323,4 +350,5 @@ $akun = mysqli_query($mysqli, "SELECT * FROM user") or die("data salah: " . mysq
         ============================================ -->
         <script src="../js/main.js"></script>
 </body>
+
 </html>
