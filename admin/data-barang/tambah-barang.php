@@ -269,13 +269,13 @@ if (isset($_POST['submit'])) {
                                                     <div class="review-content-section">
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
-                                                            <!-- <input name="frame" type="text" class="form-control"> -->
-                                                            <select name="FRAME" class="form-control pro-edt-select form-control-primary">
+                                                            <input name="FRAME" type="text" class="form-control">
+                                                            <!-- <select name="FRAME" class="form-control pro-edt-select form-control-primary">
                                                                 <option disabled selected>Frame</option>
                                                                 <option value="MF-170">Main Frame - 170</option>
                                                                 <option value="MF-190">Main Frame - 190</option>
                                                                 <option value="LF-90">Ladder Frame - 90</option>
-                                                            </select>
+                                                            </select> -->
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Masa Sewa :</i></span>

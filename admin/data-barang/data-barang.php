@@ -4,13 +4,14 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../login.php");
 }
 include "../connection/Connection.php";
-$queryMF170 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-170'") or die("data salah: " . mysqli_error($mysqli));
-$queryMF190 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='MF-190'") or die("data salah: " . mysqli_error($mysqli));
-$queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") or die("data salah: " . mysqli_error($mysqli));
+
+$queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die("data salah: " . mysqli_error($mysqli));
+
 ?>
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -78,7 +79,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-            <br>
+                <br>
                 <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
@@ -98,7 +99,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                             <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap" ></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
@@ -107,7 +108,7 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" ></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -204,18 +205,6 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                                             </div>
                                         </div>
                                     </div>
-                                    <!--  <?php
-                                            if (!empty($_POST['program'])) { ?>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="breadcomb-report">
-                                            <form method="post" action="export.php?username=<?php echo $_GET['username']; ?>&select=<?php echo $_POST['program']; ?>" align="center"> 
-
-                                            Download File : <input type="submit" name="export" value="Excel Export" class="btn btn-success" /> 
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                <?php } ?> -->
                                 </div>
                             </div>
                         </div>
@@ -229,200 +218,114 @@ $queryLF90 = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME ='LF-90'") o
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-cart-inner">
                             <div id="example-basic">
-                                <h3>Main Frame 170</h3>
-                                <section>
-                                    <h3 class="product-cart-dn">MF-170</h3>
-                                    <div class="product-list-cart">
-                                        <div class="product-status-wrap border-pdt-ct">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <br><br>
-                                                    <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
-                                                    <br><br>
-                                                    <a href="tambah-frame.php" type="button" class="btn btn-primary">Tambah Frame</a>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <h2>MAIN FRAME 170</h2>
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Frame</th>
-                                                                <th>Masa Sewa</th>
-                                                                <th>Jumlah Set</th>
-                                                                <th>Harga</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php while ($show = mysqli_fetch_array($queryMF170)) { ?>
+                                <?php while ($show = mysqli_fetch_array($queryFrame)) {
+                                    $frame = $show['FRAME']; ?>
+                                    <h3> <?php echo $frame; ?></h3>
+                                    <section>
+                                        <h3 class="product-cart-dn"><?php echo $frame; ?></h3>
+                                        <div class="product-list-cart">
+                                            <div class="product-status-wrap border-pdt-ct">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <h2><?php echo $frame; ?></h2>
+                                                        <table>
+                                                            <thead>
                                                                 <tr>
-                                                                    <td><?php echo $show['FRAME']; ?></td>
-                                                                    <td><?php echo $show['MASA_SEWA']; ?></td>
-                                                                    <td><?php echo $show['JUMLAH_SET']; ?></td>
-                                                                    <td>Rp. <?php echo number_format ($show['HARGA'],2,",","."); ?></td>
-                                                                    <td>
-                                                                        <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                                        <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
-                                                                    </td>
+                                                                    <th>Frame</th>
+                                                                    <th>Masa Sewa</th>
+                                                                    <th>Jumlah Set</th>
+                                                                    <th>Harga</th>
+                                                                    <th>Action</th>
                                                                 </tr>
-                                                            <?php } ?>
-                                                        </tbody>
-                                                    </table>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $queryPaket = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME = '$frame'") or die("data salah A: " . mysqli_error($mysqli));
+                                                                while ($showPaket = mysqli_fetch_array($queryPaket)) { ?>
+                                                                    <tr>
+                                                                        <td><?php echo $showPaket['FRAME']; ?></td>
+                                                                        <td><?php echo $showPaket['MASA_SEWA']; ?></td>
+                                                                        <td><?php echo $showPaket['JUMLAH_SET']; ?></td>
+                                                                        <td>Rp. <?php echo number_format($showPaket['HARGA'], 2, ",", "."); ?></td>
+                                                                        <td>
+                                                                            <a href="edit-barang.php?ID_PAKET=<?php echo $showPaket['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+                                                                            <a href="hapus-barang.php?ID_PAKET=<?php echo $showPaket['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
-                                </section>
-                                <h3>Main Frame 190</h3>
-                                <section>
-                                    <h3 class="product-cart-dn">MF-190</h3>
-                                    <div class="product-list-cart">
-                                        <div class="product-status-wrap border-pdt-ct">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <br><br>
-                                                    <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <h2>MAIN FRAME 190</h2>
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Frame</th>
-                                                                <th>Masa Sewa</th>
-                                                                <th>Jumlah Set</th>
-                                                                <th>Harga</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php while ($show = mysqli_fetch_array($queryMF190)) { ?>
-                                                                <tr>
-                                                                    <td><?php echo $show['FRAME']; ?></td>
-                                                                    <td><?php echo $show['MASA_SEWA']; ?></td>
-                                                                    <td><?php echo $show['JUMLAH_SET']; ?></td>
-                                                                    <td>Rp. <?php echo number_format ($show['HARGA'],2,",","."); ?></td>
-                                                                    <td>
-                                                                        <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                                        <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </section>
-                                <h3>LADDER FRAME 90</h3>
-                                <section>
-                                    <h3 class="product-cart-dn">LF-90</h3>
-                                    <div class="product-list-cart">
-                                        <div class="product-status-wrap border-pdt-ct">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <br><br>
-                                                    <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <h2>Ladder Frame 90</h2>
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Frame</th>
-                                                                <th>Masa Sewa</th>
-                                                                <th>Jumlah Set</th>
-                                                                <th>Harga</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php while ($show = mysqli_fetch_array($queryLF90)) { ?>
-                                                                <tr>
-                                                                    <td><?php echo $show['FRAME']; ?></td>
-                                                                    <td><?php echo $show['MASA_SEWA']; ?></td>
-                                                                    <td><?php echo $show['JUMLAH_SET']; ?></td>
-                                                                    <td>Rp. <?php echo number_format ($show['HARGA'],2,",","."); ?></td>
-                                                                    <td>
-                                                                        <a href="edit-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                                        <a href="hapus-barang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data barang?")'><i class="fa fa-trash-o" aria-hidden="true">Hapus</i></a>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </section>
+                                    </section>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
-
-    <!-- jquery
+        <!-- jquery
 		============================================ -->
-    <script src="../js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
+        <script src="../js/vendor/jquery-1.12.4.min.js"></script>
+        <!-- bootstrap JS
 		============================================ -->
-    <script src="../js/bootstrap.min.js"></script>
-    <!-- wow JS
+        <script src="../js/bootstrap.min.js"></script>
+        <!-- wow JS
 		============================================ -->
-    <script src="../js/wow.min.js"></script>
-    <!-- price-slider JS
+        <script src="../js/wow.min.js"></script>
+        <!-- price-slider JS
 		============================================ -->
-    <script src="../js/jquery-price-slider.js"></script>
-    <!-- meanmenu JS
+        <script src="../js/jquery-price-slider.js"></script>
+        <!-- meanmenu JS
 		============================================ -->
-    <script src="../js/jquery.meanmenu.js"></script>
-    <!-- owl.carousel JS
+        <script src="../js/jquery.meanmenu.js"></script>
+        <!-- owl.carousel JS
 		============================================ -->
-    <script src="../js/owl.carousel.min.js"></script>
-    <!-- sticky JS
+        <script src="../js/owl.carousel.min.js"></script>
+        <!-- sticky JS
 		============================================ -->
-    <script src="../js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
+        <script src="../js/jquery.sticky.js"></script>
+        <!-- scrollUp JS
 		============================================ -->
-    <script src="../js/jquery.scrollUp.min.js"></script>
-    <!-- mCustomScrollbar JS
+        <script src="../js/jquery.scrollUp.min.js"></script>
+        <!-- mCustomScrollbar JS
 		============================================ -->
-    <script src="../js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="../js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
+        <script src="../js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../js/scrollbar/mCustomScrollbar-active.js"></script>
+        <!-- metisMenu JS
 		============================================ -->
-    <script src="../js/metisMenu/metisMenu.min.js"></script>
-    <script src="../js/metisMenu/metisMenu-active.js"></script>
-    <!-- morrisjs JS
+        <script src="../js/metisMenu/metisMenu.min.js"></script>
+        <script src="../js/metisMenu/metisMenu-active.js"></script>
+        <!-- morrisjs JS
 		============================================ -->
-    <script src="../js/sparkline/jquery.sparkline.min.js"></script>
-    <script src="../js/sparkline/jquery.charts-sparkline.js"></script>
-    <!-- calendar JS
+        <script src="../js/sparkline/jquery.sparkline.min.js"></script>
+        <script src="../js/sparkline/jquery.charts-sparkline.js"></script>
+        <!-- calendar JS
 		============================================ -->
-    <script src="../js/calendar/moment.min.js"></script>
-    <script src="../js/calendar/fullcalendar.min.js"></script>
-    <script src="../js/calendar/fullcalendar-active.js"></script>
-    <!-- tab JS
+        <script src="../js/calendar/moment.min.js"></script>
+        <script src="../js/calendar/fullcalendar.min.js"></script>
+        <script src="../js/calendar/fullcalendar-active.js"></script>
+        <!-- tab JS
 		============================================ -->
-    <script src="../js/tab.js"></script>
-    <!-- wizard JS
+        <script src="../js/tab.js"></script>
+        <!-- wizard JS
 		============================================ -->
-    <script src="../js/wizard/jquery.steps.js"></script>
-    <script src="../js/wizard/steps-active.js"></script>
-    <!-- plugins JS
+        <script src="../js/wizard/jquery.steps.js"></script>
+        <script src="../js/wizard/steps-active.js"></script>
+        <!-- plugins JS
 		============================================ -->
-    <script src="../js/plugins.js"></script>
-    <!-- main JS
+        <script src="../js/plugins.js"></script>
+        <!-- main JS
 		============================================ -->
-    <script src="../js/main.js"></script>
+        <script src="../js/main.js"></script>
 </body>
 
 </html>
