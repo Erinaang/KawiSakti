@@ -1,15 +1,21 @@
 <?php
 session_start();
+error_reporting(0);
 if (!isset($_SESSION["username"])) {
     header("Location: ../Login.php");
 }
 include "../connection/Connection.php";
 
 //query tampil tabel pengembalian
-$transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
+// $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
 
-$dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as bulan, p.FRAME as frame, SUM(p.JUMLAH_SET) as total_set, SUM(t.TOTAL) as total_harga FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET") or die("data salah: " . mysqli_error($mysqli));
-
+if ($_GET['cari'] == null) {
+    $c = $_GET['cari'];   
+    $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
+}else{
+    $c = $_GET['cari'];
+    $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.TGL_SEWA like '%".$c."%' ||  tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -163,7 +169,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as bulan, p.
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
-                                                        <span class="admin-name">Setting |</span>
+                                                        <span class="admin-name">Log out |</span>
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
@@ -204,7 +210,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as bulan, p.
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</p>
+                                                <!-- <p>Welcome to PT Kawi Sakti Megah</p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -233,12 +239,23 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as bulan, p.
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-
+                    
+                        <?php $cari = $_GET['cari'];  ?>
+                        <form action="" method="get" class="form-inline">
+                            <div class="form-group mb-2">                   
+                                <input type="text" id="myInput" name="cari" placeholder="Masukkan nama"><button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-success"><i aria-hidden="true">Export PDF</i></a>                                                                             
+                            </div>
+                        </form>
+                                                  
+                    
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th> Nama Penyewa</th>
+                                        <th>Nama Penyewa</th>
                                         <th>Total</th>
                                         <th>Alamat</th>
                                         <th>Tanggal Sewa</th>

@@ -74,15 +74,16 @@ if (isset($_POST['daftarSubmit'])) {
 <head>
 	<title>Selamat Datang di PT Kawi Sakti Megah</title>
 	<link rel="stylesheet" href="style.css" type="text/css" media="all" />
-	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon-32x32.png">
 </head>
 
 <body>
+	<!-- <h1>Register</h1>
+	<h3>Buat akun baru</h3>
+	<br> -->
 	<div class="container">
-	<style>
+					<style>
 			p {
-			background: url('../img/home-slider/slider-1.jpg');
-			/* background-color: #64B5F6; */
+			background-color: #64B5F6;
 			border: 5px solid black;
 			outline: #0D47A1 solid 10px;
 			margin: 3px;  

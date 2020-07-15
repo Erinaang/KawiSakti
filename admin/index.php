@@ -166,13 +166,13 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' 
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
-                                                        <span class="admin-name">Setting |</span>
+                                                        <span class="admin-name">Log out |</span>
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -190,7 +190,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' 
             <!-- Mobile Menu start -->
             <br>
             <br>
- <div class="mobile-menu-area">
+            <div class="mobile-menu-area">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -218,11 +218,11 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' 
                             <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
                         </li>
                     </ul>
-                                        </li>
-                                         </ul>
-                                        </li>
-                                    </ul>
-                                </nav>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' 
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT. Kawi Sakti Megah </span></p>
+                                                <!-- <p>Welcome to PT. Kawi Sakti Megah </span></p> -->
                                             </div>
                                         </div>
                                     </div>

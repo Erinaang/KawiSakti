@@ -1,13 +1,21 @@
 <?php
 session_start();
+error_reporting(0);
 if (!isset($_SESSION["username"])) {
     header("Location: ../Login.php");
 }
 include "../connection/Connection.php";
 
 //query tampil tabel pengembalian
-$transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
+// $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
 
+if ($_GET['cari'] == null) {
+    $c = $_GET['cari'];   
+    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
+}else{
+    $c = $_GET['cari'];
+    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.TGL_SEWA like '%".$c."%' || tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -75,9 +83,6 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transak
     <!-- modernizr JS
         ============================================ -->
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
-
-
-
 </head>
 
 <body>
@@ -160,13 +165,13 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transak
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
-                                                        <span class="admin-name">Setting |</span>
+                                                        <span class="admin-name">Log out |</span>
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li>
-                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -200,7 +205,6 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transak
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</p>
                                             </div>
                                         </div>
                                     </div>
@@ -226,17 +230,26 @@ $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transak
 
 
         <!-- DATA TABEL PENGEMBALIAN -->
-
         <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
 
+                    <?php $cari = $_GET['cari'];  ?>
+                        <form action="" method="get" class="form-inline">
+                            <div class="form-group mb-2">                   
+                                <input type="text" id="myInput" name="cari" placeholder="Masukkan nama"><button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-success"><i aria-hidden="true">Export PDF</i></a>                                                                             
+                            </div>
+                        </form>
+
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th> Nama Penyewa</th>
+                                        <th>Nama Penyewa</th>
                                         <th>Total</th>
                                         <th>Alamat</th>
                                         <th>Tanggal Sewa</th>
