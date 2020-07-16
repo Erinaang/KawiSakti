@@ -237,6 +237,7 @@ $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die
                                                                     <th>Frame</th>
                                                                     <th>Masa Sewa</th>
                                                                     <th>Jumlah Set</th>
+                                                                    <th>Stok</th>                                                                  
                                                                     <th>Harga</th>
                                                                     <th>Action</th>
                                                                 </tr>
@@ -249,6 +250,7 @@ $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die
                                                                         <td><?php echo $showPaket['FRAME']; ?></td>
                                                                         <td><?php echo $showPaket['MASA_SEWA']; ?></td>
                                                                         <td><?php echo $showPaket['JUMLAH_SET']; ?></td>
+                                                                        <td><?php echo $showPaket['STOK']; ?></td>
                                                                         <td>Rp. <?php echo number_format($showPaket['HARGA'], 2, ",", "."); ?></td>
                                                                         <td>
                                                                             <a href="edit-barang.php?ID_PAKET=<?php echo $showPaket['ID_PAKET']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
