@@ -33,9 +33,6 @@ if (isset($_FILES['bukti_ktp'])) {
    $errors = array();
    $idPenyewa = $_GET['ID_PENYEWA']; //ambil id user dari URL
    $idTrans = $_GET['ID_TRANS']; //ambil jam pesan dari URL
-   $tanggal = $_POST['tanggal']; // dari form checkout
-   $alamat = $_POST['alamat']; // dari form checkout
-   $proyek = $_POST['proyek'];
    $file_name = $_FILES['bukti_ktp']['name'];
    $file_size = $_FILES['bukti_ktp']['size'];
    $file_tmp = $_FILES['bukti_ktp']['tmp_name'];
@@ -69,8 +66,7 @@ if (isset($_FILES['bukti_ktp'])) {
 
       //masukin data ke transaksi
       $queryInsert = mysqli_query($mysqli, "UPDATE transaksi SET STATUS='terkirim', BUKTI_PEMBAYARAN='$file_name_bukti', 
-      BUKTI_KTP='$file_name', ALAMAT='$alamat', PROYEK='$proyek', JAM_PEMESANAN='$time', TGL_SEWA='$tanggal', 
-      TGL_KEMBALI='$tgl_kembali' WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+      BUKTI_KTP='$file_name', JAM_PEMESANAN='$time', TGL_SEWA='$tanggal', TGL_KEMBALI='$tgl_kembali' WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
       header("Location: ProfilBar.php"); //go to page profilbar
    } else {

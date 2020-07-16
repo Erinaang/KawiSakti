@@ -10,7 +10,7 @@ include "../connection/Connection.php";
 //SELECT DATA Riwayat
 if ($_POST['cari'] == null) {
     $c = $_POST['cari'];
-    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='terkirim'") or die("data salah: " . mysqli_error($mysqli));
+    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER") or die("data salah: " . mysqli_error($mysqli));
 } else {
     $c = $_POST['cari'];
     $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.TGL_SEWA like '%".$c."%' || tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
@@ -281,7 +281,10 @@ if ($_POST['cari'] == null) {
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $status; ?></td>
-                                            <td>
+                                            <td><?php if ($status === "belum konfirmasi") {
+                                                 echo '<a href="kirim-konfirmasi.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                
+                                            }?>
                                                 <?php if ($status === "terkirim") {
                                                     echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {

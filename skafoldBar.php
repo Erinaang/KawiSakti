@@ -92,7 +92,7 @@ if (isset($_GET['MASA_SEWA'])) {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.php"><img src="img/logo.png" ></a>
+                        <a class="navbar-brand" href="index.php"><img src="img/logo.png"></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -153,32 +153,57 @@ if (isset($_GET['MASA_SEWA'])) {
                             </div> -->
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                              <b>  <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <b>
-                                                <th>Masa Sewa (hari) </th>
-                                                <th>Jumlah Set</th>
-                                                <th>HARGA (Rp.)</th>
-                                                <th>Action</th>
-                                        </tr> 
-                                    </b>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($show = mysqli_fetch_array($queryMF170)) {
-                                            $masaSewa = $show['MASA_SEWA']
-                                        ?>
-                                            <b>
-                                                <td><?php echo $masaSewa; ?> Hari</td>
-                                                <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
-                                                <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
-                                                <td>
-                                            </b>
-                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a>
-                                            </td>
+                                <b>
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <b>
+                                                    <th>Masa Sewa (hari) </th>
+                                                    <th>Jumlah Set</th>
+                                                    <th>HARGA (Rp.)</th>
+                                                    <th>Action</th>
                                             </tr>
-                                        <?php } ?>
-                                    </tbody>
+                                </b>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($queryMF170)) {
+                                        $masaSewa = $show['MASA_SEWA']
+                                    ?>
+                                        <b>
+                                            <td><?php echo $masaSewa; ?> Hari</td>
+                                            <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
+                                            <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                            <td>
+                                        </b>
+                                        <!-- <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a> -->
+                                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                                        <div id="myModal" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Modal Header</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Masukan ke keranjang?</p>
+                                                        <form action="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>" method="post">
+                                                            <input type="number" name="stok">
+                                                            <input type="submit" name="submit">
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
                                 </table> </b>
                             </div>
                         </div>
@@ -206,22 +231,22 @@ if (isset($_GET['MASA_SEWA'])) {
                                     <thead>
                                         <tr>
                                             <!-- <b> -->
-                                                <th>Masa Sewa (hari) </th>
-                                                <th>Jumlah Set</th>
-                                                <th>HARGA (Rp.)</th>
-                                                <th>Action</th>
-                                        </tr> 
-                                    <!-- </b> -->
+                                            <th>Masa Sewa (hari) </th>
+                                            <th>Jumlah Set</th>
+                                            <th>HARGA (Rp.)</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <!-- </b> -->
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryMF190)) { ?>
                                             <!-- <b> -->
-                                                <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
-                                                <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
-                                                <td>
-                                            <!-- </b> -->
-                                            <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a>
+                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                            <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
+                                            <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                            <td>
+                                                <!-- </b> -->
+                                                <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&MASA_SEWA=<?php echo $masaSewa; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a>
                                             </td>
                                             </tr>
                                         <?php } ?>
@@ -253,25 +278,25 @@ if (isset($_GET['MASA_SEWA'])) {
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                                <th>Masa Sewa (hari) </th>
-                                                <th>Jumlah Set</th>
-                                                <th>HARGA (Rp.)</th>
-                                                <th>Action</th>
-                                        </tr> 
+                                            <th>Masa Sewa (hari) </th>
+                                            <th>Jumlah Set</th>
+                                            <th>HARGA (Rp.)</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryLF90)) { ?>
                                             <!-- <tr> -->
-                                                <!-- <b> -->
-                                                    <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                    <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
-                                                    <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
-                                                    <td>
+                                            <!-- <b> -->
+                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                            <td><?php echo $show['JUMLAH_SET']; ?> Set Scaffolding</td>
+                                            <td>Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                            <td>
                                                 <!-- </b> -->
 
                                                 <a href="kirim-keranjang.php?ID_PAKET=<?php echo $show['ID_PAKET']; ?>&submit" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed" onClick='return confirm("Masukan ke keranjang?")'><i class="fa fa-cart-square-o" aria-hidden="true"> Taruh Keranjang</i></a>
 
-                                                    </td>
+                                            </td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -289,15 +314,15 @@ if (isset($_GET['MASA_SEWA'])) {
 
     <!--================Get Quote Area =================-->
     <section class="get_quote_area yellow_get_quote">
-            <div class="container">
-                <div class="pull-left">
-                    <h4>Tertarik Untuk Menyewa Scaffolding? </h4>
-                </div>
-                <div class="pull-right">
-                    <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
-                </div>
+        <div class="container">
+            <div class="pull-left">
+                <h4>Tertarik Untuk Menyewa Scaffolding? </h4>
             </div>
-        </section>
+            <div class="pull-right">
+                <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
+            </div>
+        </div>
+    </section>
     <!--================End Get Quote Area =================-->
 
     <!--================Footer Area =================-->

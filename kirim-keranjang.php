@@ -8,7 +8,7 @@ include "koneksi/koneksi.php"; // ambil koneksi;
 $masaSewa = $_GET['MASA_SEWA'];
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
-$idTransaksi=$status=NULL;
+$idTransaksi = $status = NULL;
 
 //GET ID USER dari USERNAME (yg lagi login)
 $username = $_SESSION['username'];
@@ -23,8 +23,9 @@ while ($show = mysqli_fetch_array($selectTransaksi)) {
     $status = $show['STATUS'];
 }
 
-if (isset($_GET['submit'])) {
+if (isset($_POST['submit'])) {
     $idPaket = $_GET['ID_PAKET'];
+    $stok = $_POST['stok'];
     $jamPesan = $time;
     $total = NULL;
 
@@ -33,11 +34,11 @@ if (isset($_GET['submit'])) {
         while ($show = mysqli_fetch_array($selectPaket)) {
             $jumlahSet = $show['JUMLAH_SET'];
             $harga = $show['HARGA'];
+            $masaSewa = $show['MASA_SEWA'];
             $total = $jumlahSet * $harga;
         }
-        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', TOTAL='$total'") or die("data salah:2 " . mysqli_error($mysqli));
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', TOTAL='$total', STOK='$stok'") or die("data salah:2 " . mysqli_error($mysqli));
     } else {
-        
         $insertTransaksi = mysqli_query($mysqli, "INSERT INTO transaksi SET ID_PENYEWA='$idUser', STATUS='cart'") or die("data salah:3 " . mysqli_error($mysqli));
         $selectTransaksi = mysqli_query($mysqli, "SELECT * FROM transaksi WHERE ID_PENYEWA='$idUser' ORDER BY ID_TRANSAKSI DESC LIMIT 1") or die("data salah:4 " . mysqli_error($mysqli));
         while ($show = mysqli_fetch_array($selectTransaksi)) {
@@ -50,10 +51,10 @@ if (isset($_GET['submit'])) {
             $total = $jumlahSet * $harga;
         }
 
-        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', TOTAL='$total'") or die("data salah:6 " . mysqli_error($mysqli));
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', TOTAL='$total', STOK='$stok'") or die("data salah:6 " . mysqli_error($mysqli));
     }
     $insertTransaksiItem = mysqli_query($mysqli, "UPDATE `transaksi` SET `TOTAL` = `TOTAL`+'$total' WHERE `transaksi`.`ID_TRANSAKSI` = '$idTransaksi' AND `transaksi`.`ID_PENYEWA` = '$idUser';") or die("data salah:7 " . mysqli_error($mysqli));
-    
+
 
     if ($insertTransaksiItem) {
         header("Location: profilBar.php?MASA_SEWA=$masaSewa"); //go to page profilbar
