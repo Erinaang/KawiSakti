@@ -278,7 +278,9 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
 
                                         $totalPaket = ($hargaItem * $jumlahSet) * $stok;
                                         $totalHarga = $totalHarga + $totalPaket;
-                                        $totalPembayaran = $totalHarga + $ongkir ;
+                                        
+                                        $jaminan = $totalHarga * (30 / 100);
+                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan;
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
@@ -327,6 +329,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         $jmlSet = $show['JML_SET'];
                                         $stok = $show['TOTAL_STOK'];
                                         $ongkir = $show['ONGKIR'];
+                                        
                                         $totalHargaPerbulan = ($show['TOTAL_HARGA'] * $jmlSet) * $stok;
                                         $totalDenda = $show['TOTAL_DENDA'];
 
