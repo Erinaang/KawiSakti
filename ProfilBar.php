@@ -149,7 +149,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="index.php">Beranda</a></li>
-                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="projectBar.php">Jenis Scaffolding</a></li>
                             <li><a href="AboutUs.php">Tentang Kami</a></li>
                             <li>
                                 <?php
@@ -182,7 +182,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
     <section class="banner_area">
         <div class="container">
             <div class="banner_inner_text">
-                <h4>- User Profile -</h4>
+                <!-- <h4>- User Profile -</h4> -->
                 <ul> <br>
                     <div class="content">
                         <?php if (isset($_SESSION['success'])) : ?>
@@ -204,7 +204,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                         Selamat Datang Di Halaman Akun
                                         <strong>
                                             <?php echo $_SESSION['username']; ?>
-                                        </strong> :)
+                                        </strong>
                                     </p>
                                 </h4>
                             </div>
@@ -236,7 +236,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                         </div>
 
                         <div class="col-md-8">
-                            <h3> Profil </h3>
+                            <h3> Profil Saya </h3>
                             <br>
                             <b>
                                 <h4>
@@ -311,19 +311,19 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                         <tr>
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $masaSewa; ?> Hari</td>
-                                                            <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaItem; ?>,00</td>
+                                                            <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo number_format ($hargaItem, 2, ",", "."); ?></td>
                                                             <td><?php echo $stok; ?></td>
-                                                            <td>Rp. <?php echo $totalPaket; ?>,00</td>
+                                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
                                                             <td><a href="delete-keranjang.php?ID_ITEM=<?php echo $idTransItem; ?>&ID_TRANS=<?php echo $idTrans;  ?>&TOTAL=<?php echo $totalPaket; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Harga : </b></td>
-                                                        <td><b> Rp. <?php echo $totalHarga; ?>,00 + Rp. <?php echo $jaminan; ?> (30%) </b></td>
+                                                        <td><b> Rp. <?php echo number_format ($totalHarga , 2, ",", "."); ?>+ Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Pembayaran : </b></td>
-                                                        <td><b> Rp. <?php echo $totalPembayaranKeranjang; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo number_format ($totalPembayaranKeranjang, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -372,22 +372,22 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                         <tr>
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo number_format ($show['HARGA_ITEM'], 2, ",", "."); ?></td>
                                                             <td><?php echo $show['STOK']; ?></td>
-                                                            <td>Rp. <?php echo $totalPaket; ?>,00</td>
+                                                            <td>Rp. <?php echo number_format ($totalPaket, 2, ",", "."); ?></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Harga : </b></td>
-                                                        <td><b> Rp. <?php echo $totalHarga; ?>,00 + Rp. <?php echo $jaminan; ?> (30%) </b></td>
+                                                        <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", "."); ?> + Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Ongkir : </b></td>
-                                                        <td><b> Rp. <?php echo $ongkir; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Pembayaran : </b></td>
-                                                        <td><b> Rp. <?php echo $totalPembayaranCheckout; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo number_format ($totalPembayaranCheckout, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -455,22 +455,22 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                         <tr>
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo number_format ($show['HARGA_ITEM'], 2, ",", "."); ?>,00</td>
                                                             <td><?php echo $show['STOK']; ?></td>
-                                                            <td>Rp. <?php echo $totalPaket; ?>,00</td>
+                                                            <td>Rp. <?php echo number_format ($totalPaket, 2, ",", "."); ?></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Harga : </b></td>
-                                                        <td><b> Rp. <?php echo $totalHarga; ?>,00 + Rp. <?php echo $jaminan; ?> (30%) </b></td>
+                                                        <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", "."); ?> + Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Ongkir : </b></td>
-                                                        <td><b> Rp. <?php echo $ongkir; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Pembayaran : </b></td>
-                                                        <td><b> Rp. <?php echo $totalPembayaranCheckout; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo number_format ($totalPembayaranCheckout, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -487,7 +487,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                 <input type="file" class="form-control" name="bukti_ktp" required>
                                             </div>
                                             <input class="btn btn-primary" value="Kirim" type="submit" />
-                                            <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a>
+                                            <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah anda yakin ingin membatalkan transaksi?")'>Batalkan Transaksi</a>
                                         </div>
                                     </form>
                                 </div>
@@ -535,14 +535,14 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                             <b>
                                                                 <td><?php echo $index++; ?></td>
                                                                 <td><?php echo $show['TGL_SEWA']; ?></td>
-                                                                <td>Rp. <?php echo $totalHarga; ?></td>
-                                                                <td>Rp. <?php echo $jaminan; ?></td>
-                                                                <td>Rp. <?php echo $ongkir; ?></td>
-                                                                <td>Rp. <?php echo $totalPembayaran ?></td>
+                                                                <td>Rp. <?php echo number_format ($totalHarga, 2, ",", "."); ?></td>
+                                                                <td>Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?></td>
+                                                                <td>Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></td>
+                                                                <td>Rp. <?php echo number_format ($totalPembayaran, 2, ",", ".") ?></td>
                                                                 <td><?php echo $status ?></td>
                                                                 <td>
                                                                     <?php if ($status != 'terkirim') { ?>
-                                                                        <a href="<?php echo 'detail-barang.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail</a>
+                                                                        <a href="<?php echo 'detail-barang.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail Transaksi</a>
                                                                     <?php } ?>
                                                                 </td>
                                                             </b></tr>

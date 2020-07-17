@@ -74,7 +74,7 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="index.php">Beranda</a></li>
-                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="projectBar.php">Jenis Scaffolding</a></li>
                             <li><a href="AboutUs.php">Tentang Kami</a></li>
                             <li><a href="skafoldBar.php">Scaffolding</a></li>
                             <?php if (!isset($_SESSION['username'])) {
@@ -134,8 +134,8 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                                         <th>Frame</th>
                                         <th>Masa Sewa (hari) </th>
                                         <th>Jumlah Set</th>
-                                        <th>HARGA (Rp.)</th>
-                                        <th>Action</th>
+                                        <th>Harga (Rp.)</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -151,7 +151,7 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                                                 <td><?php echo $showPaket['JUMLAH_SET']; ?> Set Scaffolding</td>
                                                 <td>Rp. <?php echo number_format($showPaket['HARGA'], 2, ",", "."); ?></td>
                                                 <td>
-                                                    <a type="button" id="modalStok" data-id="<?php echo $idPaketKeranjang; ?>" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Taruh Keranjang</a>
+                                                    <a type="button" id="modalStok" data-id="<?php echo $idPaketKeranjang; ?>" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Masukkan Keranjang</a>
                                                 </td>
                                             </tr>
                                         </b>
@@ -172,7 +172,7 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                         </div>
                         <form action="kirim-keranjang.php" method="post">
                             <div class="modal-body">
-                                <p>Masukan jumlah stok</p>
+                                <p>Masukkan Jumlah Stok Paket Scaffolding</p>
                                 <input type="number" class="form-control" id="stok" name="stok">
                                 <input type="hidden" class="form-control" id="idPaket" name="ID_PAKET">
                             </div>
@@ -209,7 +209,7 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
                             <img src="img/footer-logo.png">
-                            <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
+                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
                             <!-- <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>

@@ -42,7 +42,7 @@ if (isset($_FILES['bukti_ktp'])) {
    $extensions = array("jpeg", "jpg", "png");
 
    if (in_array($file_ext, $extensions) === false) {
-      $errors[] = "ekstensi tidak diperbolehkan, silahkan gunakan ekstensi JPEG atau PNG.";
+      $errors[] = "Ekstensi tidak diperbolehkan, silahkan gunakan ekstensi JPEG atau PNG.";
    }
 
    if ($file_size > 2097152) {
