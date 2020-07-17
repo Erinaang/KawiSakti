@@ -27,13 +27,13 @@ while ($show = mysqli_fetch_array($profilUser)) {
 $queryKeranjang = mysqli_query($mysqli, "SELECT ti.STOK, ti.ID_TRANSAKSI_ITEM, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
-$queryCheckout = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
+$queryCheckout = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
-$queryUpload = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, pk.HARGA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
+$queryUpload = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
-$queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='belum konfirmasi'") or die("data salah: " . mysqli_error($mysqli));
+$queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS!='cart' OR tr.STATUS!='checkout'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE html>
@@ -419,7 +419,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                 <div class="product-status-wrap">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <p id="demo"></p>
+                                            <p id="demoUpload"></p>
                                             <table class="table table-condensed">
                                                 <thead>
                                                     <tr>
@@ -434,7 +434,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                     <?php
                                                     //menampilkan dari SELECT CHECKOUT diatas
                                                     $index = 1;
-                                                    while ($show = mysqli_fetch_array($queryCheckout)) {
+                                                    while ($show = mysqli_fetch_array($queryUpload)) {
                                                         $idTrans = $show['ID_TRANSAKSI'];
                                                         $idTransItem = $show['ID_TRANSAKSI_ITEM'];
                                                         $ongkir = $show['BIAYA'];
@@ -443,11 +443,12 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                         $jumlahSet = $show['JUMLAH_SET'];
                                                         $stok = $show['STOK'];
                                                         $jamPemesanan = $show['JAM_PEMESANAN'];
-
+                                                        //KALKULASI TOTAL
                                                         $totalPaket = ($hargaItem * $jumlahSet) * $stok;
                                                         $totalHarga = $totalHarga + $totalPaket;
                                                         $jaminan = $totalHarga * (30 / 100);
                                                         $totalPembayaranCheckout = $totalHarga + $ongkir + $jaminan;
+                                                        //END KALKULASI TOTAL
                                                         $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
                                                         $minTglSewa = date('Y-m-d', strtotime('+3 day', strtotime($jamPemesanan)));
                                                     ?>
@@ -740,6 +741,8 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
 
             // Output the result in an element with id="demo"
             document.getElementById("demo").innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+            document.getElementById("demoUpload").innerHTML = days + "d " + hours + "h " +
                 minutes + "m " + seconds + "s ";
 
             // If the count down is over, write some text 

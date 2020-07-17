@@ -16,6 +16,7 @@ if ($_GET['cari'] == null) {
     $c = $_GET['cari'];
     $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.TGL_SEWA like '%".$c."%' || tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
 }
+$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, tr.ID_PENYEWA, pk.JUMLAH_SET, ti.HARGA_ITEM, ti.STOK,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT FROM transaksi as tr JOIN transaksi_item AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS pk ON pk.ID_PAKET = ti.ID_PAKET JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -261,15 +262,27 @@ if ($_GET['cari'] == null) {
                                 </thead>
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($transaksi)) { 
+                                        $idTrans = $show['ID_TRANSAKSI'];
+                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                                        $idPenyewa = $show['ID_PENYEWA'];
+                                        $masaSewa = $show['MASA_SEWA'];
+                                        $hargaItem = $show['HARGA_ITEM'];
+                                        $jumlahSet = $show['JUMLAH_SET'];
+                                        $stok = $show['STOK'];
+                                        $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $status = $show['STATUS'];
-                                        $idTrans = $show['ID_TRANSAKSI']; ?>
+
+                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                        $totalHarga = $totalHarga + $totalPaket;
+                                        $jaminan = $totalHarga * (30 / 100);
+                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan; ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php ?></td>
+                                            <td>Rp. <?php echo $totalPembayaran; ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
                                             <td><?php echo date('d-M-Y',strtotime ($show['TGL_KEMBALI'])); ?></td>
-                                            <td> <a href="form-denda.php?ID_PENYEWA=<?php echo $show['ID_PENYEWA']; ?>" data-toggle="tooltip" title="Denda" class="btn btn-danger pd-setting-ed" ><i class="fa fa-trash-square-o" aria-hidden="true"> Denda</i></a></td>
+                                            <td> <a href="form-denda.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Denda" class="btn btn-danger pd-setting-ed" ><i class="fa fa-trash-square-o" aria-hidden="true"> Denda</i></a></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "dikirim") {

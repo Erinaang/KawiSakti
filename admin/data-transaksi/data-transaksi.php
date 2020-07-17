@@ -13,8 +13,10 @@ if ($_POST['cari'] == null) {
     $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER") or die("data salah: " . mysqli_error($mysqli));
 } else {
     $c = $_POST['cari'];
-    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.TGL_SEWA like '%".$c."%' || tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
+    $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' || tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
 }
+
+$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -238,14 +240,13 @@ if ($_POST['cari'] == null) {
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-
-                    <?php $cari = $_GET['cari'];  ?>
+                        <?php $cari = $_GET['cari'];  ?>
                         <form action="" method="get" class="form-inline">
-                            <div class="form-group mb-2">                   
+                            <div class="form-group mb-2">
                                 <input type="text" id="myInput" name="cari" placeholder="Masukkan nama"><button type="submit"><i class="fa fa-search"></i></button>
                             </div>
                             <div class="form-group mx-sm-3 mb-2">
-                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-success"><i aria-hidden="true">Export PDF</i></a>                                                                             
+                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-success"><i aria-hidden="true">Export PDF</i></a>
                             </div>
                         </form>
 
@@ -259,6 +260,7 @@ if ($_POST['cari'] == null) {
                                         <th>Nama Penyewa</th>
                                         <th>Total</th>
                                         <th>Jaminan</th>
+                                        <th>Ongkir</th>
                                         <th>Bukti Pembayaran & KTP</th>
                                         <th>Alamat</th>
                                         <th>Tanggal Sewa</th>
@@ -269,26 +271,39 @@ if ($_POST['cari'] == null) {
                                 </thead>
                                 <tbody>
                                     <?php while ($show = mysqli_fetch_array($dataTransaksi)) {
-                                        $status = $show['statusTrans'];
-                                        $jam_pesan = $show['JAM_PEMESANAN'];
-                                        $idTrans = $show['ID_TRANSAKSI']; ?>
+                                        $idTrans = $show['ID_TRANSAKSI'];
+                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                                        $idPenyewa = $show['ID_PENYEWA'];
+                                        $ongkir = $show['BIAYA'];
+                                        $masaSewa = $show['MASA_SEWA'];
+                                        $hargaItem = $show['HARGA_ITEM'];
+                                        $jumlahSet = $show['JUMLAH_SET'];
+                                        $stok = $show['STOK'];
+                                        $jamPemesanan = $show['JAM_PEMESANAN'];
+                                        $status = $show['STATUS'];
+
+                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                        $totalHarga = $totalHarga + $totalPaket;
+                                        $jaminan = $totalHarga * (30 / 100);
+                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+
+                                    ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php  ?></td>
-                                            <td>Rp. <?php echo number_format($show['JAMINAN'], 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($totalHarga, 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td><?php if ($status === "belum konfirmasi") {
-                                                 echo '<a href="kirim-konfirmasi.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
-                                                
-                                            }?>
-                                                <?php if ($status === "terkirim") {
-                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                    echo '<a href="kirim-konfirmasi.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $idPenyewa . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
+                                                } else if ($status === "terkirim") {
+                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $idPenyewa . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {
-                                                    echo '<a href="../../print.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '&jam_pesan=' . $jam_pesan . '&status=' . $status . '&ID_PENGIRIMAN=' . $show['ID_PENGIRIMAN'] . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
+                                                    echo '<a href="../../print.php?ID_TRANS=' . $idTrans.'"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
                                                 }
                                                 ?>
                                                 <a href="hapus-transaksi.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
@@ -306,11 +321,6 @@ if ($_POST['cari'] == null) {
                         </div>
 
                     </div>
-                </div>
-                <div id="myModal" class="modal">
-                    <span class="close">&times;</span>
-                    <img class="modal-content" id="img01">
-                    <div id="caption"></div>
                 </div>
             </div>
 

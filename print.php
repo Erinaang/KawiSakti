@@ -4,6 +4,7 @@ include "koneksi/koneksi.php"; // ambil koneksi;
 
 $idTrans = $_GET['ID_TRANS'];
 $username = $_SESSION['username'];
+$totalHarga = 0;
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $date = date("Y-m-d");
@@ -20,7 +21,7 @@ while ($show = mysqli_fetch_array($queryPenyewa)) {
 
 
 
-$queryPrint = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryPrint = mysqli_query($mysqli, "SELECT *, ti.STOK AS stokPesan FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
@@ -87,46 +88,61 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 <th>Frame</th>
                 <th>Masa Sewa (hari) </th>
                 <th>Jumlah Set x Harga (Rp.)</th>
+                <th>Stok</th>
                 <th>Total Harga (Rp.)</th>
               </tr>
             </thead>
             <tbody>
-              <?php 
+              <?php
               $index = 1;
               while ($show = mysqli_fetch_array($queryPrint)) {
-                $jaminan = $show['JAMINAN'];
+                $idTrans = $show['ID_TRANSAKSI'];
+                $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                $idPenyewa = $show['ID_PENYEWA'];
                 $ongkir = $show['BIAYA'];
+                $masaSewa = $show['MASA_SEWA'];
+                $hargaItem = $show['HARGA_ITEM'];
+                $jumlahSet = $show['JUMLAH_SET'];
+                $stok = $show['stokPesan'];
+                $jamPemesanan = $show['JAM_PEMESANAN'];
+                $status = $show['STATUS'];
                 $proyek = $show['PROYEK'];
                 $tglSewa = $show['TGL_SEWA'];
                 $tglKembali = $show['TGL_KEMBALI'];
+
+                $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                $totalHarga = $totalHarga + $totalPaket;
+                $jaminan = $totalHarga * (30 / 100);
+                $totalPembayaran = $totalHarga + $ongkir + $jaminan;
               ?>
                 <tr>
                   <td><?php echo $index++; ?></td>
                   <td><?php echo $show['FRAME']; ?></td>
-                  <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                  <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
+                  <td><?php echo $masaSewa; ?> Hari</td>
+                  <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaItem; ?>,00</td>
+                  <td><?php echo $stok; ?></td>
                   <td>Rp. <?php echo $totalPaket; ?>,00</td>
                 </tr>
               <?php } ?>
               <tr>
-                <td colspan="2"> </td>
+                <td colspan="4"> </td>
                 <td><b> Sub Total : </b></td>
-                <td><b> Rp. <?php echo $totalTrans; ?></b></td>
+                <td><b> Rp. <?php echo $totalHarga; ?></b></td>
               </tr>
               <tr>
-                <td colspan="2"> </td>
+                <td colspan="4"> </td>
                 <td><b> Jaminan : </b></td>
                 <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
               </tr>
               <tr>
-                <td colspan="2"> </td>
+                <td colspan="4"> </td>
                 <td><b> Ongkos Kirim : </b></td>
                 <td><b>Rp. <?php echo $ongkir; ?></b></td>
               </tr>
               <tr>
-                <td colspan="2"> </td>
+                <td colspan="4"> </td>
                 <td><b> Total Harga : </b></td>
-                <td><b>Rp. <?php echo $totalTrans + $jaminan + $ongkir; ?></b></td>
+                <td><b>Rp. <?php echo $totalPembayaran; ?></b></td>
               </tr>
             </tbody>
           </table>
@@ -149,9 +165,9 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 </tr>
               </thead>
               <tbody>
-                <?php 
-                $index=1;
-                $totalDendaAkhir=$setRusak=$biayaRusak=0;
+                <?php
+                $index = 1;
+                $totalDendaAkhir = $setRusak = $biayaRusak = 0;
                 while ($show = mysqli_fetch_array($queryDenda)) {
                   $setRusak = $show['SET_RUSAK'];
                   $biayaRusak = $show['BIAYA_RUSAK'];
@@ -175,7 +191,6 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
           </div>
         </div>
       </div>
-
     <?php } ?>
     <br> <br>
     <!-- FOOTER -->
