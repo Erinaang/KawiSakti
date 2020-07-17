@@ -38,7 +38,7 @@
                             <?php while ($show = mysqli_fetch_array($transaksi)) { ?>
                                 <tr>
                                     <td><?php echo $show['NAMA']; ?></td>
-                                    <td>Rp. <?php echo number_format($show['TOTAL'],2,",","."); ?></td>
+                                    <td>Rp. <?php  ?></td>
                                     <td><?php echo $show['ALAMAT']; ?></td>
                                     <td><?php echo date('d-M-Y',strtotime($show['TGL_SEWA'])); ?></td>
                                     <td><?php echo date('d-M-Y',strtotime($show['TGL_KEMBALI'])); ?></td>

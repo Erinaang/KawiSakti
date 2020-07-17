@@ -20,7 +20,7 @@ while ($show = mysqli_fetch_array($queryPenyewa)) {
 
 
 
-$queryPrint = mysqli_query($mysqli, "SELECT *, tr.TOTAL AS totalTrans, ti.TOTAL AS totalPaket FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryPrint = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
@@ -94,8 +94,6 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
               <?php 
               $index = 1;
               while ($show = mysqli_fetch_array($queryPrint)) {
-                $totalPaket = $show['totalPaket'];
-                $totalTrans = $show['totalTrans'];
                 $jaminan = $show['JAMINAN'];
                 $ongkir = $show['BIAYA'];
                 $proyek = $show['PROYEK'];

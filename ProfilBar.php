@@ -9,11 +9,10 @@ date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
 
 //DEFINE VARIABLE
-$jamPemesanan = $totalPembayaranKeranjang = $total = $ongkirCheckout = $pembayaranCheckout = $idPenyewa = $idAdmin = $idKeranjang = $jaminanCheckout = $totalCheckout = $masaSewa = $totalHarga = $jumlahSet = $jaminan = $bayar = 0;
+$jamPemesanan = $totalPembayaranKeranjang = $total = $ongkir = $totalPembayaranCheckout = $idPenyewa = $idAdmin = $idKeranjang = $jaminanCheckout = $totalCheckout = $masaSewa = $totalHarga = $jumlahSet = $jaminan = $bayar = 0;
 $index = 1;
 $username = $_SESSION['username'];
 $masaSewa = $_GET['MASA_SEWA'];
-
 //ambil data user berdasarkan username yang login buat ditampilin di profil
 $profilUser = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($profilUser)) {
@@ -25,16 +24,16 @@ while ($show = mysqli_fetch_array($profilUser)) {
 }
 
 //SELECT KERANJANG => ambil data apa aja yang ada di keranjang berdasarkan status ='cart'
-$queryKeranjang = mysqli_query($mysqli, "SELECT ti.STOK, tr.TOTAL AS totalHarga, ti.ID_TRANSAKSI_ITEM, ti.ID_TRANSAKSI, ti.TOTAL AS totalPaket, pk.MASA_SEWA, pk.JUMLAH_SET, pk.HARGA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
+$queryKeranjang = mysqli_query($mysqli, "SELECT ti.STOK, ti.ID_TRANSAKSI_ITEM, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
-$queryCheckout = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.TOTAL AS totalHarga, tr.JAM_PEMESANAN, tr.JAMINAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, ti.TOTAL AS totalPaket, pk.MASA_SEWA, pk.JUMLAH_SET, pk.HARGA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
+$queryCheckout = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
-$queryUpload = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.TOTAL AS totalHarga, tr.JAM_PEMESANAN, tr.JAMINAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, ti.TOTAL AS totalPaket, pk.MASA_SEWA, pk.JUMLAH_SET, pk.HARGA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
+$queryUpload = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, pk.HARGA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
-$queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pengiriman` AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS != 'cart' AND tr.STATUS != 'checkout'") or die("data salah: " . mysqli_error($mysqli));
+$queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='belum konfirmasi'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE html>
@@ -182,11 +181,9 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
     <!--================Banner Area =================-->
     <section class="banner_area">
         <div class="container">
-
             <div class="banner_inner_text">
                 <h4>- User Profile -</h4>
                 <ul> <br>
-
                     <div class="content">
                         <?php if (isset($_SESSION['success'])) : ?>
                             <div class="error success">
@@ -211,11 +208,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                     </p>
                                 </h4>
                             </div>
-                            <!--  <p>  
-                <a href="index.php?logout='1'" style="color: red;"> 
-                    Click here to Logout 
-                </a> 
-            </p>  -->
                         <?php endif ?>
                     </div>
             </div>
@@ -303,19 +295,26 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                                     //menampilkan dari SELECT KERANJANG diatas
                                                     $index = 1;
                                                     while ($show = mysqli_fetch_array($queryKeranjang)) {
-                                                        $totalHarga = $show['totalHarga'];
-                                                        $totalPaket = $show['totalPaket'];
-                                                        $jaminan = $totalHarga * (30 / 100);
                                                         $idTrans = $show['ID_TRANSAKSI'];
+                                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                                                        $masaSewa = $show['MASA_SEWA'];
+                                                        $hargaItem = $show['HARGA_ITEM'];
+                                                        $jumlahSet = $show['JUMLAH_SET'];
+                                                        $stok = $show['STOK'];
+
+                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalHarga = $totalHarga + $totalPaket;
+                                                        $jaminan = $totalHarga * (30 / 100);
                                                         $totalPembayaranKeranjang = $totalHarga + $jaminan;
+
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $index++; ?></td>
-                                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
-                                                            <td><?php echo $show['STOK']; ?></td>
-                                                            <td>Rp. <?php echo $show['totalPaket']; ?>,00</td>
-                                                            <td><a href="delete-keranjang.php?ID_ITEM=<?php echo $show['ID_TRANSAKSI_ITEM']; ?>&ID_TRANS=<?php echo $idTrans;  ?>&TOTAL=<?php echo $totalPaket; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
+                                                            <td><?php echo $masaSewa; ?> Hari</td>
+                                                            <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaItem; ?>,00</td>
+                                                            <td><?php echo $stok; ?></td>
+                                                            <td>Rp. <?php echo $totalPaket; ?>,00</td>
+                                                            <td><a href="delete-keranjang.php?ID_ITEM=<?php echo $idTransItem; ?>&ID_TRANS=<?php echo $idTrans;  ?>&TOTAL=<?php echo $totalPaket; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
@@ -328,7 +327,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <a href="kirim-checkout.php?ID_PENYEWA=<?php echo $idUser; ?>&JAMINAN=<?php echo $jaminan; ?>&ID_TRANS=<?php echo $idTrans; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
+                                            <a href="kirim-checkout.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -354,34 +353,41 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                                     //menampilkan dari SELECT CHECKOUT diatas
                                                     $index = 1;
                                                     while ($show = mysqli_fetch_array($queryCheckout)) {
-                                                        $total = $show['totalHarga']; // kalkulasi total checkout.
-                                                        $jaminanCheckout = $show['JAMINAN']; //kalkulasi jaminan 
-                                                        $jamPemesanan = $show['JAM_PEMESANAN'];
                                                         $idTrans = $show['ID_TRANSAKSI'];
-                                                        $ongkirCheckout = $show['BIAYA'];
-                                                        $pembayaranCheckout = $total + $jaminanCheckout + $ongkirCheckout;
+                                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                                                        $ongkir = $show['BIAYA'];
+                                                        $masaSewa = $show['MASA_SEWA'];
+                                                        $hargaItem = $show['HARGA_ITEM'];
+                                                        $jumlahSet = $show['JUMLAH_SET'];
+                                                        $stok = $show['STOK'];
+                                                        $jamPemesanan = $show['JAM_PEMESANAN'];
+
+                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalHarga = $totalHarga + $totalPaket;
+                                                        $jaminan = $totalHarga * (30 / 100);
+                                                        $totalPembayaranCheckout = $totalHarga + $ongkir + $jaminan;
                                                         $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
                                                         $minTglSewa = date('Y-m-d', strtotime('+3 day', strtotime($jamPemesanan)));
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
                                                             <td><?php echo $show['STOK']; ?></td>
-                                                            <td>Rp. <?php echo $show['totalPaket']; ?>,00</td>
+                                                            <td>Rp. <?php echo $totalPaket; ?>,00</td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Harga : </b></td>
-                                                        <td><b> Rp. <?php echo $total; ?>,00 + Rp. <?php echo $jaminanCheckout; ?> (30%) </b></td>
+                                                        <td><b> Rp. <?php echo $totalHarga; ?>,00 + Rp. <?php echo $jaminan; ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Ongkir : </b></td>
-                                                        <td><b> Rp. <?php echo $ongkirCheckout; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo $ongkir; ?>,00</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Pembayaran : </b></td>
-                                                        <td><b> Rp. <?php echo $pembayaranCheckout; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo $totalPembayaranCheckout; ?>,00</b></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -428,35 +434,42 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                                     <?php
                                                     //menampilkan dari SELECT CHECKOUT diatas
                                                     $index = 1;
-                                                    while ($show = mysqli_fetch_array($queryUpload)) {
-                                                        $total = $show['totalHarga']; // kalkulasi total checkout.
-                                                        $jaminanCheckout = $show['JAMINAN']; //kalkulasi jaminan 
-                                                        $jamPemesanan = $show['JAM_PEMESANAN'];
+                                                    while ($show = mysqli_fetch_array($queryCheckout)) {
                                                         $idTrans = $show['ID_TRANSAKSI'];
-                                                        $ongkirCheckout = $show['BIAYA'];
-                                                        $pembayaranCheckout = $total + $jaminanCheckout + $ongkirCheckout;
+                                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                                                        $ongkir = $show['BIAYA'];
+                                                        $masaSewa = $show['MASA_SEWA'];
+                                                        $hargaItem = $show['HARGA_ITEM'];
+                                                        $jumlahSet = $show['JUMLAH_SET'];
+                                                        $stok = $show['STOK'];
+                                                        $jamPemesanan = $show['JAM_PEMESANAN'];
+
+                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalHarga = $totalHarga + $totalPaket;
+                                                        $jaminan = $totalHarga * (30 / 100);
+                                                        $totalPembayaranCheckout = $totalHarga + $ongkir + $jaminan;
                                                         $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
                                                         $minTglSewa = date('Y-m-d', strtotime('+3 day', strtotime($jamPemesanan)));
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
                                                             <td><?php echo $show['STOK']; ?></td>
-                                                            <td>Rp. <?php echo $show['totalPaket']; ?>,00</td>
+                                                            <td>Rp. <?php echo $totalPaket; ?>,00</td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Harga : </b></td>
-                                                        <td><b> Rp. <?php echo $total; ?>,00 + Rp. <?php echo $jaminanCheckout; ?> (30%) </b></td>
+                                                        <td><b> Rp. <?php echo $totalHarga; ?>,00 + Rp. <?php echo $jaminan; ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Ongkir : </b></td>
-                                                        <td><b> Rp. <?php echo $ongkirCheckout; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo $ongkir; ?>,00</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"> <b> Total Pembayaran : </b></td>
-                                                        <td><b> Rp. <?php echo $pembayaranCheckout; ?>,00</b></td>
+                                                        <td><b> Rp. <?php echo $totalPembayaranCheckout; ?>,00</b></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -478,68 +491,70 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `pen
                                     </form>
                                 </div>
                             </div>
-                        </div>
-                        <!-- RIWAYAT -->
-                        <div id="Riwayat" class="tabcontent">
-                            <div class="product-status-wrap">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <table class="table table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <b>
-                                                        <th>No.</th>
-                                                        <th>Tanggal Sewa</th>
-                                                        <th>Total</th>
-                                                        <th>Jaminan</th>
-                                                        <th>Ongkir</th>
-                                                        <th>Total Pembayaran</th>
-                                                        <th>Status</th>
-                                                        <th>Tools</th>
-                                                    </b>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                //menampilkan data dari SELECT RIWAYAT diatas
-                                                $index = 1;
-                                                while ($show = mysqli_fetch_array($queryRiwayat)) {
-                                                    //masukin dari database ke variabel
-                                                    $idTrans = $show['ID_TRANSAKSI'];
-                                                    $total = $show['TOTAL'];
-                                                    $jaminan = $show['JAMINAN'];
-                                                    $ongkir = $show['BIAYA'];
-                                                    $totalPembayaran = $total + $jaminan + $ongkir;
-                                                    $status = $show['STATUS'];
-                                                ?>
+                            <!-- RIWAYAT -->
+                            <div id="Riwayat" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <table class="table table-condensed">
+                                                <thead>
                                                     <tr>
                                                         <b>
-                                                            <td><?php echo $index++; ?></td>
-                                                            <td><?php echo $show['TGL_SEWA']; ?></td>
-                                                            <td>Rp. <?php echo $total; ?></td>
-                                                            <td>Rp. <?php echo $jaminan; ?></td>
-                                                            <td>Rp. <?php echo $ongkir; ?></td>
-                                                            <td>Rp. <?php echo $totalPembayaran ?></td>
-                                                            <td><?php echo $status ?></td>
-                                                            <td>
-                                                                <?php if ($status != 'terkirim') { ?>
-                                                                    <a href="<?php echo 'detail-barang.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail</a>
-                                                                <?php } ?>
-                                                            </td>
-                                                        </b></tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
+                                                            <th>No.</th>
+                                                            <th>Tanggal Sewa</th>
+                                                            <th>Total</th>
+                                                            <th>Jaminan</th>
+                                                            <th>Ongkir</th>
+                                                            <th>Total Pembayaran</th>
+                                                            <th>Status</th>
+                                                            <th>Tools</th>
+                                                        </b>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    //menampilkan data dari SELECT RIWAYAT diatas
+                                                    $index = 1;
+                                                    while ($show = mysqli_fetch_array($queryRiwayat)) {
+                                                        $idTrans = $show['ID_TRANSAKSI'];
+                                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                                                        $ongkir = $show['BIAYA'];
+                                                        $masaSewa = $show['MASA_SEWA'];
+                                                        $hargaItem = $show['HARGA_ITEM'];
+                                                        $jumlahSet = $show['JUMLAH_SET'];
+                                                        $stok = $show['STOK'];
+                                                        $status = $show['STATUS'];
+
+                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalHarga = $totalHarga + $totalPaket;
+                                                        $jaminan = $totalHarga * (30 / 100);
+                                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+                                                    ?>
+                                                        <tr>
+                                                            <b>
+                                                                <td><?php echo $index++; ?></td>
+                                                                <td><?php echo $show['TGL_SEWA']; ?></td>
+                                                                <td>Rp. <?php echo $totalHarga; ?></td>
+                                                                <td>Rp. <?php echo $jaminan; ?></td>
+                                                                <td>Rp. <?php echo $ongkir; ?></td>
+                                                                <td>Rp. <?php echo $totalPembayaran ?></td>
+                                                                <td><?php echo $status ?></td>
+                                                                <td>
+                                                                    <?php if ($status != 'terkirim') { ?>
+                                                                        <a href="<?php echo 'detail-barang.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail</a>
+                                                                    <?php } ?>
+                                                                </td>
+                                                            </b></tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br> <br>
-                </tr>
-                </thead>
-                </table>
             </div>
         </div>
     </div>

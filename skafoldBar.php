@@ -151,7 +151,7 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                                                 <td><?php echo $showPaket['JUMLAH_SET']; ?> Set Scaffolding</td>
                                                 <td>Rp. <?php echo number_format($showPaket['HARGA'], 2, ",", "."); ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Taruh Keranjang</button>
+                                                    <a type="button" id="modalStok" data-id="<?php echo $idPaketKeranjang; ?>" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Taruh Keranjang</a>
                                                 </td>
                                             </tr>
                                         </b>
@@ -168,12 +168,13 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Keranjang <?php echo $idPaketKeranjang; ?></h4>
+                            <h4 class="modal-title">Keranjang</h4>
                         </div>
-                        <form action="kirim-keranjang.php?ID_PAKET=<?php echo $idPaketKeranjang; ?>" method="post">
+                        <form action="kirim-keranjang.php" method="post">
                             <div class="modal-body">
                                 <p>Masukan jumlah stok</p>
-                                <input type="number" class="form-control" name="stok">
+                                <input type="number" class="form-control" id="stok" name="stok">
+                                <input type="hidden" class="form-control" id="idPaket" name="ID_PAKET">
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" class="btn btn-primary" name="submit">
@@ -323,6 +324,15 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
     <script src="js/gmaps.min.js"></script>
 
     <script src="js/theme.js"></script>
+    <script>
+        $(document).on("click", "#modalStok", function() {
+            var myPaketId = $(this).data('id');
+            $(".modal-body #idPaket").val(myPaketId);
+            // As pointed out in comments, 
+            // it is unnecessary to have to manually call the modal.
+            // $('#addBookDialog').modal('show');
+        });
+    </script>
 </body>
 
 </html>

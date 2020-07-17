@@ -274,7 +274,7 @@ if ($_POST['cari'] == null) {
                                         $idTrans = $show['ID_TRANSAKSI']; ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo number_format($show['TOTAL'], 2, ",", "."); ?></td>
+                                            <td>Rp. <?php  ?></td>
                                             <td>Rp. <?php echo number_format($show['JAMINAN'], 2, ",", "."); ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>

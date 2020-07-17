@@ -58,15 +58,12 @@ if (isset($_FILES['bukti_ktp'])) {
          $masaSewa = $show['MASA_SEWA'];
       }
 
-      //menghitung tanggal kembali berdasarkan tanggal sewa + masa sewa
-      $tgl_kembali = date('Y-m-d', strtotime('+' . $masaSewa . ' days', strtotime(str_replace('/', '-', $tanggal)))) . PHP_EOL;
-
       date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
       $time = date("Y-m-d H:i:s");
 
       //masukin data ke transaksi
       $queryInsert = mysqli_query($mysqli, "UPDATE transaksi SET STATUS='terkirim', BUKTI_PEMBAYARAN='$file_name_bukti', 
-      BUKTI_KTP='$file_name', JAM_PEMESANAN='$time', TGL_SEWA='$tanggal', TGL_KEMBALI='$tgl_kembali' WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+      BUKTI_KTP='$file_name', JAM_PEMESANAN='$time' WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
       header("Location: ProfilBar.php"); //go to page profilbar
    } else {
