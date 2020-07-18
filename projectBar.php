@@ -81,7 +81,7 @@ include 'koneksi/koneksi.php';
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="index.php">Beranda</a></li>
-                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="projectBar.php">Jenis Scaffolding</a></li>
                             <li><a href="AboutUs.php">Tentang Kami</a></li>
                             <li><a href="skafoldBar.php">Scaffolding</a></li>
                             <?php if (!isset($_SESSION['username'])) {
@@ -123,7 +123,7 @@ include 'koneksi/koneksi.php';
                 <h6>Jenis Scaffolding</h6>
             </div>
             <ul class="our_project_filter">
-                <li class="active" data-filter="*"><a href="#">All</a></li>
+                <li class="active" data-filter="*"><a href="#">Semua</a></li>
                 <li data-filter=".mainframe"><a href="#">Main Frame</a></li>
                 <li data-filter=".ladderframe"><a href="#">Ladder Frame</a></li>
                 <li data-filter=".catwalk"><a href="#">Cat Walk</a></li>
@@ -137,7 +137,6 @@ include 'koneksi/koneksi.php';
                         <div class="project_hover">
                             <div class="project_hover_inner">
                                 <div class="project_hover_content">
-                                    <a href="#">
                                         <h4>Ladder Frame</h4>
                                     </a>
                                     <p>Ladder frame adalah salah satu komponen dari scaffolding yang biasanya dipasang pada bagian atas dari main frame, untuk menambah tinggi karena dibutuhkan pijakan atau penyangga yang lebih tinggi dari 170 cm dan 190 cm, ladder frame yang kita miliki memiliki dimensi tinggi 90 cm dan lebar 122 cm.</p>
@@ -145,6 +144,7 @@ include 'koneksi/koneksi.php';
                             </div>
                         </div>
                     </div>
+                    <center><a href="skafoldBar.php" class="btn btn-danger">Saya Ingin Menyewa </a></center>
                 </div>
                 <div class="col-md-4 col-sm-6 crossbrace">
                     <div class="project_item">
@@ -160,6 +160,7 @@ include 'koneksi/koneksi.php';
                             </div>
                         </div>
                     </div>
+                    <center><a href="#" class="btn btn-info">Stok Belum Tersedia</a></center>
                 </div>
                 <div class="col-md-4 col-sm-6 mainframe">
                     <div class="project_item">
@@ -167,7 +168,6 @@ include 'koneksi/koneksi.php';
                         <div class="project_hover">
                             <div class="project_hover_inner">
                                 <div class="project_hover_content">
-                                    <a href="#">
                                         <h4>Main Frame</h4>
                                     </a>
                                     <p>Main frame adalah salah satu komponen paling utama dari scaffolding, kegunaan main frame adalah sebagai penyangga utama. Dimensi main frame sendiri adalah tinggi 170 cm, 190 cm dan lebar 122 cm.</p>
@@ -175,6 +175,7 @@ include 'koneksi/koneksi.php';
                             </div>
                         </div>
                     </div>
+                    <center><a href="skafoldBar.php" class="btn btn-danger">Saya Ingin Menyewa </a></center>
                 </div>
                 <div class="col-md-4 col-sm-6 catwalk">
                     <div class="project_item">
@@ -190,6 +191,7 @@ include 'koneksi/koneksi.php';
                             </div>
                         </div>
                     </div>
+                    <center><a href="#" class="btn btn-info">Stok Belum Tersedia</a></center>
                 </div>
                 <div class="col-md-4 col-sm-6 stair">
                     <div class="project_item">
@@ -205,6 +207,7 @@ include 'koneksi/koneksi.php';
                             </div>
                         </div>
                     </div>
+                    <center><a href="#" class="btn btn-info">Stok Belum Tersedia</a></center>
                 </div>
             </div>
         </div>

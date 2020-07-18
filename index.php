@@ -203,7 +203,7 @@ include 'koneksi/koneksi.php';
                         <a href="#">
                             <h4>Konsultasi PRA Konstruksi</h4>
                         </a>
-                        <p>Jasa Konsultasi bagi anda yang membutuhkan bantuan dalam hal perencanaan , design ataupun estimasi biaya</p>
+                        <p>Jasa Konsultasi bagi anda yang membutuhkan bantuan dalam hal perencanaan, design ataupun estimasi biaya</p>
 
                     </div>
                 </div>
@@ -239,7 +239,7 @@ include 'koneksi/koneksi.php';
                             <img src="img/icon/s-icon-hover-5.png" alt="">
                         </div>
                         <a href="#">
-                            <h4>RENOVASI</h4>
+                            <h4>Renovasi</h4>
                         </a>
                         <p>Jasa Renovasi bagi para client yang menginginkan perubahan untuk customer</p>
                     </div>
@@ -253,7 +253,7 @@ include 'koneksi/koneksi.php';
                         <a href="#">
                             <h4>Supplier</h4>
                         </a>
-                        <p>Menerima juga jasa gudang penyediaan peralatan kantor serta kelengkapan AC <br></p>
+                        <p>Menerima juga jasa gudang penyediaan peralatan kantor serta kelengkapan AC<br></p>
 
                     </div>
                 </div>
@@ -262,7 +262,7 @@ include 'koneksi/koneksi.php';
         <div class="right_service">
             <div class="right_service_text">
                 <div class="main_b_title">
-                    <h2>Cara Pesan <br class="title_br" /> Scaffolding???</h2>
+                    <h2>Cara Menyewa <br class="title_br" /> Scaffolding???</h2>
                     <!-- <h6>PT Kawi Sakti Megah Kota Malang</h6> -->
                 </div>
              <b>  <h3> <p>1). Masuk pada halaman login, lalu masukan username dan password login<br>
@@ -290,7 +290,7 @@ include 'koneksi/koneksi.php';
                             <h6>PT Kawi Sakti Megah</h6>
                         </div>
                         <ul class="our_project_filter">
-                        <li class="active" data-filter="*"><a href="#">Semuanya</a></li>
+                        <li class="active" data-filter="*"><a href="#">Semua</a></li>
                                 <li data-filter=".mainframe"><a href="#">Main Frame</a></li>
                                 <li data-filter=".ladderframe"><a href="#">Ladder Frame</a></li>
                                 <li data-filter=".catwalk"><a href="#">Cat Walk</a></li>
@@ -306,7 +306,7 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
+                                    <a href="skafoldBar.php" class="btn btn-danger">Saya Ingin Menyewa </a>
                                 <br>   <h4>Ladder Frame</h4>
                                     </div>
                                 </div>
@@ -317,7 +317,7 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
+                                    <a href="#" class="btn btn-info">Stok Belum Tersedia </a>
                                             <h4>Stair</h4>
                                         </a>
                                     </div>
@@ -329,7 +329,7 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
+                                    <a href="#" class="btn btn-info">Stok Belum Tersedia</a>
                                             <h4>Cat Walk</h4>
                                        <a> </a>
                                     </div>
@@ -341,7 +341,7 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a>
+                                    <a href="skafoldBar.php" class="btn btn-danger">Saya ingin Menyewa </a>
                                             <h4>Main Frame</h4>
                                         <a> </a>
                                        
@@ -354,7 +354,7 @@ include 'koneksi/koneksi.php';
                             <div class="project_hover">
                                 <div class="project_hover_inner">
                                     <div class="project_hover_content">
-                                    <a href="skafoldBar.php" class="btn btn-success">Ya Saya ingin Menyewa </a><br>
+                                    <a href="#"class="btn btn-info">Stok Belum Tersedia </a><br>
                                           <buttonf></button>  <h4>Cross Brace</h4>
                                         <a> </a>
                                        
