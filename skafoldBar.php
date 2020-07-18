@@ -3,7 +3,7 @@ session_start();
 include 'koneksi/koneksi.php';
 
 $queryFilter = mysqli_query($mysqli, "SELECT FRAME FROM paket GROUP BY FRAME") or die("data salah: " . mysqli_error($mysqli));
-$queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP BY FRAME, JUMLAH_SET, MASA_SEWA") or die("data salah: " . mysqli_error($mysqli));
+$queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP BY FRAME") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -140,7 +140,7 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $queryPaket = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME = '$frame' AND JUMLAH_SET = '$jmlSet'") or die("data salah A: " . mysqli_error($mysqli));
+                                    $queryPaket = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME = '$frame' GROUP BY FRAME, JUMLAH_SET, MASA_SEWA") or die("data salah A: " . mysqli_error($mysqli));
                                     while ($showPaket = mysqli_fetch_array($queryPaket)) {
                                         $masaSewa = $showPaket['MASA_SEWA'];
                                         $idPaketKeranjang = $showPaket['ID_PAKET']; ?>
