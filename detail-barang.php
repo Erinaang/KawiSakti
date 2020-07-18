@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 include "koneksi/koneksi.php"; // ambil koneksi;
 
 $index = 1; //buat nomor di tabel
-$jaminan = $total = 0; //definisi variabel dengan nilai 0
+$jaminan = $totalHarga = 0; //definisi variabel dengan nilai 0
 
 $idPenyewa = $_GET['ID_PENYEWA'];
 $idTrans = $_GET['ID_TRANS'];
@@ -17,7 +17,7 @@ while ($show = mysqli_fetch_array($queryDetail)) {
     $status = $show['STATUS'];
 }
 
-$queryItem = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -96,41 +96,52 @@ $queryItem = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transa
                                             <th>No.</th>
                                             <th>Masa Sewa (hari) </th>
                                             <th>Jumlah Set x Harga (Rp.)</th>
+                                            <th>Stok</th>
                                             <th>Total (Rp.)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($show = mysqli_fetch_array($queryItem)) {
-                                            $jaminan = $show['JAMINAN'];
+                                            $idTrans = $show['ID_TRANSAKSI'];
+                                            $idPenyewa = $show['ID_PENYEWA'];
                                             $ongkir = $show['BIAYA'];
-                                            $totalHarga = $totalTrans + $jaminan + $ongkir;
+                                            $hargaItem = $show['HARGA_ITEM'];
+                                            $jumlahSet = $show['JUMLAH_SET'];
+                                            $stok = $show['STOK'];
+                                            $status = $show['STATUS'];
+
+                                            $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                            $totalHarga = $totalHarga + $totalPaket;
+                                            $jaminan = $totalHarga * (30 / 100);
+                                            $totalPembayaran = $totalHarga + $ongkir + $jaminan;
                                         ?>
                                             <tr>
                                                 <td><?php echo $index++; ?></td>
                                                 <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
-                                                <td>Rp. <?php echo $show['totalPaket']; ?>,00</td>
+                                                <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
+                                                <td><?php echo $stok; ?></td>
+                                                <td>Rp. <?php echo $totalPaket; ?>,00</td>
                                             </tr>
                                         <?php } ?>
                                         <tr>
-                                            <td colspan="2"> </td>
+                                            <td colspan="3"> </td>
                                             <td><b> Sub Total : </b></td>
-                                            <td><b> Rp. <?php echo $totalTrans;  ?></b></td>
+                                            <td><b> Rp. <?php echo $totalHarga;  ?></b></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"> </td>
+                                            <td colspan="3"> </td>
                                             <td><b> Jaminan : </b></td>
                                             <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"> </td>
+                                            <td colspan="3"> </td>
                                             <td><b> Ongkos Kirim : </b></td>
                                             <td><b>Rp. <?php echo $ongkir; ?></b></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"> </td>
+                                            <td colspan="3"> </td>
                                             <td><b> Total Harga : </b></td>
-                                            <td><b>Rp. <?php echo $totalHarga; ?></b></td>
+                                            <td><b>Rp. <?php echo $totalPembayaran; ?></b></td>
                                         </tr>
                                     </tbody>
                                 </table>
