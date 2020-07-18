@@ -16,7 +16,7 @@ if ($_GET['cari'] == null) {
     $c = $_GET['cari'];
     $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' ||  tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
 }
-$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, tr.ID_PENYEWA, pk.JUMLAH_SET, ti.HARGA_ITEM, ti.STOK,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM transaksi as tr JOIN transaksi_item AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS pk ON pk.ID_PAKET = ti.ID_PAKET JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='selesai'") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.JUMLAH_SET) * ti.STOK) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.FRAME, SUM(p.JUMLAH_SET) as JML_SET, SUM(ti.HARGA_ITEM) AS TOTAL_HARGA, SUM(ti.BIAYA_RUSAK) AS TOTAL_DENDA, SUM(ti.STOK) AS TOTAL_STOK, SUM(pr.BIAYA) AS ONGKIR FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET JOIN pengiriman AS pr ON pr.ID_PENGIRIMAN = t.ID_PENGIRIMAN WHERE t.STATUS = 'selesai' GROUP BY p.FRAME, p.JUMLAH_SET") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
@@ -269,18 +269,14 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         $idTransItem = $show['ID_TRANSAKSI_ITEM'];
                                         $idPenyewa = $show['ID_PENYEWA'];
                                         $masaSewa = $show['MASA_SEWA'];
-                                        $hargaItem = $show['HARGA_ITEM'];
-                                        $jumlahSet = $show['JUMLAH_SET'];
                                         $ongkir = $show['BIAYA'];
-                                        $stok = $show['STOK'];
                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $status = $show['STATUS'];
 
-                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
-                                        $totalHarga = $totalHarga + $totalPaket;
+                                        $totalPaket = $show['TOTAL'];
                                         
-                                        $jaminan = $totalHarga * (30 / 100);
-                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+                                        $jaminan = $totalPaket * (30 / 100);
+                                        $totalPembayaran = $totalPaket + $ongkir + $jaminan;
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>

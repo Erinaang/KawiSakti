@@ -16,7 +16,7 @@ if ($_POST['cari'] == null) {
     $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' || tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
 }
 
-$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER") or die("data salah: " . mysqli_error($mysqli));
+$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.JUMLAH_SET) * ti.STOK) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -276,21 +276,17 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, 
                                         $idPenyewa = $show['ID_PENYEWA'];
                                         $ongkir = $show['BIAYA'];
                                         $masaSewa = $show['MASA_SEWA'];
-                                        $hargaItem = $show['HARGA_ITEM'];
-                                        $jumlahSet = $show['JUMLAH_SET'];
-                                        $stok = $show['STOK'];
                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $status = $show['STATUS'];
 
-                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
-                                        $totalHarga = $totalHarga + $totalPaket;
-                                        $jaminan = $totalHarga * (30 / 100);
+                                        $totalPaket = $show['TOTAL'];
+                                        $jaminan = $totalPaket * (30 / 100);
                                         $totalPembayaran = $totalHarga + $ongkir + $jaminan;
 
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo number_format($totalHarga, 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
                                             <td>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></td>
                                             <td>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>

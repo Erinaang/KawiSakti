@@ -33,7 +33,7 @@ $queryCheckout = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_
 $queryUpload = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
-$queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS!='cart' OR tr.STATUS!='checkout'") or die("data salah: " . mysqli_error($mysqli));
+$queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.JUMLAH_SET) * ti.STOK) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS!='cart' OR tr.STATUS!='checkout' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE html>
@@ -518,24 +518,18 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT ti.STOK, tr.STATUS,tr.TGL_SEWA, tr
                                                     $index = 1;
                                                     while ($show = mysqli_fetch_array($queryRiwayat)) {
                                                         $idTrans = $show['ID_TRANSAKSI'];
-                                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
                                                         $ongkir = $show['BIAYA'];
-                                                        $masaSewa = $show['MASA_SEWA'];
-                                                        $hargaItem = $show['HARGA_ITEM'];
-                                                        $jumlahSet = $show['JUMLAH_SET'];
-                                                        $stok = $show['STOK'];
                                                         $status = $show['STATUS'];
 
-                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
-                                                        $totalHarga = $totalHarga + $totalPaket;
-                                                        $jaminan = $totalHarga * (30 / 100);
+                                                        $totalPaket = $show['TOTAL'];
+                                                        $jaminan = $totalPaket* (30 / 100);
                                                         $totalPembayaran = $totalHarga + $ongkir + $jaminan;
                                                     ?>
                                                         <tr>
                                                             <b>
                                                                 <td><?php echo $index++; ?></td>
                                                                 <td><?php echo $show['TGL_SEWA']; ?></td>
-                                                                <td>Rp. <?php echo number_format ($totalHarga, 2, ",", "."); ?></td>
+                                                                <td>Rp. <?php echo number_format ($totalPaket, 2, ",", "."); ?></td>
                                                                 <td>Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?></td>
                                                                 <td>Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></td>
                                                                 <td>Rp. <?php echo number_format ($totalPembayaran, 2, ",", ".") ?></td>
