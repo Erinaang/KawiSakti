@@ -55,7 +55,7 @@ include 'koneksi/koneksi.php';
         <div class="header_top_area">
             <div class="container">
                 <div class="pull-left">
-                    <a href="#"><i class="fa fa-phone"></i>(0341) 350003</a>
+                    <a href="#"><i class="fa fa-phone"></i>(0341) 350-003</a>
                     <a href="#"><i class="fa fa-map-marker"></i> Jl. Janti Barat Blok A/17 A Malang </a>
                     <a href="#"><i class="mdi mdi-clock"></i>08 AM - 04 PM</a>
                 </div>
@@ -241,7 +241,7 @@ include 'koneksi/koneksi.php';
                         <a href="#">
                             <h4>Renovasi</h4>
                         </a>
-                        <p>Jasa Renovasi bagi para client yang menginginkan perubahan untuk customer</p>
+                        <p>Jasa Renovasi bagi para klien yang menginginkan perubahan untuk customer</p>
                     </div>
                 </div>
                 <div class="service_item">
@@ -377,7 +377,7 @@ include 'koneksi/koneksi.php';
                     <h2>Bekerja<br class="title_br" />dengan Kami</h2>
                     <h6>Mari Mencapai Perubahan yang Cemerlang</h6>
                 </div>
-                <p>Perusahaan yang sudah berdiri lebih dari dua puluh tahun. Kami bekerja dengan etos kerja dan komitmen tinggi dan kami pelopor awal perentalan scaffolding yang terpercaya di Malang Raya</p>
+                <p>Perusahaan yang sudah berdiri lebih dari 20 tahun. Kami bekerja dengan etos kerja dan komitmen tinggi dan kami pelopor awal perentalan scaffolding yang terpercaya di Malang Raya</p>
                 <a class="get_bg_btn" href="AboutUs.php">Lihat Profil Perusahaan</a>
             </div>
         </div>
@@ -395,29 +395,29 @@ include 'koneksi/koneksi.php';
                 <div class="col-md-3 col-sm-6">
                     <div class="counter_item">
                         <i class="fa fa-archive" aria-hidden="true"></i>
-                        <h4 class="counter">245</h4>
-                        <h5>total pekerjaan</h5>
+                        <h4 class="counter">20</h4>
+                        <h5>Total Pekerjaan</h5>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="counter_item">
                         <i class="fa fa-building-o" aria-hidden="true"></i>
-                        <h4 class="counter">535</h4>
+                        <h4 class="counter">250</h4>
                         <h5>Pembangunan Rumah</h5>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="counter_item">
                         <i class="fa fa-users" aria-hidden="true"></i>
-                        <h4 class="counter">288</h4>
+                        <h4 class="counter">100</h4>
                         <h5>Pengalaman Staff</h5>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="counter_item">
                         <i class="fa fa-smile-o" aria-hidden="true"></i>
-                        <h4 class="counter">750</h4>
-                        <h5>Client</h5>
+                        <h4 class="counter">400</h4>
+                        <h5>Klien</h5>
                     </div>
                 </div>
             </div>
@@ -647,7 +647,7 @@ include 'koneksi/koneksi.php';
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
                             <img src="img/footer-logo.png">
-                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
+                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kualifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
                         </aside>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -712,8 +712,8 @@ include 'koneksi/koneksi.php';
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget give_us_widget">
-                            <h5>Hubungi kami pada</h5>
-                            <h4>(0341) 350003 </h4>
+                            <h5>Hubungi Kami</h5>
+                            <h4>(0341) 350-003 </h4>
                         </aside>
                     </div>
                 </div>
@@ -722,6 +722,7 @@ include 'koneksi/koneksi.php';
         <div class="footer_copy_right">
             <div class="container">
                 <h4>
+                <center><a href=''></a> Copyright &#169; 2020</a></center>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
