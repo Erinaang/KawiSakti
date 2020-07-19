@@ -483,7 +483,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                 <input type="file" class="form-control" name="bukti_pembayaran" required />
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlInput1"><b> Bukti KTP</b></label>
+                                                <label for="exampleFormControlInput1"><b> Bukti KTP </b></label>
                                                 <input type="file" class="form-control" name="bukti_ktp" required>
                                             </div>
                                             <input class="btn btn-primary" value="Kirim" type="submit" />
@@ -505,7 +505,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                             <th>Tanggal Sewa</th>
                                                             <th>Total</th>
                                                             <th>Jaminan</th>
-                                                            <th>Ongkir</th>
+                                                            <th>Biaya Pengiriman</th>
                                                             <th>Total Pembayaran</th>
                                                             <th>Status</th>
                                                             <th>Tools</th>
@@ -565,7 +565,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                 <h4>Tertarik Untuk Menyewa Scaffolding? </h4>
             </div>
             <div class="pull-right">
-                <a class="get_btn_black" href="skafoldBar.php">Silahkan Pilih Jenisnya</a>
+                <a class="get_btn_black" href="skafoldBar.php">Klik Disini Untuk Menyewa</a>
             </div>
         </div>
     </section>
@@ -579,7 +579,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
                             <img src="img/footer-logo.png">
-                            <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
+                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kualifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
                             <!-- <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -634,7 +634,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                         <i class="fa fa-phone"></i>
                                     </div>
                                     <div class="media-body">
-                                        <p>(0341) 350003 </p>
+                                        <p>(0341) 350-003 </p>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -650,8 +650,8 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget give_us_widget">
-                            <h5>Hubungi kami pada</h5>
-                            <h4>(0341) 350003 </h4>
+                            <h5>Hubungi Kami</h5>
+                            <h4>(0341) 350-003 </h4>
                         </aside>
                     </div>
                 </div>
@@ -660,6 +660,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
         <div class="footer_copy_right">
             <div class="container">
                 <h4>
+                <center><a href=''></a> Copyright &#169; 2020</a></center>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

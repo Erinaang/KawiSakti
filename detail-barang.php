@@ -68,7 +68,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
         <div class="header_top_area">
             <div class="container">
                 <div class="pull-left">
-                    <a href="#"><i class="fa fa-phone"></i>(0341) 350003</a>
+                    <a href="#"><i class="fa fa-phone"></i>(0341) 350-003</a>
                     <a href="#"><i class="fa fa-map-marker"></i> Jl. Janti Barat Blok A/17 A Malang </a>
                     <a href="#"><i class="mdi mdi-clock"></i>08 AM - 04 PM</a>
                 </div>
@@ -82,10 +82,10 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                 <div class="container">
                     <div class="col-md-8">
                         <center>
-                            <h3> Detail barang yang dipesan </h3>
+                            <h3> Detail Barang yang Dipesan </h3>
                         </center>
                         <br>
-                        <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo $tglSewa; ?> </b> </h4>
+                        <h4> <b> Tanggal Penyewaan &emsp; &emsp;&emsp; : <?php echo $tglSewa; ?> </b> </h4>
                         <h4> <b> Status Pengiriman &emsp;&emsp;&emsp;&emsp; : <?php echo $status; ?> </b> </h4>
                         <br>
                         <div class="row">
@@ -120,33 +120,34 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                                                 <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
                                                 <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
                                                 <td><?php echo $stok; ?></td>
-                                                <td>Rp. <?php echo $totalPaket; ?>,00</td>
+                                                <td>Rp. <?php echo number_format ($totalPaket, 2, ",", "."); ?></td>
                                             </tr>
                                         <?php } ?>
                                         <tr>
                                             <td colspan="3"> </td>
                                             <td><b> Sub Total : </b></td>
-                                            <td><b> Rp. <?php echo $totalHarga;  ?></b></td>
+                                            <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", ".");  ?></b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"> </td>
                                             <td><b> Jaminan : </b></td>
-                                            <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
+                                            <td><b>Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"> </td>
-                                            <td><b> Ongkos Kirim : </b></td>
-                                            <td><b>Rp. <?php echo $ongkir; ?></b></td>
+                                            <td><b> Biaya Pengiriman : </b></td>
+                                            <td><b>Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"> </td>
                                             <td><b> Total Harga : </b></td>
-                                            <td><b>Rp. <?php echo $totalPembayaran; ?></b></td>
+                                            <td><b>Rp. <?php echo number_format ($totalPembayaran, 2, ",", "."); ?></b></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b>
+                            <b> <a href="ProfilBar.php" class="btn btn-info" role="button">Kembali ke Menu Profil</a></b>
+                            <br><br>
                         </div>
                     </div>
                 </div>
@@ -162,10 +163,10 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
     <section class="get_quote_area yellow_get_quote">
         <div class="container">
             <div class="pull-left">
-                <h4>Looking for a quality and affordable constructor for your next project?</h4>
+                <h4>Tertarik Untuk Menyewa? </h4>
             </div>
             <div class="pull-right">
-                <a class="get_btn_black" href="#">GET A QUOTE</a>
+                <a class="get_btn_black" href="#">Klik Disini Untuk Menyewa</a>
             </div>
         </div>
     </section>
@@ -179,19 +180,19 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget about_widget">
                             <img src="img/logo.png">
-                            <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
-                            <ul>
+                            <p>Kami melayani pengerjaan dengan konsultan proyek terbaik, serta mempunyai kualifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
+                            <!-- <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                 <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                            </ul>
+                            </ul> -->
                         </aside>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget recent_widget">
                             <div class="f_w_title">
-                                <h3>Recent Portofolio</h3>
+                                <h3> Portofolio</h3>
                             </div>
                             <div class="recent_w_inner">
                                 <div class="media">
@@ -218,7 +219,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget address_widget">
                             <div class="f_w_title">
-                                <h3>Office Address</h3>
+                                <h3>Alamat Kantor</h3>
                             </div>
                             <div class="address_w_inner">
                                 <div class="media">
@@ -234,7 +235,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                                         <i class="fa fa-phone"></i>
                                     </div>
                                     <div class="media-body">
-                                        <p>(0341) 350003 </p>
+                                        <p>(0341) 350-003 </p>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -242,7 +243,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     <div class="media-body">
-                                        <p>info@domain.com</p>
+                                        <p>kawisaktimalang@gmail.com</p>
                                     </div>
                                 </div>
                             </div>
@@ -250,8 +251,8 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <aside class="f_widget give_us_widget">
-                            <h5>Give Us A Call</h5>
-                            <h4>(0341) 350003 </h4>
+                            <h5>Hubungi Kami</h5>
+                            <h4>(0341) 350-003 </h4>
                         </aside>
                     </div>
                 </div>
@@ -260,6 +261,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
         <div class="footer_copy_right">
             <div class="container">
                 <h4>
+                <center><a href=''></a> Copyright &#169; 2020</a></center>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
