@@ -270,7 +270,9 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($dataTransaksi)) {
+                                    <?php 
+                                    
+                                    while ($show = mysqli_fetch_array($dataTransaksi)) {
                                         $idTrans = $show['ID_TRANSAKSI'];
                                         $idTransItem = $show['ID_TRANSAKSI_ITEM'];
                                         $idPenyewa = $show['ID_PENYEWA'];
@@ -302,7 +304,7 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.
                                                     echo '<a href="../../print.php?ID_TRANS=' . $idTrans.'"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
                                                 }
                                                 ?>
-                                                 <a href="data-detailstok.php" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed" >cek Stock </i></a>
+                                                 <a href="data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed" >cek Stock </i></a>
                                                 <a href="hapus-transaksi.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                                 
                                             </td>

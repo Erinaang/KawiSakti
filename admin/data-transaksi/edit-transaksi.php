@@ -28,7 +28,6 @@ if (isset($_POST['submit'])) {
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -95,7 +94,6 @@ if (isset($_POST['submit'])) {
 
 
 </head>
-
 <body>
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -104,7 +102,7 @@ if (isset($_POST['submit'])) {
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-            <br>
+                <br>
                 <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
@@ -406,5 +404,4 @@ if (isset($_POST['submit'])) {
 
 
 </body>
-
 </html>

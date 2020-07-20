@@ -3,80 +3,87 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
 }
-include "connection/Connection.php";
+include "../connection/Connection.php";
 $username = $_SESSION['username'];
 $queryAdmin = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryAdmin)) {
-  $idAdmin = $show['ID_USER'];
+    $idAdmin = $show['ID_USER'];
 }
-$UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' WHERE status='Terkirim'") or die("data salah: " . mysqli_error($mysqli));
+$index = 1;
+$totalHarga = 0;
+$idTrans = $_GET['ID_TRANS'];
+$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
-<head><meta charset="windows-1252">
-    
+
+<head>
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PT. Kawi Sakti Megah</title>
+    <title>PT Kawi Sakti Megah</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!-- favicon
         ============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Google Fonts
         ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Bootstrap CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- nalika Icon CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/nalika-icon.css">
+    <link rel="stylesheet" href="../css/nalika-icon.css">
     <!-- owl.carousel CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
-    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="../css/owl.carousel.css">
+    <link rel="stylesheet" href="../css/owl.theme.css">
+    <link rel="stylesheet" href="../css/owl.transitions.css">
     <!-- animate CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="../css/animate.css">
     <!-- normalize CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="../css/normalize.css">
     <!-- meanmenu icon CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="../css/meanmenu.min.css">
     <!-- main CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <!-- morrisjs CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <link rel="stylesheet" href="../css/morrisjs/morris.css">
     <!-- mCustomScrollbar CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../css/scrollbar/jquery.mCustomScrollbar.min.css">
     <!-- metisMenu CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <link rel="stylesheet" href="../css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="../css/metisMenu/metisMenu-vertical.css">
     <!-- calendar CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <link rel="stylesheet" href="../css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/calendar/fullcalendar.print.min.css">
     <!-- style CSS
         ============================================ -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <!-- responsive CSS
         ============================================ -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     <!-- modernizr JS
         ============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+
 </head>
 
 <body>
@@ -186,7 +193,7 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' 
                     </div>
                 </div>
             </div>
-            
+
             <!-- Mobile Menu start -->
             <br>
             <br>
@@ -198,31 +205,31 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' 
                                 <nav id="dropdown">
                                     <ul class="mobile-menu-nav">
                                         <li><a data-toggle="collapse" data-target="#Charts" href="#">Menu Admin <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
-                                             <ul class="metismenu" id="menu1">
-                        <li>
-                            <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
-                        </li>
-                        <li>
-                            <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
-                        </li>
-                        <li>
-                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
-                        </li>
-                        <li>
-                            <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
-                        </li>
-                        <li>
-                            <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
-                        </li>
-                        <li>
-                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+                                            <ul class="metismenu" id="menu1">
+                                                <li>
+                                                    <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-sub-pro">Riwayat Transaksi</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-sub-pro">Data Pelanggan</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -267,140 +274,140 @@ $UpdateIDadmin= mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin' 
                                     </div>
                                 <?php } ?> -->
                                 </div>
-                                
+
                             </div>
                             <div class="container-fluid">
-                         <!-- <div class="container-fluid"> -->
-                    <div class="col-md-8">
-                        <center>
-                            <h3> Detail Stock Barang </h3>
-                        </center>
-                        <br>
-                        <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo $tglSewa; ?> </b> </h4>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Masa Sewa (hari) </th>
-                                            <th>Jumlah Set x Harga (Rp.)</th>
-                                            <th>Stok</th>
-                                            <th>Total (Rp.)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($show = mysqli_fetch_array($queryItem)) {
-                                            $idTrans = $show['ID_TRANSAKSI'];
-                                            $idPenyewa = $show['ID_PENYEWA'];
-                                            $ongkir = $show['BIAYA'];
-                                            $hargaItem = $show['HARGA_ITEM'];
-                                            $jumlahSet = $show['JUMLAH_SET'];
-                                            $stok = $show['STOK'];
-                                            $status = $show['STATUS'];
+                                <!-- <div class="container-fluid"> -->
+                                <div class="col-md-8">
+                                    <center>
+                                        <h3> Detail Stock Barang </h3>
+                                    </center>
+                                    <br>
+                                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php  ?> </b> </h4>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr align="left">
+                                                        <th>No.</th>
+                                                        <th>Masa Sewa (hari) </th>
+                                                        <th>Jumlah Set x Harga (Rp.)</th>
+                                                        <th>Stok</th>
+                                                        <th>Total (Rp.)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php while ($show = mysqli_fetch_array($queryItem)) {
+                                                        $idTrans = $show['ID_TRANSAKSI'];
+                                                        $idPenyewa = $show['ID_PENYEWA'];
+                                                        $ongkir = $show['BIAYA'];
+                                                        $hargaItem = $show['HARGA_ITEM'];
+                                                        $jumlahSet = $show['JUMLAH_SET'];
+                                                        $stok = $show['STOK'];
+                                                        $status = $show['STATUS'];
 
-                                            $totalPaket = ($hargaItem * $jumlahSet) * $stok;
-                                            $totalHarga = $totalHarga + $totalPaket;
-                                            $jaminan = $totalHarga * (30 / 100);
-                                            $totalPembayaran = $totalHarga + $ongkir + $jaminan;
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $index++; ?></td>
-                                                <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
-                                                <td><?php echo $stok; ?></td>
-                                                <td>Rp. <?php echo $totalPaket; ?>,00</td>
-                                            </tr>
-                                        <?php } ?>
-                                        <tr>
-                                            <td colspan="3"> </td>
-                                            <td><b> Sub Total : </b></td>
-                                            <td><b> Rp. <?php echo $totalHarga;  ?></b></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3"> </td>
-                                            <td><b> Jaminan : </b></td>
-                                            <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3"> </td>
-                                            <td><b> Ongkos Kirim : </b></td>
-                                            <td><b>Rp. <?php echo $ongkir; ?></b></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3"> </td>
-                                            <td><b> Total Harga : </b></td>
-                                            <td><b>Rp. <?php echo $totalPembayaran; ?></b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalHarga = $totalHarga + $totalPaket;
+                                                        $jaminan = $totalHarga * (30 / 100);
+                                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+                                                    ?>
+                                                        <tr align="left">
+                                                            <td><?php echo $index++; ?></td>
+                                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
+                                                            <td><?php echo $stok; ?></td>
+                                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr align="left">
+                                                        <td colspan="3"> </td>
+                                                        <td><b> Sub Total : </b></td>
+                                                        <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
+                                                    </tr>
+                                                    <tr align="left">
+                                                        <td colspan="3"> </td>
+                                                        <td><b> Jaminan : </b></td>
+                                                        <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
+                                                    </tr>
+                                                    <tr align="left">
+                                                        <td colspan="3"> </td>
+                                                        <td><b> Biaya Pengiriman : </b></td>
+                                                        <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
+                                                    </tr>
+                                                    <tr align="left">
+                                                        <td colspan="3"> </td>
+                                                        <td><b> Total Harga : </b></td>
+                                                        <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b>
+                                    </div>
+                                </div>
+                                <!-- </div> -->
                             </div>
-                            <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b>
                         </div>
-            </div>
-        <!-- </div> -->
-    </div>
-    </div>
-    </div>
-                        </div>
-                        
                     </div>
                 </div>
+
             </div>
         </div>
+    </div>
+    </div>
 
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
-        <!-- bootstrap JS
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap JS
         ============================================ -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- wow JS
+    <script src="js/bootstrap.min.js"></script>
+    <!-- wow JS
         ============================================ -->
-        <script src="js/wow.min.js"></script>
-        <!-- price-slider JS
+    <script src="js/wow.min.js"></script>
+    <!-- price-slider JS
         ============================================ -->
-        <script src="js/jquery-price-slider.js"></script>
-        <!-- meanmenu JS
+    <script src="js/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
         ============================================ -->
-        <script src="js/jquery.meanmenu.js"></script>
-        <!-- owl.carousel JS
+    <script src="js/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
         ============================================ -->
-        <script src="js/owl.carousel.min.js"></script>
-        <!-- sticky JS
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- sticky JS
         ============================================ -->
-        <script src="js/jquery.sticky.js"></script>
-        <!-- scrollUp JS
+    <script src="js/jquery.sticky.js"></script>
+    <!-- scrollUp JS
         ============================================ -->
-        <script src="js/jquery.scrollUp.min.js"></script>
-        <!-- mCustomScrollbar JS
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
         ============================================ -->
-        <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-        <!-- metisMenu JS
+    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
         ============================================ -->
-        <script src="js/metisMenu/metisMenu.min.js"></script>
-        <script src="js/metisMenu/metisMenu-active.js"></script>
-        <!-- sparkline JS
+    <script src="js/metisMenu/metisMenu.min.js"></script>
+    <script src="js/metisMenu/metisMenu-active.js"></script>
+    <!-- sparkline JS
         ============================================ -->
-        <script src="js/sparkline/jquery.sparkline.min.js"></script>
-        <script src="js/sparkline/jquery.charts-sparkline.js"></script>
-        <!-- calendar JS
+    <script src="js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="js/sparkline/jquery.charts-sparkline.js"></script>
+    <!-- calendar JS
         ============================================ -->
-        <script src="js/calendar/moment.min.js"></script>
-        <script src="js/calendar/fullcalendar.min.js"></script>
-        <script src="js/calendar/fullcalendar-active.js"></script>
-        <!-- float JS
+    <script src="js/calendar/moment.min.js"></script>
+    <script src="js/calendar/fullcalendar.min.js"></script>
+    <script src="js/calendar/fullcalendar-active.js"></script>
+    <!-- float JS
         ============================================ -->
-        <script src="js/flot/jquery.flot.js"></script>
-        <script src="js/flot/jquery.flot.resize.js"></script>
-        <script src="js/flot/curvedLines.js"></script>
-        <script src="js/flot/flot-active.js"></script>
-        <!-- plugins JS
+    <script src="js/flot/jquery.flot.js"></script>
+    <script src="js/flot/jquery.flot.resize.js"></script>
+    <script src="js/flot/curvedLines.js"></script>
+    <script src="js/flot/flot-active.js"></script>
+    <!-- plugins JS
         ============================================ -->
-        <script src="js/plugins.js"></script>
-        <!-- main JS
+    <script src="js/plugins.js"></script>
+    <!-- main JS
         ============================================ -->
-        <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
 
 
 </body>
