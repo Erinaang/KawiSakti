@@ -13,12 +13,10 @@ date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d H:i:s");
 
 //SELECT KERANJANG buat dimasukin ke tabel transaksi
-$selectKeranjang = mysqli_query($mysqli, "SELECT SUM(JUMLAH_SET) AS jml, ti.STOK FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans' AND tr.STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
+$selectKeranjang = mysqli_query($mysqli, "SELECT SUM(JUMLAH_SET) AS jml FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans' AND tr.STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($selectKeranjang)) {
    $jumlahSet = $show['jml'];
-   $stok = $show['STOK'];
-   $total = $jumlahSet * $stok;
-   $totalSet = $totalSet + $total;
+   $totalSet = $totalSet + $jumlahSet;
 }
 
 if ($totalSet < 150) { //kalo jumlahnya kurang dari 150 

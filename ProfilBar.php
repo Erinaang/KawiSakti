@@ -24,16 +24,16 @@ while ($show = mysqli_fetch_array($profilUser)) {
 }
 
 //SELECT KERANJANG => ambil data apa aja yang ada di keranjang berdasarkan status ='cart'
-$queryKeranjang = mysqli_query($mysqli, "SELECT ti.STOK, ti.ID_TRANSAKSI_ITEM, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
+$queryKeranjang = mysqli_query($mysqli, "SELECT ti.ID_TRANSAKSI_ITEM, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr. STATUS='cart'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
-$queryCheckout = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
+$queryCheckout = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
-$queryUpload = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
+$queryUpload = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
-$queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.JUMLAH_SET) * ti.STOK) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS!='cart' AND tr.STATUS!='checkout' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
+$queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS!='cart' AND tr.STATUS!='checkout' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE html>
@@ -285,7 +285,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                         <th>No.</th>
                                                         <th>Masa Sewa (hari) </th>
                                                         <th>Jumlah Set x Harga (Rp.)</th>
-                                                        <th>Stok</th>
                                                         <th>Total Harga (Rp.)</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -300,9 +299,8 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                         $masaSewa = $show['MASA_SEWA'];
                                                         $hargaItem = $show['HARGA_ITEM'];
                                                         $jumlahSet = $show['JUMLAH_SET'];
-                                                        $stok = $show['STOK'];
 
-                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalPaket = $hargaItem * $jumlahSet;
                                                         $totalHarga = $totalHarga + $totalPaket;
                                                         $jaminan = $totalHarga * (30 / 100);
                                                         $totalPembayaranKeranjang = $totalHarga + $jaminan;
@@ -312,7 +310,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $masaSewa; ?> Hari</td>
                                                             <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo number_format ($hargaItem, 2, ",", "."); ?></td>
-                                                            <td><?php echo $stok; ?></td>
                                                             <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
                                                             <td><a href="delete-keranjang.php?ID_ITEM=<?php echo $idTransItem; ?>&ID_TRANS=<?php echo $idTrans;  ?>&TOTAL=<?php echo $totalPaket; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
                                                         </tr>
@@ -344,7 +341,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                         <th>No.</th>
                                                         <th>Masa Sewa (hari) </th>
                                                         <th>Jumlah Set x Harga (Rp.)</th>
-                                                        <th>Stok</th>
                                                         <th>Total Harga (Rp.)</th>
                                                     </tr>
                                                 </thead>
@@ -359,10 +355,9 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                         $masaSewa = $show['MASA_SEWA'];
                                                         $hargaItem = $show['HARGA_ITEM'];
                                                         $jumlahSet = $show['JUMLAH_SET'];
-                                                        $stok = $show['STOK'];
                                                         $jamPemesanan = $show['JAM_PEMESANAN'];
 
-                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalPaket = $hargaItem * $jumlahSet;
                                                         $totalHarga = $totalHarga + $totalPaket;
                                                         $jaminan = $totalHarga * (30 / 100);
                                                         $totalPembayaranCheckout = $totalHarga + $ongkir + $jaminan;
@@ -373,7 +368,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
                                                             <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo number_format ($show['HARGA_ITEM'], 2, ",", "."); ?></td>
-                                                            <td><?php echo $show['STOK']; ?></td>
                                                             <td>Rp. <?php echo number_format ($totalPaket, 2, ",", "."); ?></td>
                                                         </tr>
                                                     <?php } ?>
@@ -426,7 +420,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                         <th>No.</th>
                                                         <th>Masa Sewa (hari) </th>
                                                         <th>Jumlah Set x Harga (Rp.)</th>
-                                                        <th>Stok</th>
                                                         <th>Total Harga (Rp.)</th>
                                                     </tr>
                                                 </thead>
@@ -441,10 +434,9 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                         $masaSewa = $show['MASA_SEWA'];
                                                         $hargaItem = $show['HARGA_ITEM'];
                                                         $jumlahSet = $show['JUMLAH_SET'];
-                                                        $stok = $show['STOK'];
                                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                                         //KALKULASI TOTAL
-                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalPaket = $hargaItem * $jumlahSet;
                                                         $totalHarga = $totalHarga + $totalPaket;
                                                         $jaminan = $totalHarga * (30 / 100);
                                                         $totalPembayaranCheckout = $totalHarga + $ongkir + $jaminan;
@@ -456,7 +448,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.J
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
                                                             <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo number_format ($show['HARGA_ITEM'], 2, ",", "."); ?>,00</td>
-                                                            <td><?php echo $show['STOK']; ?></td>
                                                             <td>Rp. <?php echo number_format ($totalPaket, 2, ",", "."); ?></td>
                                                         </tr>
                                                     <?php } ?>

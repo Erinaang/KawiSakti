@@ -12,7 +12,7 @@ while ($show = mysqli_fetch_array($queryAdmin)) {
 $index = 1;
 $totalHarga = 0;
 $idTrans = $_GET['ID_TRANS'];
-$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 
@@ -293,7 +293,6 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                                                         <th>No.</th>
                                                         <th>Masa Sewa (hari) </th>
                                                         <th>Jumlah Set x Harga (Rp.)</th>
-                                                        <th>Stok</th>
                                                         <th>Total (Rp.)</th>
                                                     </tr>
                                                 </thead>
@@ -304,10 +303,9 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                                                         $ongkir = $show['BIAYA'];
                                                         $hargaItem = $show['HARGA_ITEM'];
                                                         $jumlahSet = $show['JUMLAH_SET'];
-                                                        $stok = $show['STOK'];
                                                         $status = $show['STATUS'];
 
-                                                        $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                                                        $totalPaket = $hargaItem * $jumlahSet;
                                                         $totalHarga = $totalHarga + $totalPaket;
                                                         $jaminan = $totalHarga * (30 / 100);
                                                         $totalPembayaran = $totalHarga + $ongkir + $jaminan;
@@ -316,7 +314,6 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, ti.STOK, pk.J
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
                                                             <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
-                                                            <td><?php echo $stok; ?></td>
                                                             <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
                                                         </tr>
                                                     <?php } ?>

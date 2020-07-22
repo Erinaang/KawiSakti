@@ -23,7 +23,7 @@ $UpdateIdAdmin = mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin'
 
 
 /// SELECT data barang di email
-$detailItem = mysqli_query($mysqli, "SELECT ti.STOK, tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$detailItem = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 $dataPenyewa = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `USER` AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($dataPenyewa)) {
@@ -57,7 +57,6 @@ $mail->Body         =  '<b>Hai, pelanggan PT. Kawi Sakti Megah. Barang yang anda
     <th>No.</th>
     <th>Masa Sewa (hari) </th>
     <th>Jumlah Set x Harga (Rp.)</th>
-    <th>Stok</th>
     <th>Total Harga (Rp.)</th>
   </tr>
 </thead>
@@ -72,10 +71,9 @@ while ($show = mysqli_fetch_array($detailItem)) {
   $masaSewa = $show['MASA_SEWA'];
   $hargaItem = $show['HARGA_ITEM'];
   $jumlahSet = $show['JUMLAH_SET'];
-  $stok = $show['STOK'];
   $jamPemesanan = $show['JAM_PEMESANAN'];
 
-  $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+  $totalPaket = $hargaItem * $jumlahSet;
   $totalHarga = $totalHarga + $totalPaket;
   $jaminan = $totalHarga * (30 / 100);
   $totalPembayaran = $totalHarga + $ongkir + $jaminan;
@@ -84,7 +82,6 @@ while ($show = mysqli_fetch_array($detailItem)) {
       <td>' . $index++ . '</td>
       <td>' . $masaSewa . ' Hari</td>
       <td>' . $jumlahSet . ' Set x Rp. ' . $hargaItem . ',00</td>
-      <td>' . $stok . '</td>
       <td>Rp. ' . $totalPaket . ',00</td>
     </tr>';
 }

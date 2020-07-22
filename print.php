@@ -21,7 +21,7 @@ while ($show = mysqli_fetch_array($queryPenyewa)) {
 
 
 
-$queryPrint = mysqli_query($mysqli, "SELECT *, ti.STOK AS stokPesan FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryPrint = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
@@ -88,7 +88,6 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 <th>Frame</th>
                 <th>Masa Sewa (hari) </th>
                 <th>Jumlah Set x Harga (Rp.)</th>
-                <th>Stok</th>
                 <th>Total Harga (Rp.)</th>
               </tr>
             </thead>
@@ -103,14 +102,13 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 $masaSewa = $show['MASA_SEWA'];
                 $hargaItem = $show['HARGA_ITEM'];
                 $jumlahSet = $show['JUMLAH_SET'];
-                $stok = $show['stokPesan'];
                 $jamPemesanan = $show['JAM_PEMESANAN'];
                 $status = $show['STATUS'];
                 $proyek = $show['PROYEK'];
                 $tglSewa = $show['TGL_SEWA'];
                 $tglKembali = $show['TGL_KEMBALI'];
 
-                $totalPaket = ($hargaItem * $jumlahSet) * $stok;
+                $totalPaket = $hargaItem * $jumlahSet;
                 $totalHarga = $totalHarga + $totalPaket;
                 $jaminan = $totalHarga * (30 / 100);
                 $totalPembayaran = $totalHarga + $ongkir + $jaminan;
@@ -120,7 +118,6 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                   <td><?php echo $show['FRAME']; ?></td>
                   <td><?php echo $masaSewa; ?> Hari</td>
                   <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaItem; ?>,00</td>
-                  <td><?php echo $stok; ?></td>
                   <td>Rp. <?php echo $totalPaket; ?>,00</td>
                 </tr>
               <?php } ?>

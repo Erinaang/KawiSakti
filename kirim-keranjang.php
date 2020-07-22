@@ -23,7 +23,6 @@ while ($show = mysqli_fetch_array($selectTransaksi)) {
 
 if (isset($_POST['submit'])) {
     $idPaket = $_POST['ID_PAKET'];
-    $stok = $_POST['stok'];
     $jamPesan = $time;
     $total = NULL;
 
@@ -34,7 +33,7 @@ if (isset($_POST['submit'])) {
             $harga = $show['HARGA'];
             $masaSewa = $show['MASA_SEWA'];
         }
-        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', STOK='$stok'") or die("data salah:2 " . mysqli_error($mysqli));
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga'") or die("data salah:2 " . mysqli_error($mysqli));
     } else {
         $insertTransaksi = mysqli_query($mysqli, "INSERT INTO transaksi SET ID_PENYEWA='$idUser', STATUS='cart'") or die("data salah:3 " . mysqli_error($mysqli));
         $selectTransaksi = mysqli_query($mysqli, "SELECT * FROM transaksi WHERE ID_PENYEWA='$idUser' ORDER BY ID_TRANSAKSI DESC LIMIT 1") or die("data salah:4 " . mysqli_error($mysqli));
@@ -48,9 +47,7 @@ if (isset($_POST['submit'])) {
             $total = $jumlahSet * $harga;
         }
 
-        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga', STOK='$stok'") or die("data salah:6 " . mysqli_error($mysqli));
-        $UpdateStokPaket = mysqli_query($mysqli, "UPDATE paket SET STOK=STOK-'$stok' WHERE ID_PAKET='$idPaket'") or die("data salah:6 " . mysqli_error($mysqli));
-        
+        $insertTransaksiItem = mysqli_query($mysqli, "INSERT INTO transaksi_item SET ID_TRANSAKSI='$idTransaksi', ID_PAKET='$idPaket', HARGA_ITEM='$harga'") or die("data salah:6 " . mysqli_error($mysqli));
     }
 
     if ($insertTransaksiItem) {

@@ -108,12 +108,11 @@ if ($mail->Send()) {
     $masaSewa = $show['MASA_SEWA'];
     $jmlSet = $show['JUMLAH_SET'];
     $harga = $show['HARGA'];
-    $stok = $show['STOK'];
     $setRusak = $show['SET_RUSAK'];
     $biayaRusak = $show['BIAYA_RUSAK'];
     
     $insertLog = mysqli_query($mysqli, "INSERT INTO `log_transaksi`(`ID_LOG_TRANSAKSI`,`NAMA_PENYEWA`, `NO_TELP`, `ALAMAT_PENYEWA`, `NAMA_ADMIN`, `JENIS_PENGIRIMAN`, `ONGKIR`, `BUKIT_PEMBAYARAN`, `BUKTI_KTP`, `ALAMAT`, `PROYEK`, `JAM_PEMESANAN`, `TGL_SEWA`, `TGL_KEMBALI`, `STATUS`) VALUES ('$idTrans','$namaPenyewa','$noTelp','$alamatPenyewa','$namaAdmin','$jenisPengiriman','$ongkir','$bktPembayaran','$bktKtp','$alamat','$proyek','$jamPesan','$tglSewa','$tglKembali','$status')");
-    $insertLogItem = mysqli_query($mysqli, "INSERT INTO `log_item`(`ID_LOG_TRANSAKSI`, `FRAME`, `MASA_SEWA`, `JUMLAH_SET`, `HARGA`, `STOK`, `SET_RUSAK`, `BIAYA`) VALUES ('$idTrans','$frame','$masaSewa','$jmlSet','$harga','$stok','$setRusak','$biayaRusak')") or die("data salah: " . mysqli_error($mysqli));
+    $insertLogItem = mysqli_query($mysqli, "INSERT INTO `log_item`(`ID_LOG_TRANSAKSI`, `FRAME`, `MASA_SEWA`, `JUMLAH_SET`, `HARGA`, `SET_RUSAK`, `BIAYA`) VALUES ('$idTrans','$frame','$masaSewa','$jmlSet','$harga','$setRusak','$biayaRusak')") or die("data salah: " . mysqli_error($mysqli));
 
   }
 

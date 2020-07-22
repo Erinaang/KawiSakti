@@ -16,7 +16,7 @@ if ($_POST['cari'] == null) {
     $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' || tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
 }
 
-$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.JUMLAH_SET) * ti.STOK) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
+$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -270,8 +270,8 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                                    
+                                    <?php
+
                                     while ($show = mysqli_fetch_array($dataTransaksi)) {
                                         $idTrans = $show['ID_TRANSAKSI'];
                                         $idTransItem = $show['ID_TRANSAKSI_ITEM'];
@@ -301,12 +301,12 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum((ti.HARGA_ITEM * pk.
                                                 } else if ($status === "terkirim") {
                                                     echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $idPenyewa . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {
-                                                    echo '<a href="../../print.php?ID_TRANS=' . $idTrans.'"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
+                                                    echo '<a href="../../print.php?ID_TRANS=' . $idTrans . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>';
                                                 }
                                                 ?>
-                                                 <a href="data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed" >cek Stock </i></a>
+                                                <a href="data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed">cek Stock </i></a>
                                                 <a href="hapus-transaksi.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
-                                                
+
                                             </td>
 
                                         </tr>
