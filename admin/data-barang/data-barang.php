@@ -6,6 +6,8 @@ if (!isset($_SESSION["username"])) {
 include "../connection/Connection.php";
 
 $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die("data salah: " . mysqli_error($mysqli));
+$stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysqli_error($mysqli));
+
 
 ?>
 
@@ -208,13 +210,19 @@ $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
+
+        
+
+
         <div class="product-cart-area mg-b-30">
             <div class="container-fluid">
                 <div class="row">
+                
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-cart-inner">
                             <div id="example-basic">
@@ -229,6 +237,25 @@ $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die
                                                     <div class="col-md-2">
                                                         <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
                                                     </div>
+
+                                                 
+                                                    <div class="col-md-10">
+                                                        <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Frame</th>
+                                                                <th>Stok Set Scaffolding</th>
+                                                            </tr>
+                                                        </thead>
+                                                            <tbody>
+                                                            <?php while ($show = mysqli_fetch_array($stok)) { ?>
+                                                            <tr>
+                                                                <td><?php echo $show['FRAME']; ?></td>
+                                                                <td><?php echo $show['STOK']; ?></td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                
                                                     <div class="col-md-10">
                                                         <h2><?php echo $frame; ?></h2>
                                                         <table>

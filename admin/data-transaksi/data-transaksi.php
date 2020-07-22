@@ -17,8 +17,6 @@ include "../connection/Connection.php";
 // }
 
 $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
-$stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysqli_error($mysqli));
-
 ?>
 
 <!DOCTYPE HTML>
@@ -256,26 +254,7 @@ $stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysq
                             </div>
                         </form>
                         <br>
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Frame</th>
-                                        <th>Stok Set Scaffolding</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php while ($show = mysqli_fetch_array($stok)) { ?>
-                                <tr>
-                                    <td><?php echo $show['FRAME']; ?></td>
-                                    <td><?php echo $show['STOK']; ?></td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-
-
-
+                        
                         <div class="table-responsive-md">
                             <table class="table table-bordered">
                                 <thead>
