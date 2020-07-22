@@ -388,8 +388,9 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                         </div>
                                     </div>
                                     <form action="kirim-data-checkout.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" method="POST" enctype="multipart/form-data">
-                                        <div class="col-md-6"> <br>
-                                            <div class="form-group">
+                                        
+                                        <div class="col-md-6"> <br><br>
+                                            <div class="form-group"><br>
                                                 <label for="exampleFormControlTextarea1"> <b>Alamat</b></label>
                                                 <textarea class="form-control" name="alamat" placeholder="Masukkan alamat pengiriman secara lengkap" required></textarea>
                                             </div>
@@ -405,6 +406,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                             <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a>
                                         </div>
                                     </form>
+                                    <br>
                                     <!-- <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a> -->
                                 </div>
                             </div>
@@ -499,7 +501,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                             <th>Biaya Pengiriman</th>
                                                             <th>Total Pembayaran</th>
                                                             <th>Status</th>
-                                                            <th>Tools</th>
+                                                            <th>Aksi</th>
                                                         </b>
                                                     </tr>
                                                 </thead>

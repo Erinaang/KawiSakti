@@ -297,8 +297,8 @@ if (isset($_POST['submit'])) {
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
-                                                        <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10">
-                                                        <a href="" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                        <input type="submit" name="submit" value="Simpan" class="btn btn-ctl-bt waves-effect waves-light m-r-10">
+                                                        <a href="" type="button" class="btn btn-ctl-bt waves-effect waves-light">Batal</a>
                                                     </div>
                                                 </div>
                                             </div>
