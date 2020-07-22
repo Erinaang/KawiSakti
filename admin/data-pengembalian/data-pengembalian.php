@@ -279,7 +279,7 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                                         $totalPembayaran = $totalPaket + $ongkir + $jaminan; ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo $totalPembayaran; ?></td>
+                                            <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
                                             <td><?php echo date('d-M-Y',strtotime ($show['TGL_KEMBALI'])); ?></td>

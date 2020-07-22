@@ -323,10 +323,10 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         <td><b> Rp. <?php echo number_format ($totalPembayaranKeranjang, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                 </tbody>
-                                            </table>
+                                            </table><br> <br>
                                             <a href="kirim-checkout.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                             <!-- CHECKOUT -->
@@ -407,7 +407,8 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                     </form>
                                     <!-- <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a> -->
                                 </div>
-                            </div>
+                            </div> 
+                        </div>
                             <!-- UPLOAD -->
                             <div id="Upload" class="tabcontent">
                                 <div class="product-status-wrap">
@@ -483,6 +484,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                     </form>
                                 </div>
                             </div>
+                    </div>
                             <!-- RIWAYAT -->
                             <div id="Riwayat" class="tabcontent">
                                 <div class="product-status-wrap">

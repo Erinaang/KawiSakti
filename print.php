@@ -117,29 +117,29 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                   <td><?php echo $index++; ?></td>
                   <td><?php echo $show['FRAME']; ?></td>
                   <td><?php echo $masaSewa; ?> Hari</td>
-                  <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo $hargaItem; ?>,00</td>
-                  <td>Rp. <?php echo $totalPaket; ?>,00</td>
+                  <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo number_format($hargaItem, 2, ",", "."); ?></td>
+                  <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
                 </tr>
               <?php } ?>
               <tr>
                 <td colspan="3"> </td>
                 <td><b> Sub Total : </b></td>
-                <td><b> Rp. <?php echo $totalHarga; ?></b></td>
+                <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", "."); ?></b></td>
               </tr>
               <tr>
                 <td colspan="3"> </td>
                 <td><b> Jaminan : </b></td>
-                <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
+                <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
               </tr>
               <tr>
                 <td colspan="3"> </td>
                 <td><b> Ongkos Kirim : </b></td>
-                <td><b>Rp. <?php echo $ongkir; ?></b></td>
+                <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
               </tr>
               <tr>
                 <td colspan="3"> </td>
                 <td><b> Total Harga : </b></td>
-                <td><b>Rp. <?php echo $totalPembayaran; ?></b></td>
+                <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
               </tr>
             </tbody>
           </table>
@@ -174,14 +174,14 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                   <tr>
                     <td><?php echo $index++; ?></td>
                     <td><?php echo $show['FRAME']; ?></td>
-                    <td><?php echo $setRusak;  ?> Set x Rp. <?php echo $biayaRusak; ?>,00</td>
-                    <td>Rp. <?php echo $totalDenda; ?>,00</td>
+                    <td><?php echo $setRusak;  ?> Set x Rp. <?php echo number_format($biayaRusak, 2, ",", "."); ?></td>
+                    <td>Rp.<?php echo number_format($totalDendaAkhir, 2, ",", "."); ?></td>
                   </tr>
                 <?php } ?>
                 <tr>
                   <td colspan="1"> </td>
                   <td><b> Total : </b></td>
-                  <td><b> Rp. <?php echo $totalDendaAkhir; ?></b></td>
+                  <td><b> Rp.<?php echo number_format($totalDendaAkhir, 2, ",", "."); ?></b></td>
                 </tr>
               </tbody>
             </table>
