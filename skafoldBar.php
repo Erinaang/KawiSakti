@@ -1,10 +1,9 @@
 <?php
 session_start();
 include 'koneksi/koneksi.php';
-
+$masaSewa = $_GET['MASA_SEWA'];
 $queryFilter = mysqli_query($mysqli, "SELECT FRAME FROM paket GROUP BY FRAME") or die("data salah: " . mysqli_error($mysqli));
 $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP BY FRAME") or die("data salah: " . mysqli_error($mysqli));
-
 ?>
 
 <!DOCTYPE html>
@@ -140,7 +139,11 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $queryPaket = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME = '$frame' GROUP BY FRAME, JUMLAH_SET, MASA_SEWA") or die("data salah A: " . mysqli_error($mysqli));
+                                    if (isset($_GET['MASA_SEWA'])) {
+                                        $queryPaket = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME = '$frame' AND MASA_SEWA = '$masaSewa' GROUP BY FRAME, JUMLAH_SET, MASA_SEWA") or die("data salah A: " . mysqli_error($mysqli));
+                                    } else {
+                                        $queryPaket = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME = '$frame' GROUP BY FRAME, JUMLAH_SET, MASA_SEWA") or die("data salah A: " . mysqli_error($mysqli));
+                                    }
                                     while ($showPaket = mysqli_fetch_array($queryPaket)) {
                                         $masaSewa = $showPaket['MASA_SEWA'];
                                         $idPaketKeranjang = $showPaket['ID_PAKET']; ?>
@@ -151,7 +154,7 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                                                 <td><?php echo $showPaket['JUMLAH_SET']; ?> Set Scaffolding</td>
                                                 <td>Rp. <?php echo number_format($showPaket['HARGA'], 2, ",", "."); ?></td>
                                                 <td>
-                                                    <a type="button" id="modalStok" data-id="<?php echo $idPaketKeranjang; ?>" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Masukkan Keranjang</a>
+                                                    <a class="btn btn-primary" href="kirim-keranjang.php?ID_PAKET=<?php echo $idPaketKeranjang; ?>">Kirim Keranjang</a>
                                                 </td>
                                             </tr>
                                         </b>
@@ -161,28 +164,6 @@ $queryDetail = mysqli_query($mysqli, "SELECT FRAME, JUMLAH_SET FROM paket GROUP 
                         </div>
                     </div>
                 <?php } ?>
-            </div>
-            <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Keranjang</h4>
-                        </div>
-                        <form action="kirim-keranjang.php" method="post">
-                            <div class="modal-body">
-                                <p>Masukkan Jumlah Stok Paket Scaffolding</p>
-                                <input type="number" class="form-control" id="stok" name="stok">
-                                <input type="hidden" class="form-control" id="idPaket" name="ID_PAKET">
-                            </div>
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" name="submit">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

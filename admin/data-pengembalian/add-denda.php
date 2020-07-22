@@ -8,7 +8,7 @@ include "../connection/Connection.php";
 $idItem = $_GET['ID_ITEM'];
 
 //query tampil tabel pengembalian
-$queryKeranjang = mysqli_query($mysqli, "SELECT * FROM `transaksi_item` AS ti JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE ti.ID_TRANSAKSI_ITEM='$idItem'") or die("data salah: " . mysqli_error($mysqli));
+$queryItem = mysqli_query($mysqli, "SELECT * FROM `transaksi_item` AS ti JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE ti.ID_TRANSAKSI_ITEM='$idItem'") or die("data salah: " . mysqli_error($mysqli));
 
 
 if (isset($_POST['submit'])) {
@@ -250,19 +250,19 @@ if (isset($_POST['submit'])) {
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                     <div class="review-content-section">
-                                                    <?php while ($show = mysqli_fetch_array($queryKeranjang)) { ?>
+                                                    <?php while ($show = mysqli_fetch_array($queryItem)) { ?>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Frame :</i></span>
                                                             <p class="form-control"><?php echo $show['FRAME']; ?></p>
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Set Rusak :</i></span>
-                                                            <input name="set_rusak" type="text" class="form-control">
+                                                            <input name="set_rusak" type="number" class="form-control" min="0 " max="<?php echo $show['JUMLAH_SET']; ?>">
                                                             <input name="id_trans" type="hidden" class="form-control" value="<?php echo $show['ID_TRANSAKSI']; ?>">
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Biaya (/set) : Rp.</i></span>
-                                                            <input name="biaya_rusak" type="text" class="form-control">
+                                                            <input name="biaya_rusak" type="number" min="0" class="form-control">
                                                         </div>
                                                         <?php } ?>
                                                     </div>

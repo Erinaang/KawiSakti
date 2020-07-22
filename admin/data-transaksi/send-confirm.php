@@ -23,7 +23,7 @@ $UpdateIdAdmin = mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin'
 
 
 /// SELECT data barang di email
-$detailItem = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$detailItem = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET,pk.FRAME, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 $dataPenyewa = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `USER` AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($dataPenyewa)) {
@@ -68,6 +68,7 @@ while ($show = mysqli_fetch_array($detailItem)) {
   $idTrans = $show['ID_TRANSAKSI'];
   $idTransItem = $show['ID_TRANSAKSI_ITEM'];
   $ongkir = $show['BIAYA'];
+  $frame = $show['FRAME'];
   $masaSewa = $show['MASA_SEWA'];
   $hargaItem = $show['HARGA_ITEM'];
   $jumlahSet = $show['JUMLAH_SET'];
@@ -80,28 +81,29 @@ while ($show = mysqli_fetch_array($detailItem)) {
 
   $mail->Body         .=    '<tr>
       <td>' . $index++ . '</td>
+      <td>' . $frame . '</td>
       <td>' . $masaSewa . ' Hari</td>
       <td>' . $jumlahSet . ' Set x Rp. ' . $hargaItem . ',00</td>
       <td>Rp. ' . $totalPaket . ',00</td>
     </tr>';
 }
 $mail->Body         .= '<tr>
-    <td colspan="2"> </td>
+    <td colspan="3"> </td>
     <td><b> Sub Total : </b></td>
     <td><b> Rp. ' . $totalHarga . '</b></td>
   </tr>
   <tr>
-    <td colspan="2"> </td>
+    <td colspan="3"> </td>
     <td><b> Jaminan : </b></td>
     <td><b>Rp. ' . $jaminan . ' (30%) </b></td>
   </tr>
   <tr>
-    <td colspan="2"> </td>
+    <td colspan="3"> </td>
     <td><b> Ongkos Kirim : </b></td>
     <td><b>Rp. ' . $ongkir . '</b></td>
   </tr>
   <tr>
-    <td colspan="2"> </td>
+    <td colspan="3"> </td>
     <td><b> Total Harga : </b></td>
     <td><b>Rp. ' . $totalPembayaran . '</b></td>
   </tr>

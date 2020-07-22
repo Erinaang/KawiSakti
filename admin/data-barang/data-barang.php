@@ -236,7 +236,7 @@ $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die
                                                                 <tr>
                                                                     <th>Frame</th>
                                                                     <th>Masa Sewa</th>
-                                                                    <th>Jumlah Set</th>                                                               
+                                                                    <th>Jumlah Set</th>                                                           
                                                                     <th>Harga</th>
                                                                     <th>Action</th>
                                                                 </tr>

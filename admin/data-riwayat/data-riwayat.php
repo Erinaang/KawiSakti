@@ -280,12 +280,13 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo $totalPembayaran; ?></td>
+                                            <td>Rp.  <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
+                                            <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed" >cek Stock </i></a>
                                                 <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>
                                                 <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
                                             </td>
@@ -325,7 +326,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         $jmlSet = $show['JML_SET'];
                                         $ongkir = $show['ONGKIR'];
                                         
-                                        $totalHargaPerbulan = ($show['TOTAL_HARGA'] * $jmlSet);
+                                        $totalHargaPerbulan = $show['TOTAL_HARGA'] * $jmlSet;
                                         $totalDenda = $show['TOTAL_DENDA'];
 
                                         $total = $total + $totalHargaPerbulan + $totalDenda+ $ongkir;

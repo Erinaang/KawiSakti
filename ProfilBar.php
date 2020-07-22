@@ -315,11 +315,11 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
-                                                        <td colspan="4"> <b> Total Harga : </b></td>
+                                                        <td colspan="3"> <b> Total Harga : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($totalHarga , 2, ",", "."); ?>+ Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4"> <b> Total Pembayaran : </b></td>
+                                                        <td colspan="3"> <b> Total Pembayaran : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($totalPembayaranKeranjang, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                 </tbody>
@@ -372,15 +372,15 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
-                                                        <td colspan="4"> <b> Total Harga : </b></td>
+                                                        <td colspan="3"> <b> Total Harga : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", "."); ?> + Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4"> <b> Ongkir : </b></td>
+                                                        <td colspan="3"> <b> Ongkir : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4"> <b> Total Pembayaran : </b></td>
+                                                        <td colspan="3"> <b> Total Pembayaran : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($totalPembayaranCheckout, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                 </tbody>
@@ -452,15 +452,15 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
-                                                        <td colspan="4"> <b> Total Harga : </b></td>
+                                                        <td colspan="3"> <b> Total Harga : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", "."); ?> + Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4"> <b> Ongkir : </b></td>
+                                                        <td colspan="3"> <b> Ongkir : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4"> <b> Total Pembayaran : </b></td>
+                                                        <td colspan="3"> <b> Total Pembayaran : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($totalPembayaranCheckout, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                 </tbody>

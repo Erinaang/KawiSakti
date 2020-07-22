@@ -260,7 +260,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                     <?php while ($show = mysqli_fetch_array($pengiriman)) { ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td><?php echo $show['BIAYA']; ?></td>
+                                            <td> <?php echo number_format($show['BIAYA'], 2, ",", "."); ?></td>
                                             <td><?php echo $show['MAX']; ?></td>
                                             <td>
                                                 <a href="edit-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>

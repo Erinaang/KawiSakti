@@ -121,22 +121,22 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                             </tr>
                                         <?php } ?>
                                         <tr>
-                                            <td colspan="3"> </td>
+                                            <td colspan="2"> </td>
                                             <td><b> Sub Total : </b></td>
                                             <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", ".");  ?></b></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"> </td>
+                                            <td colspan="2"> </td>
                                             <td><b> Jaminan : </b></td>
                                             <td><b>Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"> </td>
+                                            <td colspan="2"> </td>
                                             <td><b> Biaya Pengiriman : </b></td>
                                             <td><b>Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"> </td>
+                                            <td colspan="2"> </td>
                                             <td><b> Total Harga : </b></td>
                                             <td><b>Rp. <?php echo number_format ($totalPembayaran, 2, ",", "."); ?></b></td>
                                         </tr>

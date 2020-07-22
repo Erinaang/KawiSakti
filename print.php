@@ -122,22 +122,22 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 </tr>
               <?php } ?>
               <tr>
-                <td colspan="4"> </td>
+                <td colspan="3"> </td>
                 <td><b> Sub Total : </b></td>
                 <td><b> Rp. <?php echo $totalHarga; ?></b></td>
               </tr>
               <tr>
-                <td colspan="4"> </td>
+                <td colspan="3"> </td>
                 <td><b> Jaminan : </b></td>
                 <td><b>Rp. <?php echo $jaminan; ?> (30%) </b></td>
               </tr>
               <tr>
-                <td colspan="4"> </td>
+                <td colspan="3"> </td>
                 <td><b> Ongkos Kirim : </b></td>
                 <td><b>Rp. <?php echo $ongkir; ?></b></td>
               </tr>
               <tr>
-                <td colspan="4"> </td>
+                <td colspan="3"> </td>
                 <td><b> Total Harga : </b></td>
                 <td><b>Rp. <?php echo $totalPembayaran; ?></b></td>
               </tr>
@@ -179,7 +179,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                   </tr>
                 <?php } ?>
                 <tr>
-                  <td colspan="2"> </td>
+                  <td colspan="1"> </td>
                   <td><b> Total : </b></td>
                   <td><b> Rp. <?php echo $totalDendaAkhir; ?></b></td>
                 </tr>
