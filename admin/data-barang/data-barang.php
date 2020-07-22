@@ -156,12 +156,12 @@ $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
-                                                        <span class="admin-name">Setting |</span>
+                                                        <span class="admin-name">Log out |</span>
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
-                                                        </li>
+                                                        <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
+                                                        </li> -->
                                                         <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
@@ -238,7 +238,7 @@ $queryFrame = mysqli_query($mysqli, "SELECT * FROM paket GROUP BY FRAME") or die
                                                                     <th>Masa Sewa</th>
                                                                     <th>Jumlah Set</th>                                                           
                                                                     <th>Harga</th>
-                                                                    <th>Action</th>
+                                                                    <th>Aksi</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

@@ -17,6 +17,8 @@ include "../connection/Connection.php";
 // }
 
 $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
+$stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysqli_error($mysqli));
+
 ?>
 
 <!DOCTYPE HTML>
@@ -241,32 +243,53 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.J
                 <div class="product-status-wrap">
                     <div class="row">
                         <?php $cari = $_GET['cari'];  ?>
-                        <form action="" method="get" class="form-inline">
-                            <div class="form-group mb-2">
-                                <input type="text" id="myInput" name="cari" placeholder="Masukkan nama"><button type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-success"><i aria-hidden="true">Export PDF</i></a>
-                            </div>
-                        </form>
 
-                        <form action="" method="post">
-                            <input type="text" id="myInput" name="cari" placeholder="Search for names.."><button type="submit">Submit</button>
+                        
+                        <form action="" method="get" class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Cari</button>
+
+                        <div class="form-group mx-sm-3 mb-2">
+                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-primary"><i aria-hidden="true">Export PDF</i></a>
+                            </div>
                         </form>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <br>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Frame</th>
+                                        <th>Stok Set Scaffolding</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php while ($show = mysqli_fetch_array($stok)) { ?>
+                                <tr>
+                                    <td><?php echo $show['FRAME']; ?></td>
+                                    <td><?php echo $show['STOK']; ?></td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+
+
+
+                        <div class="table-responsive-md">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Nama Penyewa</th>
                                         <th>Total</th>
                                         <th>Jaminan</th>
-                                        <th>Ongkir</th>
+                                        <th>Biaya Pengiriman</th>
                                         <th>Bukti Pembayaran & KTP</th>
                                         <th>Alamat</th>
                                         <th>Tanggal Sewa</th>
                                         <th>Tanggal Pengembalian</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

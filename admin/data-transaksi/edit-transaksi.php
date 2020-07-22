@@ -181,12 +181,12 @@ if (isset($_POST['submit'])) {
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
-                                                        <span class="admin-name">Setting |</span>
+                                                        <span class="admin-name">Log out |</span>
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
-                                                        </li>
+                                                        <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
+                                                        </li> -->
                                                         <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
@@ -225,7 +225,7 @@ if (isset($_POST['submit'])) {
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
+                                                <!-- <p>Welcome to PT Kawi Sakti Megah</span></p> -->
                                             </div>
                                         </div>
                                     </div>

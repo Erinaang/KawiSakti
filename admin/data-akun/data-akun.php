@@ -230,7 +230,7 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -241,7 +241,7 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                                         <th>Foto</th>
                                         <th>Nomor Telepon</th>
                                         <th>Alamat</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -256,7 +256,7 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                                             <td><?php echo $show['NO_TELP']; ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td>
-                                                <a href="hapus-akun.php?ID_USER=<?php echo $idPenyewa; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Delete</i></a>
+                                                <a href="hapus-akun.php?ID_USER=<?php echo $idPenyewa; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -264,7 +264,7 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                             </table>
                         </div>
 
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>

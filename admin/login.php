@@ -52,7 +52,7 @@
 						<span class="forget-pass">
 							<a href="forgot-password/forgot-password.php"><b>Lupa password?</a> <br>
 							<span class="forget-pass">
-							<a href="daftar.php">Buat akun</a> </b>
+							<a href="daftar.php">Buat Akun</a> </b>
 						</span>
 						</span><br>
 						<!-- <span class="Register">

@@ -167,12 +167,12 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                         <i class="icon nalika-settings author-log-ic"></i>
-                                                        <span class="admin-name">Setting |</span>
+                                                        <span class="admin-name">Log out |</span>
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
-                                                        </li>
+                                                        <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
+                                                        </li> -->
                                                         <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
@@ -207,7 +207,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
+                                                <!-- <p>Welcome to PT Kawi Sakti Megah</span></p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -237,11 +237,13 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
+                        
+                        <div class="col-md-10">
+                            <center><h3>Data Pengiriman</h3></center>
+                        </div>
+                        <br>
                         <div class="col-md-2">
                             <a class="btn btn-primary" href="tambah-pengiriman.php">Tambah Data</a>
-                        </div>
-                        <div class="col-md-10">
-                            <h3>Data Pengiriman</h3>
                         </div>
                     </div>
                     <br>
@@ -252,8 +254,8 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                     <tr>
                                         <th>Jenis Kendaraan</th>
                                         <th>Biaya</th>
-                                        <th>Max</th>
-                                        <th>Action</th>
+                                        <th>Maksimal Beban</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -263,8 +265,8 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                             <td> <?php echo number_format($show['BIAYA'], 2, ",", "."); ?></td>
                                             <td><?php echo $show['MAX']; ?></td>
                                             <td>
-                                                <a href="edit-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
-                                                <a href="hapus-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                                <a href="edit-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true">Edit</i></a>
+                                                <a href="hapus-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>

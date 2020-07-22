@@ -237,14 +237,17 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                     <div class="row">
 
                     <?php $cari = $_GET['cari'];  ?>
-                        <form action="" method="get" class="form-inline">
-                            <div class="form-group mb-2">                   
-                                <input type="text" id="myInput" name="cari" placeholder="Masukkan nama"><button type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-success"><i aria-hidden="true">Export PDF</i></a>                                                                             
+                    <form action="" method="get" class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Cari</button>
+
+                        <div class="form-group mx-sm-3 mb-2">
+                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-primary"><i aria-hidden="true">Export PDF</i></a>
                             </div>
                         </form>
+                        <br>
 
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                             <table class="table table-bordered">
@@ -257,7 +260,7 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                                         <th>Tanggal Pengembalian</th>
                                         <th>Denda</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -287,7 +290,7 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                                                     echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] .'" data-toggle="tooltip" title="Kembali" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kembali</i></a>';
                                                 }
                                                 ?>
-                                                <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                                <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>

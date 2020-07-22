@@ -175,8 +175,8 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
-                                                        </li>
+                                                        <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
+                                                        </li> -->
                                                         <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
                                                         </li>
                                                     </ul>
@@ -243,14 +243,18 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                     <div class="row">
                         <?php $cari = $_GET['cari'];  ?>
                         <form action="" method="get" class="form-inline">
-                            <div class="form-group mb-2">
-                                <input type="text" id="myInput" name="cari" placeholder="Masukkan nama"><button type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-success"><i aria-hidden="true">Export PDF</i></a>
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Cari</button>
+
+                        <div class="form-group mx-sm-3 mb-2">
+                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-primary"><i aria-hidden="true">Export PDF</i></a>
                             </div>
                         </form>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <br>
+
+                        <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -260,7 +264,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         <th>Tanggal Sewa</th>
                                         <th>Tanggal Pengembalian</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -286,9 +290,9 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_KEMBALI'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
-                                            <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed" >cek Stock </i></a>
-                                                <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Print </i></a>
-                                                <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a>
+                                            <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed" >Detail Transaksi</i></a>
+                                                <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>
+                                                <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -306,7 +310,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
