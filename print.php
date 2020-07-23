@@ -194,7 +194,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
-          <p>Barang tersebut akan di pakai untuk proyek (<?php echo $proyek; ?>)</p>
+          <p>Barang tersebut akan digunakan untuk kebutuhan proyek (<?php echo $proyek; ?>)</p>
           <p>
             Kami telah memahami dan bersedia memenuhi syarat-syarat atau ketentuan yang telah di
             tentukan oleh PT. Kawi Sakti Megah Kota Malang. <br>
