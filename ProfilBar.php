@@ -402,7 +402,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                 <label for="exampleFormControlInput1"><b> Tanggal Sewa</b></label>
                                                 <input type="date" class="form-control" name="tanggal" min='<?php echo $minTglSewa; ?>' required />
                                             </div>
-                                            <input class="btn btn-primary" name="submit" value="Kirim" type="submit" />
+                                            <input class="btn btn-primary" name="submit" value="Kirim" type="submit"  />
                                             <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a>
                                         </div>
                                     </form>

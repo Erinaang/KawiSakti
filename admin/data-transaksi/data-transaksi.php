@@ -7,14 +7,14 @@ if (!isset($_SESSION["username"])) {
 include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
-//SELECT DATA Riwayat
-// if ($_POST['cari'] == null) {
-//     $c = $_POST['cari'];
-//     $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER") or die("data salah: " . mysqli_error($mysqli));
-// } else {
-//     $c = $_POST['cari'];
-//     $dataTransaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' || tr.STATUS='terkirim' ") or die("data salah: " . mysqli_error($mysqli));
-// }
+
+if ($_POST['cari'] == null) {
+    $c = $_POST['cari'];
+    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
+} else {
+    $c = $_POST['cari'];
+    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC WHERE  us.NAMA like '%".$c."%' || tr.TGL_SEWA like '%".$c."%'") or die("data salah: " . mysqli_error($mysqli));
+}
 
 $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 ?>
