@@ -225,7 +225,7 @@ if (isset($_POST['submit'])) {
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
+                                                <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
                                                 <!-- <p>Welcome to PT Kawi Sakti Megah</span></p> -->
                                             </div>
                                         </div>
@@ -257,7 +257,7 @@ if (isset($_POST['submit'])) {
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="review-tab-pro-inner">
                                 <ul id="myTab3" class="tab-review-design">
-                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Edit Barang</a></li>
+                                    <li class="active"><a href="#edit"><i class="icon nalika-edit" aria-hidden="true"></i> Edit Paket Scaffolding</a></li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
                                     <form action="" method="post">
@@ -293,8 +293,8 @@ if (isset($_POST['submit'])) {
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
                                                         <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
-                                                        <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Save">
-                                                        <a href="data-barang.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                        <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Simpan">
+                                                        <a href="data-barang.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Batal</a>
                                                     </div>
                                                 </div>
                                             </div>

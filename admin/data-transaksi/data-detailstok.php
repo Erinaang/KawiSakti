@@ -253,7 +253,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcomb-wp">
                                             <div class="breadcomb-icon">
-                                                <i class="icon nalika-home"></i>
+                                                <!-- <i class="icon nalika-home"></i> -->
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
@@ -279,11 +279,12 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                             <div class="container-fluid">
                                 <!-- <div class="container-fluid"> -->
                                 <div class="col-md-8">
-                                    <center>
-                                        <h3> Detail Stock Barang </h3>
-                                    </center>
+                                    <!-- <center>
+                                        <h3> Detail Transaksi Penyewaan Scaffolding </h3>
+                                    </center> -->
                                     <br>
-                                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php  ?> </b> </h4>
+                                    <h4> <b> Tanggal Penyewaan &emsp; &emsp;&emsp; : <?php echo $tglSewa; ?> </b> </h4>
+                                    <h4> <b> Status Pengiriman &emsp;&emsp;&emsp;&emsp; : <?php echo $status; ?> </b> </h4>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -340,7 +341,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b>
+                                        <!-- <b> <a href="ProfilBar.php">Kembali ke Menu Profile</a> </b> -->
                                     </div>
                                 </div>
                                 <!-- </div> -->

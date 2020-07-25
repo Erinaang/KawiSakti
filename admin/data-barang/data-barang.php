@@ -258,7 +258,7 @@ $stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysq
                                             <div class="product-status-wrap border-pdt-ct">
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Barang</a>
+                                                        <a href="tambah-barang.php" type="button" class="btn btn-primary">Tambah Paket Scaffolding</a>
                                                     </div>
                                                     <div class="col-md-10">
                                                         <h2><?php echo $frame; ?></h2>

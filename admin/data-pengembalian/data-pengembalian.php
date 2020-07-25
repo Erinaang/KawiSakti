@@ -170,8 +170,8 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
-                                                        </li>
+                                                        <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
+                                                        </li> -->
                                                         <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>

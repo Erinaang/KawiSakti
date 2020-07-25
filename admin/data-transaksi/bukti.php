@@ -176,7 +176,9 @@ $transaksi = mysqli_query($mysqli, "SELECT* FROM transaksi WHERE ID_TRANSAKSI='$
         <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
-                    <a href="data-transaksi.php">kembali &times;</a>
+                <br>
+                    <a href="data-transaksi.php" class="btn btn-primary"> Kembali &times; </a>
+                    <br><br><br>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <table class="table table-bordered">
