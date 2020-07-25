@@ -106,7 +106,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 $status = $show['STATUS'];
                 $proyek = $show['PROYEK'];
                 $tglSewa = $show['TGL_SEWA'];
-                $tglKembali = $show['TGL_KEMBALI'];
+                $tglJatuhTempo = $show['TGL_JATUH_TEMPO'];
 
                 $totalPaket = $hargaItem * $jumlahSet;
                 $totalHarga = $totalHarga + $totalPaket;
@@ -222,7 +222,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p>Permohonan di atas untuk masa sewa: <?php echo $tglSewa; ?> s/d <?php echo $tglKembali; ?></p>
+          <p>Permohonan di atas untuk masa sewa: <?php echo $tglSewa; ?> s/d <?php echo $tglJatuhTempo; ?></p>
 
         </div>
       </div>

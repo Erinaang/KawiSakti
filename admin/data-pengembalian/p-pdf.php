@@ -45,7 +45,7 @@
                                 <td>Rp. <?php  ?></td>
                                 <td><?php echo $show['ALAMAT']; ?></td>
                                 <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
-                                <td><?php echo date('d-M-Y',strtotime ($show['TGL_KEMBALI'])); ?></td>
+                                <td><?php echo date('d-M-Y',strtotime ($show['TGL_JATUH_TEMPO'])); ?></td>
                                 <!-- <td> <a href="form-denda.php?ID_PENYEWA=<?php echo $show['ID_PENYEWA']; ?>" data-toggle="tooltip" title="Denda" class="btn btn-danger pd-setting-ed" ><i class="fa fa-trash-square-o" aria-hidden="true"> Denda</i></a></td> -->
                                 <td><?php echo $status; ?></td>
                                 </tr>

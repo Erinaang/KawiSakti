@@ -41,7 +41,7 @@
                                     <td>Rp. <?php  ?></td>
                                     <td><?php echo $show['ALAMAT']; ?></td>
                                     <td><?php echo date('d-M-Y',strtotime($show['TGL_SEWA'])); ?></td>
-                                    <td><?php echo date('d-M-Y',strtotime($show['TGL_KEMBALI'])); ?></td>
+                                    <td><?php echo date('d-M-Y',strtotime($show['TGL_JATUH_TEMPO'])); ?></td>
                                     <td><?php echo $show['statusTrans']; ?></td>
                                 </tr>
                             <?php }?>

@@ -19,14 +19,14 @@ if (isset($_POST['submit'])) {
    }
 
    //menghitung tanggal kembali berdasarkan tanggal sewa + masa sewa
-   $tgl_kembali = date('Y-m-d', strtotime('+' . $masaSewa . ' days', strtotime(str_replace('/', '-', $tanggal)))) . PHP_EOL;
+   $tglJatuhTempo = date('Y-m-d', strtotime('+' . $masaSewa . ' days', strtotime(str_replace('/', '-', $tanggal)))) . PHP_EOL;
 
    date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
    $time = date("Y-m-d H:i:s");
 
    //masukin data ke transaksi
    $queryInsert = mysqli_query($mysqli, "UPDATE transaksi SET STATUS='belum konfirmasi', ALAMAT='$alamat', PROYEK='$proyek', JAM_PEMESANAN='$time', TGL_SEWA='$tanggal', 
-      TGL_KEMBALI='$tgl_kembali' WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+      TGL_JATUH_TEMPO='$tglJatuhTempo' WHERE ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
    header("Location: ProfilBar.php"); //go to page profilbar
 } else {

@@ -6,6 +6,9 @@ if (!isset($_SESSION["username"])) {
 }
 include "../connection/Connection.php";
 
+date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
+$tglKembali = date("Y-m-d");
+
 //query tampil tabel pengembalian
 // $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
 
@@ -16,7 +19,7 @@ if ($_GET['cari'] == null) {
     $c = $_GET['cari'];
     $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' ||  tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
 }
-$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.FRAME, SUM(p.JUMLAH_SET) as JML_SET, SUM(ti.HARGA_ITEM) AS TOTAL_HARGA, SUM(ti.BIAYA_RUSAK) AS TOTAL_DENDA, SUM(pr.BIAYA) AS ONGKIR FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET JOIN pengiriman AS pr ON pr.ID_PENGIRIMAN = t.ID_PENGIRIMAN WHERE t.STATUS = 'selesai' GROUP BY p.FRAME, p.JUMLAH_SET") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
@@ -243,12 +246,12 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                     <div class="row">
                         <?php $cari = $_GET['cari'];  ?>
                         <form action="" method="get" class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Cari</button>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Cari</button>
 
-                        <div class="form-group mx-sm-3 mb-2">
+                            <div class="form-group mx-sm-3 mb-2">
                                 <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-primary"><i aria-hidden="true">Export PDF</i></a>
                             </div>
                         </form>
@@ -277,20 +280,22 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $status = $show['STATUS'];
 
+
+
                                         $totalPaket = $show['TOTAL'];
-                                        
+
                                         $jaminan = $totalPaket * (30 / 100);
                                         $totalPembayaran = $totalPaket + $ongkir + $jaminan;
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp.  <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
-                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_KEMBALI'])); ?></td>
+                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_JATUH_TEMPO'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
-                                            <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed" >Detail Transaksi</i></a>
+                                                <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
                                                 <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>
                                                 <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
                                             </td>
@@ -324,17 +329,17 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                 <tbody>
                                     <?php
                                     $index = 1;
-                                    while ($show = mysqli_fetch_array($dataPerbulan)) { 
+                                    while ($show = mysqli_fetch_array($dataPerbulan)) {
                                         $bulan = $show['BULAN'];
                                         $frame = $show['FRAME'];
                                         $jmlSet = $show['JML_SET'];
                                         $ongkir = $show['ONGKIR'];
-                                        
+
                                         $totalHargaPerbulan = $show['TOTAL_HARGA'] * $jmlSet;
                                         $totalDenda = $show['TOTAL_DENDA'];
 
-                                        $total = $total + $totalHargaPerbulan + $totalDenda+ $ongkir;
-                                        ?>
+                                        $total = $total + $totalHargaPerbulan + $totalDenda + $ongkir;
+                                    ?>
                                         <tr>
                                             <td><?php echo $index++; ?></td>
                                             <td><?php echo $bulan; ?></td>

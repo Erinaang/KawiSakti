@@ -49,7 +49,7 @@
                                             <!-- <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td> -->
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
-                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_KEMBALI'])); ?></td>
+                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_JATUH_TEMPO'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                 </tr>
                             <?php }?>

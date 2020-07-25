@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $alamat = $_POST['alamat'];
     $kota = $_POST['kota'];
     $tgl_sewa = $_POST['tgl_sewa'];
-    $tgl_kembali = $_POST['tgl_kembali'];
+    $tgl_jatuh_tempo = $_POST['TGL_JATUH_TEMPO'];
     $status = $_POST['status'];
 } ?>
 
@@ -311,7 +311,7 @@ if (isset($_POST['submit'])) {
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Tanggal Kembali :</i></span>
-                                                            <input name="tgl_kembali" type="text" class="form-control" value="<?php echo $show['tgl_kembali']; ?>">
+                                                            <input name="tgl_kembali" type="text" class="form-control" value="<?php echo $show['TGL_JATUH_TEMPO']; ?>">
                                                         </div>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Status :</i></span>
