@@ -12,7 +12,7 @@ $idTrans = $_GET['ID_TRANS'];
 $idPenyewa = $_GET['ID_PENYEWA'];
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
-$tglKembali = date("Y-m-d");
+$today = date("Y-m-d");
 
 //ambil id dan nama admin berdasarkan USERNAME (yang lagi login)
 $username = $_SESSION['username'];
@@ -79,7 +79,7 @@ if ($denda >= 1) {
 while ($show = mysqli_fetch_array($detailItem)) {
   $tglSewa = $show['TGL_SEWA'];
   $tglJatuhTempo = $show['TGL_JATUH_TEMPO'];
-  $datetime1 = strtotime($tglKembali);
+  $datetime1 = strtotime($today);
   $datetime2 = strtotime($tglJatuhTempo);
   $secs = $datetime1 - $datetime2;
   $telat = $secs / 86400;
@@ -155,9 +155,9 @@ if ($mail->Send()) {
 
 
   //update status keranjang dan transaksi menjadi "dikirim"
-  $queryConfirm = mysqli_query($mysqli, "UPDATE transaksi SET TGL_KEMBALI='$tglKembali', STATUS='selesai' WHERE id_transaksi='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+  $queryConfirm = mysqli_query($mysqli, "UPDATE transaksi SET TGL_KEMBALI='$today', STATUS='selesai' WHERE id_transaksi='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
-  $sendLog = mysqli_query($mysqli, " SELECT *, us.NAMA as NAMA_PENYEWA, us.ALAMAT as ALAMAT_PENYEWA, pr.NAMA as JENIS_PENGIRIMAN FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI=$idTrans") or die("data salah: " . mysqli_error($mysqli));
+  $sendLog = mysqli_query($mysqli, " SELECT *, us.NAMA as NAMA_PENYEWA, us.ALAMAT as ALAMAT_PENYEWA, pr.NAMA as JENIS_PENGIRIMAN, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_TRANSAKSI=$idTrans") or die("data salah: " . mysqli_error($mysqli));
   while ($show = mysqli_fetch_array($sendLog)) {
     $namaPenyewa = $show['NAMA_PENYEWA'];
     $noTelp = $show['NO_TELP'];
@@ -171,7 +171,8 @@ if ($mail->Send()) {
     $jamPesan = $show['JAM_PEMESANAN'];
     $tglSewa = $show['TGL_SEWA'];
     $tglJatuhTempo = $show['TGL_JATUH_TEMPO'];
-    $status = $show['STATUS'];
+    $tglKembali = $show['TGL_KEMBALI'];
+    $status = $show['statusTrans'];
     $frame = $show['FRAME'];
     $masaSewa = $show['MASA_SEWA'];
     $jmlSet = $show['JUMLAH_SET'];
