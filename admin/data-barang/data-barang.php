@@ -232,7 +232,7 @@ $stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysq
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Frame</th>
+                                            <th>Frame</th>
                                                 <th>Stok Set Scaffolding</th>
                                             </tr>
                                         </thead>

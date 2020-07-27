@@ -83,29 +83,29 @@ while ($show = mysqli_fetch_array($detailItem)) {
       <td>' . $index++ . '</td>
       <td>' . $frame . '</td>
       <td>' . $masaSewa . ' Hari</td>
-      <td>' . $jumlahSet . ' Set x Rp. ' . $hargaItem . ',00</td>
-      <td>Rp. ' . $totalPaket . ',00</td>
+      <td>' . $jumlahSet . ' Set x Rp. ' . number_format($hargaItem, 2, ",", ".") . '</td>
+      <td>Rp. ' . number_format($totalPaket, 2, ",", ".") . '</td>
     </tr>';
 }
 $mail->Body         .= '<tr>
     <td colspan="3"> </td>
     <td><b> Sub Total : </b></td>
-    <td><b> Rp. ' . $totalHarga . '</b></td>
+    <td><b> Rp. ' . number_format($totalHarga, 2, ",", ".") . ' </b></td>
   </tr>
   <tr>
     <td colspan="3"> </td>
     <td><b> Jaminan : </b></td>
-    <td><b>Rp. ' . $jaminan . ' (30%) </b></td>
+    <td><b>Rp. ' . number_format($jaminan, 2, ",", ".") . ' (30%) </b></td>
   </tr>
   <tr>
     <td colspan="3"> </td>
     <td><b> Ongkos Kirim : </b></td>
-    <td><b>Rp. ' . $ongkir . '</b></td>
+    <td><b>Rp. ' . number_format($ongkir, 2, ",", ".") . '</b></td>
   </tr>
   <tr>
     <td colspan="3"> </td>
     <td><b> Total Harga : </b></td>
-    <td><b>Rp. ' . $totalPembayaran . '</b></td>
+    <td><b>Rp. ' . number_format($totalPembayaran, 2, ",", ".") . '</b></td>
   </tr>
 </tbody>
 </table>';
