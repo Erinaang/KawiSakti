@@ -97,7 +97,7 @@ while ($show = mysqli_fetch_array($detailItem)) {
                       <td>' . $index++ . '</td>
                       <td>' . $show['FRAME'] . ' Hari</td>
                       <td>' . $setRusak . ' Set x Rp. ' . $biayaRusak . ',00</td>
-                      <td>Rp. ' . $totalDenda . ',00</td>
+                      <td>Rp. ' . number_format($totalDenda, 2, ",", ".") . ',00</td>
                     </tr>';
   }
 }
@@ -105,7 +105,7 @@ if ($denda >= 1) {
   $mail->Body   .= '<tr>
                       <td colspan="2"> </td>
                       <td><b> Sub Total : </b></td>
-                      <td><b> Rp. ' . $totalDendaAkhir . '</b></td>
+                      <td><b> Rp. ' . number_format($totalDendaAkhir, 2, ",", ".") . '</b></td>
                     </tr>
                     </tbody>
                     </table>
@@ -136,13 +136,13 @@ if ($telat >= 1) {
 }
 
 if ($denda > 0 && $telat > 0) {
-  $mail->Body  .= 'Total Pembayaran tambahan yaitu sebesar Rp.' . $total . '(Total Denda + Total Keterlambatan Rp.100.000,00/hari)
+  $mail->Body  .= 'Total Pembayaran tambahan yaitu sebesar Rp.' . number_format($total, 2, ",", ".") . '(Total Denda + Total Keterlambatan Rp.100.000,00/hari)
                   <br><br>';
 } elseif ($denda > 0 && $telat == 0) {
-  $mail->Body  .= 'Total Pembayaran tambahan yaitu sebesar Rp.' . $total . '(Total Denda)
+  $mail->Body  .= 'Total Pembayaran tambahan yaitu sebesar Rp.' . number_format($total, 2, ",", ".") . '(Total Denda)
                   <br><br>';
 } elseif ($denda == 0 && $telat > 0) {
-  $mail->Body  .= 'Total Pembayaran tambahan yaitu sebesar Rp.' . $total . '(Total Keterlambatan Rp.100.000,00/hari)
+  $mail->Body  .= 'Total Pembayaran tambahan yaitu sebesar Rp.' . number_format($total, 2, ",", ".") . '(Total Keterlambatan Rp.100.000,00/hari)
                   <br><br>';
 }
 
