@@ -311,7 +311,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                             <td><?php echo $masaSewa; ?> Hari</td>
                                                             <td><?php echo $jumlahSet; ?> Set x Rp. <?php echo number_format ($hargaItem, 2, ",", "."); ?></td>
                                                             <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
-                                                            <td><a href="delete-keranjang.php?ID_ITEM=<?php echo $idTransItem; ?>&ID_TRANS=<?php echo $idTrans;  ?>&TOTAL=<?php echo $totalPaket; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah Anda Yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Delete</i></a></td>
+                                                            <td><a href="delete-keranjang.php?ID_ITEM=<?php echo $idTransItem; ?>&ID_TRANS=<?php echo $idTrans;  ?>&TOTAL=<?php echo $totalPaket; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus barang??")'><i class="fa fa-trash-square-o" aria-hidden="true"> Hapus</i></a></td>
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
@@ -324,7 +324,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                     </tr>
                                                 </tbody>
                                             </table><br> <br>
-                                            <a href="kirim-checkout.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" class="btn btn-primary"> <b> Checkout </b> </a>
+                                            <a href="kirim-checkout.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Silahkan masukkan alamat pengiriman dan tanggal penyewaan.")' class="btn btn-primary"> <b> Checkout </b> </a>
                                         </div>
                                     </div> 
                                 </div>
@@ -376,7 +376,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", "."); ?> + Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="3"> <b> Ongkir : </b></td>
+                                                        <td colspan="3"> <b> Biaya Pengiriman : </b></td>
                                                         <td><b> Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
                                                     </tr>
                                                     <tr>
@@ -402,8 +402,8 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                 <label for="exampleFormControlInput1"><b> Tanggal Sewa</b></label>
                                                 <input type="date" class="form-control" name="tanggal" min='<?php echo $minTglSewa; ?>' required />
                                             </div>
-                                            <input class="btn btn-primary" name="submit" value="Kirim" type="submit"  />
-                                            <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batal Transaksi</a>
+                                            <input class="btn btn-primary" name="submit" value="Kirim" type="submit" onClick='return confirm("Tunggu konfirmasi dari perusahaan kemudian lakukan pembayaran")' />
+                                            <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah Anda Yakin membatalkan transaksi??")'>Batalkan Transaksi</a>
                                         </div>
                                     </form>
                                     <br>

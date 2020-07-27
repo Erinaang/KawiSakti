@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+
 session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
@@ -93,7 +95,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
         <nav id="sidebar" class="">
             <div class="sidebar-header">
                 <br>
-                <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a>
+                <!-- <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a> -->
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
@@ -175,8 +177,8 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                                         <i class="icon nalika-down-arrow nalika-angle-dw author-log-ic"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
-                                                        </li>
+                                                        <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
+                                                        </li> -->
                                                         <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>
@@ -249,7 +251,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcomb-wp">
                                             <div class="breadcomb-icon">
-                                                <i class="icon nalika-home"></i>
+                                                <!-- <i class="icon nalika-home"></i> -->
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
@@ -336,7 +338,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <b> <a href="index.php">Kembali ke Menu Admin</a> </b>
+                                        <!-- <b> <a href="index.php">Kembali ke Menu Admin</a> </b> -->
                                     </div>
                                 </div>
                                 <!-- </div> -->
