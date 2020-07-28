@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 include "koneksi/koneksi.php"; // ambil koneksi;
 
 $index = 1; //buat nomor di tabel
-$jaminan = $totalHarga = 0; //definisi variabel dengan nilai 0
+$jaminan = $totalHarga = $diskon = 0; //definisi variabel dengan nilai 0
 
 $idPenyewa = $_GET['ID_PENYEWA'];
 $idTrans = $_GET['ID_TRANS'];
@@ -17,7 +17,7 @@ while ($show = mysqli_fetch_array($queryDetail)) {
     $status = $show['STATUS'];
 }
 
-$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, tr.DISKON, ti.HARGA_ITEM, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 ?>
 
@@ -107,38 +107,48 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                             $hargaItem = $show['HARGA_ITEM'];
                                             $jumlahSet = $show['JUMLAH_SET'];
                                             $status = $show['STATUS'];
+                                            $diskon = $show['DISKON'];
 
                                             $totalPaket = $hargaItem * $jumlahSet;
                                             $totalHarga = $totalHarga + $totalPaket;
-                                            $jaminan = $totalHarga * (30 / 100);
-                                            $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+                                            $totalDiskon = $totalHarga - $diskon;
+                                            $jaminan = $totalDiskon * 30 / 100;
+                                            $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
                                         ?>
                                             <tr>
                                                 <td><?php echo $index++; ?></td>
                                                 <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
                                                 <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
-                                                <td>Rp. <?php echo number_format ($totalPaket, 2, ",", "."); ?></td>
+                                                <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
                                             </tr>
                                         <?php } ?>
                                         <tr>
                                             <td colspan="2"> </td>
                                             <td><b> Sub Total : </b></td>
-                                            <td><b> Rp. <?php echo number_format ($totalHarga, 2, ",", ".");  ?></b></td>
+                                            <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
                                         </tr>
+                                        <?php if ($diskon > 0) {
+                                        ?>
+                                            <tr>
+                                                <td colspan="2"> </td>
+                                                <td> <b> Diskon : </b></td>
+                                                <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
+                                            </tr>
+                                        <?php } ?>
                                         <tr>
                                             <td colspan="2"> </td>
                                             <td><b> Jaminan : </b></td>
-                                            <td><b>Rp. <?php echo number_format ($jaminan, 2, ",", "."); ?> (30%) </b></td>
+                                            <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"> </td>
                                             <td><b> Biaya Pengiriman : </b></td>
-                                            <td><b>Rp. <?php echo number_format ($ongkir, 2, ",", "."); ?></b></td>
+                                            <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"> </td>
                                             <td><b> Total Harga : </b></td>
-                                            <td><b>Rp. <?php echo number_format ($totalPembayaran, 2, ",", "."); ?></b></td>
+                                            <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -258,7 +268,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
         <div class="footer_copy_right">
             <div class="container">
                 <h4>
-                <center><a href=''></a> Copyright &#169; 2020</a></center>
+                    <center><a href=''></a> Copyright &#169; 2020</a></center>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

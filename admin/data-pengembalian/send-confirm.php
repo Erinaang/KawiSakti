@@ -179,10 +179,11 @@ if ($mail->Send()) {
     $harga = $show['HARGA'];
     $setRusak = $show['SET_RUSAK'];
     $biayaRusak = $show['BIAYA_RUSAK'];
+    $diskon = $show['DISKON'];
 
     $updateStok = mysqli_query($mysqli, "UPDATE `stok` SET STOK=STOK+'$jmlSet' WHERE FRAME='$frame'") or die("data salah: " . mysqli_error($mysqli));
 
-    $insertLog = mysqli_query($mysqli, "INSERT INTO `log_transaksi`(`ID_LOG_TRANSAKSI`,`NAMA_PENYEWA`, `NO_TELP`, `ALAMAT_PENYEWA`, `NAMA_ADMIN`, `JENIS_PENGIRIMAN`, `ONGKIR`, `BUKIT_PEMBAYARAN`, `BUKTI_KTP`, `ALAMAT`, `PROYEK`, `JAM_PEMESANAN`, `TGL_SEWA`, `TGL_JATUH_TEMPO`,`TGL_KEMBALI`, `STATUS`) VALUES ('$idTrans','$namaPenyewa','$noTelp','$alamatPenyewa','$namaAdmin','$jenisPengiriman','$ongkir','$bktPembayaran','$bktKtp','$alamat','$proyek','$jamPesan','$tglSewa','$tglJatuhTempo','$tglKembali','$status')");
+    $insertLog = mysqli_query($mysqli, "INSERT INTO `log_transaksi`(`ID_LOG_TRANSAKSI`,`NAMA_PENYEWA`, `NO_TELP`, `ALAMAT_PENYEWA`, `NAMA_ADMIN`, `JENIS_PENGIRIMAN`, `ONGKIR`, `BUKIT_PEMBAYARAN`, `BUKTI_KTP`, `ALAMAT`, `PROYEK`, `JAM_PEMESANAN`, `TGL_SEWA`, `TGL_JATUH_TEMPO`,`TGL_KEMBALI`, `DISKON`,`STATUS`) VALUES ('$idTrans','$namaPenyewa','$noTelp','$alamatPenyewa','$namaAdmin','$jenisPengiriman','$ongkir','$bktPembayaran','$bktKtp','$alamat','$proyek','$jamPesan','$tglSewa','$tglJatuhTempo','$tglKembali','$diskon','$status')");
     $insertLogItem = mysqli_query($mysqli, "INSERT INTO `log_item`(`ID_LOG_TRANSAKSI`, `FRAME`, `MASA_SEWA`, `JUMLAH_SET`, `HARGA`, `SET_RUSAK`, `BIAYA`) VALUES ('$idTrans','$frame','$masaSewa','$jmlSet','$harga','$setRusak','$biayaRusak')") or die("data salah: " . mysqli_error($mysqli));
   }
 

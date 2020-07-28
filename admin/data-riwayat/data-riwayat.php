@@ -19,8 +19,8 @@ if ($_GET['cari'] == null) {
     $c = $_GET['cari'];
     $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' ||  tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
 }
-$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
-$dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.FRAME, SUM(p.JUMLAH_SET) as JML_SET, SUM(ti.HARGA_ITEM) AS TOTAL_HARGA, SUM(ti.BIAYA_RUSAK) AS TOTAL_DENDA, SUM(pr.BIAYA) AS ONGKIR FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET JOIN pengiriman AS pr ON pr.ID_PENGIRIMAN = t.ID_PENGIRIMAN WHERE t.STATUS = 'selesai' GROUP BY p.FRAME, p.JUMLAH_SET") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
+$dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.FRAME, SUM(p.JUMLAH_SET) as JML_SET, SUM(ti.HARGA_ITEM) AS TOTAL_HARGA, SUM(ti.BIAYA_RUSAK) AS TOTAL_DENDA, SUM(pr.BIAYA) AS ONGKIR FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET JOIN pengiriman AS pr ON pr.ID_PENGIRIMAN = t.ID_PENGIRIMAN WHERE t.STATUS = 'selesai' GROUP BY p.FRAME") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -279,13 +279,12 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         $ongkir = $show['BIAYA'];
                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $status = $show['STATUS'];
-
-
-
                                         $totalPaket = $show['TOTAL'];
+                                        $diskon = $show['DISKON'];
 
-                                        $jaminan = $totalPaket * (30 / 100);
-                                        $totalPembayaran = $totalPaket + $ongkir + $jaminan;
+                                        $totalDiskon = $totalPaket - $diskon;
+                                        $jaminan = $totalDiskon * 30 / 100;
+                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>

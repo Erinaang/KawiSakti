@@ -13,10 +13,10 @@ if ($_POST['cari'] == null) {
     $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 } else {
     $c = $_POST['cari'];
-    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC WHERE  us.NAMA like '%".$c."%' || tr.TGL_SEWA like '%".$c."%'") or die("data salah: " . mysqli_error($mysqli));
+    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC WHERE  us.NAMA like '%" . $c . "%' || tr.TGL_SEWA like '%" . $c . "%'") or die("data salah: " . mysqli_error($mysqli));
 }
 
-$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
+$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -242,19 +242,19 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.J
                     <div class="row">
                         <?php $cari = $_GET['cari'];  ?>
 
-                        
-                        <form action="" method="get" class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Cari</button>
 
-                        <div class="form-group mx-sm-3 mb-2">
+                        <form action="" method="get" class="form-inline">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Cari</button>
+
+                            <div class="form-group mx-sm-3 mb-2">
                                 <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-primary"><i aria-hidden="true">Export PDF</i></a>
                             </div>
                         </form>
                         <br>
-                        
+
                         <div class="table-responsive-md">
                             <table class="table table-bordered">
                                 <thead>
@@ -280,15 +280,19 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.J
                                         $masaSewa = $show['MASA_SEWA'];
                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $status = $show['STATUS'];
-
                                         $totalPaket = $show['TOTAL'];
-                                        $jaminan = $totalPaket * (30 / 100);
-                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+                                        $diskon = $show['DISKON'];
+                                        $totalDiskon = $totalPaket - $diskon;
+                                        $jaminan = $totalDiskon * 30 / 100;
+                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
 
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", ".");
+                                                    if ($diskon > 0) {
+                                                        echo " - (5%)";
+                                                    } ?></td> 
                                             <td>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></td>
                                             <td>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>
@@ -301,12 +305,12 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.J
                                                 } else if ($status === "terkirim") {
                                                     echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $idPenyewa . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
                                                 } else {
-                                                    echo '<a href="../../print.php?ID_TRANS=' . $idTrans.'"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>';
+                                                    echo '<a href="../../print.php?ID_TRANS=' . $idTrans . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>';
                                                 }
                                                 ?>
-                                                 <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Detail" class="btn btn-primary pd-setting-ed" >Detail Transaksi</i></a>
+                                                <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Detail" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
                                                 <a href="hapus-transaksi.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Hapus Data" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
-                                                
+
                                             </td>
 
                                         </tr>

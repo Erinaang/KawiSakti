@@ -10,13 +10,13 @@ include "../connection/Connection.php";
 // $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
 
 if ($_GET['cari'] == null) {
-    $c = $_GET['cari'];   
-    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
-}else{
     $c = $_GET['cari'];
-    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE  us.NAMA like '%".$c."%' && tr.TGL_SEWA like '%".$c."%' || tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
+    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
+} else {
+    $c = $_GET['cari'];
+    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' || tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
 }
-$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='dikirim' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
+$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='dikirim' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -90,7 +90,7 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-            <br>
+                <br>
                 <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
@@ -236,14 +236,14 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                 <div class="product-status-wrap">
                     <div class="row">
 
-                    <?php $cari = $_GET['cari'];  ?>
-                    <form action="" method="get" class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Cari</button>
+                        <?php $cari = $_GET['cari'];  ?>
+                        <form action="" method="get" class="form-inline">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Cari</button>
 
-                        <div class="form-group mx-sm-3 mb-2">
+                            <div class="form-group mx-sm-3 mb-2">
                                 <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-primary"><i aria-hidden="true">Export PDF</i></a>
                             </div>
                         </form>
@@ -264,7 +264,7 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($transaksi)) { 
+                                    <?php while ($show = mysqli_fetch_array($transaksi)) {
                                         $idTrans = $show['ID_TRANSAKSI'];
                                         $idTransItem = $show['ID_TRANSAKSI_ITEM'];
                                         $idPenyewa = $show['ID_PENYEWA'];
@@ -272,22 +272,23 @@ $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLA
                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $ongkir = $show['BIAYA'];
                                         $status = $show['STATUS'];
-                                        
+                                        $diskon = $show['DISKON'];
 
                                         $totalPaket = $show['TOTAL'];
-                                        $jaminan = $totalPaket * (30 / 100);
-                                        $totalPembayaran = $totalPaket + $ongkir + $jaminan; ?>
+                                        $totalDiskon = $totalPaket - $diskon;
+                                        $jaminan = $totalDiskon * 30 / 100;
+                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir; ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
                                             <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_SEWA'])); ?></td>
-                                            <td><?php echo date('d-M-Y',strtotime ($show['TGL_JATUH_TEMPO'])); ?></td>
-                                            <td> <a href="form-denda.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Denda" class="btn btn-danger pd-setting-ed" ><i class="fa fa-trash-square-o" aria-hidden="true"> Denda</i></a></td>
+                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
+                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_JATUH_TEMPO'])); ?></td>
+                                            <td> <a href="form-denda.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Denda" class="btn btn-danger pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Denda</i></a></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
                                                 <?php if ($status === "dikirim") {
-                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] .'" data-toggle="tooltip" title="Kembali" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kembali</i></a>';
+                                                    echo '<a href="send-confirm.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $show['ID_PENYEWA'] . '" data-toggle="tooltip" title="Kembali" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Kembali</i></a>';
                                                 }
                                                 ?>
                                                 <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>

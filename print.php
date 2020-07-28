@@ -99,6 +99,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 $idTransItem = $show['ID_TRANSAKSI_ITEM'];
                 $idPenyewa = $show['ID_PENYEWA'];
                 $ongkir = $show['BIAYA'];
+                $diskon = $show['DISKON'];
                 $masaSewa = $show['MASA_SEWA'];
                 $hargaItem = $show['HARGA_ITEM'];
                 $jumlahSet = $show['JUMLAH_SET'];
@@ -110,8 +111,9 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
 
                 $totalPaket = $hargaItem * $jumlahSet;
                 $totalHarga = $totalHarga + $totalPaket;
-                $jaminan = $totalHarga * (30 / 100);
-                $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+                $totalDiskon = $totalHarga - $diskon;
+                $jaminan = $totalDiskon * 30 / 100;
+                $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
               ?>
                 <tr>
                   <td><?php echo $index++; ?></td>
@@ -126,6 +128,14 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 <td><b> Sub Total : </b></td>
                 <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", "."); ?></b></td>
               </tr>
+              <?php if ($diskon > 0) {
+              ?>
+                <tr>
+                  <td colspan="3"> </td>
+                  <td> <b> Diskon : </b></td>
+                  <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
+                </tr>
+              <?php } ?>
               <tr>
                 <td colspan="3"> </td>
                 <td><b> Jaminan : </b></td>

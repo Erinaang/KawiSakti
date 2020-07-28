@@ -23,7 +23,7 @@ $UpdateIdAdmin = mysqli_query($mysqli, "UPDATE transaksi SET ID_ADMIN='$idAdmin'
 
 
 /// SELECT data barang di email
-$detailItem = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET,pk.FRAME, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$detailItem = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI,tr.DISKON, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET,pk.FRAME, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 $dataPenyewa = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `USER` AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($dataPenyewa)) {
@@ -51,10 +51,11 @@ $mail->Subject      =  "Pemberitahuan dari PT Kawi Sakti Megah"; //subject
 $mail->Body         =  '<b>Hai, pelanggan PT. Kawi Sakti Megah. Barang yang anda sewa akan segera dikirim.</b><br> 
                         <b> RINCIAN PESANAN</b><br><br>
 
-<table class="table table-condensed">
+<table border="2">
 <thead>
   <tr>
     <th>No.</th>
+    <th>Frame</th>
     <th>Masa Sewa (hari) </th>
     <th>Jumlah Set x Harga (Rp.)</th>
     <th>Total Harga (Rp.)</th>
@@ -73,11 +74,13 @@ while ($show = mysqli_fetch_array($detailItem)) {
   $hargaItem = $show['HARGA_ITEM'];
   $jumlahSet = $show['JUMLAH_SET'];
   $jamPemesanan = $show['JAM_PEMESANAN'];
+  $diskon = $show['DISKON'];
 
   $totalPaket = $hargaItem * $jumlahSet;
   $totalHarga = $totalHarga + $totalPaket;
-  $jaminan = $totalHarga * (30 / 100);
-  $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+  $totalDiskon = $totalHarga - $diskon;
+  $jaminan = $totalDiskon * 30 / 100;
+  $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
 
   $mail->Body         .=    '<tr>
       <td>' . $index++ . '</td>
@@ -91,8 +94,16 @@ $mail->Body         .= '<tr>
     <td colspan="3"> </td>
     <td><b> Sub Total : </b></td>
     <td><b> Rp. ' . number_format($totalHarga, 2, ",", ".") . ' </b></td>
-  </tr>
-  <tr>
+  </tr>';
+if ($diskon > 0) {
+  $mail->Body         .= '<tr>
+    <td colspan="3"> </td>
+    <td><b> Diskon : </b></td>
+    <td><b> - Rp. ' . number_format($diskon, 2, ",", ".") . ' (5%) </b></td>
+  </tr>';
+}
+
+$mail->Body         .=  '<tr>
     <td colspan="3"> </td>
     <td><b> Jaminan : </b></td>
     <td><b>Rp. ' . number_format($jaminan, 2, ",", ".") . ' (30%) </b></td>

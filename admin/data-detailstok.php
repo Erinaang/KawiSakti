@@ -13,17 +13,19 @@ while ($show = mysqli_fetch_array($queryAdmin)) {
     $idAdmin = $show['ID_USER'];
 }
 $index = 1;
-$totalHarga = 0;
+$totalHarga = $diskon = 0;
 $idTrans = $_GET['ID_TRANS'];
 
-$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, tr.DISKON, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
-<head><meta charset="windows-1252">
-    
+
+<head>
+    <meta charset="windows-1252">
+
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -152,8 +154,6 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                 <div class="row">
                                     <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
                                         <div class="menu-switcher-pro">
-
-
                                             <button type="button" id="sidebarCollapse" class='fa fa-exchange' style='font-size:36px; color:#000; padding-top: 10px' onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'"><span class="tooltiptext"></span></button>
                                         </div>
                                     </div>
@@ -206,24 +206,24 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                     <ul class="mobile-menu-nav">
                                         <li><a data-toggle="collapse" data-target="#Charts" href="#">Menu Admin <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
                                             <ul class="metismenu" id="menu1">
-                                            <li>
-                                            <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
-                                        </li>
-                                        <li>
-                                            <a title="Data Transaksi" href="data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
-                                        </li>
-                                        <li>
-                                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
-                                        </li>
-                                        <li>
-                                            <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
-                                        </li>
-                                        <li>
-                                            <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
-                                        </li>
-                                        <li>
-                                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
-                                        </li>
+                                                <li>
+                                                    <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Transaksi" href="data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -287,7 +287,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                         <div class="col-md-12">
                                             <table class="table table-condensed">
                                                 <thead>
-                                                    <tr align="left">
+                                                    <tr>
                                                         <th>No.</th>
                                                         <th>Masa Sewa (hari) </th>
                                                         <th>Jumlah Set x Harga (Rp.)</th>
@@ -302,35 +302,45 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, pk.JUMLAH_SET
                                                         $hargaItem = $show['HARGA_ITEM'];
                                                         $jumlahSet = $show['JUMLAH_SET'];
                                                         $status = $show['STATUS'];
+                                                        $diskon = $show['DISKON'];
 
                                                         $totalPaket = $hargaItem * $jumlahSet;
                                                         $totalHarga = $totalHarga + $totalPaket;
-                                                        $jaminan = $totalHarga * (30 / 100);
-                                                        $totalPembayaran = $totalHarga + $ongkir + $jaminan;
+                                                        $totalDiskon = $totalHarga - $diskon;
+                                                        $jaminan = $totalDiskon * 30 / 100;
+                                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
                                                     ?>
-                                                        <tr align="left">
+                                                        <tr>
                                                             <td><?php echo $index++; ?></td>
                                                             <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp.  <?php echo number_format($show['HARGA_ITEM'], 2, ",", "."); ?></td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
                                                             <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
                                                         </tr>
                                                     <?php } ?>
-                                                    <tr align="left">
+                                                    <tr>
                                                         <td colspan="2"> </td>
                                                         <td><b> Sub Total : </b></td>
                                                         <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
                                                     </tr>
-                                                    <tr align="left">
+                                                    <?php if ($diskon > 0) {
+                                                    ?>
+                                                        <tr>
+                                                            <td colspan="2"> </td>
+                                                            <td> <b> Diskon : </b></td>
+                                                            <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
                                                         <td colspan="2"> </td>
                                                         <td><b> Jaminan : </b></td>
                                                         <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
                                                     </tr>
-                                                    <tr align="left">
+                                                    <tr>
                                                         <td colspan="2"> </td>
                                                         <td><b> Biaya Pengiriman : </b></td>
                                                         <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
                                                     </tr>
-                                                    <tr align="left">
+                                                    <tr>
                                                         <td colspan="2"> </td>
                                                         <td><b> Total Harga : </b></td>
                                                         <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
