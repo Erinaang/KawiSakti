@@ -11,12 +11,11 @@ include "../connection/Connection.php";
 
 if ($_GET['cari'] == null) {
     $c = $_GET['cari'];
-    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
+    $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='dikirim' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 } else {
     $c = $_GET['cari'];
-    $transaksi = mysqli_query($mysqli, "SELECT tr.* , us.NAMA,us.ALAMAT FROM transaksi as tr JOIN user as us on tr.ID_PENYEWA=us.ID_USER WHERE  us.NAMA like '%" . $c . "%' && tr.TGL_SEWA like '%" . $c . "%' || tr.STATUS='dikirim' ") or die("data salah: " . mysqli_error($mysqli));
+    $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' OR DAY(tr.TGL_SEWA)='".$c."' AND tr.STATUS='dikirim' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 }
-$transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='dikirim' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>

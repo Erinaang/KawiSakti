@@ -8,15 +8,12 @@ include "../connection/Connection.php";
 //GET IDUSER
 // $username = $_SESSION['username'];
 
-if ($_POST['cari'] == null) {
-    $c = $_POST['cari'];
-    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
+if ($_GET['cari'] == null) {
+    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 } else {
-    $c = $_POST['cari'];
-    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_KEMBALI, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC WHERE  us.NAMA like '%" . $c . "%' || tr.TGL_SEWA like '%" . $c . "%'") or die("data salah: " . mysqli_error($mysqli));
+    $c = $_GET['cari'];
+    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE  us.NAMA like '%" . $c . "%' OR DAY(tr.TGL_SEWA)='".$c."' AND tr.STATUS!='selesai' GROUP BY tr.ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 }
-
-$dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -292,7 +289,7 @@ $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.J
                                             <td>Rp. <?php echo number_format($totalPaket, 2, ",", ".");
                                                     if ($diskon > 0) {
                                                         echo " - (5%)";
-                                                    } ?></td> 
+                                                    } ?></td>
                                             <td>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></td>
                                             <td>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></td>
                                             <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Transaksi</a></td>
