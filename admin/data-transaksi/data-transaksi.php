@@ -279,6 +279,7 @@ if ($_GET['cari'] == null) {
                                         $status = $show['STATUS'];
                                         $totalPaket = $show['TOTAL'];
                                         $diskon = $show['DISKON'];
+                                        $tglSewa = $show['TGL_SEWA'];
                                         $totalDiskon = $totalPaket - $diskon;
                                         $jaminan = $totalDiskon * 30 / 100;
                                         $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
@@ -305,7 +306,7 @@ if ($_GET['cari'] == null) {
                                                     echo '<a href="../../print.php?ID_TRANS=' . $idTrans . '"  rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>';
                                                 }
                                                 ?>
-                                                <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Detail" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
+                                                <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>&TGL_SEWA=<?php echo $tglSewa; ?>" data-toggle="tooltip" title="Detail" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
                                                 <a href="hapus-transaksi.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Hapus Data" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
 
                                             </td>

@@ -9,12 +9,12 @@ include "connection/Connection.php";
 $username = $_SESSION['username'];
 $queryAdmin = mysqli_query($mysqli, "SELECT * FROM user WHERE username='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($queryAdmin)) {
-    $tglSewa = $show['TGL_SEWA'];
     $idAdmin = $show['ID_USER'];
 }
 $index = 1;
 $totalHarga = $diskon = 0;
 $idTrans = $_GET['ID_TRANS'];
+$tglSewa = $_GET['TGL_SEWA'];
 
 $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, tr.DISKON, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 ?>
@@ -281,7 +281,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, tr.DISKON, pk
                                         <h3> Detail Stock Barang </h3>
                                     </center>
                                     <br>
-                                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?> </b> </h4>
+                                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($tglSewa)); ?> </b> </h4>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-12">

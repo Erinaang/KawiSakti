@@ -279,6 +279,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         $ongkir = $show['BIAYA'];
                                         $jamPemesanan = $show['JAM_PEMESANAN'];
                                         $status = $show['STATUS'];
+                                        $tglSewa = $show['TGL_SEWA'];
                                         $totalPaket = $show['TOTAL'];
                                         $diskon = $show['DISKON'];
 
@@ -290,11 +291,11 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                             <td><?php echo $show['NAMA']; ?></td>
                                             <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
+                                            <td><?php echo date('d-M-Y', strtotime($tglSewa)); ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_JATUH_TEMPO'])); ?></td>
                                             <td><?php echo $status; ?></td>
                                             <td>
-                                                <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
+                                                <a href="../data-detailstok.php?ID_TRANS=<?php echo $idTrans; ?>&TGL_SEWA=<?php echo $tglSewa; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
                                                 <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>
                                                 <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
                                             </td>
