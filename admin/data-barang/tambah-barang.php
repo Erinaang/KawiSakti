@@ -11,8 +11,16 @@ if (isset($_POST['submit'])) {
     $jumlah_set = $_POST['JUMLAH_SET'];
     $harga = $_POST['HARGA'];
 
-    $query = mysqli_query($mysqli, "INSERT INTO `paket`(`MASA_SEWA`, `JUMLAH_SET`, `FRAME`, `HARGA`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
+    $cek = mysqli_query($mysqli, "SELECT * FROM paket WHERE FRAME='$frame'") or die("data salah: " . mysqli_error($mysqli));
+    $result   = mysqli_num_rows($cek);
 
+    if ($result>0) {
+        $query = mysqli_query($mysqli, "INSERT INTO `paket`(`MASA_SEWA`, `JUMLAH_SET`, `FRAME`, `HARGA`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
+    } else {
+        $query = mysqli_query($mysqli, "INSERT INTO `stok`(`FRAME`, `STOK`) VALUES ('$frame',3000)") or die("data salah: " . mysqli_error($mysqli));
+        $query = mysqli_query($mysqli, "INSERT INTO `paket`(`MASA_SEWA`, `JUMLAH_SET`, `FRAME`, `HARGA`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
+    }
+    
     echo "<script>alert('Data berhasil ditambahkan');location.href='data-barang.php'</script>";
 }
 
@@ -99,7 +107,7 @@ if (isset($_POST['submit'])) {
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-            <br>
+                <br>
                 <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
@@ -130,7 +138,7 @@ if (isset($_POST['submit'])) {
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield" ></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
