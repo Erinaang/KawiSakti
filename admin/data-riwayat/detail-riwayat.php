@@ -1,27 +1,17 @@
 <?php
 session_start();
-error_reporting(0);
 if (!isset($_SESSION["username"])) {
-    header("Location: ../Login.php");
+    header("Location: login.php");
 }
 include "../connection/Connection.php";
+$index = 1;
+$totalHarga = $diskon = 0;
+$idTrans = $_GET['ID_TRANS'];
+$tglSewa = $_GET['TGL_SEWA'];
 
-date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
-$tglKembali = date("Y-m-d");
-
-//query tampil tabel pengembalian
-// $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
-
-if ($_GET['cari'] == null) {
-    // $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
-    $transaksi = mysqli_query($mysqli, "SELECT *, sum(li.HARGA * li.JUMLAH_SET) as TOTAL FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI GROUP BY li.ID_LOG_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
-} else {
-    $c = $_GET['cari'];
-    $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER  WHERE tr.STATUS='selesai' AND us.NAMA like '%" . $c . "%' OR DAY(tr.TGL_SEWA)='".$c."' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
-}
-
-$dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.FRAME, SUM(p.JUMLAH_SET) as JML_SET, SUM(ti.HARGA_ITEM) AS TOTAL_HARGA, SUM(ti.BIAYA_RUSAK) AS TOTAL_DENDA, SUM(pr.BIAYA) AS ONGKIR FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET JOIN pengiriman AS pr ON pr.ID_PENGIRIMAN = t.ID_PENGIRIMAN WHERE t.STATUS = 'selesai' GROUP BY p.FRAME") or die("data salah: " . mysqli_error($mysqli));
+$queryItem = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI WHERE lt.ID_LOG_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 ?>
+
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
@@ -93,40 +83,44 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
 
 </head>
 
+
 <body>
+
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
                 <br>
-                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
+                <!-- <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a> -->
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
             <div class="nalika-profile">
                 <div class="profile-dtl">
+
                     <h2> <b>A<span class="min-dtn">DMIN</span></b></h2>
                 </div>
+
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li>
-                            <a title="Data Barang" href="../data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                            <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
-                            <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                            <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="../data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                            <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                            <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -144,8 +138,6 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                 </div>
             </div>
         </div>
-        <br>
-        <br>
         <div class="header-advance-area">
             <div class="header-top-area" style="background-color: #1d3542">
                 <div class="container-fluid">
@@ -162,7 +154,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         <div class="header-top-menu tabl-d-n hd-search-rp">
                                             <div class="breadcome-heading">
                                                 <form role="search" style="visibility: hidden;" action="pencarian.php?username=<?php echo $_GET['username']; ?>" method="GET">
-                                                    <input type="text" name="cari" placeholder="🔎 Seacrh.." class="form-control">
+                                                    <input type="text" name="cari" placeholder="ðŸ”Ž Seacrh.." class="form-control">
                                                 </form>
                                             </div>
                                         </div>
@@ -180,7 +172,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li> -->
-                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -194,6 +186,47 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                     </div>
                 </div>
             </div>
+
+            <!-- Mobile Menu start -->
+            <br>
+            <br>
+            <div class="mobile-menu-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="mobile-menu" style="color:#3D5AFE">
+                                <nav id="dropdown">
+                                    <ul class="mobile-menu-nav">
+                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Menu Admin <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                            <ul class="metismenu" id="menu1">
+                                                <li>
+                                                    <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Transaksi" href="data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                                                </li>
+                                                <li>
+                                                    <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu end -->
 
             <div class="section-admin container-fluid">
                 <div class="row admin text-center">
@@ -211,11 +244,11 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcomb-wp">
                                             <div class="breadcomb-icon">
-                                                <i class="icon nalika-home"></i>
+                                                <!-- <i class="icon nalika-home"></i> -->
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
-                                                <!-- <p>Welcome to PT Kawi Sakti Megah</p> -->
+                                                <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
+                                                <!-- <p>Welcome to PT. Kawi Sakti Megah </span></p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -232,131 +265,96 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                     </div>
                                 <?php } ?> -->
                                 </div>
+
+                            </div>
+                            <div class="container-fluid">
+                                <!-- <div class="container-fluid"> -->
+                                <div class="col-md-8">
+                                    <center>
+                                        <h3> Detail Stock Barang </h3>
+                                    </center>
+                                    <br>
+                                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($tglSewa)); ?> </b> </h4>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Masa Sewa (hari) </th>
+                                                        <th>Jumlah Set x Harga (Rp.)</th>
+                                                        <th>Total (Rp.)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php while ($show = mysqli_fetch_array($queryItem)) {
+                                                        $idTrans = $show['ID_LOG_TRANSAKSI'];
+                                                        $ongkir = $show['ONGKIR'];
+                                                        $hargaItem = $show['HARGA'];
+                                                        $jumlahSet = $show['JUMLAH_SET'];
+                                                        $status = $show['STATUS'];
+                                                        $diskon = $show['DISKON'];
+
+                                                        $totalPaket = $hargaItem * $jumlahSet;
+                                                        $totalHarga = $totalHarga + $totalPaket;
+                                                        $totalDiskon = $totalHarga - $diskon;
+                                                        $jaminan = $totalDiskon * 30 / 100;
+                                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $index++; ?></td>
+                                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td colspan="2"> </td>
+                                                        <td><b> Sub Total : </b></td>
+                                                        <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
+                                                    </tr>
+                                                    <?php if ($diskon > 0) {
+                                                    ?>
+                                                        <tr>
+                                                            <td colspan="2"> </td>
+                                                            <td> <b> Diskon : </b></td>
+                                                            <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td colspan="2"> </td>
+                                                        <td><b> Jaminan : </b></td>
+                                                        <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"> </td>
+                                                        <td><b> Biaya Pengiriman : </b></td>
+                                                        <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"> </td>
+                                                        <td><b> Total Harga : </b></td>
+                                                        <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- <b> <a href="index.php">Kembali ke Menu Admin</a> </b> -->
+                                    </div>
+                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+    </div>
+    </div>
 
-        <!-- DATA TABEL PENGEMBALIAN -->
-        <div class="product-status mg-b-30">
-            <div class="container-fluid">
-                <div class="product-status-wrap">
-                    <div class="row">
-                        <?php $cari = $_GET['cari'];  ?>
-                        <form action="" method="get" class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="text" class="form-control" id="cari" name="cari" placeholder="Masukkan nama/tgl sewa">
-                            </div>
-                            <button type="submit" class="btn btn-primary mb-2">Cari</button>
-
-                            <div class="form-group mx-sm-3 mb-2">
-                                <a href="p-pdf.php?cari=<?php echo $cari ?>" data-toggle="tooltip" title="export" class="btn btn-primary"><i aria-hidden="true">Export PDF</i></a>
-                            </div>
-                        </form>
-                        <br>
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Nama Penyewa</th>
-                                        <th>Total</th>
-                                        <th>Alamat</th>
-                                        <th>Tanggal Sewa</th>
-                                        <th>Tanggal Pengembalian</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while ($show = mysqli_fetch_array($transaksi)) {
-                                        $idTrans = $show['ID_LOG_TRANSAKSI'];
-                                        $idTransItem = $show['ID_LOG_ITEM'];
-                                        $masaSewa = $show['MASA_SEWA'];
-                                        $ongkir = $show['ONGKIR'];
-                                        $jamPemesanan = $show['JAM_PEMESANAN'];
-                                        $status = $show['STATUS'];
-                                        $tglSewa = $show['TGL_SEWA'];
-                                        $totalPaket = $show['TOTAL'];
-                                        $diskon = $show['DISKON'];
-
-                                        $totalDiskon = $totalPaket - $diskon;
-                                        $jaminan = $totalDiskon * 30 / 100;
-                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
-                                            <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo date('d-M-Y', strtotime($tglSewa)); ?></td>
-                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_JATUH_TEMPO'])); ?></td>
-                                            <td><?php echo $status; ?></td>
-                                            <td>
-                                                <a href="detail-riwayat.php?ID_TRANS=<?php echo $idTrans; ?>&TGL_SEWA=<?php echo $tglSewa; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
-                                                <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>
-                                                <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END TABEL PENGEMBALIAN -->
-
-        <!-- DATA TABEL PERBULAN -->
-        <div class="product-status mg-b-30">
-            <div class="container-fluid">
-                <div class="product-status-wrap">
-                    <div class="row">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No. </th>
-                                        <th>Bulan</th>
-                                        <th>Frame</th>
-                                        <th>Total Set</th>
-                                        <th>Total Harga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $index = 1;
-                                    while ($show = mysqli_fetch_array($dataPerbulan)) {
-                                        $bulan = $show['BULAN'];
-                                        $frame = $show['FRAME'];
-                                        $jmlSet = $show['JML_SET'];
-                                        $ongkir = $show['ONGKIR'];
-
-                                        $totalHargaPerbulan = $show['TOTAL_HARGA'] * $jmlSet;
-                                        $totalDenda = $show['TOTAL_DENDA'];
-
-                                        $total = $total + $totalHargaPerbulan + $totalDenda + $ongkir;
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $index++; ?></td>
-                                            <td><?php echo $bulan; ?></td>
-                                            <td><?php echo $frame; ?></td>
-                                            <td><?php echo $jmlSet; ?> Set</td>
-                                            <td>Rp. <?php echo number_format($total, 2, ",", "."); ?></td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END DATA TABEL PERBULAN -->
-
-        <script src="../js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="../js/vendor/jquery-1.12.4.min.js"></script>
         <!-- bootstrap JS
         ============================================ -->
         <script src="../js/bootstrap.min.js"></script>
@@ -407,6 +405,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
         <!-- main JS
         ============================================ -->
         <script src="../js/main.js"></script>
+
 </body>
 
 </html>
