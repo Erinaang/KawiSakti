@@ -54,7 +54,7 @@ if (isset($_POST['daftarSubmit'])) {
 			<p> Email " . $email . " </p><br>
 			<p> Password " . $password . " </p><br>
 			<p> Password yang tertera di atas dapat digunakan untuk login pada aplikasi, kami menyarankan untuk mengganti password dengan password yang anda inginkan </p><br>
-			";
+			<p> Silahkan buka http://kawisakti.online/ProfilBar.php untuk mengarah pada website </p> ";
 		// $mail->AddAttachment("/cpanel.png","filesaya");
 		if ($mail->Send()) {
 			$queryIdUser = mysqli_query($mysqli, "INSERT INTO user SET NAMA = '$nama', EMAIL='$email', ALAMAT='$alamat', NO_TELP='$telp', USERNAME='$username', PASSWORD='$passEnc', STATUS='penyewa'") or die("data salah: " . mysqli_error($mysqli));
@@ -120,7 +120,10 @@ if (isset($_POST['daftarSubmit'])) {
 				<div class="tbl-kirim">
 					<input type="submit" name="daftarSubmit" value="Buat Akun">
 				</div>
-			</form>
+			</form><br>
+			<div class="btn btn-info">
+				<a href="../index.php" class="btn btn-info">kembali ke menu awal</a>
+				</div>
 		</div>
 	</div>
 </body>
