@@ -287,7 +287,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                         $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
                                     ?>
                                         <tr>
-                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td><?php echo $show['NAMA_PENYEWA']; ?></td>
                                             <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($tglSewa)); ?></td>
