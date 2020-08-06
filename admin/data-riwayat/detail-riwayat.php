@@ -5,11 +5,16 @@ if (!isset($_SESSION["username"])) {
 }
 include "../connection/Connection.php";
 $index = 1;
-$totalHarga = $diskon = 0;
+$totalHarga = $diskon = $totalDenda = $totalDendaAkhir = $telat = $denda = 0;
+date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
+$today = date("Y-m-d");
+
 $idTrans = $_GET['ID_TRANS'];
 $tglSewa = $_GET['TGL_SEWA'];
 
 $queryItem = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI WHERE lt.ID_LOG_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryDenda = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI WHERE lt.ID_LOG_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI WHERE lt.ID_LOG_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 
@@ -252,98 +257,7 @@ $queryItem = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `lo
                                             </div>
                                         </div>
                                     </div>
-                                    <!--  <?php
-                                            if (!empty($_POST['program'])) { ?>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="breadcomb-report">
-                                            <form method="post" action="export.php?username=<?php echo $_GET['username']; ?>&select=<?php echo $_POST['program']; ?>" align="center"> 
-
-                                            Download File : <input type="submit" name="export" value="Excel Export" class="btn btn-success" /> 
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                <?php } ?> -->
                                 </div>
-
-                            </div>
-                            <div class="container-fluid">
-                                <!-- <div class="container-fluid"> -->
-                                <div class="col-md-8">
-                                    <center>
-                                        <h3> Detail Stock Barang </h3>
-                                    </center>
-                                    <br>
-                                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($tglSewa)); ?> </b> </h4>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Masa Sewa (hari) </th>
-                                                        <th>Jumlah Set x Harga (Rp.)</th>
-                                                        <th>Total (Rp.)</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php while ($show = mysqli_fetch_array($queryItem)) {
-                                                        $idTrans = $show['ID_LOG_TRANSAKSI'];
-                                                        $ongkir = $show['ONGKIR'];
-                                                        $hargaItem = $show['HARGA'];
-                                                        $jumlahSet = $show['JUMLAH_SET'];
-                                                        $status = $show['STATUS'];
-                                                        $diskon = $show['DISKON'];
-
-                                                        $totalPaket = $hargaItem * $jumlahSet;
-                                                        $totalHarga = $totalHarga + $totalPaket;
-                                                        $totalDiskon = $totalHarga - $diskon;
-                                                        $jaminan = $totalDiskon * 30 / 100;
-                                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $index++; ?></td>
-                                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
-                                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Sub Total : </b></td>
-                                                        <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
-                                                    </tr>
-                                                    <?php if ($diskon > 0) {
-                                                    ?>
-                                                        <tr>
-                                                            <td colspan="2"> </td>
-                                                            <td> <b> Diskon : </b></td>
-                                                            <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Jaminan : </b></td>
-                                                        <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Biaya Pengiriman : </b></td>
-                                                        <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Total Harga : </b></td>
-                                                        <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!-- <b> <a href="index.php">Kembali ke Menu Admin</a> </b> -->
-                                    </div>
-                                </div>
-                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -351,60 +265,218 @@ $queryItem = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `lo
 
             </div>
         </div>
+        <div class="product-status mg-b-30">
+            <div class="container-fluid">
+                <div class="product-status-wrap">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center>
+                                <h3> Detail Stock Barang </h3>
+                            </center>
+                            <br>
+                            <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($tglSewa)); ?> </b> </h4>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Frame</th>
+                                                <th>Masa Sewa (hari) </th>
+                                                <th>Jumlah Set x Harga (Rp.)</th>
+                                                <th>Total (Rp.)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php while ($show = mysqli_fetch_array($queryItem)) {
+                                                $idTrans = $show['ID_LOG_TRANSAKSI'];
+                                                $tglSewa = $show['TGL_SEWA'];
+                                                $tglJatuhTempo = $show['TGL_JATUH_TEMPO'];
+                                                $datetime1 = strtotime($today);
+                                                $datetime2 = strtotime($tglJatuhTempo);
+                                                $secs = $datetime1 - $datetime2;
+                                                $telat = $secs / 86400;
+                                                $totalTelat = 100000 * $telat;
+
+                                                $ongkir = $show['ONGKIR'];
+                                                $hargaItem = $show['HARGA'];
+                                                $jumlahSet = $show['JUMLAH_SET'];
+                                                $status = $show['STATUS'];
+                                                $diskon = $show['DISKON'];
+                                                $denda = $denda + $show['SET_RUSAK'];
+
+                                                $totalPaket = $hargaItem * $jumlahSet;
+                                                $totalHarga = $totalHarga + $totalPaket;
+                                                $totalDiskon = $totalHarga - $diskon;
+                                                $jaminan = $totalDiskon * 30 / 100;
+                                                $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $index; ?></td>
+                                                    <td><?php echo $show['FRAME']; ?></td>
+                                                    <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                    <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
+                                                    <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                            <tr>
+                                                <td colspan="3"> </td>
+                                                <td><b> Sub Total : </b></td>
+                                                <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
+                                            </tr>
+                                            <?php if ($diskon > 0) {
+                                            ?>
+                                                <tr>
+                                                    <td colspan="3"> </td>
+                                                    <td> <b> Diskon : </b></td>
+                                                    <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
+                                                </tr>
+                                            <?php } ?>
+                                            <tr>
+                                                <td colspan="3"> </td>
+                                                <td><b> Jaminan : </b></td>
+                                                <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"> </td>
+                                                <td><b> Biaya Pengiriman : </b></td>
+                                                <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"> </td>
+                                                <td><b> Total Harga : </b></td>
+                                                <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- <b> <a href="index.php">Kembali ke Menu Admin</a> </b> -->
+                            </div>
+                            <?php if ($denda > 0) { ?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>Denda</h3>
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Frame</th>
+                                                    <th>Masa Sewa (hari) </th>
+                                                    <th>Jumlah Set x Harga (Rp.)</th>
+                                                    <th>Total (Rp.)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $index = 1;
+                                                while ($show = mysqli_fetch_array($queryDenda)) {
+                                                    $idTrans = $show['ID_LOG_TRANSAKSI'];
+                                                    $setRusak = $show['SET_RUSAK'];
+                                                    $biayaRusak = $show['BIAYA'];
+                                                    $totalDenda = $biayaRusak * $setRusak;
+                                                    $totalDendaAkhir = $totalDendaAkhir + $totalDenda;
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $index++; ?></td>
+                                                        <td><?php echo $show['FRAME']; ?></td>
+                                                        <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                        <td><?php echo $setRusak; ?> Set x Rp. <?php echo number_format($biayaRusak, 2, ",", "."); ?></td>
+                                                        <td>Rp. <?php echo number_format($totalDenda, 2, ",", "."); ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                                <tr>
+                                                    <td colspan="3"> </td>
+                                                    <td><b> Sub Total : </b></td>
+                                                    <td><b> Rp. <?php echo number_format($totalDendaAkhir, 2, ",", ".");  ?></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if ($telat > 0) { ?>
+                                <div class="row">
+                                    <h2>Keterlambatan</h2> <br>
+                                    <table border="3">
+                                        <thead>
+                                            <th>Judul</th>
+                                            <th>Tgl Sewa</th>
+                                            <th>Tgl Jatuh Tempo</th>
+                                            <th>Terlambatan</th>
+                                            <th>Total</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Keterlambatan</td>
+                                                <td><?php echo $tglSewa; ?></td>
+                                                <td><?php echo $tglJatuhTempo; ?></td>
+                                                <td><?php echo $telat; ?> Hari</td>
+                                                <td>Rp. <?php echo number_format($totalTelat, 2, ",", "."); ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 
     <script src="../js/vendor/jquery-1.12.4.min.js"></script>
-        <!-- bootstrap JS
+    <!-- bootstrap JS
         ============================================ -->
-        <script src="../js/bootstrap.min.js"></script>
-        <!-- wow JS
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- wow JS
         ============================================ -->
-        <script src="../js/wow.min.js"></script>
-        <!-- price-slider JS
+    <script src="../js/wow.min.js"></script>
+    <!-- price-slider JS
         ============================================ -->
-        <script src="../js/jquery-price-slider.js"></script>
-        <!-- meanmenu JS
+    <script src="../js/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
         ============================================ -->
-        <script src="../js/jquery.meanmenu.js"></script>
-        <!-- owl.carousel JS
+    <script src="../js/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
         ============================================ -->
-        <script src="../js/owl.carousel.min.js"></script>
-        <!-- sticky JS
+    <script src="../js/owl.carousel.min.js"></script>
+    <!-- sticky JS
         ============================================ -->
-        <script src="../js/jquery.sticky.js"></script>
-        <!-- scrollUp JS
+    <script src="../js/jquery.sticky.js"></script>
+    <!-- scrollUp JS
         ============================================ -->
-        <script src="../js/jquery.scrollUp.min.js"></script>
-        <!-- mCustomScrollbar JS
+    <script src="../js/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
         ============================================ -->
-        <script src="../js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="../js/scrollbar/mCustomScrollbar-active.js"></script>
-        <!-- metisMenu JS
+    <script src="../js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../js/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
         ============================================ -->
-        <script src="../js/metisMenu/metisMenu.min.js"></script>
-        <script src="../js/metisMenu/metisMenu-active.js"></script>
-        <!-- sparkline JS
+    <script src="../js/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/metisMenu/metisMenu-active.js"></script>
+    <!-- sparkline JS
         ============================================ -->
-        <script src="../js/sparkline/jquery.sparkline.min.js"></script>
-        <script src="../js/sparkline/jquery.charts-sparkline.js"></script>
-        <!-- calendar JS
+    <script src="../js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../js/sparkline/jquery.charts-sparkline.js"></script>
+    <!-- calendar JS
         ============================================ -->
-        <script src="../js/calendar/moment.min.js"></script>
-        <script src="../js/calendar/fullcalendar.min.js"></script>
-        <script src="../js/calendar/fullcalendar-active.js"></script>
-        <!-- float JS
+    <script src="../js/calendar/moment.min.js"></script>
+    <script src="../js/calendar/fullcalendar.min.js"></script>
+    <script src="../js/calendar/fullcalendar-active.js"></script>
+    <!-- float JS
         ============================================ -->
-        <script src="../js/flot/jquery.flot.js"></script>
-        <script src="../js/flot/jquery.flot.resize.js"></script>
-        <script src="../js/flot/curvedLines.js"></script>
-        <script src="../js/flot/flot-active.js"></script>
-        <!-- plugins JS
+    <script src="../js/flot/jquery.flot.js"></script>
+    <script src="../js/flot/jquery.flot.resize.js"></script>
+    <script src="../js/flot/curvedLines.js"></script>
+    <script src="../js/flot/flot-active.js"></script>
+    <!-- plugins JS
         ============================================ -->
-        <script src="../js/plugins.js"></script>
-        <!-- main JS
+    <script src="../js/plugins.js"></script>
+    <!-- main JS
         ============================================ -->
-        <script src="../js/main.js"></script>
+    <script src="../js/main.js"></script>
 
 </body>
 
