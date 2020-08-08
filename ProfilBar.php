@@ -497,7 +497,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                     </div>
                                 </div>
                                 <form action="upload.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" method="POST" enctype="multipart/form-data">
-                                    <div class="col-md-6"> <br>
+                                    <div class="col-md-6"><br><br><br>
                                         <div class="form-group">
                                             <label for="exampleFormControlTextarea1"> <b>Bukti Pembayaran</b></label>
                                             <input type="file" class="form-control" name="bukti_pembayaran" required />
@@ -508,6 +508,11 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                         </div>
                                         <input class="btn btn-primary" value="Kirim" type="submit" />
                                         <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah anda yakin ingin membatalkan transaksi?")'>Batalkan Transaksi</a>
+                                    
+                                        <h4>Lakukan pembayaran sejumlah total transaksi pada : </h4>
+                                        <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
+                                        <p>Kemudian unggah bukti pembayaran dan scan KTP penyewa pada website Kawisakti tab "Upload".</p><br>
+                                      
                                     </div>
                                 </form>
                             </div>
