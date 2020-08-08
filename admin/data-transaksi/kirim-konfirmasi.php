@@ -51,7 +51,9 @@ $mail->Subject      =  "Konfirmasi Checkout Pesanan"; //subject
 $mail->Body         =  '<p>Hai, pelanggan PT. Kawi Sakti Megah. Terimakasih telah bertransaksi di PT. Kawi Sakti Megah. Pesanan anda telah dikonfirmasi.</p>
                         <p>Silahkan melakukan pembayaran sesuai dengan jumlah pesanan tertera pada nomor rekening dibawah ini :</p><br>
                         <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
-                        <p>Kemudian unggah bukti pembayaran dan scan KTP penyewa pada website Kawisakti tab "Upload"</p><br>
+                        <p>Kemudian unggah bukti pembayaran dan scan KTP penyewa pada website Kawisakti tab "Upload".</p><br>
+                        <p>Setelah bukti pembayaran dan scan KTP berhasil diunggah, admin akan melakukan verifikasi bukti dalam waktu 1 x 24 jam hari kerja.</p><br>
+                        <p>Pesanan anda akan sampai selambat lambatnya 3 hari setelah waktu pemesanan (perhitungan sesuai dengan hari kerja).</p>
                         ';
 if ($mail->Send()) {
     //update status keranjang dan transaksi menjadi "dikirim"
