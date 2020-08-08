@@ -95,37 +95,35 @@ $queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `l
         <nav id="sidebar" class="">
             <div class="sidebar-header">
                 <br>
-                <!-- <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a> -->
+                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
             <div class="nalika-profile">
                 <div class="profile-dtl">
-
                     <h2> <b>A<span class="min-dtn">DMIN</span></b></h2>
                 </div>
-
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li>
-                            <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                            <a title="Data Barang" href="../data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
-                            <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                            <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                            <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                            <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -191,7 +189,6 @@ $queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `l
                     </div>
                 </div>
             </div>
-
             <!-- Mobile Menu start -->
             <br>
             <br>
@@ -351,7 +348,6 @@ $queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `l
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- <b> <a href="index.php">Kembali ke Menu Admin</a> </b> -->
                             </div>
                             <?php if ($denda > 0) { ?>
                                 <div class="row">
@@ -398,7 +394,7 @@ $queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `l
                                 <div class="row">
                                     <h2>Keterlambatan</h2> <br>
                                     <table border="3">
-                                        <thead>
+                                        <thead>s
                                             <th>Judul</th>
                                             <th>Tgl Sewa</th>
                                             <th>Tgl Jatuh Tempo</th>

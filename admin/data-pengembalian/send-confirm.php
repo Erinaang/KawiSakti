@@ -50,7 +50,7 @@ $mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
 $mail->Password     = "maternal781998";   //password email yang ngirim
 $mail->From            = "erinaangg@gmail.com"; //email pengirim
 $mail->FromName     = "Kawi Sakti";      //nama pengirim
-$mail->AddAddress('kikirabdullah@gmail.com', "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
+$mail->AddAddress($emailPenyewa, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
 $mail->Subject      =  "Pemberitahuan dari PT KSM"; //subject
 $mail->Body         =  '<b>proses penyewaan telah diselesaikan . Terimakasih sudah menyewa di PT kawi sakti megah</b><br>';
 if ($denda >= 1) {
