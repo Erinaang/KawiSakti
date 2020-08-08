@@ -47,9 +47,12 @@ $mail->Password     = "maternal781998";   //password email yang ngirim
 $mail->From            = "erinaangg@gmail.com"; //email pengirim
 $mail->FromName     = "PT. Kawi Sakti Megah";      //nama pengirim
 $mail->AddAddress($emailPenyewa, "Dengan PT. Kawi Sakti Megah disini."); //email yang tujuan dan nama
-$mail->Subject      =  "Pemberitahuan dari PT Kawi Sakti Megah"; //subject
-$mail->Body         =  '<b>Hai, pelanggan PT. Kawi Sakti Megah. Barang yang anda sewa telah dikonfirmasi.</b><br> 
-                        <b> Silahkan mengunggah bukti pembayaran dan bukti ktp pada tab upload</b><br><br>';
+$mail->Subject      =  "Konfirmasi Checkout Pesanan"; //subject
+$mail->Body         =  '<p>Hai, pelanggan PT. Kawi Sakti Megah. Terimakasih telah bertransaksi di PT. Kawi Sakti Megah. Pesanan anda telah dikonfirmasi.</p>
+                        <p>Silahkan melakukan pembayaran sesuai dengan jumlah pesanan tertera pada nomor rekening dibawah ini :</p><br>
+                        <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
+                        <p>Kemudian unggah bukti pembayaran dan scan KTP penyewa pada website Kawisakti tab "Upload"</p><br>
+                        ';
 if ($mail->Send()) {
     //update status keranjang dan transaksi menjadi "dikirim"
     $queryConfirm = mysqli_query($mysqli, "UPDATE transaksi SET STATUS='dikonfirmasi' WHERE id_transaksi='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
