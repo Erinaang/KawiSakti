@@ -22,8 +22,8 @@ if (isset($_POST['daftarSubmit'])) {
 	$password = randomPass();
 	$passEnc = md5($password);
 
-	$sql_u = "SELECT * FROM user WHERE USERNAME='$username' AND SHOW=1";
-	$sql_e = "SELECT * FROM user WHERE EMAIL='$email' AND SHOW=1";
+	$sql_u = "SELECT * FROM user WHERE USERNAME='$username' AND DISPLAY='1'";
+	$sql_e = "SELECT * FROM user WHERE EMAIL='$email' AND DISPLAY='1'";
 	$res_u = mysqli_query($mysqli, $sql_u) or die("data salah: " . mysqli_error($mysqli));
 	$res_e = mysqli_query($mysqli, $sql_e) or die("data salah: " . mysqli_error($mysqli));
 
