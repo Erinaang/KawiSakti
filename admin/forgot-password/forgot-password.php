@@ -8,9 +8,9 @@
 	<!--webfonts-->
 	<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700|Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<!--//webfonts-->
-	<link rel="shortcut icon" type="../image/x-icon" href="img/ksm.png">
-
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon-32x32.png">
 	<link rel="stylesheet" href="../css/font-awesome.min.css">
+	<title>Lupa Password | PT Kawi Sakti Megah</title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 					<hr>
 					<div class="sign">
 						<div class="submit">
-							<input type="submit" name="kirim" value="Kirim">
+							<input type="submit" name="kirim" value="Simpan">
 						</div>
 					</div>
 				</form>

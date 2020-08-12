@@ -26,8 +26,8 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
-<head>
-    <meta charset="utf-8">
+<head><meta charset="windows-1252">
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -296,7 +296,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                             <td>
                                                 <a href="detail-riwayat.php?ID_TRANS=<?php echo $idTrans; ?>&TGL_SEWA=<?php echo $tglSewa; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
                                                 <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>
-                                                <a href="hapus-pengembalian.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
+                                                <!--<a href="hapus-riwayat.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Hapus" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>-->
                                             </td>
                                         </tr>
                                     <?php } ?>

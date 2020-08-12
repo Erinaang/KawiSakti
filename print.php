@@ -214,7 +214,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
       </div>
       <div class="row">
         <div class="col-md-6">
-          <p>Malang, <?php echo $date; ?></p>
+          <p>Malang, <?php echo date ('d-M-Y', strtotime($date)); ?></p>
           <p>
             Hormat Kami,
           </p>
@@ -232,7 +232,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p>Permohonan di atas untuk masa sewa: <?php echo $tglSewa; ?> s/d <?php echo $tglJatuhTempo; ?></p>
+          <p>Permohonan diatas untuk masa sewa: <?php echo $tglSewa; ?> s/d <?php echo $tglJatuhTempo; ?></p>
 
         </div>
       </div>

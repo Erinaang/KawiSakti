@@ -8,6 +8,7 @@
 <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700|Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 <!--//webfonts-->
 <link rel="shortcut icon" type="image/x-icon" href="../img/favicon-32x32.png">
+<title>Login Akun PT Kawi Sakti Megah</title>
 </head>
  
 <body>

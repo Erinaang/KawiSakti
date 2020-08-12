@@ -58,6 +58,6 @@ if (isset($_GET['ID_PAKET'])) {
     }
 
     if ($insertTransaksiItem) {
-        header("Location: profilBar.php?MASA_SEWA=$masaSewa"); //go to page profilbar
+        header("Location: ProfilBar.php?MASA_SEWA=$masaSewa"); //go to page profilbar
     }
 }

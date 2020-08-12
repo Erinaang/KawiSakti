@@ -81,14 +81,14 @@ include 'koneksi/koneksi.php';
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.php">Beranda</a></li>
-                            <li><a href="projectBar.php">Jenis Scafold</a></li>
+                            <li><a href="projectBar.php">Jenis Scaffolding</a></li>
                             <li><a href="AboutUs.php">Tentang Kami</a></li>
                             <li><a href="skafoldBar.php">Scaffolding</a></li>
                             <?php if (!isset($_SESSION['username'])) {
                                 echo '<li><a href="admin/login.php">Login</a></li>';
                             } else {
                                 echo '<li><a href="ProfilBar.php">Profil</a></li>';
-                                echo '<li><a href="admin/logout.php">Log Out</a></li>';
+                                echo '<li><a href="admin/logout.php">Log out</a></li>';
                             }
 
                             ?>

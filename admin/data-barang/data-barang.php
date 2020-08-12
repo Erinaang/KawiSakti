@@ -14,8 +14,8 @@ $stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysq
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
-<head>
-    <meta charset="utf-8">
+<head><meta charset="windows-1252">
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Data Barang</title>
     <meta name="description" content="">
@@ -203,7 +203,7 @@ $stok = mysqli_query($mysqli, "SELECT * FROM stok") or die("data salah: " . mysq
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</p>
+                                                <!--<p>Welcome to PT Kawi Sakti Megah</p>-->
                                             </div>
                                         </div>
                                     </div>

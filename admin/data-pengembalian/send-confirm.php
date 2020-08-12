@@ -29,7 +29,7 @@ while ($show = mysqli_fetch_array($cekDenda)) {
   $biaya = $show['BIAYA_RUSAK'];
   $denda = $denda + ($biaya * $set);
 }
-$dataPenyewa = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `USER` AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$dataPenyewa = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `user` AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idPenyewa' AND tr.ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($dataPenyewa)) {
   $namaPenyewa = $show['NAMA'];
   $emailPenyewa = $show['EMAIL'];
@@ -49,13 +49,14 @@ $mail->SMTPSecure     = "ssl";
 $mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
 $mail->Password     = "maternal781998";   //password email yang ngirim
 $mail->From            = "erinaangg@gmail.com"; //email pengirim
-$mail->FromName     = "Kawi Sakti";      //nama pengirim
+$mail->FromName     = "PT. Kawi Sakti Megah";      //nama pengirim
 $mail->AddAddress($emailPenyewa, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
-$mail->Subject      =  "Pemberitahuan dari PT KSM"; //subject
-$mail->Body         =  '<b>proses penyewaan telah diselesaikan . Terimakasih sudah menyewa di PT kawi sakti megah</b><br>';
+$mail->Subject      =  "Transaksi Selesai"; //subject
+$mail->Body         =  '<b>Proses transaksi penyewaan scaffolding pada PT Kawi Sakti Megah telah diselesaikan. Terimakasih sudah menyewa di PT Kawi Sakti Megah</b><br>';
 if ($denda >= 1) {
   $mail->Body .= '
   <h2>Denda</h2> <br>
+  <b>Berikut keterangan denda transaksi penyewaan scaffolding PT Kawi Sakti Megah</b><br>
   <table border="2">
   
   <thead>

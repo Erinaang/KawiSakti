@@ -14,8 +14,8 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
-<head>
-    <meta charset="utf-8">
+<head><meta charset="windows-1252">
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT. Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -173,7 +173,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li> -->
-                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -262,7 +262,7 @@ $pengiriman = mysqli_query($mysqli, "SELECT * FROM pengiriman") or die("data sal
                                     <?php while ($show = mysqli_fetch_array($pengiriman)) { ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td> <?php echo number_format($show['BIAYA'], 2, ",", "."); ?></td>
+                                            <td>Rp. <?php echo number_format($show['BIAYA'], 2, ",", "."); ?></td>
                                             <td><?php echo $show['MAX']; ?></td>
                                             <td>
                                                 <a href="edit-pengiriman.php?ID_PENGIRIMAN=<?php echo $show['ID_PENGIRIMAN']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-info pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true">Edit</i></a>

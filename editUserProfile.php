@@ -106,7 +106,7 @@ if (isset($_POST["submit"])) {
     <section class="banner_area">
         <div class="container">
             <div class="banner_inner_text">
-                <h4>Edit User Profile</h4>
+                <h4>Edit Profil User</h4>
             </div>
         </div>
     </section>
@@ -116,7 +116,7 @@ if (isset($_POST["submit"])) {
     <div class="container-fluid">
         <div class="product-status mg-b-30">
             <div class="container-fluid" style="background-color: #FFB74D">
-                <h5> <b> Silahkan edit profile anda </b></h5><br>
+                <center><h3> <b> Silahkan edit profil anda </b></h3><br></center>
                 <div class="product-status-wrap">
                     <div class="row">
                         <?php while ($show = mysqli_fetch_array($queryUser)) { ?>
@@ -124,7 +124,7 @@ if (isset($_POST["submit"])) {
                                 <img id="myImg" src="img/users/<?php echo $show['FOTO']; ?>" width="200"><br><br><br>
                                 <form action="uploadPhotos.php" method="post" enctype="multipart/form-data">
                                     <input type="file" name="foto" id="foto" />
-                                    <input type="submit" name="submit" id="submit" value="Change Photos" />
+                                    <input type="submit" name="submit" id="submit" value="Ubah Foto" />
                                 </form>
                             </div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
@@ -136,9 +136,9 @@ if (isset($_POST["submit"])) {
                                     <h4><b> Alamat &emsp;&emsp;&emsp;&emsp; &emsp; &emsp; : <input type="text" name="alamat" placeholder="alamat" value="<?php echo $show['ALAMAT']; ?>"></h4></b><br>
                                     <br>
                                     <br>
-                                    <input class="btn btn-primary" type="submit" value="submit" name="submit">
-                                    <a type="button" href="ProfilBar.php" class="btn btn-danger">Kembali Ke Profile</a>
-                                    <a type="button" class="btn btn-info" href="admin/forgot-password/forgot-password.php?edit">Ganti Password</a>
+                                    <input class="btn btn-primary" type="submit" value="Simpan" name="submit">
+                                    <a type="button" href="ProfilBar.php" class="btn btn-danger">Kembali Ke Profil</a>
+                                    <a type="button" class="btn btn-info" href="admin/forgot-password/forgot-password.php?edit">Ubah Password</a>
                                 </form>
                             </div>
                             <br>
@@ -161,10 +161,10 @@ if (isset($_POST["submit"])) {
     <section class="get_quote_area yellow_get_quote">
         <div class="container">
             <div class="pull-left">
-                <h4>Looking for a quality and affordable constructor for your next project?</h4>
+                <h4>Tertarik untuk menyewa scaffolding?</h4>
             </div>
             <div class="pull-right">
-                <a class="get_btn_black" href="#">GET A QUOTE</a>
+                <a class="get_btn_black" href="skafoldBar.php">KLIK DISINI UNTUK MENYEWA</a>
             </div>
         </div>
         <!-- </section> -->
@@ -177,19 +177,19 @@ if (isset($_POST["submit"])) {
                         <div class="col-md-3 col-sm-6">
                             <aside class="f_widget about_widget">
                                 <img src="img/footer-logo.png">
-                                <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kulifikasi tinggi sebagai perusahaan bidang rental Sacffolding dan konstruktor </p>
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                </ul>
+                                <p>Kami melayani pengerjaan dengan konsultan Proyek Terbaik, serta mempunyai kualifikasi tinggi sebagai perusahaan bidang rental scaffolding dan konstruktor </p>
+                                <!--<ul>-->
+                                <!--    <li><a href="#"><i class="fa fa-facebook"></i></a></li>-->
+                                <!--    <li><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+                                <!--    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>-->
+                                <!--    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>-->
+                                <!--</ul>-->
                             </aside>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <aside class="f_widget recent_widget">
                                 <div class="f_w_title">
-                                    <h3>Recent Portofolio</h3>
+                                    <h3>Portofolio</h3>
                                 </div>
                                 <div class="recent_w_inner">
                                     <div class="media">
@@ -197,7 +197,7 @@ if (isset($_POST["submit"])) {
                                         </div>
                                         <div class="media-body">
                                             <a href="#">
-                                                <p>Pengerjaan Gedung UMM 1</p>
+                                                <p>Pembangunan Gedung UMM 1</p>
                                             </a>
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@ if (isset($_POST["submit"])) {
                                         </div>
                                         <div class="media-body">
                                             <a href="#">
-                                                <p>Pengerjaan kantor BCA Sukun</p>
+                                                <p>Pembangunan Kantor BCA Sukun</p>
                                             </a>
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@ if (isset($_POST["submit"])) {
                         <div class="col-md-3 col-sm-6">
                             <aside class="f_widget address_widget">
                                 <div class="f_w_title">
-                                    <h3>Office Address</h3>
+                                    <h3>Alamat Kantor</h3>
                                 </div>
                                 <div class="address_w_inner">
                                     <div class="media">
@@ -232,7 +232,7 @@ if (isset($_POST["submit"])) {
                                             <i class="fa fa-phone"></i>
                                         </div>
                                         <div class="media-body">
-                                            <p>(0341) 350003 </p>
+                                            <p>(0341) 350-003 </p>
                                         </div>
                                     </div>
                                     <div class="media">
@@ -240,7 +240,7 @@ if (isset($_POST["submit"])) {
                                             <i class="fa fa-envelope"></i>
                                         </div>
                                         <div class="media-body">
-                                            <p>info@domain.com</p>
+                                            <p>kawisaktimalang@gmail.com</p>
                                         </div>
                                     </div>
                                 </div>
@@ -248,8 +248,8 @@ if (isset($_POST["submit"])) {
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <aside class="f_widget give_us_widget">
-                                <h5>Give Us A Call</h5>
-                                <h4>(0341) 350003 </h4>
+                                <h5>Hubungi Kami</h5>
+                                <h4>(0341) 350-003 </h4>
                             </aside>
                         </div>
                     </div>

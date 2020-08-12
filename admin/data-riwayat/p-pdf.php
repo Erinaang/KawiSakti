@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Print PDF | Data Riwayat Pengembalian</title>
 </head>
@@ -49,7 +50,7 @@
                         ?>
                             <tr>
                                 <td><?php echo $show['NAMA']; ?></td>
-                                <td>Rp. <?php echo $totalPembayaran;  ?></td>
+                                <td>Rp. <?php echo number_format ($totalPembayaran, 2, ",", ".");  ?></td>
                                 <td><?php echo $show['ALAMAT']; ?></td>
                                 <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
                                 <td><?php echo date('d-M-Y', strtotime($show['TGL_JATUH_TEMPO'])); ?></td>

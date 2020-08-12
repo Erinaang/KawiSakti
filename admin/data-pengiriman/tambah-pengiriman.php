@@ -21,8 +21,8 @@ if (isset($_POST['submit'])) {
 
 <html class="no-js" lang="en">
 
-<head>
-    <meta charset="utf-8">
+<head><meta charset="windows-1252">
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT. Kawi Sakti Megah </title>
     <meta name="description" content="">
@@ -181,7 +181,7 @@ if (isset($_POST['submit'])) {
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li> -->
-                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -220,8 +220,8 @@ if (isset($_POST['submit'])) {
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Selamat Datang, ADMIN PT. Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
+                                                <h2>Selamat Datang, Admin PT. Kawi Sakti Megah</h2>
+                                                <!--<p>Welcome to PT Kawi Sakti Megah</span></p>-->
                                             </div>
                                         </div>
                                     </div>
@@ -273,7 +273,7 @@ if (isset($_POST['submit'])) {
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <div class="review-content-section">
                                                         <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Max :</i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Max Jumlah Scaffolding :</i></span>
                                                             <input name="max" type="text" class="form-control" placeholder="Max">
                                                         </div>
                                                     </div>
@@ -283,8 +283,8 @@ if (isset($_POST['submit'])) {
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
                                                         <!-- <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10"> -->
-                                                        <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Save">
-                                                        <a href="data-pengiriman.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                                        <input type="submit" name="submit" class="btn btn-ctl-bt waves-effect waves-light" value="Simpan">
+                                                        <a href="data-pengiriman.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Batal</a>
                                                     </div>
                                                 </div>
                                             </div>

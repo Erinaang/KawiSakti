@@ -4,7 +4,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $pass = md5($password);
 
-$cek = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username' and password='$pass'") or die("data salah: " . mysqli_error($mysqli));
+$cek = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username' and password='$pass' AND DISPLAY='1'") or die("data salah: " . mysqli_error($mysqli));
 $result   = mysqli_num_rows($cek);
 $data = mysqli_fetch_array($cek);
 session_start();

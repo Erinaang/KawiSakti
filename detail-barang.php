@@ -85,7 +85,7 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, tr.DISKON, ti.HARGA_ITEM, pk
                             <h3> Detail Barang yang Dipesan </h3>
                         </center>
                         <br>
-                        <h4> <b> Tanggal Penyewaan &emsp; &emsp;&emsp; : <?php echo $tglSewa; ?> </b> </h4>
+                        <h4> <b> Tanggal Penyewaan &emsp; &emsp;&emsp; : <?php echo date ('d-M-Y', strtotime($show['TGL_SEWA'])); ?> </b> </h4>
                         <h4> <b> Status Pengiriman &emsp;&emsp;&emsp;&emsp; : <?php echo $status; ?> </b> </h4>
                         <br>
                         <div class="row">

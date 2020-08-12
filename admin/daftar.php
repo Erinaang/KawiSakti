@@ -22,15 +22,15 @@ if (isset($_POST['daftarSubmit'])) {
 	$password = randomPass();
 	$passEnc = md5($password);
 
-	$sql_u = "SELECT * FROM user WHERE USERNAME='$username' AND DISPLAY='1'";
-	$sql_e = "SELECT * FROM user WHERE EMAIL='$email' AND DISPLAY='1'";
+	$sql_u = "SELECT * FROM user WHERE USERNAME='$username' AND DISPLAY=1";
+	$sql_e = "SELECT * FROM user WHERE EMAIL='$email' AND DISPLAY=1";
 	$res_u = mysqli_query($mysqli, $sql_u) or die("data salah: " . mysqli_error($mysqli));
 	$res_e = mysqli_query($mysqli, $sql_e) or die("data salah: " . mysqli_error($mysqli));
 
 	if (mysqli_num_rows($res_u) > 0) {
-		$name_error = "Sorry... username already taken";
+		$name_error = "Maaf, email sudah terdaftar!";
 	} else if (mysqli_num_rows($res_e) > 0) {
-		$email_error = "Sorry... email already taken";
+		$email_error = "Maaf, email sudah terdaftar!";
 	} else {
 		error_reporting(E_ALL);
 		require '../PHPMailer/src/PHPMailer.php';
@@ -46,10 +46,10 @@ if (isset($_POST['daftarSubmit'])) {
 		$mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
 		$mail->Password     = "maternal781998";   //password email yang ngirim
 		$mail->From            = "erinaangg@gmail.com"; //email pengirim
-		$mail->FromName        = "Kawi Sakti";      //nama pengirim
+		$mail->FromName        = "PT. Kawi Sakti Megah";      //nama pengirim
 		$mail->AddAddress($email, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
-		$mail->Subject      =  "Pendaftaran User PT KSM"; //subject
-		$mail->Body     	=  "<b>Terima Kasih telah mendaftar menjadi User PT Kawi Sakti Megah</b><br>
+		$mail->Subject      =  "Password Akun PT Kawi Sakti Megah"; //subject
+		$mail->Body     	=  "<b>Terima Kasih telah mendaftar menjadi user PT Kawi Sakti Megah</b><br>
 			<p> Nama " . $nama . " </p><br>
 			<p> Email " . $email . " </p><br>
 			<p> Password " . $password . " </p><br>
@@ -122,7 +122,7 @@ if (isset($_POST['daftarSubmit'])) {
 				</div>
 			</form><br>
 			<div class="btn btn-info">
-				<a href="../index.php" class="btn btn-info">kembali ke menu awal</a>
+				<a href="../index.php" class="btn btn-info">Kembali ke menu awal</a>
 				</div>
 		</div>
 	</div>

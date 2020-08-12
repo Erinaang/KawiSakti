@@ -25,14 +25,14 @@ if (isset($_POST['kirim'])) {
 		$mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
 		$mail->Password     = "maternal781998";   //password email yang ngirim
 		$mail->From            = "erinaangg@gmail.com"; //email pengirim
-		$mail->FromName     = "Kawi Sakti";      //nama pengirim
+		$mail->FromName     = "PT Kawi Sakti Megah";      //nama pengirim
 		$mail->AddAddress($email, "Dengan PT Kawi Sakti disini."); //email yang tujuan dan nama
-		$mail->Subject      =  "Pemberitahuan dari PT KSM"; //subject
-		$mail->Body     	=  "<b>Terima Kasih telah merubah akun dengan Password Baru</b><br>
+		$mail->Subject      =  "Ubah Password Akun"; //subject
+		$mail->Body     	=  "<b>Anda telah mengubah password pada akun kawisakti anda.</b><br>
 			<p> Nama " . $nama . " </p><br>
 			<p> Email " . $email . " </p><br>
 			<p> Password " . $newPass . " </p><br>
-			<p> Password yang tertera di atas dapat digunakan untuk login pada aplikasi, kami menyarankan untuk mengganti password dengan password yang anda inginkan bila di rasa masih kurang aman </p><br>
+			<p> Password yang tertera di atas dapat digunakan untuk login pada aplikasi, kami menyarankan untuk mengganti password dengan password yang anda inginkan bila dirasa masih kurang aman</p><br>
 			";
 		if ($mail->Send()) {
 			if ($edit === 'true') {

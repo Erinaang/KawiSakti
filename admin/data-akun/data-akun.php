@@ -4,7 +4,7 @@ if (!isset($_SESSION["username"])) {
     header("Location: ../index.php");
 }
 include "../connection/Connection.php";
-$penyewa = mysqli_query($mysqli, "SELECT * FROM user WHERE status='penyewa' AND `SHOW`=1") or die("data salah: " . mysqli_error($mysqli));
+$penyewa = mysqli_query($mysqli, "SELECT * FROM user WHERE status='penyewa' AND `DISPLAY`=1") or die("data salah: " . mysqli_error($mysqli));
 $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
@@ -200,7 +200,7 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
-                                                <p>Welcome to PT Kawi Sakti Megah</span></p>
+                                                <!--<p>Welcome to PT Kawi Sakti Megah</span></p>-->
                                             </div>
                                         </div>
                                     </div>
@@ -241,6 +241,35 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                                         <th>Foto</th>
                                         <th>Nomor Telepon</th>
                                         <th>Alamat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($admin)) { ?>
+                                        <tr>
+                                            <td><?php echo $show['USERNAME']; ?></td>
+                                            <td><?php echo $show['EMAIL']; ?></td>
+                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td><?php echo $show['STATUS']; ?></td>
+                                            <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:20%;"></td>
+                                            <td><?php echo $show['NO_TELP']; ?></td>
+                                            <td><?php echo $show['ALAMAT']; ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Nama</th>
+                                        <th>Status</th>
+                                        <th>Foto</th>
+                                        <th>Nomor Telepon</th>
+                                        <th>Alamat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -264,34 +293,7 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                             </table>
                         </div>
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Nama</th>
-                                        <th>Status</th>
-                                        <th>Foto</th>
-                                        <th>Nomor Telepon</th>
-                                        <th>Alamat</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while ($show = mysqli_fetch_array($admin)) { ?>
-                                        <tr>
-                                            <td><?php echo $show['USERNAME']; ?></td>
-                                            <td><?php echo $show['EMAIL']; ?></td>
-                                            <td><?php echo $show['NAMA']; ?></td>
-                                            <td><?php echo $show['STATUS']; ?></td>
-                                            <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:20%;"></td>
-                                            <td><?php echo $show['NO_TELP']; ?></td>
-                                            <td><?php echo $show['ALAMAT']; ?></td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+
                     </div>
                 </div>
             </div>
