@@ -2,9 +2,9 @@
  <?php
 
 $server = "localhost";
-$usernames = "kawisakt_admin";
-$passwords = "erinaara123";
-$database = "kawisakt_db";
+$usernames = "root";
+$passwords = "";
+$database = "kawisaktimegah";
 
 $mysqli = mysqli_connect($server, $usernames, $passwords, $database);
 
