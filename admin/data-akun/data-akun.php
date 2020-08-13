@@ -5,7 +5,7 @@ if (!isset($_SESSION["username"])) {
 }
 include "../connection/Connection.php";
 $penyewa = mysqli_query($mysqli, "SELECT * FROM user WHERE status='penyewa' AND `DISPLAY`=1") or die("data salah: " . mysqli_error($mysqli));
-$admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die("data salah: " . mysqli_error($mysqli));
+$admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin' OR status='superadmin' AND `DISPLAY`=1") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
@@ -241,24 +241,34 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                                         <th>Foto</th>
                                         <th>Nomor Telepon</th>
                                         <th>Alamat</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($admin)) { ?>
+                                    <?php while ($show = mysqli_fetch_array($admin)) { 
+                                        $status = $show['STATUS'];
+                                        $idAdmin = $show['ID_USER'];
+                                        ?>
                                         <tr>
-                                            <td><?php echo $show['USERNAME']; ?></td>
+                                            <td><?php echo $show['USERNAME'];; ?></td>
                                             <td><?php echo $show['EMAIL']; ?></td>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td><?php echo $show['STATUS']; ?></td>
+                                            <td><?php echo $status; ?></td>
                                             <td><img id="myImg" src="../../img/users/<?php echo $show["FOTO"]; ?>" alt="Foto" style="width:20%;"></td>
                                             <td><?php echo $show['NO_TELP']; ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
+                                            <td>
+                                                <?php if ($status !='superadmin') {
+                                                ?>
+                                                    <a href="hapus-akun.php?ID_USER=<?php echo $idAdmin; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
+                                                <?php } ?>
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
                         </div>
-                        
+
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -274,8 +284,8 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin'") or die
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($penyewa)) { 
-                                        $idPenyewa = $show['ID_USER'];?>
+                                    <?php while ($show = mysqli_fetch_array($penyewa)) {
+                                        $idPenyewa = $show['ID_USER']; ?>
                                         <tr>
                                             <td><?php echo $show['USERNAME']; ?></td>
                                             <td><?php echo $show['EMAIL']; ?></td>

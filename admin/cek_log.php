@@ -10,7 +10,7 @@ $data = mysqli_fetch_array($cek);
 session_start();
 
 if($result>0){
-	if ($data['STATUS'] == 'admin') { // kalo yang loginnya admin
+	if ($data['STATUS'] == 'admin' || $data['STATUS'] == 'superadmin') { // kalo yang loginnya admin
 	    $_SESSION['username'] = $data['USERNAME'];
 	    $_SESSION['status'] 	  = $data['STATUS'];
 	    echo "<script>alert('Selamat Datang, Admin.');location.href='index.php'</script>";
