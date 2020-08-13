@@ -47,6 +47,7 @@
                             $ongkir = $show['BIAYA'];
                             $diskon = $show['DISKON'];
                             $totalDiskon = $totalPaket - $diskon;
+                            $persenDiskon = ($diskon/$totalPaket)*100;
                             $jaminan = $totalDiskon * 30 / 100;
                             $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
                         ?>

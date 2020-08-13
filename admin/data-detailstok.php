@@ -89,10 +89,6 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, tr.DISKON, pk
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -274,89 +270,91 @@ $queryItem = mysqli_query($mysqli, "SELECT us.NAMA, ti.HARGA_ITEM, tr.DISKON, pk
                                 </div>
 
                             </div>
-                            <div class="container-fluid">
-                                <!-- <div class="container-fluid"> -->
-                                <div class="col-md-8">
-                                    <center>
-                                        <h3> Detail Stock Barang </h3>
-                                    </center>
-                                    <br>
-                                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($tglSewa)); ?> </b> </h4>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Masa Sewa (hari) </th>
-                                                        <th>Jumlah Set x Harga (Rp.)</th>
-                                                        <th>Total (Rp.)</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php while ($show = mysqli_fetch_array($queryItem)) {
-                                                        $idTrans = $show['ID_TRANSAKSI'];
-                                                        $idPenyewa = $show['ID_PENYEWA'];
-                                                        $ongkir = $show['BIAYA'];
-                                                        $hargaItem = $show['HARGA_ITEM'];
-                                                        $jumlahSet = $show['JUMLAH_SET'];
-                                                        $status = $show['STATUS'];
-                                                        $diskon = $show['DISKON'];
 
-                                                        $totalPaket = $hargaItem * $jumlahSet;
-                                                        $totalHarga = $totalHarga + $totalPaket;
-                                                        $totalDiskon = $totalHarga - $diskon;
-                                                        $jaminan = $totalDiskon * 30 / 100;
-                                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $index++; ?></td>
-                                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
-                                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Sub Total : </b></td>
-                                                        <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
-                                                    </tr>
-                                                    <?php if ($diskon > 0) {
-                                                    ?>
-                                                        <tr>
-                                                            <td colspan="2"> </td>
-                                                            <td> <b> Diskon : </b></td>
-                                                            <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Jaminan : </b></td>
-                                                        <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Biaya Pengiriman : </b></td>
-                                                        <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2"> </td>
-                                                        <td><b> Total Harga : </b></td>
-                                                        <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!-- <b> <a href="index.php">Kembali ke Menu Admin</a> </b> -->
-                                    </div>
-                                </div>
-                                <!-- </div> -->
-                            </div>
                         </div>
                     </div>
                 </div>
 
+            </div>
+            <div class="container-fluid">
+                <!-- <div class="container-fluid"> -->
+                <div class="col-md-12">
+                    <center>
+                        <h3> Detail Stock Barang </h3>
+                    </center>
+                    <br>
+                    <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($tglSewa)); ?> </b> </h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Masa Sewa (hari) </th>
+                                        <th>Jumlah Set x Harga (Rp.)</th>
+                                        <th>Total (Rp.)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($queryItem)) {
+                                        $idTrans = $show['ID_TRANSAKSI'];
+                                        $idPenyewa = $show['ID_PENYEWA'];
+                                        $ongkir = $show['BIAYA'];
+                                        $hargaItem = $show['HARGA_ITEM'];
+                                        $jumlahSet = $show['JUMLAH_SET'];
+                                        $status = $show['STATUS'];
+                                        $diskon = $show['DISKON'];
+
+                                        $totalPaket = $hargaItem * $jumlahSet;
+                                        $totalHarga = $totalHarga + $totalPaket;
+                                        $totalDiskon = $totalHarga - $diskon;
+                                        $persenDiskon = ($diskon/$totalHarga)*100;
+                                        $jaminan = $totalDiskon * 30 / 100;
+                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $index++; ?></td>
+                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
+                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                    <tr>
+                                        <td colspan="2"> </td>
+                                        <td><b> Sub Total : </b></td>
+                                        <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
+                                    </tr>
+                                    <?php if ($diskon > 0) {
+                                    ?>
+                                        <tr>
+                                            <td colspan="2"> </td>
+                                            <td> <b> Diskon : </b></td>
+                                            <td><b>- Rp. <?php echo number_format($diskon, 2, ",", ".")." (".$persenDiskon."%)"; ?> </b></td>
+                                        </tr>
+                                    <?php } ?>
+                                    <tr>
+                                        <td colspan="2"> </td>
+                                        <td><b> Jaminan : </b></td>
+                                        <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"> </td>
+                                        <td><b> Biaya Pengiriman : </b></td>
+                                        <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"> </td>
+                                        <td><b> Total Harga : </b></td>
+                                        <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- <b> <a href="index.php">Kembali ke Menu Admin</a> </b> -->
+                    </div>
+                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>

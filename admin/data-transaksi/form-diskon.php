@@ -4,19 +4,27 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php");
 }
 include "../connection/Connection.php";
+
 $index = 1;
-$totalHarga = $diskon = $totalDenda = $totalDendaAkhir = $telat = $denda = 0;
-date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
-$today = date("Y-m-d");
-
+$totalHarga = $diskon = 0;
 $idTrans = $_GET['ID_TRANS'];
-$tglSewa = $_GET['TGL_SEWA'];
 
-$queryItem = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI WHERE lt.ID_LOG_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
-$queryDenda = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI WHERE lt.ID_LOG_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
-$queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI WHERE lt.ID_LOG_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$queryItem = mysqli_query($mysqli, "SELECT us.NAMA, pk.FRAME, ti.HARGA_ITEM, tr.DISKON, pk.JUMLAH_SET,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA, pk.MASA_SEWA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+
+if (isset($_POST['submit'])) {
+    $diskon = $_POST['diskon'];
+
+    $queryDiskon = mysqli_query($mysqli, "UPDATE transaksi SET DISKON='$diskon' WHERE ID_TRANSAKSI = '$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+
+    if ($queryDiskon) {
+        echo '<script>
+        alert("Diskon telah ditambahkan.");
+        location.href="data-transaksi.php";
+        </script>
+        ';
+    }
+}
 ?>
-
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
@@ -88,42 +96,42 @@ $queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `l
 
 </head>
 
-
 <body>
-
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
                 <br>
-                <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
+                <!-- <a><img class="main-logo" src="img/logo/logo3.png" alt="" /></a> -->
                 <br>
                 <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
             </div>
             <div class="nalika-profile">
                 <div class="profile-dtl">
+
                     <h2> <b>A<span class="min-dtn">DMIN</span></b></h2>
                 </div>
+
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li>
-                            <a title="Data Barang" href="../data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
+                            <a title="Data Barang" href="data-barang/data-barang.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Barang</span></a>
                         </li>
                         <li>
-                            <a title="Data Transaksi" href="../data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
+                            <a title="Data Transaksi" href="data-transaksi/data-transaksi.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Riwayat Transaksi" href="data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
+                            <a title="Riwayat Transaksi" href="data-riwayat/data-riwayat.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Riwayat Transaksi</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
+                            <a title="Data Pengembalian" href="data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
-                            <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
+                            <a title="Data Pengiriman" href="data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
-                            <a title="Data Pelanggan" href="../data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
+                            <a title="Data Pelanggan" href="data-akun/data-akun.php"><i class="fas fa-user-shield"></i><span class="mini-click-non">Data Pelanggan</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -189,6 +197,7 @@ $queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `l
                     </div>
                 </div>
             </div>
+
             <!-- Mobile Menu start -->
             <br>
             <br>
@@ -254,168 +263,106 @@ $queryTelat = mysqli_query($mysqli, "SELECT * FROM `log_transaksi` as lt JOIN `l
                                             </div>
                                         </div>
                                     </div>
+                                    <!--  <?php
+                                            if (!empty($_POST['program'])) { ?>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcomb-report">
+                                            <form method="post" action="export.php?username=<?php echo $_GET['username']; ?>&select=<?php echo $_POST['program']; ?>" align="center"> 
+
+                                            Download File : <input type="submit" name="export" value="Excel Export" class="btn btn-success" /> 
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                <?php } ?> -->
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
 
             </div>
+
         </div>
         <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
-                        <div class="col-md-12">
-                            <center>
-                                <h3> Detail Stock Barang </h3>
-                            </center>
-                            <br>
-                            <h4> <b> Detail Barang Tanggal &emsp; &emsp; : <?php echo date('d-M-Y', strtotime($tglSewa)); ?> </b> </h4>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Frame</th>
-                                                <th>Masa Sewa (hari) </th>
-                                                <th>Jumlah Set x Harga (Rp.)</th>
-                                                <th>Total (Rp.)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php while ($show = mysqli_fetch_array($queryItem)) {
-                                                $idTrans = $show['ID_LOG_TRANSAKSI'];
-                                                $tglSewa = $show['TGL_SEWA'];
-                                                $tglJatuhTempo = $show['TGL_JATUH_TEMPO'];
-                                                $datetime1 = strtotime($today);
-                                                $datetime2 = strtotime($tglJatuhTempo);
-                                                $secs = $datetime1 - $datetime2;
-                                                $telat = $secs / 86400;
-                                                $totalTelat = 100000 * $telat;
+                        <h3>Diskon</h3>
+                        <div class="table-responsive-md">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Frame</th>
+                                        <th>Masa Sewa (hari) </th>
+                                        <th>Jumlah Set x Harga (Rp.)</th>
+                                        <th>Total (Rp.)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($show = mysqli_fetch_array($queryItem)) {
+                                        $idTrans = $show['ID_TRANSAKSI'];
+                                        $idPenyewa = $show['ID_PENYEWA'];
+                                        $ongkir = $show['BIAYA'];
+                                        $hargaItem = $show['HARGA_ITEM'];
+                                        $jumlahSet = $show['JUMLAH_SET'];
+                                        $status = $show['STATUS'];
+                                        $diskon = $show['DISKON'];
 
-                                                $ongkir = $show['ONGKIR'];
-                                                $hargaItem = $show['HARGA'];
-                                                $jumlahSet = $show['JUMLAH_SET'];
-                                                $status = $show['STATUS'];
-                                                $diskon = $show['DISKON'];
-                                                $denda = $denda + $show['SET_RUSAK'];
+                                        $totalPaket = $hargaItem * $jumlahSet;
+                                        $totalHarga = $totalHarga + $totalPaket;
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $index++; ?></td>
+                                            <td><?php echo $show['FRAME']; ?></td>
+                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA_ITEM']; ?>,00</td>
+                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                    <tr>
+                                        <td colspan="3"> </td>
+                                        <td><b>Total : </b></td>
+                                        <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                                $totalPaket = $hargaItem * $jumlahSet;
-                                                $totalHarga = $totalHarga + $totalPaket;
-                                                $totalDiskon = $totalHarga - $diskon;
-                                                $persenDiskon = ($diskon/$totalHarga)*100;
-                                                $jaminan = $totalDiskon * 30 / 100;
-                                                $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
-                                            ?>
-                                                <tr>
-                                                    <td><?php echo $index; ?></td>
-                                                    <td><?php echo $show['FRAME']; ?></td>
-                                                    <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                    <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo $show['HARGA']; ?>,00</td>
-                                                    <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                            <tr>
-                                                <td colspan="3"> </td>
-                                                <td><b> Sub Total : </b></td>
-                                                <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", ".");  ?></b></td>
-                                            </tr>
-                                            <?php if ($diskon > 0) {
-                                            ?>
-                                                <tr>
-                                                    <td colspan="3"> </td>
-                                                    <td> <b> Diskon : </b></td>
-                                                    <td><b>- Rp. <?php echo number_format($diskon, 2, ",", ".")." (".$persenDiskon."%)"; ?> </b></td>
-                                                </tr>
-                                            <?php } ?>
-                                            <tr>
-                                                <td colspan="3"> </td>
-                                                <td><b> Jaminan : </b></td>
-                                                <td><b>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"> </td>
-                                                <td><b> Biaya Pengiriman : </b></td>
-                                                <td><b>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"> </td>
-                                                <td><b> Total Harga : </b></td>
-                                                <td><b>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></b></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <?php if ($denda > 0) { ?>
+        </div>
+        <div class="product-status mg-b-30">
+            <div class="container-fluid">
+                <div class="product-status-wrap">
+                    <div class="row">
+                        <form action="" method="post">
+                            <div class="product-tab-list tab-pane fade active in" id="edit">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Denda</h3>
-                                        <table class="table table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Frame</th>
-                                                    <th>Masa Sewa (hari) </th>
-                                                    <th>Jumlah Set x Harga (Rp.)</th>
-                                                    <th>Total (Rp.)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $index = 1;
-                                                while ($show = mysqli_fetch_array($queryDenda)) {
-                                                    $idTrans = $show['ID_LOG_TRANSAKSI'];
-                                                    $setRusak = $show['SET_RUSAK'];
-                                                    $biayaRusak = $show['BIAYA'];
-                                                    $totalDenda = $biayaRusak * $setRusak;
-                                                    $totalDendaAkhir = $totalDendaAkhir + $totalDenda;
-                                                ?>
-                                                    <tr>
-                                                        <td><?php echo $index++; ?></td>
-                                                        <td><?php echo $show['FRAME']; ?></td>
-                                                        <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                        <td><?php echo $setRusak; ?> Set x Rp. <?php echo number_format($biayaRusak, 2, ",", "."); ?></td>
-                                                        <td>Rp. <?php echo number_format($totalDenda, 2, ",", "."); ?></td>
-                                                    </tr>
-                                                <?php } ?>
-                                                <tr>
-                                                    <td colspan="3"> </td>
-                                                    <td><b> Sub Total : </b></td>
-                                                    <td><b> Rp. <?php echo number_format($totalDendaAkhir, 2, ",", ".");  ?></b></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="review-content-section">
+                                            <p>Masukan Jumlah Diskon</p>
+                                            <div class="input-group mg-b-pro-edt">
+                                                <span class="input-group-addon"><i class="fa fa-edit" aria-hidden="true"> Diskon : Rp.</i></span>
+                                                <input name="diskon" type="number" class="form-control" min="1" max="<?php echo $totalHarga; ?>">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            <?php } ?>
-                            <?php if ($telat > 0) { ?>
                                 <div class="row">
-                                    <h2>Keterlambatan</h2> <br>
-                                    <table border="3">
-                                        <thead>s
-                                            <th>Judul</th>
-                                            <th>Tgl Sewa</th>
-                                            <th>Tgl Jatuh Tempo</th>
-                                            <th>Terlambatan</th>
-                                            <th>Total</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Keterlambatan</td>
-                                                <td><?php echo $tglSewa; ?></td>
-                                                <td><?php echo $tglJatuhTempo; ?></td>
-                                                <td><?php echo $telat; ?> Hari</td>
-                                                <td>Rp. <?php echo number_format($totalTelat, 2, ",", "."); ?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <br>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="text-center custom-pro-edt-ds">
+                                            <input type="submit" name="submit" value="Save" class="btn btn-ctl-bt waves-effect waves-light m-r-10">
+                                            <a href="data-transaksi.php" type="button" class="btn btn-ctl-bt waves-effect waves-light">Discard</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            <?php } ?>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@ if ($_GET['cari'] == null) {
     $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS != 'selesai' GROUP BY ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 } else {
     $c = $_GET['cari'];
-    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS!='selesai' AND  us.NAMA like '%" . $c . "%' OR DAY(tr.TGL_SEWA)='".$c."' GROUP BY tr.ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
+    $dataTransaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL, tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS!='selesai' AND  us.NAMA like '%" . $c . "%' OR DAY(tr.TGL_SEWA)='" . $c . "' GROUP BY tr.ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 }
 ?>
 
@@ -264,6 +264,7 @@ if ($_GET['cari'] == null) {
                                         <th>Alamat</th>
                                         <th>Tanggal Sewa</th>
                                         <th>Tanggal Pengembalian</th>
+                                        <th>Diskon</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -281,15 +282,16 @@ if ($_GET['cari'] == null) {
                                         $diskon = $show['DISKON'];
                                         $tglSewa = $show['TGL_SEWA'];
                                         $totalDiskon = $totalPaket - $diskon;
+                                        $persenDiskon = ($diskon/$totalPaket)*100;
                                         $jaminan = $totalDiskon * 30 / 100;
                                         $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
 
                                     ?>
                                         <tr>
                                             <td><?php echo $show['NAMA']; ?></td>
-                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", ".");
+                                            <td>Rp. <?php echo number_format($totalDiskon, 2, ",", ".");
                                                     if ($diskon > 0) {
-                                                        echo " - (5%)";
+                                                        echo "(-".$persenDiskon."%)";
                                                     } ?></td>
                                             <td>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></td>
                                             <td>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></td>
@@ -297,6 +299,7 @@ if ($_GET['cari'] == null) {
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_SEWA'])); ?></td>
                                             <td><?php echo date('d-M-Y', strtotime($show['TGL_JATUH_TEMPO'])); ?></td>
+                                            <td> <a href="form-diskon.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Diskon" class="btn btn-primary pd-setting-ed">Diskon</i></a></td>
                                             <td><?php echo $status; ?></td>
                                             <td><?php if ($status === "belum konfirmasi") {
                                                     echo '<a href="kirim-konfirmasi.php?ID_TRANS=' . $idTrans . '&ID_PENYEWA=' . $idPenyewa . '" data-toggle="tooltip" title="Konfirmasi" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Konfirmasi</i></a>';
@@ -310,7 +313,6 @@ if ($_GET['cari'] == null) {
                                                 <a href="hapus-transaksi.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Hapus Data" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
 
                                             </td>
-
                                         </tr>
 
                                     <?php } ?>
@@ -382,30 +384,6 @@ if ($_GET['cari'] == null) {
         <!-- main JS
         ============================================ -->
         <script src="../js/main.js"></script>
-
-
-        <script>
-            // Get the modal
-            var modal = document.getElementById("myModal");
-
-            // Get the image and insert it inside the modal - use its "alt" text as a caption
-            var img = document.getElementById("myImg");
-            var modalImg = document.getElementById("img01");
-            var captionText = document.getElementById("caption");
-            img.onclick = function() {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
-            }
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-        </script>
 </body>
 
 </html>

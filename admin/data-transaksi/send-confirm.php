@@ -79,6 +79,7 @@ while ($show = mysqli_fetch_array($detailItem)) {
   $totalPaket = $hargaItem * $jumlahSet;
   $totalHarga = $totalHarga + $totalPaket;
   $totalDiskon = $totalHarga - $diskon;
+  $persenDiskon = ($diskon/$totalHarga)*100;
   $jaminan = $totalDiskon * 30 / 100;
   $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
 
@@ -99,7 +100,7 @@ if ($diskon > 0) {
   $mail->Body         .= '<tr>
     <td colspan="3"> </td>
     <td><b> Diskon : </b></td>
-    <td><b> - Rp. ' . number_format($diskon, 2, ",", ".") . ' (5%) </b></td>
+    <td><b>- Rp.'.number_format($diskon, 2, ",", ".")." (".$persenDiskon."%)".'</b></td>
   </tr>';
 }
 

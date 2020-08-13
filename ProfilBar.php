@@ -9,10 +9,16 @@ date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d");
 
 //DEFINE VARIABLE
-$jamPemesanan = $diskon = $totalPembayaranKeranjang = $total = $ongkir = $totalPembayaranCheckout = $idPenyewa = $idAdmin = $idKeranjang = $jaminanCheckout = $totalCheckout = $masaSewa = $totalHarga = $jumlahSet = $jaminan = $bayar = 0;
+$jamPemesanan = $diskon = $totalPembayaranKeranjang = $total = $ongkir = $totalDendaAkhir = $totalPembayaranCheckout = $idPenyewa = $idAdmin = $idKeranjang = $jaminanCheckout = $totalCheckout = $masaSewa = $totalHarga = $jumlahSet = $jaminan = $bayar = 0;
 $index = 1;
 $username = $_SESSION['username'];
-$masaSewa = $_GET['MASA_SEWA'];
+if (isset($_GET['MASA_SEWA'])) {
+    $masaSewa = $_GET['MASA_SEWA'];
+} else {
+    $masaSewa = NULL;
+}
+
+
 //ambil data user berdasarkan username yang login buat ditampilin di profil
 $profilUser = mysqli_query($mysqli, "SELECT * FROM user WHERE USERNAME='$username'") or die("data salah: " . mysqli_error($mysqli));
 while ($show = mysqli_fetch_array($profilUser)) {
@@ -29,8 +35,11 @@ $queryKeranjang = mysqli_query($mysqli, "SELECT ti.ID_TRANSAKSI_ITEM, ti.ID_TRAN
 //SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
 $queryCheckout = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI, tr.DISKON, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='checkout'") or die("data salah: " . mysqli_error($mysqli));
 
-//SELECT CHECKOUT => ambil data apa aja yang ada di tabel checkout berdasarkan status ='checkout'
+//SELECT UPLOAD=> ambil data apa aja yang ada di tabel checkout berdasarkan status ='dikonfirmasi'
 $queryUpload = mysqli_query($mysqli, "SELECT tr.ID_TRANSAKSI,tr.DISKON, tr.JAM_PEMESANAN, ti.ID_TRANSAKSI_ITEM, pr.BIAYA, ti.ID_TRANSAKSI, pk.MASA_SEWA, pk.JUMLAH_SET, ti.HARGA_ITEM FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='dikonfirmasi'") or die("data salah: " . mysqli_error($mysqli));
+
+//SELECT DENDA => ambil data apa aja yang ada di tabel checkout berdasarkan status ='denda'
+$queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI  WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS='denda'") or die("data salah: " . mysqli_error($mysqli));
 
 //SELECT RIWAYAT=> ambil data apa aja yang ada di tabel riwayat berdasarkan status SELAIN !='checkout' dan !='cart'
 $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL , tr.DISKON,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.ID_PENYEWA ='$idUser' AND tr.STATUS!='cart' AND tr.STATUS!='checkout' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
@@ -65,13 +74,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
     <link href="css/style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
 
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-    <!--  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
     <style>
         body {
@@ -264,8 +266,10 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                 <button class="tablinks" onclick="openTabs(event, 'Keranjang')"> <b> Keranjang </b></button>
                                 <button class="tablinks" onclick="openTabs(event, 'Checkout')"> <b> Checkout </b> </button>
                                 <button class="tablinks" onclick="openTabs(event, 'Upload')"> <b> Upload </b> </button>
+                                <button class="tablinks" onclick="openTabs(event, 'Denda')"> <b> Denda </b> </button>
                                 <button class="tablinks" onclick="openTabs(event, 'Riwayat')"> <b> Riwayat </b> </button>
                             </div>
+
                             <!-- KERANJANG -->
                             <div id="Keranjang" class="tabcontent">
                                 <div class="product-status-wrap">
@@ -325,6 +329,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                     </div>
                                 </div>
                             </div>
+
                             <!-- CHECKOUT -->
                             <div id="Checkout" class="tabcontent">
                                 <div class="product-status-wrap">
@@ -352,13 +357,11 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         $hargaItem = $show['HARGA_ITEM'];
                                                         $jumlahSet = $show['JUMLAH_SET'];
                                                         $jamPemesanan = $show['JAM_PEMESANAN'];
-                                                        $diskon = $show['DISKON'];
 
                                                         $totalPaket = $hargaItem * $jumlahSet;
                                                         $totalHarga = $totalHarga + $totalPaket;
-                                                        $totalDiskon = $totalHarga - $diskon;
-                                                        $jaminan = $totalDiskon * 30 / 100;
-                                                        $totalPembayaranCheckout = $totalDiskon + $jaminan + $ongkir;
+                                                        $jaminan = $totalHarga * 30 / 100;
+                                                        $totalPembayaranCheckout = $totalHarga + $jaminan + $ongkir;
 
 
                                                         $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
@@ -375,13 +378,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         <td colspan="3"> <b> Total Harga : </b></td>
                                                         <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", "."); ?></b></td>
                                                     </tr>
-                                                    <?php if ($diskon > 0) {
-                                                    ?>
-                                                        <tr>
-                                                            <td colspan="3"> <b> Diskon : </b></td>
-                                                            <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
-                                                        </tr>
-                                                    <?php } ?>
                                                     <tr>
                                                         <td colspan="3"> <b> Jaminan : </b></td>
                                                         <td><b> Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></b></td>
@@ -421,159 +417,228 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                     <!-- <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah anda yakin ingin membatalkan transaksi? ")'>Batal Transaksi</a> -->
                                 </div>
                             </div>
-                        </div>
-                        <!-- UPLOAD -->
-                        <div id="Upload" class="tabcontent">
-                            <div class="product-status-wrap">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <p id="demoUpload"></p>
-                                        <table class="table table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Masa Sewa (hari) </th>
-                                                    <th>Jumlah Set x Harga (Rp.)</th>
-                                                    <th>Total Harga (Rp.)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                //menampilkan dari SELECT CHECKOUT diatas
-                                                $index = 1;
-                                                while ($show = mysqli_fetch_array($queryUpload)) {
-                                                    $idTrans = $show['ID_TRANSAKSI'];
-                                                    $idTransItem = $show['ID_TRANSAKSI_ITEM'];
-                                                    $ongkir = $show['BIAYA'];
-                                                    $masaSewa = $show['MASA_SEWA'];
-                                                    $hargaItem = $show['HARGA_ITEM'];
-                                                    $jumlahSet = $show['JUMLAH_SET'];
-                                                    $jamPemesanan = $show['JAM_PEMESANAN'];
-                                                    $diskon = $show['DISKON'];
-                                                    //KALKULASI TOTAL
-                                                    $totalPaket = $hargaItem * $jumlahSet;
-                                                    $totalHarga = $totalHarga + $totalPaket;
-                                                    $totalDiskon = $totalHarga - $diskon;
-                                                    $jaminan = $totalDiskon * 30 / 100;
-                                                    $totalPembayaranCheckout = $totalDiskon + $jaminan + $ongkir;
 
-                                                    //END KALKULASI TOTAL
-                                                    $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
-                                                    $minTglSewa = date('Y-m-d', strtotime('+3 day', strtotime($jamPemesanan)));
-                                                ?>
+                            <!-- UPLOAD -->
+                            <div id="Upload" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <p id="demoUpload"></p>
+                                            <table class="table table-condensed">
+                                                <thead>
                                                     <tr>
-                                                        <td><?php echo $index++; ?></td>
-                                                        <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
-                                                        <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo number_format($show['HARGA_ITEM'], 2, ",", "."); ?>,00</td>
-                                                        <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                                        <th>No.</th>
+                                                        <th>Masa Sewa (hari) </th>
+                                                        <th>Jumlah Set x Harga (Rp.)</th>
+                                                        <th>Total Harga (Rp.)</th>
                                                     </tr>
-                                                <?php } ?>
-                                                <tr>
-                                                    <td colspan="3"> <b> Total Harga : </b></td>
-                                                    <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", "."); ?> </b></td>
-                                                </tr>
-                                                <?php if ($diskon > 0) {
-                                                ?>
-                                                    <tr>
-                                                        <td colspan="3"> <b> Diskon : </b></td>
-                                                        <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
-                                                    </tr>
-                                                <?php } ?>
-                                                <tr>
-                                                    <td colspan="3"> <b> Jaminan : </b></td>
-                                                    <td><b> Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
-                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    //menampilkan dari SELECT CHECKOUT diatas
+                                                    $index = 1;
+                                                    while ($show = mysqli_fetch_array($queryUpload)) {
+                                                        $idTrans = $show['ID_TRANSAKSI'];
+                                                        $idTransItem = $show['ID_TRANSAKSI_ITEM'];
+                                                        $ongkir = $show['BIAYA'];
+                                                        $masaSewa = $show['MASA_SEWA'];
+                                                        $hargaItem = $show['HARGA_ITEM'];
+                                                        $jumlahSet = $show['JUMLAH_SET'];
+                                                        $jamPemesanan = $show['JAM_PEMESANAN'];
+                                                        $diskon = $show['DISKON'];
 
-                                                <tr>
-                                                    <td colspan="3"> <b> Ongkir : </b></td>
-                                                    <td><b> Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"> <b> Total Pembayaran : </b></td>
-                                                    <td><b> Rp. <?php echo number_format($totalPembayaranCheckout, 2, ",", "."); ?></b></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        //KALKULASI TOTAL
+                                                        $totalPaket = $hargaItem * $jumlahSet;
+                                                        $totalHarga = $totalHarga + $totalPaket;
+                                                        $totalDiskon = $totalHarga - $diskon;
+                                                        $persenDiskon = ($diskon / $totalHarga) * 100;
+                                                        $jaminan = $totalDiskon * 30 / 100;
+                                                        $totalPembayaranCheckout = $totalDiskon + $jaminan + $ongkir;
+
+                                                        //END KALKULASI TOTAL
+                                                        $cenvertedTime = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($jamPemesanan))); //merubah jampemesanan dari text menjadi date format
+                                                        $minTglSewa = date('Y-m-d', strtotime('+3 day', strtotime($jamPemesanan)));
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $index++; ?></td>
+                                                            <td><?php echo $show['MASA_SEWA']; ?> Hari</td>
+                                                            <td><?php echo $show['JUMLAH_SET']; ?> Set x Rp. <?php echo number_format($show['HARGA_ITEM'], 2, ",", "."); ?>,00</td>
+                                                            <td>Rp. <?php echo number_format($totalPaket, 2, ",", "."); ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td colspan="3"> <b> Total Harga : </b></td>
+                                                        <td><b> Rp. <?php echo number_format($totalHarga, 2, ",", "."); ?> </b></td>
+                                                    </tr>
+                                                    <?php if ($diskon > 0) {
+                                                    ?>
+                                                        <tr>
+                                                            <td colspan="3"> <b> Diskon : </b></td>
+                                                            <td><b>- Rp. <?php echo number_format($diskon, 2, ",", ".") . " (" . $persenDiskon . "%)"; ?> </b></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td colspan="3"> <b> Jaminan : </b></td>
+                                                        <td><b> Rp. <?php echo number_format($jaminan, 2, ",", "."); ?> (30%) </b></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td colspan="3"> <b> Ongkir : </b></td>
+                                                        <td><b> Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3"> <b> Total Pembayaran : </b></td>
+                                                        <td><b> Rp. <?php echo number_format($totalPembayaranCheckout, 2, ",", "."); ?></b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
+                                    <form action="upload.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" method="POST" enctype="multipart/form-data">
+                                        <div class="col-md-6"><br><br>
+
+                                            <h4>Lakukan pembayaran sejumlah total transaksi pada : </h4>
+                                            <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
+                                            <p>Kemudian unggah bukti pembayaran dan scan KTP penyewa pada form dibawah ini</p><br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1"> <b>Bukti Pembayaran</b></label>
+                                                <input type="file" class="form-control" name="bukti_pembayaran" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1"><b> Bukti KTP </b></label>
+                                                <input type="file" class="form-control" name="bukti_ktp" required>
+                                            </div>
+                                            <input class="btn btn-primary" value="Kirim" type="submit" />
+                                            <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah anda yakin ingin membatalkan transaksi?")'>Batalkan Transaksi</a>
+                                        </div>
+                                    </form>
                                 </div>
-                                <form action="upload.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" method="POST" enctype="multipart/form-data">
-                                    <div class="col-md-6"><br><br>
-                                    
-                                    <h4>Lakukan pembayaran sejumlah total transaksi pada : </h4>
-                                    <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
-                                    <p>Kemudian unggah bukti pembayaran dan scan KTP penyewa pada form dibawah ini</p><br>
-                                        <br>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlTextarea1"> <b>Bukti Pembayaran</b></label>
-                                            <input type="file" class="form-control" name="bukti_pembayaran" required />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1"><b> Bukti KTP </b></label>
-                                            <input type="file" class="form-control" name="bukti_ktp" required>
-                                        </div>
-                                        <input class="btn btn-primary" value="Kirim" type="submit" />
-                                        <a class="btn btn-danger" href="batal-checkout.php?ID_TRANS=<?php echo $idTrans; ?>" onClick='return confirm("Apakah anda yakin ingin membatalkan transaksi?")'>Batalkan Transaksi</a>
-                                    </div>
-                                </form>
                             </div>
-                        </div>
-                    </div>
-                    <!-- RIWAYAT -->
-                    <div id="Riwayat" class="tabcontent">
-                        <div class="product-status-wrap">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <b>
-                                                    <th>No.</th>
-                                                    <th>Tanggal Sewa</th>
-                                                    <th>Total</th>
-                                                    <th>Jaminan</th>
-                                                    <th>Biaya Pengiriman</th>
-                                                    <th>Total Pembayaran</th>
-                                                    <th>Status</th>
-                                                    <th>Aksi</th>
-                                                </b>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            //menampilkan data dari SELECT RIWAYAT diatas
-                                            $index = 1;
-                                            while ($show = mysqli_fetch_array($queryRiwayat)) {
-                                                $idTrans = $show['ID_TRANSAKSI'];
-                                                $ongkir = $show['BIAYA'];
-                                                $status = $show['STATUS'];
-                                                $diskon = $show['DISKON'];
-                                                $totalPaket = $show['TOTAL'];
 
-                                                $totalDiskon = $totalPaket - $diskon;
-                                                $jaminan = $totalDiskon * 30 / 100;
-                                                $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
-                                            ?>
-                                                <tr>
-                                                    <b>
-                                                        <td><?php echo $index++; ?></td>
-                                                        <td><?php echo $show['TGL_SEWA']; ?></td>
-                                                        <td>Rp. <?php echo number_format($totalPaket, 2, ",", ".");
-                                                                if ($diskon > 0) {
-                                                                    echo " - (5%)";
-                                                                } ?></td>
-                                                        <td>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></td>
-                                                        <td>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></td>
-                                                        <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", ".") ?></td>
-                                                        <td><?php echo $status ?></td>
-                                                        <td>
-                                                            <?php if ($status != 'terkirim') { ?>
-                                                                <a href="<?php echo 'detail-barang.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail Transaksi</a>
-                                                            <?php } ?>
-                                                        </td>
-                                                    </b></tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
+                            <!-- UPLOAD -->
+                            <div id="Denda" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <p id="demoDenda"></p>
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Tanggal Sewa</th>
+                                                        <th>Tanggal Kembali</th>
+                                                        <th>Total Denda (Rp.)</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    //menampilkan dari SELECT CHECKOUT diatas
+                                                    $index = 1;
+                                                    while ($show = mysqli_fetch_array($queryDenda)) {
+                                                        $idTrans = $show['ID_TRANSAKSI'];
+                                                        $tglSewa = $show['TGL_SEWA'];
+                                                        $tglJatuhTempo = $show['TGL_JATUH_TEMPO'];
+                                                        $datetime1 = strtotime($time);
+                                                        $datetime2 = strtotime($tglJatuhTempo);
+                                                        $secs = $datetime1 - $datetime2;
+                                                        $telat = $secs / 86400;
+                                                        $totalTelat = 100000 * $telat;
+                                                        $setRusak = $show['SET_RUSAK'];
+                                                        $biayaRusak = $show['BIAYA_RUSAK'];
+                                                        $totalDenda = $biayaRusak * $setRusak;
+                                                        $totalDendaAkhir = $totalDendaAkhir + $totalDenda;
+                                                        $total = $totalDendaAkhir + $totalTelat;
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $index++; ?></td>
+                                                            <td><?php echo $tglSewa; ?></td>
+                                                            <td><?php echo $show['TGL_KEMBALI']; ?></td>
+                                                            <td>Rp. <?php echo number_format($total, 2, ",", "."); ?></td>
+                                                            <td><a href="<?php echo 'detail-denda.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail</a></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <form action="uploadDenda.php?ID_PENYEWA=<?php echo $idUser; ?>&ID_TRANS=<?php echo $idTrans; ?>" method="POST" enctype="multipart/form-data">
+                                        <div class="col-md-6"><br><br>
+
+                                            <h4>Lakukan pembayaran sejumlah total transaksi pada : </h4>
+                                            <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
+                                            <p>Kemudian unggah bukti pembayaran dan scan KTP penyewa pada form dibawah ini</p><br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1"> <b>Bukti Pembayaran</b></label>
+                                                <input type="file" class="form-control" name="bukti_pembayaran" required />
+                                            </div>
+                                            <input class="btn btn-primary" value="Kirim" type="submit" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- RIWAYAT -->
+                            <div id="Riwayat" class="tabcontent">
+                                <div class="product-status-wrap">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <b>
+                                                            <th>No.</th>
+                                                            <th>Tanggal Sewa</th>
+                                                            <th>Total</th>
+                                                            <th>Jaminan</th>
+                                                            <th>Biaya Pengiriman</th>
+                                                            <th>Total Pembayaran</th>
+                                                            <th>Status</th>
+                                                            <th>Aksi</th>
+                                                        </b>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    //menampilkan data dari SELECT RIWAYAT diatas
+                                                    $index = 1;
+                                                    while ($show = mysqli_fetch_array($queryRiwayat)) {
+                                                        $idTrans = $show['ID_TRANSAKSI'];
+                                                        $ongkir = $show['BIAYA'];
+                                                        $status = $show['STATUS'];
+                                                        $diskon = $show['DISKON'];
+                                                        $totalPaket = $show['TOTAL'];
+
+                                                        $totalDiskon = $totalPaket - $diskon;
+                                                        $persenDiskon = ($diskon / $totalPaket) * 100;
+                                                        $jaminan = $totalDiskon * 30 / 100;
+                                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
+                                                    ?>
+                                                        <tr>
+                                                            <b>
+                                                                <td><?php echo $index++; ?></td>
+                                                                <td><?php echo $show['TGL_SEWA']; ?></td>
+                                                                <td>Rp. <?php echo number_format($totalPaket, 2, ",", ".");
+                                                                        if ($diskon > 0) {
+                                                                            echo $persenDiskon . "%";
+                                                                        } ?></td>
+                                                                <td>Rp. <?php echo number_format($jaminan, 2, ",", "."); ?></td>
+                                                                <td>Rp. <?php echo number_format($ongkir, 2, ",", "."); ?></td>
+                                                                <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", ".") ?></td>
+                                                                <td><?php echo $status ?></td>
+                                                                <td>
+                                                                    <?php if ($status != 'terkirim') { ?>
+                                                                        <a href="<?php echo 'detail-barang.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail Transaksi</a>
+                                                                    <?php } ?>
+                                                                </td>
+                                                            </b></tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -581,8 +646,6 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
     </div>
     </div>

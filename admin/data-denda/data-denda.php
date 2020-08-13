@@ -2,32 +2,28 @@
 session_start();
 error_reporting(0);
 if (!isset($_SESSION["username"])) {
-    header("Location: ../Login.php");
+    header("Location: ../index.php");
 }
 include "../connection/Connection.php";
+//GET IDUSER
+// $username = $_SESSION['username'];
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
-$tglKembali = date("Y-m-d");
-
-//query tampil tabel pengembalian
-// $transaksi = mysqli_query($mysqli, "SELECT *, tr.STATUS AS statusTrans FROM `transaksi` AS tr JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' ") or die("data salah: " . mysqli_error($mysqli));
+$time = date("Y-m-d H:i:s");
 
 if ($_GET['cari'] == null) {
-    // $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER WHERE tr.STATUS='selesai' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
-    $transaksi = mysqli_query($mysqli, "SELECT *, sum(li.HARGA * li.JUMLAH_SET) as TOTAL FROM `log_transaksi` as lt JOIN `log_item` as li ON lt.ID_LOG_TRANSAKSI = li.ID_LOG_TRANSAKSI GROUP BY li.ID_LOG_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
+    $queryDenda = mysqli_query($mysqli, "SELECT *, tr.STATUS as statusTrans FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER  WHERE tr.STATUS='belum konfirmasi denda' GROUP BY tr.ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 } else {
     $c = $_GET['cari'];
-    $transaksi = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JUMLAH_SET) as TOTAL ,tr.DISKON ,tr.ID_TRANSAKSI, tr.TGL_SEWA, tr.TGL_JATUH_TEMPO, tr.STATUS, tr.ID_PENYEWA, tr.ALAMAT, pr.BIAYA FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN pengiriman AS pr ON tr.ID_PENGIRIMAN = pr.ID_PENGIRIMAN JOIN `paket` AS pk ON ti.ID_PAKET = pk.ID_PAKET JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER  WHERE tr.STATUS='selesai' AND us.NAMA like '%" . $c . "%' OR DAY(tr.TGL_SEWA)='".$c."' GROUP BY ID_TRANSAKSI") or die("data salah: " . mysqli_error($mysqli));
+    $queryDenda = mysqli_query($mysqli, "SELECT *, tr.STATUS as statusTrans FROM `transaksi` AS tr JOIN `transaksi_item` AS ti ON tr.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN user AS us ON tr.ID_PENYEWA = us.ID_USER  WHERE tr.STATUS='belum konfirmasi denda'AND  us.NAMA like '%" . $c . "%' OR DAY(tr.TGL_SEWA)='" . $c . "' GROUP BY tr.ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC GROUP BY tr.ID_TRANSAKSI ORDER BY tr.JAM_PEMESANAN DESC") or die("data salah: " . mysqli_error($mysqli));
 }
-
-$dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.FRAME, SUM(p.JUMLAH_SET) as JML_SET, SUM(ti.HARGA_ITEM) AS TOTAL_HARGA, SUM(ti.BIAYA_RUSAK) AS TOTAL_DENDA, SUM(pr.BIAYA) AS ONGKIR FROM `transaksi` AS t join transaksi_item AS ti ON t.ID_TRANSAKSI = ti.ID_TRANSAKSI JOIN paket AS p ON ti.ID_PAKET = p.ID_PAKET JOIN pengiriman AS pr ON pr.ID_PENGIRIMAN = t.ID_PENGIRIMAN WHERE t.STATUS = 'selesai' GROUP BY p.FRAME") or die("data salah: " . mysqli_error($mysqli));
 ?>
 
 <!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
-<head><meta charset="windows-1252">
-    
+<head>
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PT Kawi Sakti Megah</title>
     <meta name="description" content="">
@@ -100,7 +96,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                 <br>
                 <a><img class="main-logo" src="../img/logo/logo3.png" alt="" /></a>
                 <br>
-                <strong><img src="img/logo/logosn.png" alt="" width="60px" /></strong>
+                <strong><img src="img/logo/logo2.png" alt="" width="60px" /></strong>
             </div>
             <div class="nalika-profile">
                 <div class="profile-dtl">
@@ -180,7 +176,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <!-- <li><a href="profile.php?username=<?php echo $_GET['username']; ?>"><span class="icon nalika-user author-log-ic"></span> Profile</a>
                                                         </li> -->
-                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log Out</a>
+                                                        <li><a href="../logout.php"><span class="icon nalika-unlocked author-log-ic"></span> Log out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -215,7 +211,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Selamat Datang, Admin PT Kawi Sakti Megah</h2>
-                                                <!-- <p>Welcome to PT Kawi Sakti Megah</p> -->
+                                                <!-- <p>Welcome to PT Kawi Sakti Megah</span></p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -239,7 +235,7 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
             </div>
         </div>
 
-        <!-- DATA TABEL PENGEMBALIAN -->
+        <!-- DATA TABEL TRANSAKSI -->
         <div class="product-status mg-b-30">
             <div class="container-fluid">
                 <div class="product-status-wrap">
@@ -257,105 +253,69 @@ $dataPerbulan = mysqli_query($mysqli, "SELECT monthname(t.TGL_SEWA) as BULAN, p.
                         </form>
                         <br>
 
-                        <div class="table-responsive">
+                        <div class="table-responsive-md">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                        <th>No.</th>
                                         <th>Nama Penyewa</th>
-                                        <th>Total</th>
-                                        <th>Alamat</th>
                                         <th>Tanggal Sewa</th>
-                                        <th>Tanggal Pengembalian</th>
-                                        <th>Status</th>
+                                        <th>Tanggal Kembali</th>
+                                        <th>Total</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($transaksi)) {
-                                        $idTrans = $show['ID_LOG_TRANSAKSI'];
-                                        $idTransItem = $show['ID_LOG_ITEM'];
-                                        $masaSewa = $show['MASA_SEWA'];
-                                        $ongkir = $show['ONGKIR'];
-                                        $jamPemesanan = $show['JAM_PEMESANAN'];
-                                        $status = $show['STATUS'];
+                                    <?php $index = 1;
+                                    while ($show = mysqli_fetch_array($queryDenda)) {
+                                        $idTrans = $show['ID_TRANSAKSI'];
+                                        $idUser = $show['ID_PENYEWA'];
+                                        $status = $show['statusTrans'];
                                         $tglSewa = $show['TGL_SEWA'];
-                                        $totalPaket = $show['TOTAL'];
-                                        $diskon = $show['DISKON'];
+                                        $tglJatuhTempo = $show['TGL_JATUH_TEMPO'];
+                                        $tglKembali = $show['TGL_KEMBALI'];
+                                        $datetime1 = strtotime($tglKembali);
+                                        $datetime2 = strtotime($tglJatuhTempo);
+                                        $secs = $datetime1 - $datetime2;
+                                        $telat = $secs / 86400;
+                                        $totalTelat = 100000 * $telat;
+                                        $setRusak = $show['SET_RUSAK'];
+                                        $biayaRusak = $show['BIAYA_RUSAK'];
+                                        $totalDenda = $biayaRusak * $setRusak;
+                                        $totalDendaAkhir = $totalDendaAkhir + $totalDenda;
+                                        $total = $totalDendaAkhir + $totalTelat;
 
-                                        $totalDiskon = $totalPaket - $diskon;
-                                        $persenDiskon = ($diskon/$totalPaket)*100;
-                                        $jaminan = $totalDiskon * 30 / 100;
-                                        $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $show['NAMA_PENYEWA']; ?></td>
-                                            <td>Rp. <?php echo number_format($totalPembayaran, 2, ",", "."); ?></td>
-                                            <td><?php echo $show['ALAMAT']; ?></td>
-                                            <td><?php echo date('d-M-Y', strtotime($tglSewa)); ?></td>
-                                            <td><?php echo date('d-M-Y', strtotime($show['TGL_JATUH_TEMPO'])); ?></td>
-                                            <td><?php echo $status; ?></td>
-                                            <td>
-                                                <a href="detail-riwayat.php?ID_TRANS=<?php echo $idTrans; ?>&TGL_SEWA=<?php echo $tglSewa; ?>" data-toggle="tooltip" title="Cek Stock" class="btn btn-primary pd-setting-ed">Detail Transaksi</i></a>
-                                                <a href="../../print.php?ID_TRANS=<?php echo $idTrans ?>&Selesai" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-primary pd-setting-ed"><i class="fa fa-trash-square-o" aria-hidden="true"> Cetak Faktur </i></a>
-                                                <!--<a href="hapus-riwayat.php?ID_TRANS=<?php echo $idTrans; ?>" data-toggle="tooltip" title="Hapus" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>-->
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END TABEL PENGEMBALIAN -->
-
-        <!-- DATA TABEL PERBULAN -->
-        <div class="product-status mg-b-30">
-            <div class="container-fluid">
-                <div class="product-status-wrap">
-                    <div class="row">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No. </th>
-                                        <th>Bulan</th>
-                                        <th>Frame</th>
-                                        <th>Total Set</th>
-                                        <th>Total Harga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $index = 1;
-                                    while ($show = mysqli_fetch_array($dataPerbulan)) {
-                                        $bulan = $show['BULAN'];
-                                        $frame = $show['FRAME'];
-                                        $jmlSet = $show['JML_SET'];
-                                        $ongkir = $show['ONGKIR'];
-
-                                        $totalHargaPerbulan = $show['TOTAL_HARGA'] * $jmlSet;
-                                        $totalDenda = $show['TOTAL_DENDA'];
-
-                                        $total = $total + $totalHargaPerbulan + $totalDenda + $ongkir;
                                     ?>
                                         <tr>
                                             <td><?php echo $index++; ?></td>
-                                            <td><?php echo $bulan; ?></td>
-                                            <td><?php echo $frame; ?></td>
-                                            <td><?php echo $jmlSet; ?> Set</td>
+                                            <td><?php echo $show['NAMA']; ?></td>
+                                            <td><?php echo $tglSewa; ?></td>
+                                            <td><?php echo $tglKembali;  ?></td>
                                             <td>Rp. <?php echo number_format($total, 2, ",", "."); ?></td>
+                                            <td>
+                                                <?php if ($status == 'belum konfirmasi denda') { ?>
+                                                    <a href="<?php echo 'confirm-denda.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-primary">Konfirmasi</a><br><br>
+                                                <?php } ?>
+                                                <a href="<?php echo 'detail-denda.php?ID_PENYEWA=' . $idUser . '&ID_TRANS=' . $idTrans ?>" class="btn btn-info">Detail</a>
+                                            </td>
                                         </tr>
                                     <?php } ?>
+
                                 </tbody>
+                                <!-- The Modal -->
+
                             </table>
+
                         </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
-        <!-- END DATA TABEL PERBULAN -->
+        <!-- END TABEL TRANSAKSI -->
+
+        <br>
 
         <script src="../js/vendor/jquery-1.12.4.min.js"></script>
         <!-- bootstrap JS

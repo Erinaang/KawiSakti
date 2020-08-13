@@ -112,6 +112,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 $totalPaket = $hargaItem * $jumlahSet;
                 $totalHarga = $totalHarga + $totalPaket;
                 $totalDiskon = $totalHarga - $diskon;
+                $persenDiskon = ($diskon/$totalHarga)*100;
                 $jaminan = $totalDiskon * 30 / 100;
                 $totalPembayaran = $totalDiskon + $jaminan + $ongkir;
               ?>
@@ -133,7 +134,7 @@ $queryDenda = mysqli_query($mysqli, "SELECT * FROM `transaksi` AS tr JOIN `trans
                 <tr>
                   <td colspan="3"> </td>
                   <td> <b> Diskon : </b></td>
-                  <td><b>- Rp. <?php echo number_format($diskon, 2, ",", "."); ?> (5%)</b></td>
+                  <td><b>- Rp. <?php echo number_format($diskon, 2, ",", ".")." (".$persenDiskon."%)"; ?> </b></td>
                 </tr>
               <?php } ?>
               <tr>

@@ -8,7 +8,6 @@ include "koneksi/koneksi.php"; // ambil koneksi;
 
 $idPenyewa = $_GET['ID_PENYEWA']; //ambil id_user dari URL
 $idTrans = $_GET['ID_TRANS'];
-$diskon = 0;
 
 date_default_timezone_set('Asia/Jakarta'); //MENGUBAH TIMEZONE
 $time = date("Y-m-d H:i:s");
@@ -29,9 +28,6 @@ if ($totalSet < 150) { //kalo jumlahnya kurang dari 150
    $idPengiriman = 3; //truk besar
 }
 
-if ($totalSet >= 100) { //kalo jumlahnya kurang dari 150 
-   echo $diskon = $totalHarga * 5/100 ;
-} 
-$updateCheckout = mysqli_query($mysqli, "UPDATE transaksi SET ID_PENGIRIMAN='$idPengiriman', STATUS = 'checkout', JAM_PEMESANAN='$time', DISKON='$diskon' WHERE ID_PENYEWA='$idPenyewa' AND ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
+$updateCheckout = mysqli_query($mysqli, "UPDATE transaksi SET ID_PENGIRIMAN='$idPengiriman', STATUS = 'checkout', JAM_PEMESANAN='$time' WHERE ID_PENYEWA='$idPenyewa' AND ID_TRANSAKSI='$idTrans'") or die("data salah: " . mysqli_error($mysqli));
 
 header("Location: ProfilBar.php"); //go to page profilbar
