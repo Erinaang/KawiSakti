@@ -230,6 +230,8 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin' OR statu
             <div class="container-fluid">
                 <div class="product-status-wrap">
                     <div class="row">
+                        <a href="../daftar-admin.php" class="btn btn-primary">Tambah Admin</a>
+                        <br><br>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
