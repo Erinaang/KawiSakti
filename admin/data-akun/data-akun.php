@@ -247,10 +247,10 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin' OR statu
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($show = mysqli_fetch_array($admin)) { 
+                                    <?php while ($show = mysqli_fetch_array($admin)) {
                                         $status = $show['STATUS'];
                                         $idAdmin = $show['ID_USER'];
-                                        ?>
+                                    ?>
                                         <tr>
                                             <td><?php echo $show['USERNAME'];; ?></td>
                                             <td><?php echo $show['EMAIL']; ?></td>
@@ -260,7 +260,7 @@ $admin = mysqli_query($mysqli, "SELECT * FROM user WHERE status='admin' OR statu
                                             <td><?php echo $show['NO_TELP']; ?></td>
                                             <td><?php echo $show['ALAMAT']; ?></td>
                                             <td>
-                                                <?php if ($status !='superadmin') {
+                                                <?php if ($status != 'superadmin') {
                                                 ?>
                                                     <a href="hapus-akun.php?ID_USER=<?php echo $idAdmin; ?>" data-toggle="tooltip" title="Delete" class="btn btn-danger pd-setting-ed" onClick='return confirm("Apakah anda yakin menghapus data ini?")'><i class="fa fa-trash-square-o" aria-hidden="true">Hapus</i></a>
                                                 <?php } ?>

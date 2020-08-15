@@ -261,6 +261,7 @@ if ($_GET['cari'] == null) {
                                         <th>Nama Penyewa</th>
                                         <th>Tanggal Sewa</th>
                                         <th>Tanggal Kembali</th>
+                                        <th>Bukti Denda</th>
                                         <th>Total</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -291,6 +292,7 @@ if ($_GET['cari'] == null) {
                                             <td><?php echo $show['NAMA']; ?></td>
                                             <td><?php echo $tglSewa; ?></td>
                                             <td><?php echo $tglKembali;  ?></td>
+                                            <td><a class="btn btn-primary" href="bukti.php?ID_TRANS=<?php echo $idTrans; ?>">Lihat Bukti Denda</a></td>
                                             <td>Rp. <?php echo number_format($total, 2, ",", "."); ?></td>
                                             <td>
                                                 <?php if ($status == 'belum konfirmasi denda') { ?>
