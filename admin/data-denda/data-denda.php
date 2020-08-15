@@ -119,6 +119,9 @@ if ($_GET['cari'] == null) {
                             <a title="Data Pengembalian" href="../data-pengembalian/data-pengembalian.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengembalian</span></a>
                         </li>
                         <li>
+                            <a title="Data Denda" href="../data-denda/data-denda.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Denda</span></a>
+                        </li>
+                        <li>
                             <a title="Data Pengiriman" href="../data-pengiriman/data-pengiriman.php"><i class="icon nalika-folder icon-wrap"></i><span class="mini-click-non">Data Pengiriman</span></a>
                         </li>
                         <li>
