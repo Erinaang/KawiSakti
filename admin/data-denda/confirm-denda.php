@@ -42,7 +42,7 @@ $mail->Username     = "erinaangg@gmail.com"; //username yang ngirim
 $mail->Password     = "maternal781998";   //password email yang ngirim
 $mail->From            = "erinaangg@gmail.com"; //email pengirim
 $mail->FromName     = "PT. Kawi Sakti Megah";      //nama pengirim
-$mail->AddAddress('kikirabdullah@gmail.com', "Dengan PT. Kawi Sakti Megah disini."); //email yang tujuan dan nama
+$mail->AddAddress($emailPenyewa, "Dengan PT. Kawi Sakti Megah disini."); //email yang tujuan dan nama
 $mail->Subject      =  "Pemberitahuan dari PT Kawi Sakti Megah"; //subject
 $mail->Body         =  '<b>Hai, pelanggan PT. Kawi Sakti Megah. Terima Kasih telah membayar denda.</b>';
 
