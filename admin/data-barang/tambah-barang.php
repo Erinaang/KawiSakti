@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     if ($result>0) {
         $query = mysqli_query($mysqli, "INSERT INTO `paket`(`MASA_SEWA`, `JUMLAH_SET`, `FRAME`, `HARGA`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
     } else {
-        $query = mysqli_query($mysqli, "INSERT INTO `stok`(`FRAME`, `STOK`) VALUES ('$frame',3000)") or die("data salah: " . mysqli_error($mysqli));
+        $query = mysqli_query($mysqli, "INSERT INTO `stok`(`FRAME`, `STOK`) VALUES ('$frame',0)") or die("data salah: " . mysqli_error($mysqli));
         $query = mysqli_query($mysqli, "INSERT INTO `paket`(`MASA_SEWA`, `JUMLAH_SET`, `FRAME`, `HARGA`) VALUES ('$masa_sewa','$jumlah_set','$frame','$harga')") or die("data salah: " . mysqli_error($mysqli));
     }
     
