@@ -529,7 +529,7 @@ $queryRiwayat = mysqli_query($mysqli, "SELECT us.NAMA, sum(ti.HARGA_ITEM * pk.JU
                                                         <th>Tanggal Sewa</th>
                                                         <th>Tanggal Kembali</th>
                                                         <th>Total Denda (Rp.)</th>
-                                                        <th>Action</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

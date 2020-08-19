@@ -102,6 +102,12 @@ if ($denda >= 1) {
                     </tr>
                     </tbody>
                     </table>
+                    <br>
+                    
+                    <h3>Pemberitahuan</h3><br>
+                    <p>Harap segera membayar denda sesuai dengan total denda diatas ke : </p><br>
+                    <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
+                    <h4>Jika dalam kurun waktu 1 (satu) minggu pembayaran denda belum terselesaikan maka pihak perusahaan akan menghubungi atau mendatangi alamat penyewa</h4><br>
                     <br>';
 }
 if ($telat >= 1) {
@@ -124,7 +130,13 @@ if ($telat >= 1) {
                       </tr>
                   </tbody>
                 </table>
-                <br>';
+                <br>
+                
+                <h3>Pemberitahuan</h3><br>
+                    <p>Harap segera membayar denda sesuai dengan total denda diatas ke : </p><br>
+                    <b>BCA 4480116858 Atas Nama Widodo Harsono</b><br>
+                    <h4>Jika dalam kurun waktu 1 (satu) minggu pembayaran denda belum terselesaikan maka pihak perusahaan akan menghubungi atau mendatangi alamat penyewa</h4><br>
+                    <br>';
 }
 if ($denda > 0 && $telat > 0) {
   $mail->Body  .= 'Total Pembayaran tambahan yaitu sebesar Rp.' . number_format($total, 2, ",", ".") . '(Total Denda + Total Keterlambatan Rp.100.000,00/hari)
